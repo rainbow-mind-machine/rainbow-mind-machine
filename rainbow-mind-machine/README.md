@@ -2,7 +2,6 @@
 
 Rainbow Mind Machine code is layed out as follows:
 
-
 ## Sheep: Bot objects
 
 Bot objects own keys for a particular bot account.
@@ -50,15 +49,8 @@ When performing actions on the entire flock,
 the Shepherd is basically "wrapping" those actions
 for each sheep.
 
-This makes for a really awkward abstraction, in which
-every Twitter action requires a corresponding Sheep action,
-and each Sheep action requires a corresponding Shepherd action,
-and each Shepherd action requires a corresponding method in the driver.
-
-This abstraction needs to be cleaned up somehow.
-
-
-
-
+Rather than define a wrapper for each individual action,
+specific actions are defined in Sheep, and are wrapped by
+a generic action method with an action keyword.
 
 
