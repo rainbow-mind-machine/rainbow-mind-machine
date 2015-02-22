@@ -1,12 +1,21 @@
 import twitter
 import time
 import os
+import re
 import simplejson as json
 from numpy.random import rand
 
+from multiprocessing import Pool
+from multiprocessing.dummy import Pool as ThreadPool 
+
+from Sheep import *
+from apikeys import *
+
+
+
 class Shepherd(object):
 
-    def __init__(self):
+    def __init__(self,json_key_dir):
 
         # contains each of our sheep
         self.all_sheep = []
@@ -14,6 +23,9 @@ class Shepherd(object):
         # contains json files with Twitter acct keys
         # (one for each sheep)
         self.all_json = []
+
+        self.setup_keys(json_key_dir)
+
 
     def setup_keys(self,json_key_dir):
         """
@@ -27,45 +39,41 @@ class Shepherd(object):
                 full_filename = re.sub('//','/',json_key_dir + '/' + rfile)
                 self.all_json.append(full_filename)
 
+        print "Bot Flock Shepherd: creating flock"
+        for jsonf in self.all_json:
+            print "Making Sheep for file "+jsonf
+            mysheep = Sheep(jsonf)
+            self.all_sheep.append(mysheep)
+
+
     def perform_action(self,action,**kwargs):
         """
-        Perform an action on each Sheep.
+        Each Sheep will perform an action 
+        sequentially.
 
-        This does its best to pass the 
-        action and its parameters
-        striaght through to each Sheep.
-
-        This avoids having to define separate
-        methods for each action, in the Shepherd
-        and in the Sheep.
-
-        Actually tweeting or test tweeting
-        is a special case, because it goes on
-        indefinitely. In this case,
-        a multithread pool is created
-        so that each Sheep can run in parallel.
-
-        In every other case, we iterate through
-        each sheep and perform the desired
-        action, one Sheep at a time.
+        The idea behind this method is to 
+        avoid having to define every method
+        twice, in the Shepherd and the Sheep.
         """
-        if action=='tweet':
 
-            def do_it(sheep):
-                sheep.tweet()
+        for sheep in self.all_sheep:
+            sheep.perform_action( action, **kwargs )
 
-            pool = ThreadPool(len(self.all_sheep))
-            results = pool.map(do_it,self.all_sheep)
 
-        elif action=='echo':
+    def perform_pool_action(self,action,**kwargs):
+        """
+        Each Sheep will perform an action
+        in parallel.
 
-            def do_it(sheep):
-                sheep.echo()
+        The idea behind this method is to 
+        avoid having to define every method
+        twice, in the Shepherd and the Sheep.
+        """
 
-            pool = ThreadPool(len(self.all_sheep))
-            results = pool.map(do_it,self.all_sheep)
+        def do_it(sheep):
+            sheep.perform_action(action,**kwargs)
 
-        else:
-            for sheep in self.all_sheep:
-                sheep.perform_action( action, **kwargs )
+        pool = ThreadPool(len(self.all_sheep))
+        results = pool.map(do_it,self.all_sheep)
+
 

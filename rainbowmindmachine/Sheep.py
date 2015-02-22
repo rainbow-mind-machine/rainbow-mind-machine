@@ -17,11 +17,24 @@ class Sheep(object):
     * Outer loop - populate tweet queue 
     * Inner loop - tweet from tweet queue
     """
-    def __init__(self):
+    def __init__(self,json_file):
         pass
+
+    def perform_action(self,action,**kwargs):
+        if action=='dummy':
+            self.dummy(**kwargs)
+        elif action=='echo':
+            self.echo(**kwargs)
+
+    def dummy(self,**kwargs):
+        pass
+
+    def echo(self,**kwargs):
+        print "Hello world!"
+
+
+
 
     def populate_queue(self):
         pass
-
-
 
