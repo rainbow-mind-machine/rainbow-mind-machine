@@ -54,3 +54,36 @@ specific actions are defined in Sheep, and are wrapped by
 a generic action method with an action keyword.
 
 
+
+# Other Notes
+
+## Keymaker
+
+Keymaker is the only class that uses apikeys.py, which contains
+the app's consumer tokens. these are used to get authentication 
+tokens.
+
+The app-level information in apikeys is also bundled with the 
+account-level information created by Keymaker, so Keymaker 
+puts both into the Json file it creates. 
+
+This way, apikeys.py is only required once, at time of key creation.
+When Sheep load the Json file, they have all the information 
+they need.
+
+## Shepherd
+
+So actually, the Shepherd doesn't even manage app-level information.
+Sheep have everything they need.
+
+Shepherds, then, seem like Free-Range Parents.
+
+## Sheep
+
+
+
+
+
+
+
+

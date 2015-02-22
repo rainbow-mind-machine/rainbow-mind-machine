@@ -10,10 +10,11 @@ f = rmm.Shepherd('../keymaker_test/keys')
 # test sequential action 
 f.perform_action('dummy')
 
-### # test parallel pool action
-### f.perform_pool_action('echo')
 
 # parallel pool action
-f.perform_pool_action('tweet',{'publish':False})
-
+f.perform_pool_action('tweet',{
+        'publish':False,
+        'inner_sleep':1.0,
+        'outer_sleep':10.0
+        })
 

@@ -45,7 +45,7 @@ class Shepherd(object):
             self.all_sheep.append(mysheep)
 
 
-    def perform_action(self,action,**kwargs):
+    def perform_action(self,action,params={}):
         """
         Each Sheep will perform an action 
         sequentially.
@@ -56,10 +56,10 @@ class Shepherd(object):
         """
 
         for sheep in self.all_sheep:
-            sheep.perform_action( action, **kwargs )
+            sheep.perform_action( action,params)
 
 
-    def perform_pool_action(self,action,**kwargs):
+    def perform_pool_action(self,action,params={}):
         """
         Each Sheep will perform an action
         in parallel.
@@ -70,7 +70,7 @@ class Shepherd(object):
         """
 
         def do_it(sheep):
-            sheep.perform_action(action,**kwargs)
+            sheep.perform_action(action,params)
 
         pool = ThreadPool(len(self.all_sheep))
         results = pool.map(do_it,self.all_sheep)
