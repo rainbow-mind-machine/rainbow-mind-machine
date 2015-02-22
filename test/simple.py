@@ -1,14 +1,14 @@
 import rainbowmindmachine as rmm
 
-keymaker = Keymaker()
+keymaker = rmm.Keymaker()
 #keymaker.make_keys('poems/')
 
 #s = Shepherd()
 #s.setup('keys/')
 #s.jonestown()
 
-
-flock = rmm.Shepherd(params)
+params = {}
+flock = rmm.Shepherd()
 
 #flock.jonestown()
 flock.test()

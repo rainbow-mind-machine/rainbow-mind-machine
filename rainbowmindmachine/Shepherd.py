@@ -49,7 +49,6 @@ class Shepherd(object):
         each sheep and perform the desired
         action, one Sheep at a time.
         """
-
         if action=='tweet':
 
             def do_it(sheep):

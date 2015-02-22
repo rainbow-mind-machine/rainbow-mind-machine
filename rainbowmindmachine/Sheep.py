@@ -10,7 +10,7 @@ class Sheep(object):
     Account object (dict) to manage account info
 
     The bot performs two kinds of actions:
-    1. Tweeting
+    1. Tweeting (real or fake)
     2. Non-tweeting
 
     Bot tweeting is a multi-layered action:
@@ -19,4 +19,5 @@ class Sheep(object):
 
     perform_action()
     """
+
 
