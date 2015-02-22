@@ -2,10 +2,9 @@ import twitter
 import time
 import simplejson as json
 import datetime
+import logging
 from numpy.random import rand
 from collections import deque
-
-from Lumberjack import *
 
 
 class Sheep(object):

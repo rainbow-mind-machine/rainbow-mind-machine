@@ -11,7 +11,6 @@ from multiprocessing.dummy import Pool as ThreadPool
 from Sheep import *
 
 
-
 class Shepherd(object):
 
     def __init__(self,json_key_dir):
