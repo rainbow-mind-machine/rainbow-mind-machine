@@ -14,10 +14,14 @@ class Sheep(object):
     2. Non-tweeting
 
     Bot tweeting is a multi-layered action:
-    * Outer loop - structure/prepare for/assemble tweets
-    * Inner loop - actually tweet
-
-    perform_action()
+    * Outer loop - populate tweet queue 
+    * Inner loop - tweet from tweet queue
     """
+    def __init__(self):
+        pass
+
+    def populate_queue(self):
+        pass
+
 
 

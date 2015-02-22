@@ -69,5 +69,3 @@ class Shepherd(object):
             for sheep in self.all_sheep:
                 sheep.perform_action( action, **kwargs )
 
-
-
