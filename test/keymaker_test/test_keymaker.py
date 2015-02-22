@@ -3,7 +3,7 @@ import os
 from nose.tools import *
 
 keymaker = rmm.Keymaker()
-keymaker.manually_make_key({
+keymaker.make_a_key({
         'name':'charlesreid1',
         'json':'charlesreid1.json'
     })
@@ -19,3 +19,4 @@ class BaseTest(object):
             err = "Error!"
             raise Exception(err)
 """
+
