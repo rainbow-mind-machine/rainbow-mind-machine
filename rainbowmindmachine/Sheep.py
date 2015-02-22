@@ -64,6 +64,7 @@ class Sheep(object):
         inner_sleep     Inner loop sleep time (1 s)
         outer_sleep     Outer loop sleep time (10 s)
         publish         Actually publish (False)
+        tweet_metadata  Tweet metadata ({})
         """
 
         # --------------------------
@@ -75,6 +76,7 @@ class Sheep(object):
         defaults['inner_sleep'] = 1.0
         defaults['outer_sleep'] = 10.0
         defaults['publish'] = False
+        defaults['tweet_metadata'] = {}
 
         # populate missing params with default values
         for dk in defaults.keys():
@@ -91,16 +93,43 @@ class Sheep(object):
                 # Outer loop
                 twitter_queue = self.populate_queue()
 
-                for tweet in twitter_queue:
+                for twit in twitter_queue:
 
+                    #self.publish()
+                    if tweet_params['publish']:
+                        self._tweet( twit, tweet_params['tweet_metadata'] )
+                    else:
+                        self._print( twit, tweet_params['tweet_metadata'] )
 
-            pass:
+                    time.sleep( tweet_params['inner_sleep'] )
+
+                time.sleep( tweet_params['outer_sleep'] )
+
+            except:
                 # oops!
                 print "Encountered an exception. Continuing..."
-                time.sleep(
+                time.sleep( tweet_params['outer_sleep'] )
 
 
     def populate_queue(self):
-        pass
+        print "*"*40
+        print "WARNING: You called populate_queue on the parent Sheep method."
+        print "         You must extend Sheep and define populate_queue() "
+        print "         in the child class."
+
+
+    def _tweet(self,twit,metadata):
+        self._print(twit,metada)
+
+    def _print(self,twit,metadata):
+        print "\n"
+        print "+"*20
+        print "Tweet:",twit
+        print "Metadata:",metadata
+        print "+"*20
+        print "\n"
+
+
+
 
 

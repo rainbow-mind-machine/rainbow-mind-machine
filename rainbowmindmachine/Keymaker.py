@@ -5,7 +5,11 @@ import re
 import simplejson as json
 import subprocess
 
-from apikeys import *
+try:
+    from apikeys import *
+except ImportError:
+    warning = "Warning: Keymaker unable to find apikeys.py. This is required to request keys."
+    print warning 
 
 
 
