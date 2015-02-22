@@ -3,6 +3,7 @@ import oauth2 as oauth
 import os
 import re
 import simplejson as json
+import subprocess
 
 from apikeys import *
 
@@ -151,9 +152,9 @@ class FilesKeymaker(Keymaker):
     Makes keys by iterating through a directory
     and making a key for each file
     """
-    def __init__(self):
+    def __init__(self,extensions=[]):
         Keymaker.__init__(self)
-        self.extensions = []
+        self.extensions = extensions
 
     def make_keys(self,files_dir):
         """
@@ -193,9 +194,18 @@ class FilesKeymaker(Keymaker):
                 d['file'] = full_file
 
                 # Step 2.5: Export our Sheep key info to a JSON file
-                full_keys_file = re.sub(files_dir,'keys',full_poem_file)
+                subprocess.call(["mkdir","-p","keys/"])
+                full_keys_file = re.sub(files_dir,'keys/',full_file)
                 _, ext = os.path.splitext(full_keys_file)
-                keys_file = re.sub(ext,'json',full_keys_file)
+                print "-"*20
+                print ext
+                print "-"*20
+
+                if(self.extensions==[]):
+                    keys_file = full_keys_file+".json"
+                else:
+                    keys_file = re.sub(ext,'.json',full_keys_file)
+
                 with open(keys_file, 'w') as outfile:
                       json.dump(d, outfile)
                 print "Successfully exported a key bundle for file "+full_file+" to JSON file "+ keys_file 
@@ -204,7 +214,6 @@ class FilesKeymaker(Keymaker):
 
 class TxtKeymaker(FilesKeymaker):
     def __init__(self):
-        Keymaker.__init__(self)
-        self.extensions = ['txt']
+        FilesKeymaker.__init__(self,extensions=['txt'])
 
 
