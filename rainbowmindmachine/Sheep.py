@@ -5,6 +5,8 @@ import datetime
 from numpy.random import rand
 from collections import deque
 
+from Lumberjack import *
+
 
 class Sheep(object):
     """
@@ -120,32 +122,38 @@ class Sheep(object):
 
         while True:
 
-            #try:
+            try:
                 
-            # Outer loop
-            tweet_queue = self.populate_queue()
+                # Outer loop
+                tweet_queue = self.populate_queue()
 
-            for ii in range(len(tweet_queue)):
+                for ii in range(len(tweet_queue)):
 
-                twit = tweet_queue.popleft()
+                    twit = tweet_queue.popleft()
 
-                # Fire off the tweet
-                if tweet_params['publish']:
-                    self._tweet( twit )
-                else:
-                    self._print( twit )
-
-
-                time.sleep( tweet_params['inner_sleep'] )
+                    # Fire off the tweet
+                    if tweet_params['publish']:
+                        self._tweet( twit )
+                    else:
+                        self._print( twit )
 
 
-            time.sleep( tweet_params['outer_sleep'] )
+                    time.sleep( tweet_params['inner_sleep'] )
 
 
-            #except:
-            #    # oops!
-            #    print "Encountered an exception. Continuing..."
-            #    time.sleep( tweet_params['outer_sleep'] )
+                time.sleep( tweet_params['outer_sleep'] )
+
+                msg = self.timestamp_message("Completed a cycle.")
+
+
+            except:
+                # TODO
+                # add more info about exception
+                # oops!
+                msg = self.timestamp_message("Encountered an exception. Continuing...")
+                logging.info(msg)
+
+                time.sleep( tweet_params['outer_sleep'] )
 
 
 
@@ -164,8 +172,11 @@ class Sheep(object):
         Private method.
         Print a twit.
         """
+        msg = self.timestamp_message(twit)
+        logging.info(msg)
+
         print "+"*20
-        print "[" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "] @" + self.params['screen_name']+"] tweeted: "+twit
+        print msg
         print "+"*20
         print "\n"
 
@@ -180,9 +191,27 @@ class Sheep(object):
         tweet_queue = deque(maxlen=maxlen)
         
         for j in range(maxlen):
+
             tweet = "Hello world! That's number %d of 5."%(j+1)
 
             tweet_queue.extend([tweet])
 
+        msg = self.timestamp_message("Finished populating a new tweet queue with %d tweets."%(len(tweet_queue)))
+        logging.info(msg)
+
         return tweet_queue
+
+
+
+    def timestamp_message(self,message):
+
+        # We don't actually need to timestamp our messages,
+        # since logging will do that for us.
+        # So just sign with twitter handle.
+
+        #result = "[" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " @" + self.params['screen_name']+"] " + message
+
+        result = "[@" + self.params['screen_name']+"] " + message
+
+        return result
 
