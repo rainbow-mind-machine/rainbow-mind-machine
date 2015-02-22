@@ -1,6 +1,7 @@
 import twitter
 import time
 import simplejson as json
+import datetime
 from numpy.random import rand
 from collections import deque
 
@@ -23,7 +24,8 @@ class Sheep(object):
         Sheep own information pertaining to a Twitter account.
         This information consists of public/private keys,
         and is contained in the Json file.
-        This info is used 
+        This info is used to create a Twitter API instance.
+        """
 
         # this is where we should 
         # initialize the Twitter 
@@ -162,10 +164,8 @@ class Sheep(object):
         Private method.
         Print a twit.
         """
-        print "\n"
         print "+"*20
-        print "Tweet:",twit
-        print "Metadata:",metadata
+        print "[" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "] @" + self.params['screen_name']+"] tweeted: "+twit
         print "+"*20
         print "\n"
 
@@ -180,7 +180,7 @@ class Sheep(object):
         tweet_queue = deque(maxlen=maxlen)
         
         for j in range(maxlen):
-            tweet = "Hello world! That's number %d."%(j)
+            tweet = "Hello world! That's number %d of 5."%(j+1)
 
             tweet_queue.extend([tweet])
 
