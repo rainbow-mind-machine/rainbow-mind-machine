@@ -12,5 +12,9 @@ logging.basicConfig(level=logging.INFO,
                     filename=LOG_FILE,
                     filemode='w')
  
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+logging.getLogger('').addHandler(console)
+
 logging.info('Hello darling! I am the Lumberjack logger.')
 

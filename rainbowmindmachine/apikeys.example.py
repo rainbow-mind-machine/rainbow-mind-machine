@@ -1,2 +1,2 @@
-consumer_key = 'AAAAAAAAAAAAAAA'
-consumer_secret = 'BBBBBBBBBBBBBBB'
+consumer_key    = '123456'
+consumer_secret = '123456'

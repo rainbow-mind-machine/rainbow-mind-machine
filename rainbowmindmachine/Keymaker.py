@@ -8,7 +8,7 @@ import subprocess
 try:
     from apikeys import *
 except ImportError:
-    warning = "Warning: Keymaker unable to find apikeys.py. This is required to request keys."
+    warning = "Warning: Keymaker was unable to find apikeys.py. This will only be a problem if you are requesting keys."
     print warning 
 
 
@@ -96,32 +96,48 @@ class Keymaker(object):
             # After the user has granted access to you, the consumer, the provider will
             # redirect you to whatever URL you have told them to redirect to. You can 
             # usually define this in the oauth_callback argument as well.
-            oauth_verifier = raw_input('What is the PIN? ')
-
-            # Step 2.3: Once the consumer has redirected the user back to the oauth_callback
-            # URL you can request the access token the user has approved. You use the 
-            # request token to sign this request. After this is done you throw away the
-            # request token and use the access token returned. You should store this 
-            # access token somewhere safe, like a database, for future use.
-            token = oauth.Token(request_token['oauth_token'],
-                request_token['oauth_token_secret'])
-            token.set_verifier(oauth_verifier)
-            client = oauth.Client(consumer, token)
             
-            resp, content = client.request(self.access_token_url, "POST")
-            access_token = dict(urlparse.parse_qsl(content))
+            # this should be a 7-digit number
+            seven_digit_number = re.compile("[0-9]{7}")
+            oauth_verifier = ''
+            count = 0
+            while not (seven_digit_number.match(oauth_verifier) or oauth_verifier=='n'):
+                oauth_verifier = raw_input('What is the PIN? ')
+                if count > 1:
+                    print "PIN must be a 7-digit number. Enter 'n' to skip."
+                count += 1
 
-            # Step 2.4: Make a dict with all relevant Sheep info
-            d = {}
-            for key in self.consumer_token.keys():
-                d[key] = self.consumer_token[key]
+            if oauth_verifier=='n':
 
-            for key in access_token.keys():
-                d[key] = access_token[key]
+                # party pooper
+                return {}
+            
+            else:
 
-            print "Successfully obtained Twitter API key for "+item_
+                # Step 2.3: Once the consumer has redirected the user back to the oauth_callback
+                # URL you can request the access token the user has approved. You use the 
+                # request token to sign this request. After this is done you throw away the
+                # request token and use the access token returned. You should store this 
+                # access token somewhere safe, like a database, for future use.
+                token = oauth.Token(request_token['oauth_token'],
+                    request_token['oauth_token_secret'])
+                token.set_verifier(oauth_verifier)
+                client = oauth.Client(consumer, token)
+                
+                resp, content = client.request(self.access_token_url, "POST")
+                access_token = dict(urlparse.parse_qsl(content))
 
-            return d
+                # Step 2.4: Make a dict with all relevant Sheep info
+                d = {}
+                for key in self.consumer_token.keys():
+                    d[key] = self.consumer_token[key]
+
+                for key in access_token.keys():
+                    d[key] = access_token[key]
+
+                print "Successfully obtained Twitter API key for "+item_
+
+                return d
 
 
 
@@ -156,31 +172,36 @@ class FilesKeymaker(Keymaker):
     Makes keys by iterating through a directory
     and making a key for each file
     """
-    def __init__(self,extensions=[]):
+    def __init__(self,extension=''):
         Keymaker.__init__(self)
-        self.extensions = extensions
+        self.extension = extension
 
     def make_keys(self,files_dir):
         """
         Go through each file and ask the user, 
         one by one, if they want to make a key for it.
         """
+        # What string to use in the final Json file 
+        # for storing the name of the unique file
+        # corresponding to that unique key?
+        self.file_key = 'file'
+
         # Step 1
         # Get list of files
         raw_files = os.listdir(files_dir) 
         files = []
+        extension = self.extension 
         for rfile in raw_files:
             # if user specifies file extensions,
             # only ask for files with that extension
             # 
             # otherwise, do every file
             # 
-            if self.extensions:
-                for extension in self.extensions:
-                    el = len(extension)
-                    elp1 = el+1
-                    if rfile[-elp1:] == '.'+extension:
-                        files.append(rfile)
+            if extension<>'':
+                el = len(extension)
+                elp1 = el+1
+                if rfile[-elp1:] == '.'+extension:
+                    files.append(rfile)
             else:
                 files.append(rfile)
 
@@ -195,17 +216,14 @@ class FilesKeymaker(Keymaker):
 
             if(d<>{}):
 
-                d['file'] = full_file
+                d[self.file_key] = full_file
 
                 # Step 2.5: Export our Sheep key info to a JSON file
                 subprocess.call(["mkdir","-p","keys/"])
                 full_keys_file = re.sub(files_dir,'keys/',full_file)
                 _, ext = os.path.splitext(full_keys_file)
-                print "-"*20
-                print ext
-                print "-"*20
 
-                if(self.extensions==[]):
+                if(self.extension==''):
                     keys_file = full_keys_file+".json"
                 else:
                     keys_file = re.sub(ext,'.json',full_keys_file)
@@ -218,6 +236,6 @@ class FilesKeymaker(Keymaker):
 
 class TxtKeymaker(FilesKeymaker):
     def __init__(self):
-        FilesKeymaker.__init__(self,extensions=['txt'])
+        FilesKeymaker.__init__(self,extension='txt')
 
 

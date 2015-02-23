@@ -5,3 +5,7 @@ from Keymaker import *
 
 from Shepherd import *
 
+from Sheep import *
+
+from PoemBotFlock import *
+

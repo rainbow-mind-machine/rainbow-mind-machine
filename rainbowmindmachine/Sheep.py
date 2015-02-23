@@ -139,18 +139,24 @@ class Sheep(object):
 
                     time.sleep( tweet_params['inner_sleep'] )
 
-
                 time.sleep( tweet_params['outer_sleep'] )
 
                 msg = self.timestamp_message("Completed a cycle.")
 
 
-            except:
+            except Exception as inst:
                 # TODO
                 # add more info about exception
                 # oops!
-                msg = self.timestamp_message("Encountered an exception. Continuing...")
+
+                msg = self.timestamp_message("Sheep encountered an exception. More info:")
                 logging.info(msg)
+
+                msg2 = self.timestamp_message(str(inst))
+                logging.info(msg2)
+
+                msg3 = self.timestamp_message("Sheep is continuing...")
+                logging.info(msg3)
 
                 time.sleep( tweet_params['outer_sleep'] )
 
@@ -162,6 +168,8 @@ class Sheep(object):
         Private method.
         Publish a twit.
         """
+        # call twitter api to tweet twit
+        # (until then, just print)
         self._print(twit)
 
 
@@ -171,13 +179,8 @@ class Sheep(object):
         Private method.
         Print a twit.
         """
-        msg = self.timestamp_message(twit)
+        msg = self.timestamp_message("> "+twit)
         logging.info(msg)
-
-        print "+"*20
-        print msg
-        print "+"*20
-        print "\n"
 
 
     def populate_queue(self):

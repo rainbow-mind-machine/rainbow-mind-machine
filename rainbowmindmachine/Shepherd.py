@@ -13,7 +13,7 @@ from Sheep import *
 
 class Shepherd(object):
 
-    def __init__(self,json_key_dir):
+    def __init__(self,json_key_dir,sheep_class=Sheep):
 
         # contains each of our sheep
         self.all_sheep = []
@@ -23,6 +23,7 @@ class Shepherd(object):
         self.all_json = []
 
         self.setup_keys(json_key_dir)
+        self.setup_sheep(sheep_class)
 
 
     def setup_keys(self,json_key_dir):
@@ -37,10 +38,16 @@ class Shepherd(object):
                 full_filename = re.sub('//','/',json_key_dir + '/' + rfile)
                 self.all_json.append(full_filename)
 
+    def setup_sheep(self,sheep_class):
+        """
+        Create the Sheep objects that represent the 
+        Twitter bots.
+        """
+        MySheepClass = sheep_class
         print "Bot Flock Shepherd: creating flock"
         for jsonf in self.all_json:
             print "Making Sheep for file "+jsonf
-            mysheep = Sheep(jsonf)
+            mysheep = MySheepClass(jsonf)
             self.all_sheep.append(mysheep)
 
 
