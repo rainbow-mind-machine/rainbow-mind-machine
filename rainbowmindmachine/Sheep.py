@@ -102,8 +102,50 @@ class Sheep(object):
 
     def change_url(self,params):
         """
-        Update bio to have a different URL
+        Update twitter profile url 
+
+        Parameters:
+        url         The url string
+
+        Does not return anything
         """
+        bot_url = params['url']
+
+        # Set the API endpoint 
+        api_url = "https://api.twitter.com/1.1/account/update_profile.json"
+
+        import urllib
+
+        token = oauth.Token(key = self.params['oauth_token'], 
+                         secret = self.params['oauth_token_secret'])
+        consumer = oauth.Consumer(key = self.params['consumer_token'], 
+                               secret = self.params['consumer_token_secret'])
+        client = oauth.Client(consumer,token)
+        resp, content = client.request(
+                api_url,
+                method = "POST",
+                body=urllib.urlencode({'url': bot_url}),
+                headers=None
+                )
+        
+        print content
+
+
+
+    def change_bio(self,params):
+        """
+        Update twitter profile bio
+
+        Parameters:
+        bio         The bio string
+
+        Does not return anything
+        """
+        bot_bio = params['bio']
+
+        handle = self.params['screen_name']
+
+        # -----------------------------------------
         # Set the API endpoint 
         url = "https://api.twitter.com/1.1/account/update_profile.json"
 
@@ -117,24 +159,78 @@ class Sheep(object):
         resp, content = client.request(
                 url,
                 method = "POST",
-                body=urllib.urlencode({'url': bot_url}),
+                body=urllib.urlencode({'description': bot_bio}),
                 headers=None
                 )
         
         print content
 
 
+    def change_color(self,params):
+        """
+        Update twitter profile colors
+
+        Parameters:
+        background      RGB code for background color (no #)
+        links           RGB code for links color (no #)
+        
+        Example:
+        params = {'background':'3D3D3D', 'link':'AAF'}
+
+        Does not return anything
+        """
+
+        # Json sent to the Twitter API
+        payload = {}
+
+        if 'background' in params.keys():
+            background_rgbcode = params['background']
+            payload['profile_background_color'] = background_rgbcode
+
+        if 'links' in params.keys():
+            links_rgbcode = params['links']
+            payload['profile_link_color'] = links_rgbcode
+
+        handle = self.params['screen_name']
+
+
+        # -----------------------------------------
+        # Set the API endpoint 
+        url = "https://api.twitter.com/1.1/account/update_profile_colors.json"
+
+        import urllib
+
+        token = oauth.Token(key = self.params['oauth_token'], 
+                         secret = self.params['oauth_token_secret'])
+        consumer = oauth.Consumer(key = self.params['consumer_token'], 
+                               secret = self.params['consumer_token_secret'])
+        client = oauth.Client(consumer,token)
+        resp, content = client.request(
+                url,
+                method = "POST",
+                body=urllib.urlencode(payload),
+                headers=None
+                )
+        
+        print content
+
+
+
+
+
     def tweet(self,params):
         """
-        Keyword arguments:
+        Tweets forever.
 
+        Parameters:
         inner_sleep     Inner loop sleep time (1 s)
         outer_sleep     Outer loop sleep time (10 s)
         publish         Actually publish (False)
 
         Not sure if we need this keyword:
-
         tweet_metadata  Tweet metadata ({})
+
+        Never returns, because never ends.
         """
 
         # --------------------------
@@ -184,21 +280,18 @@ class Sheep(object):
 
 
             except Exception as inst:
-                # TODO
-                # add more info about exception
+
                 # oops!
 
-                msg = self.timestamp_message("Sheep encountered an exception. More info:")
-                logging.info(msg)
-
+                msg1 = self.timestamp_message("Sheep encountered an exception. More info:")
                 msg2 = self.timestamp_message(str(inst))
-                logging.info(msg2)
-
                 msg3 = self.timestamp_message("Sheep is continuing...")
+
+                logging.info(msg1)
+                logging.info(msg2)
                 logging.info(msg3)
 
                 time.sleep( tweet_params['outer_sleep'] )
-
 
 
 
@@ -207,9 +300,35 @@ class Sheep(object):
         Private method.
         Publish a twit.
         """
-        # call twitter api to tweet twit
-        # (until then, just print)
-        self._print(twit)
+        # call twitter api to tweet the twit
+
+        try:
+            # tweet:
+            stats = self.api.PostUpdates(twit)
+
+            # everything else:
+            for stat in stats:
+                msg = self.timestamp_message(">>> "+twit)
+                logging.info(msg)
+
+        except twitter.TwitterError as e:
+            
+            if e.message[0]['code'] == 185:
+                msg = self.timestamp_message("Twitter error: Daily message limit reached")
+                logging.info(msg)
+
+            elif e.message[0]['code'] == 187:
+                msg = self.timestamp_message("Twitter error: Duplicate error")
+                logging.info(msg)
+            
+            else:
+                msg = self.timestamp_message("Twitter error: "+e.message)
+                logging.info(msg)
+
+
+        ## DEBUG
+        #self._print(twit)
+        ## END DEBUG
 
 
 

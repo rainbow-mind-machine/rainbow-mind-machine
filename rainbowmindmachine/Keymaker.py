@@ -32,10 +32,13 @@ class Keymaker(object):
         # apikeys.py defines
         # consumer_key
         # consumer_secret
-        consumer_token = {}
-        consumer_token['consumer_token'] = consumer_key
-        consumer_token['consumer_token_secret'] = consumer_secret
-        self.consumer_token = consumer_token
+        try:
+            consumer_token = {}
+            consumer_token['consumer_token'] = consumer_key
+            consumer_token['consumer_token_secret'] = consumer_secret
+            self.consumer_token = consumer_token
+        except NameError, KeyError:
+            raise Exception("Error: could not read consumer tokens from apikeys.py.")
 
 
 
@@ -75,7 +78,7 @@ class Keymaker(object):
             # https://dev.twitter.com/docs/api/1/get/oauth/authenticate
             resp, content = client.request(self.request_token_url,"GET")
             if resp['status'] != '200':
-                raise Exception("Invalid response %s." % resp['status'])
+                raise Exception("Invalid response %s. If apikeys.py is present, your keys may be invalid." % resp['status'])
 
             request_token = dict(urlparse.parse_qsl(content))
             #print "Request Token:"
@@ -102,9 +105,9 @@ class Keymaker(object):
             oauth_verifier = ''
             count = 0
             while not (seven_digit_number.match(oauth_verifier) or oauth_verifier=='n'):
-                oauth_verifier = raw_input('What is the PIN? ')
-                if count > 1:
+                if count > 0:
                     print "PIN must be a 7-digit number. Enter 'n' to skip."
+                oauth_verifier = raw_input('What is the PIN? ')
                 count += 1
 
             if oauth_verifier=='n':
