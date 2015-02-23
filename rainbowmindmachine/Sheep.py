@@ -46,13 +46,23 @@ class Sheep(object):
         This is what the bot uses to tweet, 
         change its bio, etc.
 
+        Uses bear's python-twitter library from Github
+        (official version of what was the Google Code python-twitter):
+        https://github.com/bear/python-twitter
+
         While I have been using Bear's Twitter API library,
         I had problems using it for tweets with media attached,
-        so I switched to a different library. I forget which one.
+        so for those, switch to a different library. 
+        I forget which one.
 
         (check Flickr photobots for which library works for media posts...)
         """
-        pass
+        self.api = twitter.Api( consumer_key        = self.params['consumer_token'],
+                                consumer_secret     = self.params['consumer_token_secret'],
+                                access_token_key    = self.params['oauth_token'],
+                                access_token_secret = self.params['oauth_token_secret'])
+        msg = self.timestamp_message("Set up Twitter API for bot "+self.params['screen_name'])
+        logging.info(msg)
 
 
     def perform_action(self,action,params):
@@ -67,8 +77,12 @@ class Sheep(object):
         elif action=='echo':
             self.echo(params)
 
+        elif action=='change url':
+            self.change_url(params)
+
         elif action=='tweet':
             self.tweet(params)
+
 
 
     def dummy(self,params):
@@ -84,6 +98,30 @@ class Sheep(object):
         Just say hi
         """
         print "Hello world!"
+
+
+    def change_url(self,params):
+        """
+        Update bio to have a different URL
+        """
+        # Set the API endpoint 
+        url = "https://api.twitter.com/1.1/account/update_profile.json"
+
+        import urllib
+
+        token = oauth.Token(key = self.params['oauth_token'], 
+                         secret = self.params['oauth_token_secret'])
+        consumer = oauth.Consumer(key = self.params['consumer_token'], 
+                               secret = self.params['consumer_token_secret'])
+        client = oauth.Client(consumer,token)
+        resp, content = client.request(
+                url,
+                method = "POST",
+                body=urllib.urlencode({'url': bot_url}),
+                headers=None
+                )
+        
+        print content
 
 
     def tweet(self,params):
@@ -142,6 +180,7 @@ class Sheep(object):
                 time.sleep( tweet_params['outer_sleep'] )
 
                 msg = self.timestamp_message("Completed a cycle.")
+                logging.info(msg)
 
 
             except Exception as inst:
