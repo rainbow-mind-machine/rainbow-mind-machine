@@ -1,4 +1,4 @@
-test/apikeys.py
+apikeys.py
 *.json
 
 # Byte-compiled / optimized / DLL files
