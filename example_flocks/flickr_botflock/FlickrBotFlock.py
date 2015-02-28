@@ -3,13 +3,17 @@ import logging
 
 
 def setup():
-    k = rmm.TxtKeymaker()
-    k.make_keys('poems/')
-    
+    k = rmm.Keymaker()
+    k.make_a_key({
+        'name' : 'cmrhipstamatic',
+        'json' : 'keys/cmrhipstamatic.json'
+        })
+
 def run():
-    sh = rmm.Shepherd('keys/',sheep_class=rmm.QueneauSheep)
+    sh = rmm.Shepherd('keys/',sheep_class=rmm.FlickrSheep)
 
     sh.perform_action('tweet',{'publish':False})
+    a = 0
     #sh.perform_pool_action('tweet',{'publish':False})
 
 

@@ -12,7 +12,6 @@ def run():
     #sh.perform_action('tweet',{'publish':False})
     sh.perform_pool_action('tweet',{'publish':False})
 
-
 if __name__=="__main__":
-    run()
+    setup()
 
