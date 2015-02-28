@@ -283,7 +283,7 @@ class FlickrSheep(MediaSheep):
 
         # media_ids field makes this ia media tweet
         r = api.request('statuses/update',
-                {'status': twit_text
+                {'status': twit_text,
                  'media_ids':media_id})
 
         if r.status_code == 200:
