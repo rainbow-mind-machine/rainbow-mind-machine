@@ -231,7 +231,7 @@ class FlickrSheep(MediaSheep):
 
         # Tweets
 
-        Ntweets = 50
+        Ntweets = 5
 
         random_index = range(Ntweets)
         shuffle(random_index)
