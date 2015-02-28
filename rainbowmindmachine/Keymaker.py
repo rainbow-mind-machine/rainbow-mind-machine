@@ -208,6 +208,8 @@ class FilesKeymaker(Keymaker):
             else:
                 files.append(rfile)
 
+        files.sort()
+
         # Step 2
         # For each file, ask the user if they want to make a key for it
         consumer_token = self.consumer_token
