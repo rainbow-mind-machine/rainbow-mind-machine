@@ -3,6 +3,7 @@ import time
 import simplejson as json
 import datetime
 import logging
+import traceback
 from numpy.random import rand
 from collections import deque
 
@@ -79,6 +80,12 @@ class Sheep(object):
 
         elif action=='change url':
             self.change_url(params)
+
+        elif action=='change bio':
+            self.change_bio(params)
+
+        elif action=='change color':
+            self.change_color(params)
 
         elif action=='tweet':
             self.tweet(params)
@@ -253,12 +260,15 @@ class Sheep(object):
         # --------------------------
         # The Real McCoy
 
+
         while True:
 
             try:
                 
                 # Outer loop
                 tweet_queue = self.populate_queue()
+
+                assert (len(tweet_queue)>0)
 
                 for ii in range(len(tweet_queue)):
 
@@ -279,12 +289,12 @@ class Sheep(object):
                 logging.info(msg)
 
 
-            except Exception as inst:
+            except Exception,err:
 
                 # oops!
 
                 msg1 = self.timestamp_message("Sheep encountered an exception. More info:")
-                msg2 = self.timestamp_message(str(inst))
+                msg2 = self.timestamp_message(traceback.format_exc())
                 msg3 = self.timestamp_message("Sheep is continuing...")
 
                 logging.info(msg1)
@@ -292,6 +302,9 @@ class Sheep(object):
                 logging.info(msg3)
 
                 time.sleep( tweet_params['outer_sleep'] )
+
+            except AssertionError:
+                raise Exception("Error: tweet queue was empty. Check your populate_queue() method definition.")
 
 
 
