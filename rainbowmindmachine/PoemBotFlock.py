@@ -3,9 +3,9 @@ import logging
 from Sheep import Sheep
 
 """
-Extend Sheep behavior to tweet
-poems line by line, using poems 
-contained in text files.
+Poem Sheep
+
+These sheep tweet poems, one line at a time.
 """
 
 class PoemSheep(Sheep):
@@ -33,7 +33,7 @@ class PoemSheep(Sheep):
 
         tweet_queue = deque(lines,maxlen=len(lines))
 
-        msg = self.timestamp_message("Finished populating a new tweet queue with %d tweets."%(len(tweet_queue)))
+        msg = self.timestamp_message("Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue)))
         logging.info(msg)
 
         return tweet_queue
