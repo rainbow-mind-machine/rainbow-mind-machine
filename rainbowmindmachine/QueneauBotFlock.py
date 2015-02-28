@@ -2,6 +2,7 @@ from collections import deque
 import logging
 from Sheep import Sheep
 from queneau import DialogueAssembler
+from numpy.random import rand
 
 """
 Queneau Sheep
@@ -25,8 +26,8 @@ class QueneauSheep(Sheep):
         messages = []
         for N in range(Nmessages):
 
-            speaker, tokens = self.dialogue.assemble(self.last_speaker)
-            self.last_speaker = speaker
+            speaker, tokens = dialogue.assemble(last_speaker)
+            last_speaker = speaker
             s = "%s: %s" % (speaker, " ".join(x for x, y in tokens))
             messages.append(s)
 
