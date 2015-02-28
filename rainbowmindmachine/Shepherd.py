@@ -32,7 +32,10 @@ class Shepherd(object):
 
         This assumes keys have already been created by Keymaker. 
         """
-        raw_files = os.listdir(json_key_dir)
+        try:
+            raw_files = os.listdir(json_key_dir)
+        except OSError:
+            raise Exception("Error: key directory "+json_key_dir+" does not exist. Have you run the Keymaker?")
         for rfile in raw_files:
             if rfile[-5:] == '.json':
                 full_filename = re.sub('//','/',json_key_dir + '/' + rfile)
@@ -60,9 +63,11 @@ class Shepherd(object):
         avoid having to define every method
         twice, in the Shepherd and the Sheep.
         """
-
-        for sheep in self.all_sheep:
-            sheep.perform_action( action,params)
+        if self.all_sheep<>[]:
+            for sheep in self.all_sheep:
+                sheep.perform_action( action,params)
+        else:
+            raise Exception("Error: The shepherd has no sheep!")
 
 
     def perform_pool_action(self,action,params={}):

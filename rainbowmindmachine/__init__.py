@@ -4,6 +4,7 @@ from Keymaker import *
 from Shepherd import *
 from Sheep import *
 from PoemBotFlock import *
+from PhotoBotFlock import *
 try:
     from queneau import DialogueAssembler
     from QueneauBotFlock import *
