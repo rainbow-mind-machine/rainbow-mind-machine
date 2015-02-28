@@ -7,11 +7,21 @@ An extendable framework for running Twitter bot flocks in Python.
 import rainbowmindmachine as rmm
 
 k = rmm.Keymaker()
-k.make_keys({
-    'name':'Twitter Bot',
-    'json':'key.json'
+
+# Create some keys
+k.make_key({
+    'name':'Twitter Bot 1',
+    'json':'key1.json'
+})
+k.make_key({
+    'name':'Twitter Bot 2',
+    'json':'key2.json'
 })
 
+# [Here, you will get a link where 
+#  you will enter your Twitter credentials.]
+
+# make the Shepherd
 sh = rmm.Shepherd()
 
 # Change everybody's Twitter page color
