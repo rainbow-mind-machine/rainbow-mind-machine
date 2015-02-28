@@ -236,6 +236,7 @@ class FlickrSheep(MediaSheep):
         random_index = range(Ntweets)
         shuffle(random_index)
 
+        messages = []
         for N,ix in zip(random_index,range(Ntweets)):
 
             results = user.getPhotos(per_page=1,page=ix)
