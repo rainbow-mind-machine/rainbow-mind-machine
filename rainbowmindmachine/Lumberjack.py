@@ -8,7 +8,7 @@ Get it?
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(message)s',
-                    datefmt='%m-%d-%Y %H:%M',
+                    datefmt='%m-%d-%Y %H:%M:%S',
                     filename=LOG_FILE,
                     filemode='w')
  
