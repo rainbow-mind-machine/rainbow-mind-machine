@@ -45,7 +45,8 @@ class Keymaker(object):
 
     def _make_a_key(self,item):
         """
-        Makes a key for an arbitrary "item"
+        This private method makes a key for 
+        an arbitrary "item"
         (nothing is done with item).
         """
         item_ = str(item)
@@ -147,7 +148,7 @@ class Keymaker(object):
 
     def make_a_key(self,item):
         """
-        This manually makes a key for items
+        This public method manually makes a key for items
         (a list of dictionaries).
 
         Requires parameter 'name' and parameter 'json'
