@@ -1,5 +1,4 @@
 import rainbowmindmachine as rmm
-import logging
 from collections import deque
 from rainbowmindmachine import QueneauSheep
 from queneau import DialogueAssembler
@@ -48,7 +47,7 @@ class WatergateSheep(QueneauSheep):
 
 def setup():
     k = rmm.TxtKeymaker()
-    k.make_keys('poems/')
+    k.make_keys('data/')
     
 def run():
     sh = rmm.Shepherd('keys/',sheep_class=WatergateSheep)
