@@ -180,7 +180,7 @@ class FilesKeymaker(Keymaker):
         Keymaker.__init__(self)
         self.extension = extension
 
-    def make_keys(self,files_dir):
+    def make_keys(self,files_dir,keys_out_dir='keys/'):
         """
         Go through each file and ask the user, 
         one by one, if they want to make a key for it.
@@ -225,7 +225,8 @@ class FilesKeymaker(Keymaker):
                 d[self.file_key] = full_file
 
                 # Step 2.5: Export our Sheep key info to a JSON file
-                subprocess.call(["mkdir","-p","keys/"])
+                #subprocess.call(["mkdir","-p","keys/"])
+                subprocess.call(["mkdir","-p",keys_out_dir])
                 full_keys_file = re.sub(files_dir,'keys/',full_file)
                 _, ext = os.path.splitext(full_keys_file)
 
