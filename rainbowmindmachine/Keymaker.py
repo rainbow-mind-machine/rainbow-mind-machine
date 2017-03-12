@@ -56,8 +56,7 @@ class Keymaker(object):
 
         # (Step 1 is to get a list of items.)
 
-        # Step 2 is to make a Twitter API key 
-        #  for each item.
+        # Step 2 is to make a Twitter API key for each item.
         make_key = ''
         while make_key <> 'y' and make_key <> 'n':
             make_key = raw_input('Make key? (y/n) ')
