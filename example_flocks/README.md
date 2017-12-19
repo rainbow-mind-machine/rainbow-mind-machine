@@ -1,8 +1,7 @@
 # How to Create a Bot Flock
 
 This document walks through the creation of a hypothetical
-poem bot flock for three of Jack Kerouac's Western haiku 
-poems.
+bot flock.
 
 ## Step 0: Create Twitter App 
 
