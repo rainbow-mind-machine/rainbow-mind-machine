@@ -4,7 +4,7 @@ An extendable framework for running Twitter bot flocks in Python.
 
 Quick start:
 * Install the program
-* Decide what kind of items you want to use to itemize the bots.
+* Decide what kind of items you want to use to itemize the bots:
     * Option 1: create one bot per item in a list (e.g., list of strings in Python)
     * Option 2: create one bot per file in a folder (e.g., text files containing poems)
 * Define a tweet action for a given bot, optionally using its corresponding item

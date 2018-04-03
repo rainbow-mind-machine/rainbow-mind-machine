@@ -149,13 +149,27 @@ class Keymaker(object):
 
     def make_a_key(self,item):
         """
-        This public method manually makes a key for items
-        (a list of dictionaries).
+        Make a single key.
 
-        Requires parameter 'name' and parameter 'json'
+        If you make bots one item at a time, 
+        you are bypassing the normal method of 
+        creating multiple bots at a time (bot flock).
+
+        This requires you to specify an item,
+        which is a dictionary containing a name for the bot
+        and a location for a key file to be created.
+
+        The item dict must contain the keys 'name' and 'json'.
+
+        The key 'name' gives the bot a label.
+
+        The key 'json' indicates the json file where the final key should go.
         """
         if('name' not in item.keys() or 'json' not in item.keys()):
             raise Exception("Error: to use make_a_key, you must specify 'name' and 'json' keys in your input.")
+
+        # TODO:
+        # check if these files exist
 
         d = self._make_a_key(item['name'])
 
@@ -183,12 +197,19 @@ class FilesKeymaker(Keymaker):
 
     def make_keys(self,files_dir,keys_out_dir='keys/'):
         """
+        Make multiple keys.
+
         Go through each file and ask the user, 
         one by one, if they want to make a key for it.
+
+        This bypasses the make_a_key() method
+        defined in Sheep, and calls
+        _make_a_key() directly.
         """
-        # What string to use in the final Json file 
-        # for storing the name of the unique file
-        # corresponding to that unique key?
+        # This is the JSON key for the key-value pair 
+        # storing the unique file correspoinding to this key.
+        # This way, the bot remembers the original file 
+        # from which it was created.
         self.file_key = 'file'
 
         # Step 1
@@ -197,11 +218,12 @@ class FilesKeymaker(Keymaker):
         files = []
         extension = self.extension 
         for rfile in raw_files:
+
             # if user specifies file extensions,
             # only ask for files with that extension
             # 
             # otherwise, do every file
-            # 
+
             if extension<>'':
                 el = len(extension)
                 elp1 = el+1
@@ -217,7 +239,7 @@ class FilesKeymaker(Keymaker):
         consumer_token = self.consumer_token
         for f in files:
 
-            full_file = re.sub('//','/',files_dir + '/' + f)
+            full_file = os.path.join(files_dir,f)
 
             d = self._make_a_key(full_file)
 
@@ -226,9 +248,8 @@ class FilesKeymaker(Keymaker):
                 d[self.file_key] = full_file
 
                 # Step 2.5: Export our Sheep key info to a JSON file
-                #subprocess.call(["mkdir","-p","keys/"])
                 subprocess.call(["mkdir","-p",keys_out_dir])
-                full_keys_file = re.sub(files_dir,'keys/',full_file)
+                full_keys_file = re.sub(files_dir,keys_out_dir,full_file)
                 _, ext = os.path.splitext(full_keys_file)
 
                 if(self.extension==''):
