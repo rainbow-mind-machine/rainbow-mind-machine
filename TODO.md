@@ -43,5 +43,39 @@ examples/tests:
 - what is a "flickr bot"?
 - how can we best describe the pattern of associating a file with a bot?
 
+infrastructure:
+- mkdocs for documentation
+- dockerfile
+- python package index
+- travis/circleci/tox?
+- how to get credentials into containers, in secret?
+- [my pypi checklist](https://gist.github.com/audreyr/5990987)
+    - history (changelog)
+    - update version number
+    - install with new version number
+    - run tests 
+    - release on pypi (sdist, wheel)
+    - make temporary environment
+    - ensure it installs
+    - git push
+    - git push tags
+- [cookie cutter python package](https://github.com/audreyr/cookiecutter-pypackage)
+    - testing setup
+    - travis setup
+    - tox testing
+    - sphinx docs
+    - bumpversion
+    - autorelease to pypi
+    - command line interface with click
+
+
+
+
+
+
+
+
+
+
 
 
