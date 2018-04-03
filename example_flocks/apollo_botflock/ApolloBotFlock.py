@@ -3,7 +3,7 @@ import logging
 
 def setup():
     k = rmm.TxtKeymaker()
-    k.make_keys('poems/')
+    k.make_keys('data/')
     
 def run():
     sh = rmm.Shepherd('keys/',sheep_class=rmm.QueneauSheep)
