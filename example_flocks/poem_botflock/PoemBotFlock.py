@@ -28,6 +28,9 @@ def run():
     # create a shepherd looking for 
     sh = rmm.Shepherd('keys/',sheep_class=rmm.QueneauSheep)
 
+    # test that the Shepherd can get the flock of Sheep up and running.
+    sh.perform_action('echo')
+
     # have all bots tweet in parallel
     sh.perform_pool_action('tweet',{'publish':False})
 
