@@ -24,6 +24,24 @@ sheep:
     - do they override populate_queue()?
     - can they just set parameters?
     - can they write a custom routine that takes new parameters?
+- what actions are defined?
+- can bots upload multimedia?
+- what actions are not implemented (add to the todo)
+
+sheep actions:
+- follow someone 
+- unfollow someone 
+- everyone tweet at someone 
+- important: we are NOT trying to cover every possible base
+- NOT just showing how to use existing objects
+- showing how and where to add new functionality (extensible)
+- abstracts away the details of credential management for multiple bots
+- abstracts away the storage of keys and bot-specific information
+- that way, you can focus on extending the sheep to do what you want
+
+examples/tests:
+- what is a "flickr bot"?
+- how can we best describe the pattern of associating a file with a bot?
 
 
 
