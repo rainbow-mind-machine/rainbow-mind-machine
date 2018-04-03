@@ -17,8 +17,11 @@ class Keymaker(object):
     """
     We do only what we are meant to do.
 
-    Keymaker handles the oauth mechanism
-    and does three-legged authentication.
+    Keymaker takes a set of items and asks the user
+    if they would like to create a key from each item.
+
+    Keymaker handles the oauth mechanism and does the 
+    three-legged authentication dance with Twitter.
 
     This results in one public/private key pair per sheep.
     With a sheep's keys, you can tweet as that sheep.
@@ -45,14 +48,13 @@ class Keymaker(object):
 
     def _make_a_key(self,item):
         """
-        This private method makes a key for 
-        an arbitrary "item"
-        (nothing is done with item).
+        This private method makes a key for an arbitrary "item"
+        (nothing is done with the item).
         """
         item_ = str(item)
-        print "="*45
-        print "Item: "+item_
-        print 
+        print("="*45)
+        print("Item: %s"%(item_))
+        print("")
 
         # (Step 1 is to get a list of items.)
 
@@ -62,12 +64,12 @@ class Keymaker(object):
             make_key = raw_input('Make key? (y/n) ')
         
         if make_key == 'n':
-            print "Skipping keymaking for "+item_
+            print("Skipping keymaking for %s"%item_)
 
             return {}
 
         else:
-            print "Starting keymaking for "+item_
+            print "Starting keymaking for %s"%item_)
 
             consumer = oauth.Consumer(consumer_key, consumer_secret)
             client = oauth.Client(consumer)
@@ -90,11 +92,11 @@ class Keymaker(object):
             # redirect. In a web application you would redirect the user to the URL
             # below.
             
-            print "Visit the following app authorization link:"
-            print "%s?oauth_token=%s" % (self.authorize_url, request_token['oauth_token'])
-            print 
-            print "Sign in as the user to be associated with "+item_
-            print 
+            print("Visit the following app authorization link:")
+            print("%s?oauth_token=%s" % (self.authorize_url, request_token['oauth_token']))
+            print("")
+            print("Sign in as the user to be associated with %s"%item_)
+            print("")
 
             # After the user has granted access to you, the consumer, the provider will
             # redirect you to whatever URL you have told them to redirect to. You can 
@@ -166,14 +168,14 @@ class Keymaker(object):
         with open(keys_file,'w') as outfile:
             json.dump(d,outfile)
 
-        print "Successfully exported a key bundle for poem "+item['name']+" to JSON file "+item['json']
+        print("Successfully exported a key bundle for item %s to JSON file %s"%(item['name'],item['json']))
 
 
 
 class FilesKeymaker(Keymaker):
     """
     Makes keys by iterating through a directory
-    and making a key for each file
+    and making a key for each file.
     """
     def __init__(self,extension=''):
         Keymaker.__init__(self)
@@ -236,11 +238,15 @@ class FilesKeymaker(Keymaker):
 
                 with open(keys_file, 'w') as outfile:
                       json.dump(d, outfile)
-                print "Successfully exported a key bundle for file "+full_file+" to JSON file "+ keys_file 
+                print("Successfully exported a key bundle for file %s to JSON file %s"%(full_file, keys_file))
 
 
 
 class TxtKeymaker(FilesKeymaker):
+    """
+    Makes keys by iterating hrough a directory 
+    and making a key for each .txt file. 
+    """
     def __init__(self):
         FilesKeymaker.__init__(self,extension='txt')
 
