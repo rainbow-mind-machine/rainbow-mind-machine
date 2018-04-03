@@ -1,5 +1,11 @@
 # TODO
 
+documentation:
+- go through and improve/modernize everything
+- print statements
+- add docstrings
+- etc.
+
 Keymaker:
 - make this into a command line program
 - keymaker: files-based keymaker, and items-based keymaker
