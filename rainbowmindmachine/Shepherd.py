@@ -56,12 +56,9 @@ class Shepherd(object):
 
     def perform_action(self,action,params={}):
         """
-        Each Sheep will perform an action 
-        sequentially.
+        Perform an action with each bot iteratively.
 
-        The idea behind this method is to 
-        avoid having to define every method
-        twice, in the Shepherd and the Sheep.
+        Good for things like updating profile information.
         """
         if self.all_sheep<>[]:
             for sheep in self.all_sheep:
@@ -72,12 +69,9 @@ class Shepherd(object):
 
     def perform_pool_action(self,action,params={}):
         """
-        Each Sheep will perform an action
-        in parallel.
+        Create a thread pool to perform an action in parallel.
 
-        The idea behind this method is to 
-        avoid having to define every method
-        twice, in the Shepherd and the Sheep.
+        Good for tweeting, searching, and continuous tasks.
         """
 
         def do_it(sheep):
