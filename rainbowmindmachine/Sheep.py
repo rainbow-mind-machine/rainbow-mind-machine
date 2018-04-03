@@ -225,19 +225,51 @@ class Sheep(object):
 
 
 
+    def populate_queue(self):
+        """
+        populate_queue() handles content.
+
+        This method should be extended by new Sheep classes that have their own creative means of generating tweets.
+
+        The default Sheep object will generate a tweet queue filled with 5 "Hello World" messages.
+        """
+        maxlen = 5
+        tweet_queue = deque(maxlen=maxlen)
+        
+        for j in range(maxlen):
+
+            tweet = "Hello world! That's number %d of 5."%(j+1)
+
+            tweet_queue.extend([tweet])
+
+        msg = self.timestamp_message("Finished populating a new tweet queue with %d tweets."%(len(tweet_queue)))
+        logging.info(msg)
+
+        return tweet_queue
+
+
+
+
+
+
+
     def tweet(self,params):
         """
-        Tweets forever.
+        tweet() handles scheduling.
 
-        Parameters:
-        inner_sleep     Inner loop sleep time (1 s)
-        outer_sleep     Outer loop sleep time (10 s)
-        publish         Actually publish (False)
+        Run an infinity loop in which the bot decides when to tweet.
+
+        Default Sheep have the following scheduling parameters:
+        
+            inner_sleep         Inner loop sleep time (1 s)
+            outer_sleep         Outer loop sleep time (10 s)
+            publish             Actually publish (False)
 
         Not sure if we need this keyword:
-        tweet_metadata  Tweet metadata ({})
 
-        Never returns, because never ends.
+            tweet_metadata      Tweet metadata ({})
+
+        This function never ends, so it never returns.
         """
 
         # --------------------------
@@ -259,7 +291,10 @@ class Sheep(object):
 
         # --------------------------
         # The Real McCoy
-
+        #
+        # call populate_queue() to populate the list of tweets to send out
+        # 
+        # apply some rube goldberg logic to figure out when to tweet each item
 
         while True:
 
@@ -354,37 +389,10 @@ class Sheep(object):
         logging.info(msg)
 
 
-    def populate_queue(self):
-        """
-        This method is extended/defined by derived Sheep.
-
-        Default Sheep still generate a dummy tweet queue
-        """
-        maxlen = 5
-        tweet_queue = deque(maxlen=maxlen)
-        
-        for j in range(maxlen):
-
-            tweet = "Hello world! That's number %d of 5."%(j+1)
-
-            tweet_queue.extend([tweet])
-
-        msg = self.timestamp_message("Finished populating a new tweet queue with %d tweets."%(len(tweet_queue)))
-        logging.info(msg)
-
-        return tweet_queue
-
-
-
     def timestamp_message(self,message):
-
-        # We don't actually need to timestamp our messages,
-        # since logging will do that for us.
-        # So just sign with twitter handle.
-
-        #result = "[" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " @" + self.params['screen_name']+"] " + message
-
-        result = "[@" + self.params['screen_name']+"] " + message
-
+        """
+        Add a timestamp and a user handle to a message for logging purposes.
+        """
+        result = "[" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " @" + self.params['screen_name']+"] " + message
         return result
 
