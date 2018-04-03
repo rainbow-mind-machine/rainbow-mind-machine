@@ -47,9 +47,9 @@ class Shepherd(object):
         Twitter bots.
         """
         MySheepClass = sheep_class
-        print "Bot Flock Shepherd: creating flock"
+        print("Bot Flock Shepherd: creating flock")
         for jsonf in self.all_json:
-            print "Making Sheep for file "+jsonf
+            print("Making Sheep for file %s"%jsonf)
             mysheep = MySheepClass(jsonf)
             self.all_sheep.append(mysheep)
 

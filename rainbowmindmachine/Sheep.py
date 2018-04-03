@@ -1,3 +1,4 @@
+import urllib
 import twitter
 import time
 import simplejson as json
@@ -29,10 +30,8 @@ class Sheep(object):
         This info is used to create a Twitter API instance.
         """
 
-        # this is where we should 
-        # initialize the Twitter 
-        # API instance using params
-        # found in the json file.
+        # This is where we should initialize the Twitter API instance 
+        # using params found in the json file.
         with open(json_file,'r') as f:
             self.params = json.load(f)
 
@@ -51,12 +50,11 @@ class Sheep(object):
         (official version of what was the Google Code python-twitter):
         https://github.com/bear/python-twitter
 
-        While I have been using Bear's Twitter API library,
-        I had problems using it for tweets with media attached,
-        so for those, switch to a different library. 
-        I forget which one.
+        (bear's twitter api library gave some problems 
+        when tweeting with attached media - may use a different 
+        twitter library...)
 
-        (check Flickr photobots for which library works for media posts...)
+        TODO: follow up on this
         """
         self.api = twitter.Api( consumer_key        = self.params['consumer_token'],
                                 consumer_secret     = self.params['consumer_token_secret'],
@@ -69,26 +67,21 @@ class Sheep(object):
     def perform_action(self,action,params):
         """
         Performs action indicated by string action,
-        passing a dictionary of parameters params
+        passing a dictionary of parameters.
+
+        Available actions:
+        - dummy
+        - echo
+        - change_url
+        - change_bio
+        - change_color
+        - tweet
+        - follow_user
+        - unfollow_user
         """
-
-        if action=='dummy':
-            self.dummy(params)
-
-        elif action=='echo':
-            self.echo(params)
-
-        elif action=='change url':
-            self.change_url(params)
-
-        elif action=='change bio':
-            self.change_bio(params)
-
-        elif action=='change color':
-            self.change_color(params)
-
-        elif action=='tweet':
-            self.tweet(params)
+        if hasattr( self, action ):
+            method = getattr( self, action )
+            method( params )
 
 
 
@@ -104,7 +97,7 @@ class Sheep(object):
         """
         Just say hi
         """
-        print "Hello world!"
+        print("Hello world!")
 
 
     def change_url(self,params):
@@ -112,16 +105,18 @@ class Sheep(object):
         Update twitter profile url 
 
         Parameters:
-        url         The url string
+        url         The url string for the API endpoint
 
         Does not return anything
         """
+        if( 'url' not in params.keys()):
+            # what are you doing??
+            raise Exception("change_url() action called without 'url' key specified in the parameters dict.")
+
         bot_url = params['url']
 
         # Set the API endpoint 
         api_url = "https://api.twitter.com/1.1/account/update_profile.json"
-
-        import urllib
 
         token = oauth.Token(key = self.params['oauth_token'], 
                          secret = self.params['oauth_token_secret'])
@@ -135,7 +130,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        print content
+        print(content)
 
 
 
@@ -148,6 +143,10 @@ class Sheep(object):
 
         Does not return anything
         """
+        if( 'bio' not in params.keys()):
+            # what are you doing??
+            raise Exception("change_bio() action called without 'bio' key specified in the parameters dict.")
+
         bot_bio = params['bio']
 
         handle = self.params['screen_name']
@@ -155,8 +154,6 @@ class Sheep(object):
         # -----------------------------------------
         # Set the API endpoint 
         url = "https://api.twitter.com/1.1/account/update_profile.json"
-
-        import urllib
 
         token = oauth.Token(key = self.params['oauth_token'], 
                          secret = self.params['oauth_token_secret'])
@@ -170,7 +167,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        print content
+        print(content)
 
 
     def change_color(self,params):
@@ -186,8 +183,11 @@ class Sheep(object):
 
         Does not return anything
         """
+        if( 'background' not in params.keys() and 'links' not in params.keys()):
+            # what are you doing??
+            raise Exception("change_color() action called without 'background' or 'links' keys specified in the parameters dict.")
 
-        # Json sent to the Twitter API
+        # json sent to the Twitter API
         payload = {}
 
         if 'background' in params.keys():
@@ -200,12 +200,8 @@ class Sheep(object):
 
         handle = self.params['screen_name']
 
-
-        # -----------------------------------------
         # Set the API endpoint 
         url = "https://api.twitter.com/1.1/account/update_profile_colors.json"
-
-        import urllib
 
         token = oauth.Token(key = self.params['oauth_token'], 
                          secret = self.params['oauth_token_secret'])
@@ -219,7 +215,81 @@ class Sheep(object):
                 headers=None
                 )
         
-        print content
+        print(content)
+
+
+
+    def follow_user(self, params, notify=True):
+        """
+        Follow a twitter user
+
+        Parameters:
+        username        The username of the user to follow
+        notify          Whether to notify the followed user (boolean)
+
+        This method does not return anything
+        """
+        # json sent to the Twitter API
+        payload = {}
+
+        if 'username' not in params.keys():
+            # what are you doing?
+            raise Exception("follow_user() action called without a 'username' key specified in the params dict.")
+        else: 
+            payload['user_id'] = params['username']
+
+        # Set the API endpoint 
+        url = "https://api.twitter.com/1.1/friendships/create.json"
+
+        token = oauth.Token(key = self.params['oauth_token'], 
+                         secret = self.params['oauth_token_secret'])
+        consumer = oauth.Consumer(key = self.params['consumer_token'], 
+                               secret = self.params['consumer_token_secret'])
+        client = oauth.Client(consumer,token)
+        resp, content = client.request(
+                url,
+                method = "POST",
+                body=urllib.urlencode(payload),
+                headers=None
+                )
+        
+        print(content)
+
+
+    def unfollow_user(self, params, notify=True):
+        """
+        Unfollow a twitter user
+
+        Parameters:
+        username        The username of the user to unfollow
+
+        This method does not return anything
+        """
+        # json sent to the Twitter API
+        payload = {}
+
+        if 'username' not in params.keys():
+            # what are you doing?
+            raise Exception("unfollow_user() action called without a 'username' key specified in the params dict.")
+        else: 
+            payload['user_id'] = params['username']
+
+        # Set the API endpoint 
+        url = "https://api.twitter.com/1.1/friendships/destroy.json"
+
+        token = oauth.Token(key = self.params['oauth_token'], 
+                         secret = self.params['oauth_token_secret'])
+        consumer = oauth.Consumer(key = self.params['consumer_token'], 
+                               secret = self.params['consumer_token_secret'])
+        client = oauth.Client(consumer,token)
+        resp, content = client.request(
+                url,
+                method = "POST",
+                body=urllib.urlencode(payload),
+                headers=None
+                )
+        
+        print(content)
 
 
 
@@ -246,10 +316,6 @@ class Sheep(object):
         logging.info(msg)
 
         return tweet_queue
-
-
-
-
 
 
 
