@@ -22,7 +22,7 @@ try:
     from apikeys import *
 except ImportError:
     warning = "Warning: FlickrSheep was unable to find apikeys.py. This will only be a problem if you are requesting keys."
-    print warning
+    print(warning)
 
 
 # since this is a Flickr photo posting bot,

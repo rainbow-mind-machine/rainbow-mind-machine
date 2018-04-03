@@ -1,4 +1,4 @@
-LOG_FILE = "rainbowmindmachine.log"
+LOG_FILE = "/tmp/rainbowmindmachine.log"
 from Lumberjack import *
 from Keymaker import *
 from Shepherd import *

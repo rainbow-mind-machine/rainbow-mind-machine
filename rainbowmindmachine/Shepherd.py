@@ -60,7 +60,7 @@ class Shepherd(object):
 
         Good for things like updating profile information.
         """
-        if self.all_sheep<>[]:
+        if len(self.all_sheep) > 0:
             for sheep in self.all_sheep:
                 sheep.perform_action( action,params)
         else:

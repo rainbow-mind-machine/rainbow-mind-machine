@@ -9,7 +9,7 @@ try:
     from apikeys import *
 except ImportError:
     warning = "Warning: Keymaker was unable to find apikeys.py. This will only be a problem if you are requesting keys."
-    print warning 
+    print(warning)
 
 
 
@@ -40,7 +40,7 @@ class Keymaker(object):
             consumer_token['consumer_token'] = consumer_key
             consumer_token['consumer_token_secret'] = consumer_secret
             self.consumer_token = consumer_token
-        except NameError, KeyError:
+        except(NameError, KeyError):
             raise Exception("Error: could not read consumer tokens from apikeys.py.")
 
 
@@ -60,16 +60,16 @@ class Keymaker(object):
 
         # Step 2 is to make a Twitter API key for each item.
         make_key = ''
-        while make_key <> 'y' and make_key <> 'n':
+        while make_key is not 'y' and make_key is not 'n':
             make_key = raw_input('Make key? (y/n) ')
         
-        if make_key == 'n':
+        if make_key is 'n':
             print("Skipping keymaking for %s"%item_)
 
             return {}
 
         else:
-            print "Starting keymaking for %s"%item_)
+            print("Starting keymaking for %s"%item_)
 
             consumer = oauth.Consumer(consumer_key, consumer_secret)
             client = oauth.Client(consumer)
@@ -83,10 +83,10 @@ class Keymaker(object):
                 raise Exception("Invalid response %s. If apikeys.py is present, your keys may be invalid." % resp['status'])
 
             request_token = dict(urlparse.parse_qsl(content))
-            #print "Request Token:"
-            #print "    - oauth_token        = %s" % request_token['oauth_token']
-            #print "    - oauth_token_secret = %s" % request_token['oauth_token_secret']
-            #print 
+            #print("Request Token:")
+            #print("    - oauth_token        = %s" % request_token['oauth_token'])
+            #print("    - oauth_token_secret = %s" % request_token['oauth_token_secret'])
+            #print("")
 
             # Step 2.2: Redirect to the provider. Since this is a CLI script we do not 
             # redirect. In a web application you would redirect the user to the URL
@@ -106,13 +106,13 @@ class Keymaker(object):
             seven_digit_number = re.compile("[0-9]{7}")
             oauth_verifier = ''
             count = 0
-            while not (seven_digit_number.match(oauth_verifier) or oauth_verifier=='n'):
+            while not (seven_digit_number.match(oauth_verifier) or oauth_verifier is 'n'):
                 if count > 0:
-                    print "PIN must be a 7-digit number. Enter 'n' to skip."
-                oauth_verifier = raw_input('What is the PIN? ')
+                    print("PIN must be a 7-digit number. Enter 'n' to skip.")
+                oauth_verifier = input('What is the PIN? ')
                 count += 1
 
-            if oauth_verifier=='n':
+            if oauth_verifier is 'n':
 
                 # party pooper
                 return {}
@@ -140,7 +140,7 @@ class Keymaker(object):
                 for key in access_token.keys():
                     d[key] = access_token[key]
 
-                print "Successfully obtained Twitter API key for "+item_
+                print("Successfully obtained Twitter API key for %s"%item_)
 
                 return d
 
@@ -224,10 +224,10 @@ class FilesKeymaker(Keymaker):
             # 
             # otherwise, do every file
 
-            if extension<>'':
+            if extension is not '':
                 el = len(extension)
                 elp1 = el+1
-                if rfile[-elp1:] == '.'+extension:
+                if rfile[-elp1:] is '.'+extension:
                     files.append(rfile)
             else:
                 files.append(rfile)
@@ -243,7 +243,7 @@ class FilesKeymaker(Keymaker):
 
             d = self._make_a_key(full_file)
 
-            if(d<>{}):
+            if(d is not {}):
 
                 d[self.file_key] = full_file
 
@@ -252,7 +252,7 @@ class FilesKeymaker(Keymaker):
                 full_keys_file = re.sub(files_dir,keys_out_dir,full_file)
                 _, ext = os.path.splitext(full_keys_file)
 
-                if(self.extension==''):
+                if(self.extension is ''):
                     keys_file = full_keys_file+".json"
                 else:
                     keys_file = re.sub(ext,'.json',full_keys_file)

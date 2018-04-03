@@ -7,7 +7,12 @@ import logging
 import traceback
 from numpy.random import rand
 from collections import deque
+import base64
 
+# Note:
+# when ready to get to uploading media,
+# see https://github.com/twitterdev/large-video-upload-python/blob/master/async-upload.py#L60
+# (yuck)
 
 class Sheep(object):
     """
@@ -24,18 +29,25 @@ class Sheep(object):
     """
     def __init__(self,json_file):
         """
-        Sheep own information pertaining to a Twitter account.
+        A Sheep object manages information for a single Twitter account.
+
         This information consists of public/private keys,
-        and is contained in the Json file.
+        and is contained in a json file (passed into the constructor).
+
         This info is used to create a Twitter API instance.
         """
-
         # This is where we should initialize the Twitter API instance 
         # using params found in the json file.
         with open(json_file,'r') as f:
             self.params = json.load(f)
 
         self.twitter_api_init()
+
+    def set_parameter(self, key, value):
+        """
+        Add a parameter to the Sheep's list of parameters
+        """
+        self.params[key] = value
 
 
     def twitter_api_init(self):
@@ -75,6 +87,7 @@ class Sheep(object):
         - change_url
         - change_bio
         - change_color
+        - change_image
         - tweet
         - follow_user
         - unfollow_user
@@ -212,6 +225,50 @@ class Sheep(object):
                 url,
                 method = "POST",
                 body=urllib.urlencode(payload),
+                headers=None
+                )
+        
+        print(content)
+
+
+
+    def change_image(self,params):
+        """
+        Change a user's avatar image.
+
+        Parameters:
+        image       The path to the image to include
+
+        (Note that unlike most actions, 
+        the parameter passed in by the user
+        must be pre-processed first.)
+
+        This method does not return anything
+        """
+        # json sent to the Twitter API
+        payload = {}
+
+        if 'image' not in params.keys():
+            # what are you doing?
+            raise Exception("change_image() action called without an 'image' key specified in the params dict.")
+        elif os.path.isfile(params['image']) is False:
+            raise Exception("change_image() action called with 'image' key of params dict pointing to a non-existent file.")
+        else: 
+            img_file = params['image']
+            b64 = base64.encodestring(open(img_file,"rb").read())
+
+        # Set the API endpoint 
+        api_url = "https://api.twitter.com/1.1/account/update_profile_image.json"
+
+        token = oauth.Token(key = self.params['oauth_token'], 
+                         secret = self.params['oauth_token_secret'])
+        consumer = oauth.Consumer(key = self.params['consumer_token'], 
+                               secret = self.params['consumer_token_secret'])
+        client = oauth.Client(consumer,token)
+        resp, content = client.request(
+                api_url,
+                method = "POST",
+                body=urllib.urlencode({'image': b64}),
                 headers=None
                 )
         
@@ -390,7 +447,7 @@ class Sheep(object):
                 logging.info(msg)
 
 
-            except Exception,err:
+            except Exception:
 
                 # oops!
 
