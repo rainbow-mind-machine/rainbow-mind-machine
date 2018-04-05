@@ -1,4 +1,8 @@
 #!/bin/bash
- 
-curl https://git.charlesreid1.com/docker/d-rsync/raw/branch/master/Dockerfile -o stuff
 
+cd /api
+
+pip3 install -r requirements.txt
+
+exec "$@"
+ 
