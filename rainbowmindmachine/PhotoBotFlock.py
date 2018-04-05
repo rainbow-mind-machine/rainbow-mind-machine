@@ -13,7 +13,6 @@ import urllib2
 import httplib
 from poster.encode import multipart_encode
 from poster.streaminghttp import register_openers
-from numpy.random import rand
 from random import shuffle
 from collections import deque
 from Sheep import Sheep

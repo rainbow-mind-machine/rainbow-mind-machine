@@ -3,7 +3,6 @@ import time
 import os
 import re
 import simplejson as json
-from numpy.random import rand
 
 from multiprocessing import Pool
 from multiprocessing.dummy import Pool as ThreadPool 
@@ -22,11 +21,11 @@ class Shepherd(object):
         # (one for each sheep)
         self.all_json = []
 
-        self.setup_keys(json_key_dir)
-        self.setup_sheep(sheep_class)
+        self._setup_keys(json_key_dir)
+        self._setup_sheep(sheep_class)
 
 
-    def setup_keys(self,json_key_dir):
+    def _setup_keys(self,json_key_dir):
         """
         Set up the Twitter account keys with the Shepherd.
 
@@ -41,7 +40,7 @@ class Shepherd(object):
                 full_filename = re.sub('//','/',json_key_dir + '/' + rfile)
                 self.all_json.append(full_filename)
 
-    def setup_sheep(self,sheep_class):
+    def _setup_sheep(self,sheep_class):
         """
         Create the Sheep objects that represent the 
         Twitter bots.
@@ -62,7 +61,7 @@ class Shepherd(object):
         """
         if len(self.all_sheep) > 0:
             for sheep in self.all_sheep:
-                sheep.perform_action( action,params)
+                sheep.perform_action(action,params)
         else:
             raise Exception("Error: The shepherd has no sheep!")
 

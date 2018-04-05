@@ -5,7 +5,6 @@ import simplejson as json
 import datetime
 import logging
 import traceback
-from numpy.random import rand
 from collections import deque
 import base64
 
@@ -43,11 +42,6 @@ class Sheep(object):
 
         self.twitter_api_init()
 
-    def set_parameter(self, key, value):
-        """
-        Add a parameter to the Sheep's list of parameters
-        """
-        self.params[key] = value
 
 
     def twitter_api_init(self):
