@@ -1,11 +1,11 @@
-import rainbowmindmachine as rmm
 import twitter
 import logging
 import glob
 import time
 from datetime import datetime
+from .Sheep import Sheep
 
-class PhotoADaySheep(rmm.MediaSheep):
+class PhotoADaySheep(Sheep):
     """
     This sheep will tweet a photo a day.
 

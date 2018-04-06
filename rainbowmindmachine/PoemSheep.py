@@ -1,6 +1,6 @@
 from collections import deque
 import logging
-from Sheep import Sheep
+from .Sheep import Sheep
 
 """
 Poem Sheep
