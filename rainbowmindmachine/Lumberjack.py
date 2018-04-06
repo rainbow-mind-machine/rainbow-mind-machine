@@ -32,7 +32,7 @@ class Lumberjack(object):
         """
 
         # These are pretty solid, so hard-code them
-        format_str = " ".join(['%(asctime)s', bot_name, '%(message)s'])
+        format_str = " ".join(['%(asctime)s', "[" + flock_name + "]", '%(message)s'])
         date_str = '%m-%d-%Y %H:%M:%S'
 
         # Configure logging

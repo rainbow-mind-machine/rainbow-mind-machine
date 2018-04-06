@@ -42,11 +42,14 @@ class Sheep(object):
         with open(json_file,'r') as f:
             self.params = json.load(f)
 
+        self.lumberjack = lumberjack
+
         self.twitter_api_init()
 
-        self.params = kwargs
-
-        self.lumberjack = lumberjack
+        # combine the user-provided parameters 
+        # (in kwargs) with the json-provided parameters
+        for keys in kwargs:
+            self.params[key] = kwargs[key]
 
 
     def twitter_api_init(self):
@@ -72,7 +75,7 @@ class Sheep(object):
                                 access_token_key    = self.params['oauth_token'],
                                 access_token_secret = self.params['oauth_token_secret'])
         msg = self.timestamp_message("Set up Twitter API for bot "+self.params['screen_name'])
-        self.lumberjack.info(msg)
+        self.lumberjack.log(msg)
 
 
     def perform_action(self,action,params):

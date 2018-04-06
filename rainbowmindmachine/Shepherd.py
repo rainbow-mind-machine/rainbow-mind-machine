@@ -77,7 +77,7 @@ class Shepherd(object):
         self.lumberjack.log("Bot Flock Shepherd: Creating flock")
         for jsonf in self.all_json:
             self.lumberjack.log("Bot Flock Shepherd: Making Sheep for file %s"%jsonf)
-            mysheep = MySheepClass(jsonf)
+            mysheep = MySheepClass(jsonf, self.lumberjack)
             self.all_sheep.append(mysheep)
 
         self.lumberjack.log(alive)

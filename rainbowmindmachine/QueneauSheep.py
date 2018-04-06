@@ -1,7 +1,7 @@
 from collections import deque
-from random import random
 from .Sheep import Sheep
 from .queneau import DialogueAssembler
+from random import random
 
 """
 Queneau Sheep

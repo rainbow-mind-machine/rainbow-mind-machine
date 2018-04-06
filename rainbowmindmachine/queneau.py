@@ -146,7 +146,7 @@ class Assembler(object):
             previous = code
         return expanded
 
-    def assemble(self, pattern="f.l", length=None, min_length=None):
+    def assemble(self, pattern="f.l", length=None, min_length=0):
         while length is None:
             length = random.choice(self.lengths)
 
