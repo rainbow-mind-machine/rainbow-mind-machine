@@ -8,7 +8,7 @@ https://github.com/leonardr/olipy
 olipy is unlicensed.
 """
 """Create Queneau assemblies of source texts."""
-from StringIO import StringIO
+from io import StringIO
 import json
 import random
 import re
