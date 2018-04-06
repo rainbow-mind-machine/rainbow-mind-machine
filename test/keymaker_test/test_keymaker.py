@@ -2,7 +2,7 @@ import rainbowmindmachine as rmm
 import os
 import subprocess
 from nose.tools import *
-from util import FYI
+from .util import FYI
 
 FYI()
 

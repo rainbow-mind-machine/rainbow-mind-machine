@@ -1,7 +1,7 @@
 import rainbowmindmachine as rmm
 import os
 from nose.tools import *
-from util import FYI
+from .util import FYI
 
 FYI()
 
