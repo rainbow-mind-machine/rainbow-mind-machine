@@ -1,4 +1,4 @@
-import urlparse
+import urllib
 import oauth2 as oauth
 import os
 import re
@@ -82,7 +82,7 @@ class Keymaker(object):
             if resp['status'] != '200':
                 raise Exception("Invalid response %s. If apikeys.py is present, your keys may be invalid." % resp['status'])
 
-            request_token = dict(urlparse.parse_qsl(content))
+            request_token = dict(urllib.parse.parse_qsl(content))
             #print("Request Token:")
             #print("    - oauth_token        = %s" % request_token['oauth_token'])
             #print("    - oauth_token_secret = %s" % request_token['oauth_token_secret'])
@@ -130,7 +130,7 @@ class Keymaker(object):
                 client = oauth.Client(consumer, token)
                 
                 resp, content = client.request(self.access_token_url, "POST")
-                access_token = dict(urlparse.parse_qsl(content))
+                access_token = dict(urllib.parse.parse_qsl(content))
 
                 # Step 2.4: Make a dict with all relevant Sheep info
                 d = {}
