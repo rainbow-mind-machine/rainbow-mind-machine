@@ -1,0 +1,4 @@
+simplejson==3.13
+oauth2>=1.5
+twitter==1.18
+TwitterAPI==2.4.6
