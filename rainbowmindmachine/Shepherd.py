@@ -1,7 +1,5 @@
 import twitter
-import time
-import os
-import re
+import os, re, time
 import simplejson as json
 
 from multiprocessing import Pool
@@ -10,6 +8,12 @@ from multiprocessing.dummy import Pool as ThreadPool
 from Sheep import *
 from Lumberjack import *
 
+alive = r'''
+ _______ _______ __ _______      _______ _____   _______ ___ ___ _______ __ __ __
+|_     _|_     _|  |     __|    |   _   |     |_|_     _|   |   |    ___|  |  |  |
+ _|   |_  |   |  |_|__     |    |       |       |_|   |_|   |   |    ___|__|__|__|
+|_______| |___|    |_______|    |___|___|_______|_______|\_____/|_______|__|__|__|
+'''
 
 class Shepherd(object):
 
@@ -20,9 +24,9 @@ class Shepherd(object):
         """
         Create a Shepherd.
 
-        Point to the directory where all Sheeps' 
-        API keys are located, and specify what 
-        kind of Sheep you would like in the flock. 
+        json_key_dir        Directory where Sheep API keys are located
+        sheep_class         Type of Sheep
+        kwargs              Logging parameters passed directly to Lumberjack logger
 
         For example, the Apollo queneau bot is 
         created as follows:
@@ -30,11 +34,6 @@ class Shepherd(object):
             sh = rmm.Shepherd('keys/',
                               sheep_class = rmm.QueneauSheep,
                               log_file = '/path/to/log')
-
-        Current available sheep types:
-        - QueneauSheep
-        - PoemSheep
-        - MediaSheep
         """
 
         # contains each of our sheep
@@ -48,7 +47,7 @@ class Shepherd(object):
         # that all sheep will use to log msgs
         # (parameters checked/enforced by Lumberjack, 
         #  we are just passing them through.)
-        self.lumberjack = new Lumberjack(**kwargs)
+        self.lumberjack = Lumberjack(**kwargs)
 
         self._setup_keys(json_key_dir)
         self._setup_sheep(sheep_class)
@@ -67,21 +66,21 @@ class Shepherd(object):
             raise Exception("Error: key directory "+json_key_dir+" does not exist. Have you run the Keymaker?")
         for rfile in raw_files:
             if rfile[-5:] == '.json':
-                full_filename = re.sub('//','/',json_key_dir + '/' + rfile)
+                full_filename = os.path.join(json_key_dir,rfile)
                 self.all_json.append(full_filename)
 
     def _setup_sheep(self,sheep_class):
         """
-        Create the Sheep objects that represent the 
-        Twitter bots.
+        Create the Sheep objects (the bot swarm).
         """
         MySheepClass = sheep_class
-        print("Bot Flock Shepherd: creating flock")
+        self.lumberjack.log("Bot Flock Shepherd: Creating flock")
         for jsonf in self.all_json:
-            print("Making Sheep for file %s"%jsonf)
+            self.lumberjack.log("Bot Flock Shepherd: Making Sheep for file %s"%jsonf)
             mysheep = MySheepClass(jsonf)
             self.all_sheep.append(mysheep)
 
+        self.lumberjack.log(alive)
 
     def perform_action(self,action,params={}):
         """
