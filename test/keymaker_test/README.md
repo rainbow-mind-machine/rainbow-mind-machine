@@ -2,11 +2,17 @@
 
 ## Setting Up Tests
 
-Running tests requires ```apikeys.py``` to be present.
-The ```apikeys.py``` file contains your Twitter app's
+Running tests requires `apikeys.py` to be present
+in the main repository directory.
+
+The `apikeys.py` file contains your Twitter app's
 consumer token and consumer secret.
-You can find an example ```apikeys.py``` file in the 
-```rainbowmindmachine``` directory (up one).
+
+These tests **will not** publish any tweets.
+
+You can find an example `apikeys.py` file in the 
+`rainbowmindmachine` directory (up one)
+in `apikeys.example.py`.
 
 ## Running Tests
 
