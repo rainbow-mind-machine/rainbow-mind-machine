@@ -5,8 +5,8 @@ import simplejson as json
 from multiprocessing import Pool
 from multiprocessing.dummy import Pool as ThreadPool 
 
-from Sheep import *
-from Lumberjack import *
+from .Sheep import *
+from .Lumberjack import *
 
 alive = r'''
  _______ _______ __ _______      _______ _____   _______ ___ ___ _______ __ __ __

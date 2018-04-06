@@ -3,10 +3,10 @@ import twitter
 import time
 import simplejson as json
 import datetime
-import Lumberjack
 import traceback
 from collections import deque
 import base64
+import .Lumberjack
 
 # Note:
 # when ready to get to uploading media,
