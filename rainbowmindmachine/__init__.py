@@ -1,13 +1,12 @@
-LOG_FILE = "/tmp/rainbowmindmachine.log"
 from Lumberjack import *
 from Keymaker import *
 from Shepherd import *
 from Sheep import *
-from PoemBotFlock import *
-from PhotoBotFlock import *
+from PoemSheep import *
+from PhotoADaySheep import *
 try:
     from queneau import DialogueAssembler
-    from QueneauBotFlock import *
+    from QueneauSheep import *
 except ImportError:
     pass
 

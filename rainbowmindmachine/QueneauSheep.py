@@ -1,8 +1,7 @@
 from collections import deque
-import logging
 from Sheep import Sheep
 from queneau import DialogueAssembler
-from numpy.random import rand
+from random import random
 
 """
 Queneau Sheep
@@ -21,7 +20,7 @@ class QueneauSheep(Sheep):
         dialogue = DialogueAssembler.loadlines(open(self.params['file']))
         last_speaker = None
 
-        Nmessages = int(round(5*rand()+15))
+        Nmessages = int(round(5*random()+15))
 
         messages = []
         for N in range(Nmessages):
@@ -34,7 +33,7 @@ class QueneauSheep(Sheep):
         tweet_queue = deque(messages,maxlen=Nmessages)
 
         msg = self.timestamp_message("Finished populating a new tweet queue with %d queneau dialogue tweets."%(len(tweet_queue)))
-        logging.info(msg)
+        self.lumberjack.log(msg)
 
         return tweet_queue
 

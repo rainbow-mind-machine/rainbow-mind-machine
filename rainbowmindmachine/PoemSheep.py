@@ -37,35 +37,4 @@ class PoemSheep(Sheep):
         logging.info(msg)
 
         return tweet_queue
-    
-
-
-
-if __name__=="__main__":
-
-    ### # Do this once
-    ### from Keymaker import TxtKeymaker
-    ### k = TxtKeymaker()
-    ### k.make_keys('poems/')
-    
-    ### from Shepherd import Shepherd
-    ### sh = Shepherd('keys/',sheep_class=PoemSheep)
-
-    ### # First, test that the Shepherd can get the 
-    ### # flock of Sheep up and running.
-    ### sh.perform_action('echo')
-
-    ### # Next, we need to test the Sheep ability
-    ### # to construct (and print) tweets from 
-    ### # the poem files.
-    ### #sh.perform_action('tweet',{'publish':False})
-
-    ### # Perform the final test: fire up the 
-    ### # multi-threaded, multi-headed Twitter
-    ### # bot hydra.
-    ### # It will construct tweets from poem files
-    ### # and send them to the screen or to Twitter.
-    ### sh.perform_pool_action('tweet',{'publish':False})
-
-    pass
 

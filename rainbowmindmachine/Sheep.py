@@ -26,7 +26,7 @@ class Sheep(object):
     * Outer loop - populate tweet queue 
     * Inner loop - tweet from tweet queue
     """
-    def __init__(self,json_file,**kwargs):
+    def __init__(self, json_file, lumberjack, **kwargs):
         """
         A Sheep object manages information for a single Twitter account.
 
@@ -47,6 +47,7 @@ class Sheep(object):
 
         self.params = kwargs
 
+        self.lumberjack = lumberjack
 
 
     def twitter_api_init(self):
@@ -72,7 +73,7 @@ class Sheep(object):
                                 access_token_key    = self.params['oauth_token'],
                                 access_token_secret = self.params['oauth_token_secret'])
         msg = self.timestamp_message("Set up Twitter API for bot "+self.params['screen_name'])
-        logging.info(msg)
+        self.lumberjack.info(msg)
 
 
     def perform_action(self,action,params):
@@ -142,7 +143,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        print(content)
+        self.lumberjack.log(content)
 
 
 
@@ -179,7 +180,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        print(content)
+        self.lumberjack.log(content)
 
 
     def change_color(self,params):
@@ -227,7 +228,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        print(content)
+        self.lumberjack.log(content)
 
 
 
@@ -271,7 +272,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        print(content)
+        self.lumberjack.log(content)
 
 
 
@@ -309,7 +310,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        print(content)
+        self.lumberjack.log(content)
 
 
     def unfollow_user(self, params, notify=True):
@@ -345,7 +346,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        print(content)
+        self.lumberjack.log(content)
 
 
 
@@ -369,7 +370,7 @@ class Sheep(object):
             tweet_queue.extend([tweet])
 
         msg = self.timestamp_message("Finished populating a new tweet queue with %d tweets."%(len(tweet_queue)))
-        logging.info(msg)
+        self.lumberjack.log(msg)
 
         return tweet_queue
 
@@ -443,7 +444,7 @@ class Sheep(object):
                 time.sleep( tweet_params['outer_sleep'] )
 
                 msg = self.timestamp_message("Completed a cycle.")
-                logging.info(msg)
+                self.lumberjack.log(msg)
 
 
             except Exception:
@@ -454,15 +455,14 @@ class Sheep(object):
                 msg2 = self.timestamp_message(traceback.format_exc())
                 msg3 = self.timestamp_message("Sheep is continuing...")
 
-                logging.info(msg1)
-                logging.info(msg2)
-                logging.info(msg3)
+                self.lumberjack.log(msg1)
+                self.lumberjack.log(msg2)
+                self.lumberjack.log(msg3)
 
                 time.sleep( tweet_params['outer_sleep'] )
 
             except AssertionError:
                 raise Exception("Error: tweet queue was empty. Check your populate_queue() method definition.")
-
 
 
     def _tweet(self,twit):
@@ -479,21 +479,21 @@ class Sheep(object):
             # everything else:
             for stat in stats:
                 msg = self.timestamp_message(">>> "+twit)
-                logging.info(msg)
+                self.lumberjack.log(msg)
 
         except twitter.TwitterError as e:
             
             if e.message[0]['code'] == 185:
                 msg = self.timestamp_message("Twitter error: Daily message limit reached")
-                logging.info(msg)
+                self.lumberjack.log(msg)
 
             elif e.message[0]['code'] == 187:
                 msg = self.timestamp_message("Twitter error: Duplicate error")
-                logging.info(msg)
+                self.lumberjack.log(msg)
             
             else:
                 msg = self.timestamp_message("Twitter error: "+e.message)
-                logging.info(msg)
+                self.lumberjack.log(msg)
 
 
         ## DEBUG
@@ -508,7 +508,7 @@ class Sheep(object):
         Print a twit.
         """
         msg = self.timestamp_message("> "+twit)
-        logging.info(msg)
+        self.lumberjack.log(msg)
 
 
     def timestamp_message(self,message):

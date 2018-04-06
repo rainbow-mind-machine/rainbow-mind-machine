@@ -61,7 +61,7 @@ class Keymaker(object):
         # Step 2 is to make a Twitter API key for each item.
         make_key = ''
         while make_key is not 'y' and make_key is not 'n':
-            make_key = raw_input('Make key? (y/n) ')
+            make_key = input('Make key? (y/n) ')
         
         if make_key is 'n':
             print("Skipping keymaking for %s"%item_)
