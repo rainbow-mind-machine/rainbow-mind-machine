@@ -60,10 +60,10 @@ class Keymaker(object):
 
         # Step 2 is to make a Twitter API key for each item.
         make_key = ''
-        while make_key is not 'y' and make_key is not 'n':
+        while make_key != 'y' and make_key != 'n':
             make_key = input('Make key? (y/n) ')
         
-        if make_key is 'n':
+        if make_key=='n':
             print("Skipping keymaking for %s"%item_)
 
             return {}
@@ -83,17 +83,20 @@ class Keymaker(object):
                 raise Exception("Invalid response %s. If apikeys.py is present, your keys may be invalid." % resp['status'])
 
             request_token = dict(urllib.parse.parse_qsl(content))
-            #print("Request Token:")
-            #print("    - oauth_token        = %s" % request_token['oauth_token'])
-            #print("    - oauth_token_secret = %s" % request_token['oauth_token_secret'])
-            #print("")
+            oauth_token = request_token[b'oauth_token'].decode('utf-8')
+            oauth_token_secret = request_token[b'oauth_token_secret'].decode('utf-8')
+
+            print("Request Token:")
+            print("    - oauth_token        = %s" % oauth_token)
+            print("    - oauth_token_secret = %s" % oauth_token_secret)
+            print("")
 
             # Step 2.2: Redirect to the provider. Since this is a CLI script we do not 
             # redirect. In a web application you would redirect the user to the URL
             # below.
-            
+
             print("Visit the following app authorization link:")
-            print("%s?oauth_token=%s" % (self.authorize_url, request_token['oauth_token']))
+            print("%s?oauth_token=%s" % (self.authorize_url, oauth_token ))
             print("")
             print("Sign in as the user to be associated with %s"%item_)
             print("")
@@ -106,13 +109,13 @@ class Keymaker(object):
             seven_digit_number = re.compile("[0-9]{7}")
             oauth_verifier = ''
             count = 0
-            while not (seven_digit_number.match(oauth_verifier) or oauth_verifier is 'n'):
+            while not (seven_digit_number.match(oauth_verifier) or oauth_verifier == 'n'):
                 if count > 0:
                     print("PIN must be a 7-digit number. Enter 'n' to skip.")
                 oauth_verifier = input('What is the PIN? ')
                 count += 1
 
-            if oauth_verifier is 'n':
+            if oauth_verifier == 'n':
 
                 # party pooper
                 return {}
@@ -124,8 +127,10 @@ class Keymaker(object):
                 # request token to sign this request. After this is done you throw away the
                 # request token and use the access token returned. You should store this 
                 # access token somewhere safe, like a database, for future use.
-                token = oauth.Token(request_token['oauth_token'],
-                    request_token['oauth_token_secret'])
+                oauth_token = request_token[b'oauth_token'].decode('utf-8')
+                oauth_token_secret = request_token[b'oauth_token'].decode('utf-8')
+                token = oauth.Token(oauth_token, oauth_token_secret)
+
                 token.set_verifier(oauth_verifier)
                 client = oauth.Client(consumer, token)
                 
@@ -224,13 +229,16 @@ class FilesKeymaker(Keymaker):
             # 
             # otherwise, do every file
 
-            if extension is not '':
+            if extension != '':
                 el = len(extension)
                 elp1 = el+1
-                if rfile[-elp1:] is '.'+extension:
+                if rfile[-elp1:] == '.'+extension:
                     files.append(rfile)
             else:
                 files.append(rfile)
+
+        if(len(files)==0):
+            raise Exception("FilesKeymaker: Error: no files found!")
 
         files.sort()
 
@@ -243,7 +251,7 @@ class FilesKeymaker(Keymaker):
 
             d = self._make_a_key(full_file)
 
-            if(d is not {}):
+            if(d != {}):
 
                 d[self.file_key] = full_file
 
@@ -252,7 +260,7 @@ class FilesKeymaker(Keymaker):
                 full_keys_file = re.sub(files_dir,keys_out_dir,full_file)
                 _, ext = os.path.splitext(full_keys_file)
 
-                if(self.extension is ''):
+                if(self.extension == ''):
                     keys_file = full_keys_file+".json"
                 else:
                     keys_file = re.sub(ext,'.json',full_keys_file)
