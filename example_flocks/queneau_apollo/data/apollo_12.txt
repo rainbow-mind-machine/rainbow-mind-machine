@@ -1,0 +1,10 @@
+{"tokens": ["Six seconds."], "speaker": "Bean", "time": "000:10:00"}
+{"tokens": ["Clear the tower."], "speaker": "Gordon", "time": "000:11:00"}
+{"tokens": ["Pete Conrad reports the yaw program is in.", "Tower clear."], "speaker": "Public Affairs Office", "time": "000:12:00"}
+{"tokens": ["Roger, Pete."], "speaker": "Carr", "time": "000:13:00"}
+{"tokens": ["It's a lovely lift-off.", "It's not bad at all.", "[Pause.]"], "speaker": "Conrad", "time": "000:14:00"}
+{"tokens": ["Everything's looking great.", "Sky's getting lighter."], "speaker": "Gordon", "time": "000:15:00"}
+{"tokens": ["Thirty seconds."], "speaker": "Bean", "time": "000:16:00"}
+{"tokens": ["Roll's complete."], "speaker": "Conrad", "time": "000:17:00"}
+{"tokens": ["Roger, Pete.", "[Pause.]"], "speaker": "Carr", "time": "000:18:00"}
+{"tokens": ["Huh?"], "speaker": "Conrad", "time": "000:19:00"}
