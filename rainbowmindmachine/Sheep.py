@@ -3,7 +3,7 @@ import twitter
 import time
 import simplejson as json
 import datetime
-import logging
+import Lumberjack
 import traceback
 from collections import deque
 import base64
@@ -26,7 +26,7 @@ class Sheep(object):
     * Outer loop - populate tweet queue 
     * Inner loop - tweet from tweet queue
     """
-    def __init__(self,json_file):
+    def __init__(self,json_file,**kwargs):
         """
         A Sheep object manages information for a single Twitter account.
 
@@ -34,6 +34,9 @@ class Sheep(object):
         and is contained in a json file (passed into the constructor).
 
         This info is used to create a Twitter API instance.
+
+        **kwargs should include any information or parameters
+        that are unique to the Sheep and that it should remember.
         """
         # This is where we should initialize the Twitter API instance 
         # using params found in the json file.
@@ -41,6 +44,8 @@ class Sheep(object):
             self.params = json.load(f)
 
         self.twitter_api_init()
+
+        self.params = kwargs
 
 
 
