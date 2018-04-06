@@ -13,7 +13,7 @@ as .yaml files, in addition to json, etc.
 A little too fancy for our purposes.
 """
 
-class Lumberjack (object):
+class Lumberjack(object):
 
     def __init__(self, 
                  flock_name = 'Anonymous Flock of Cowards',
