@@ -111,7 +111,7 @@ class Keymaker(object):
             count = 0
             while not (seven_digit_number.match(oauth_verifier) or oauth_verifier == 'n'):
                 if count > 0:
-                    print("PIN must be a 7-digit number. Enter 'n' to skip.")
+                    print("PIN must be a 7-digit number. Enter 'n' to skip or 'r' to renew the link.")
                 oauth_verifier = input('What is the PIN? ')
                 count += 1
 
@@ -119,6 +119,11 @@ class Keymaker(object):
 
                 # party pooper
                 return {}
+
+            elif oauth_verifier == 'r':
+
+                # go through the oauth dance again
+                self.make_a_key(item)
             
             else:
 
