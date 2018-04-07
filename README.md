@@ -134,3 +134,23 @@ The basic steps are as follows:
 * Run the container pod interactively once with `docker-compose run <name-of-service>`
 * Run the container pod in detached mode with `docker-compose up -d`
 
+### Keeping Image Small
+
+The official Python Docker images are huge: 
+the absolute smallest image is 200 MB, and 
+a full python 3 container using debian takes
+nearly 1 GB. 
+
+To reduce the size of these images, you can use 
+a couple of strategies.
+
+* Use alpine for the "real deal" - it is designed to be minimal 
+    but requires bundling any "extras" into the container
+
+* Use an image designed to be small
+    * [jfloff/alpine-python](https://github.com/jfloff/alpine-python)
+
+* Maintain logical separation 
+    * one container per flock
+    * one pod per server
+
