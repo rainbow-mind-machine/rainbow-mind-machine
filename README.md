@@ -119,6 +119,18 @@ sh.perform_action('change color','#CFC')
 sh.perform_pool_action('tweet')
 ```
 
+## Using Rainbow Mind Machine with Docker Compose
 
+For an example bot using rainbow mind machine in a docker container, see:
 
+* [b-apollo](https://git.charlesreid1.com/bots/b-apollo)
+* [b-ginsberg](https://git.charlesreid1.com/bots/b-ginsberg)
+* [b-milton](https://git.charlesreid1.com/bots/b-milton)
+
+The basic steps are as follows:
+
+* Create a Twitter application
+* Create a rainbow mind machine bot application
+* Run the container pod interactively once with `docker-compose run <name-of-service>`
+* Run the container pod in detached mode with `docker-compose up -d`
 
