@@ -1,0 +1,14 @@
+site_name: rainbow mind machine
+docs_dir: docs
+site_dir: site
+extra_css:
+  - css/bootstrap.css
+  - css/custom.css
+theme: 
+  name: null
+  custom_dir: 'docs/stupid'
+pages:
+  - 'Home':         'index.md'
+  - 'Installing':   'installing.md'
+  - 'Quick Start':  'quickstart.md'
+  - 'Docker':       'docker.md'
