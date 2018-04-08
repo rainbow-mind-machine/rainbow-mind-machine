@@ -3,15 +3,46 @@ import logging
 """
 Lumberjack is the logger.
 
-advanced configuration with logging:
+Advanced configuration with logging:
 
     https://docs.python.org/3/library/logging.config.html#logging-config-api
 
-can package up configuration dictionaries
+can package up logging configuration dictionaries
 as .yaml files, in addition to json, etc.
 
-A little too fancy for our purposes.
+But that's a little too fancy for our purposes.
 """
+
+LOGO = r'''
+ ____    ____  ____  ____   ____    ___   __    __ 
+|    \  /    ||    ||    \ |    \  /   \ |  |__|  |
+|  D  )|  o  | |  | |  _  ||  o  )|     ||  |  |  |
+|    / |     | |  | |  |  ||     ||  O  ||  |  |  |
+|    \ |  _  | |  | |  |  ||  O  ||     ||  `  '  |
+|  .  \|  |  | |  | |  |  ||     ||     | \      / 
+|__|\_||__|__||____||__|__||_____| \___/   \_/\_/  
+                                                   
+         ___ ___  ____  ____   ___                 
+        |   |   ||    ||    \ |   \                
+        | _   _ | |  | |  _  ||    \               
+        |  \_/  | |  | |  |  ||  D  |              
+        |   |   | |  | |  |  ||     |              
+        |   |   | |  | |  |  ||     |              
+        |___|___||____||__|__||_____|              
+                                                   
+ ___ ___   ____    __  __ __  ____  ____     ___   
+|   |   | /    |  /  ]|  |  ||    ||    \   /  _]
+| _   _ ||  o  | /  / |  |  | |  | |  _  | /  [_   
+|  \_/  ||     |/  /  |  _  | |  | |  |  ||    _]
+|   |   ||  _  /   \_ |  |  | |  | |  |  ||   [_
+|   |   ||  |  \     ||  |  | |  | |  |  ||     |
+|___|___||__|__|\____||__|__||____||__|__||_____|
+
+
+                        Hello, darling,
+                            I'm the lumberjack logger.
+
+'''
 
 class Lumberjack(object):
 
@@ -47,19 +78,7 @@ class Lumberjack(object):
         console.setLevel(logging.INFO)
         logging.getLogger('').addHandler(console)
 
-        logo = r'''
-  _                 _               _            _
- | |               | |             (_)          | |
- | |_   _ _ __ ___ | |__   ___ _ __ _  __ _  ___| | __
- | | | | | '_ ` _ \| '_ \ / _ \ '__| |/ _` |/ __| |/ /
- | | |_| | | | | | | |_) |  __/ |  | | (_| | (__|   <
- |_|\__,_|_| |_| |_|_.__/ \___|_|  | |\__,_|\___|_|\_\
-                                  _/ |
-                                 |__/
-
-                        Hello, darling.
-                            I'm the lumberjack logger.
-'''
+        logo = LOGO
         logging.info(logo)
 
 
