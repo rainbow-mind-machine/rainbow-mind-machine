@@ -2,6 +2,7 @@ from setuptools import setup
 
 # see http://python-packaging.readthedocs.io/en/latest/minimal.html
 # and https://packaging.python.org/guides/migrating-to-pypi-org/#uploading
+# and https://gist.github.com/gboeing/dcfaf5e13fad16fc500717a3a324ec17
 # 
 #   $ python setup.py register
 #   $ python setup.py sdist
