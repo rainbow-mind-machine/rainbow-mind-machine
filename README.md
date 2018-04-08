@@ -20,8 +20,7 @@ or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.
 
 
-
-## Installing
+## Installing rainbow mind machine
 
 To install rainbow mind machine manually, use the 
 normal `setup.py` procedure:
@@ -40,7 +39,7 @@ pip install rainbowmindmachine
 ```
 
 
-## What You Will Need
+## What You Will Need to Run a Bot Flock
 
 You will need a few things before you can start using rainbow mind machine.
 
@@ -61,6 +60,18 @@ or it may be a complicated one
 query a database, call an API, etc.).
 
 See [`example_flocks/`](/example_flocks).
+
+### Bot Flock Accounts
+
+This tool handles everything _but_ the creation 
+of the bot accounts. 
+
+You _must_ have a Twitter account for each bot 
+already created.
+
+No customization of the account is needed - 
+rainbow mind machine can take care of setting
+profile, profile color, bio, and avatar information.
 
 ### A Twitter App
 
@@ -248,7 +259,6 @@ The basic steps are as follows:
 
 
 ## Other Concerns
-
 
 ### Controlling the Docker Image Size
 
