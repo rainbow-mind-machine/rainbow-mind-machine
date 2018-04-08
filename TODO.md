@@ -1,15 +1,18 @@
 # TODO
 
-documentation:
+<s>upgrade to python 3:
 - go through and improve/modernize everything
 - print statements
+- etc.</s>
+
+documentation:
 - add docstrings
-- etc.
 
 Keymaker:
 - make this into a command line program
 - keymaker: files-based keymaker, and items-based keymaker
-- logging: ???
+- logging: lumberjack logger
+- how to set log file?
 - split key generation/authentication step and tweet/action step
 - expand and document the actions better
 - when it looks for where to put the keys:
@@ -74,14 +77,7 @@ infrastructure:
     - autorelease to pypi
     - command line interface with click
 
-
-
-
-
-
-
-
-
-
-
+prepare for pypi release:
+- tests without credentials
+- tests with credentials
 
