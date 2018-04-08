@@ -45,6 +45,59 @@ class Keymaker(object):
 
 
 
+    def make_a_key(self, item, keys_out_dir='keys/'):
+        """
+        Make a single key.
+
+        If you make bots one item at a time, 
+        you are bypassing the normal method of 
+        creating multiple bots at a time (bot flock).
+
+        This requires you to specify an item,
+        which is a dictionary containing a name for the bot
+        and a location for a key file to be created.
+
+        The item dict must contain the keys 'name' and 'json'.
+
+        The key 'name' gives the bot a label.
+
+        The key 'json' indicates the json file where the key is stored. (ALL PATHS ARE IGNORED.)
+        """
+        if('name' not in item.keys() or 'json' not in item.keys()):
+            raise Exception("Error: to use make_a_key, you must specify 'name' and 'json' keys in your input.")
+
+
+        # Step 1:
+        # Get a private key to tweet as this user,
+        # and bundle it up with other bot parameters.
+
+        d = self._make_a_key(item['name'])
+
+        # Store the user's parameter dictionary 
+        # together with the Twitter API key
+        for key in item.keys():
+            d[key] = item[key]
+
+
+        # Step 2:
+        # Export the bot data bundle to a json file
+        # in the keys directory.
+        # Ignore any prefix the user provides 
+        # and just grab the basename of the json file.
+
+        # Make a key dir
+        subprocess.call(["mkdir","-p",keys_out_dir])
+
+        keys_file = os.path.basename(item['json'])
+        keys_out = os.path.join(keys_out_dir,keys_file)
+
+        with open(keys_out,'w') as outfile:
+            json.dump(d,outfile)
+
+        print("Successfully exported a key bundle for item %s to JSON file %s"%(item['name'],keys_out))
+
+
+
 
     def _make_a_key(self,item):
         """
@@ -154,45 +207,6 @@ class Keymaker(object):
 
                 return d
 
-
-
-
-    def make_a_key(self,item):
-        """
-        Make a single key.
-
-        If you make bots one item at a time, 
-        you are bypassing the normal method of 
-        creating multiple bots at a time (bot flock).
-
-        This requires you to specify an item,
-        which is a dictionary containing a name for the bot
-        and a location for a key file to be created.
-
-        The item dict must contain the keys 'name' and 'json'.
-
-        The key 'name' gives the bot a label.
-
-        The key 'json' indicates the json file where the final key should go.
-        """
-        if('name' not in item.keys() or 'json' not in item.keys()):
-            raise Exception("Error: to use make_a_key, you must specify 'name' and 'json' keys in your input.")
-
-        # TODO:
-        # check if these files exist
-
-        d = self._make_a_key(item['name'])
-
-        # store the user's parameter dictionary 
-        # together with the Twitter API key
-        for key in item.keys():
-            d[key] = item[key]
-
-        keys_file = item['json']
-        with open(keys_file,'w') as outfile:
-            json.dump(d,outfile)
-
-        print("Successfully exported a key bundle for item %s to JSON file %s"%(item['name'],item['json']))
 
 
 
