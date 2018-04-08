@@ -1,6 +1,7 @@
 import twitter
 import logging
 import glob
+import os
 import time
 from datetime import datetime
 from .Sheep import Sheep
@@ -21,6 +22,10 @@ class PhotoADaySheep(Sheep):
 
         images_dir: directory containing images
 
+        images_template: string template of image names, 
+                letting {i} represent zero-filled integer
+                day of the year (1 to 366). 
+                Example: puppies_{i}.jpg
 
     Collective actions:
     
@@ -46,18 +51,25 @@ class PhotoADaySheep(Sheep):
         """
         Load parameters and prepare the tweet queue.
 
-        This is actually just a list of image files, indexed by 
-        the day of the year that they should be tweeted out.
+        This is essentially the heart of the custom
+        bot behavior. We have chosen to have the 
+        photo a day bot tweet one image per day,
+        with the name of each image being an integer
+        corresponding to the day of the year.
+        Use images_template and replace zero-filled 
+        integer day of the year with {i}:
 
-        This method is only called by the public tweet() method.
+            { 
+                "images_dir" : "puppy_images",
+                "images_template" : "puppies_{i}.jpg"
+            }
+
+        This method is only called by the public 
+        tweet() method.
         """
-        # The format of this file can be whatever we'd like.
-        # 
-        # Opening a json file with contents like 
-        #   { "1" : "001.png",
-        # seems wasteful.
-        # Cut to the chase with glob.
-        return glob.glob(params['images_dir']+"/*.jpg")
+        img_name = params['images_template'].format(i="%03d"%(i))
+        img_glob = os.path.join(params['images_dir'], img_name)
+        return glob.glob(img_glob)
 
 
     def photo_a_day(self,params):
@@ -104,8 +116,9 @@ class PhotoADaySheep(Sheep):
                 now = datetime.now()
                 yy, mm, dd, hh, mm = (now.year, now.month, now.day, now.hour, now.minute)
 
-                # offset for server +8 london time
-                offset = 8
+                # offset for server 
+                # +8 london time, +0 if time fixed
+                offset = 0
 
                 if( abs(dd-prior_dd)>0 and hh>(8 + offset)):
 
