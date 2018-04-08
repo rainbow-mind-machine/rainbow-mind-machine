@@ -15,4 +15,4 @@
 # Eventually, rmm will be on pypi,
 # and this Dockerfile will be in dockerhub.
 
-docker build -t rmm_base .
+docker build --no-cache -t rmm_base .
