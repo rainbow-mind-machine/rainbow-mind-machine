@@ -1,19 +1,24 @@
 # TODO
 
+## do it, do it now
+
 <s>upgrade to python 3:
 - go through and improve/modernize everything
 - print statements
 - etc.</s>
 
+docstrings:
+- <s>Keymaker docstrings</s>
+- Shepherd docstrings
+- Sheep docstrings
+
 documentation:
-- add docstrings
+- sphinx/mkdocs
 
 Keymaker:
-- make this into a command line program
 - keymaker: files-based keymaker, and items-based keymaker
 - logging: lumberjack logger
-- how to set log file?
-- split key generation/authentication step and tweet/action step
+- how to set log file? use `log_file`, just like `flock_name`
 - expand and document the actions better
 - when it looks for where to put the keys:
     - we run an open() on the filename the user passes
@@ -23,23 +28,24 @@ Keymaker:
     - fix this!!!
 
 sheep:
-- use the dispatch design pattern 
+- <s>use the dispatch design pattern</s>
 - what does a sheep do by default?
-    - tweet calls _tweet(twit)
-    - twit comes from populate_queue()
-    - populate_queue() by default creates five hello world messages
+    - tweet calls `_tweet(twit)`
+    - twit comes from `populate_queue()`
+    - `populate_queue()` by default creates five hello world messages
+    - let the user know, this is the method to override
 - address the question: what methods does the user need to override?
     - do they override tweet()?
-    - do they override populate_queue()?
+    - do they override `populate_queue()`?
     - can they just set parameters?
     - can they write a custom routine that takes new parameters?
 - what actions are defined?
 - can bots upload multimedia?
-- what actions are not implemented (add to the todo)
+- add new actions 
 
 sheep actions:
-- follow someone 
-- unfollow someone 
+- <s>follow someone 
+- unfollow someone</s>
 - everyone tweet at someone 
 - important: we are NOT trying to cover every possible base
 - NOT just showing how to use existing objects
@@ -52,10 +58,17 @@ examples/tests:
 - what is a "flickr bot"?
 - how can we best describe the pattern of associating a file with a bot?
 
+docker:
+- add dockerfile
+- create dockerfile base image
+- use rmm dockerfile in other builds
+
 infrastructure:
 - mkdocs for documentation
-- dockerfile
-- python package index
+
+## do it later
+
+pypi:
 - travis/circleci/tox?
 - how to get credentials into containers, in secret?
 - [my pypi checklist](https://gist.github.com/audreyr/5990987)
@@ -81,3 +94,8 @@ prepare for pypi release:
 - tests without credentials
 - tests with credentials
 
+
+## not gonna do it
+
+Keymaker:
+- make this into a command line program?
