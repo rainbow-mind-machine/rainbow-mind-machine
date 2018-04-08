@@ -2,18 +2,29 @@
 
 An extendable framework for running Twitter bot flocks in Python.
 
-Quick start:
-* Install the program
-* Decide what kind of items you want to use to itemize the bots:
-    * Option 1: create one bot per item in a list (e.g., list of strings in Python)
-    * Option 2: create one bot per file in a folder (e.g., text files containing poems)
-* Define a tweet action for a given bot, optionally using its corresponding item
-* (Once per account) Run the KeyMaker to create keys and authenticate your bot with a Twitter account
-* Run the bot Shepherd to herd the bot Sheep and perform group actions
+rainbow mind machine helps with managing multiple twitter bots (bot flocks).
+It uses a Keymaker object to do the one-time authentication step with Twitter,
+and uses a Shepherd-Sheep model to run the flock.
 
-See the `examples/` directory for some example flocks.
+rainbow mind machine is a **framework** because it provides components (Keymaker, Shepherd, and Sheep)
+with specific roles and ways of interactig.
 
-## Install
+rainbow mind machine is **extendable** to keep bots from becoming boring. 
+There are a limited number of components to extend (2), 
+these two components have a simple and clear function call order,
+and rainbow mind machine tries to use sensible defaults.
+
+That means we start out with bots that "just work" 
+and we can incrementally improve, extend, override,
+or redefine behaviors to make them increasingly complex,
+while still abstracting away messy details.
+
+
+
+## Installing
+
+To install rainbow mind machine manually, use the 
+normal `setup.py` procedure:
 
 ```
 git clone https://github.com/charlesreid1/rainbow-mind-machine.git
@@ -22,16 +33,52 @@ python setup.py build
 python setup.py install
 ```
 
-## Credentials
+To install rainbow mind machine with pip:
 
-Start by creating a Twitter application. 
+```
+pip install rainbowmindmachine
+```
 
-This will register your rainbow mind machine bot flock application
-with Twitter, and give you credentials to connect to Twitter's API.
 
-One Twitter application can tweet on behalf of an arbitrary number of accounts,
-so you only need one Twitter application per bot flock (or, really,
-one per "bot maker").
+## What You Will Need
+
+You will need a few things before you can start using rainbow mind machine.
+
+### A Bot Idea
+
+You will need to decide on the behaviors
+you want the bot to have, so you know how to 
+structure the bot repo, what data to include,
+and how to extend Sheep and Shepherd.
+
+You will be defining how the Sheep 
+(one sheep = one bot)
+will populate their tweet queues.
+This may be a simple action (get an item 
+from a list owned by the Sheep), 
+or it may be a complicated one
+(make a URL request to get live data,
+query a database, call an API, etc.).
+
+See [`example_flocks/`](/example_flocks).
+
+### A Twitter App
+
+You also need to create a Twitter application.
+You can use one application across all of your 
+bot flocks - there is no limit on the number of 
+accounts a single application can control.
+
+It is recommended you create this app using a 
+"bot master" account, and not using the bot 
+accounts themselves.
+
+This will register your rainbow mind machine bot flock 
+application with Twitter, and give you credentials 
+(a "consumer token" and a "consumer secret token" )
+that will allow you to connect to Twitter's API
+as the rainbow mind machine application that you are 
+about to build.
 
 When you register your application Twitter will give you a consumer key 
 and a consumer secret. Assign these values to the variables `consumer_key`
@@ -44,26 +91,38 @@ consumer_secret = '123456'
 
 See the `apikeys.example.py` file.
 
-## Quick Start 
+
+## Quick Start
 
 Let's walk through a quick example to illustrate
 how this works.
 
-### Creating and Authenticating Bot Accounts
+Remember, we only have 3 objects we need to understand:
 
-The first step we take is to run the Keymaker.
+* The Keymaker (makes/manages keys and authenticates with Twitter)
+* The Shepherd (one shepherd = one bot flock, runs the flock)
+* The Sheep (one sheep = one bot, defines bot behavior)
+
+### Keymaker: Authentication Step
+
+The first step in rainbow mind machine is to run the Keymaker
+to give the application permission to tweet on behalf of 
+each of our bot users. This generates keys that the 
+rainbow mind machine application requires be present 
+to tweet as the bot flock.
 
 The Keymaker takes a set of items, and creates
-one key for each item.
+one key for each item. 
+
+A set of items might be 
+a Python list with integers, or a folder full of 
+text files, or a set of URLs, or just plain old 
+string labels.
 
 The keys are what allow our application to tweet 
 using a bot account. 
 
-The items are arbitrary - they may be a list of 
-strings or Python objects, or they might be a 
-directory of text files or json files.
-
-We call `make_key` on each item to create each key.
+We call `make_a_key()` on each item to create each key.
 
 The keymaker _requires_ that we specify
 a `name` parameter to name the bot and a `json` parameter
@@ -119,7 +178,60 @@ sh.perform_action('change color','#CFC')
 sh.perform_pool_action('tweet')
 ```
 
-## Using Rainbow Mind Machine with Docker Compose
+Now you can run this in screen or as a background process,
+and it will sequentially change each bot's 
+Twitter page color, and will then spin up
+one thread per sheep.
+
+
+## More Examples
+
+### Example: Ginsberg Bot Flock
+
+Simple example, mutliple bots tweeting one line at a time,
+one bot per file, associated with file
+
+See [`example_flocks/ginsberg_botflock`](/example_flocks/ginsberg_botflock/)
+and [b-ginsberg on git.charlesreid1.com](https://git.charlesreid1.com/bots/b-ginsberg).
+
+
+### Example: Apollo Space Junk Bot Flock
+
+Scheduling example, randomness and inner/outer loop,
+one bot per file, associated with file,
+generating dialogue from the file
+
+See [`example_flocks/apollo_botflock`](/example_flocks/apollo_botflock/)
+and [b-apollo on git.charlesreid1.com](https://git.charlesreid1.com/bots/b-apollo).
+
+
+### Example: Mathematics Tripos Bot
+
+Basically a photo-a-day bot, this bot posts a daily
+mathematics tripos question (written in latex, converted to 
+png format).
+
+See [b-tripos on git.charlesreid1.com](git.charlesreid1.com/bots/b-tripos).
+
+
+
+
+## Docker
+
+To use rainbow mind machine from a docker container,
+use the `Dockerfile` contained in this repository.
+
+### Standalone Docker Container
+
+You can use the `make_rmm_container.sh` script to build
+the container (called `rmm_base`), or you can get the 
+container image from dockerhub:
+
+```
+docker pull charlesreid1/rainbowmindmachine
+```
+
+### Docker Compose
 
 For an example bot using rainbow mind machine in a docker container, see:
 
@@ -134,7 +246,11 @@ The basic steps are as follows:
 * Run the container pod interactively once with `docker-compose run <name-of-service>`
 * Run the container pod in detached mode with `docker-compose up -d`
 
-### Keeping Image Small
+
+## Other Concerns
+
+
+### Controlling the Docker Image Size
 
 The official Python Docker images are huge: 
 the absolute smallest image is 200 MB, and 
