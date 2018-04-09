@@ -26,7 +26,7 @@ up and running with rainbow mind machine.
 
 You will need to decide on the behaviors
 you want the bot to have, so you know how to 
-structure the bot repo, what data to include,
+structure the bot repository, what data to include,
 and how to extend Sheep and Shepherd.
 
 You will be defining how the Sheep 

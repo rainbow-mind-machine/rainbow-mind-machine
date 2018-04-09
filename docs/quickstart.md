@@ -30,7 +30,7 @@ using a bot account.
 
 We call `make_a_key()` on each item to create each key.
 
-The keymaker _requires_ that we specify
+The Keymaker _requires_ that we specify
 a `name` parameter to name the bot and a `json` parameter
 to specify the location of the key.
 

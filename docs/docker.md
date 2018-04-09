@@ -10,7 +10,7 @@ file in this directory.
 ## Building Standalone Docker Container
 
 You can use the `make_rmm_container.sh` script to build
-the base rainbow mind machien container 
+the base rainbow mind machine container 
 (called `rmm_base`): 
 
 
