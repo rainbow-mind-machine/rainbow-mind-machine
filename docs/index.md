@@ -1,4 +1,4 @@
-# rainbow-mind-machine
+# Welcome to rainbow mind machine
 
 **rainbow mind machine** is an extendable framework for running Twitter bot flocks in Python.
 
@@ -19,21 +19,17 @@ and we can incrementally improve, extend, override,
 or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.
 
-[rainbow mind machine on pypi](https://pypi.python.org/pypi/rainbowmindmachine/0.4)
-
-[rainbow mind machine on dockerhub](https://hub.docker.com/r/charlesreid1/rainbowmindmachine/)
-
 ## Installing rainbow mind machine
 
-See [INSTALLING](/docs/installing.md) for installation instructions.
+See [installing](installing.md) for installation instructions.
 
 ## Quick Start
 
-See [QUICKSTART](/docs/quickstart.md) for a quick guide to 
+See [quickstart](quickstart.md) for a quick guide to 
 getting a bot up and running, and a few bot flock examples.
 
 ## Docker
 
-See [DOCKER](/docs/docker.md) for more information about
+See [docker](docker.md) for more information about
 using rainbow mind machine in a docker container.
 

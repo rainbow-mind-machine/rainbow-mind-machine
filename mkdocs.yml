@@ -6,7 +6,7 @@ extra_css:
   - css/custom.css
 theme: 
   name: null
-  custom_dir: 'docs/stupid'
+  custom_dir: 'docs/mkdocs-alabaster/mkdocs_alabaster'
 pages:
   - 'Home':         'index.md'
   - 'Installing':   'installing.md'

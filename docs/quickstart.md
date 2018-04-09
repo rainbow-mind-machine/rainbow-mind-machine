@@ -9,7 +9,7 @@ Remember, we only have 3 objects we need to understand:
 * The Shepherd (one shepherd = one bot flock, runs the flock)
 * The Sheep (one sheep = one bot, defines bot behavior)
 
-## Keymaker: Authentication Step
+# Keymaker: Authentication Step
 
 The first step in rainbow mind machine is to run the Keymaker
 to give the application permission to tweet on behalf of 
@@ -65,7 +65,7 @@ When this script is run, the Keymaker will
 go through a series of interactive steps 
 to create keys from each item.
 
-## Running the Bot Flock
+# Running the Bot Flock
 
 Once that is done, make a Shepherd for the bot flock,
 and point it to the keys the Keymaker created 
@@ -89,7 +89,7 @@ and it will sequentially change each bot's
 Twitter page color, and will then spin up
 one thread per sheep.
 
-## Customizing Sheep
+# Customizing Sheep
 
 We didn't specify what kind of Sheep we want 
 the Shepherd to create, so the Shepherd uses
@@ -128,9 +128,9 @@ sh.perform_action('change color','#CFC')
 sh.perform_pool_action('tweet')
 ```
 
-## More Examples
+# More Examples
 
-### Example: Ginsberg Bot Flock
+## Example: Ginsberg Bot Flock
 
 The Ginsberg bot flock is a simple example of 
 a flock running multiple `PoemSheep`, with 
@@ -140,7 +140,7 @@ and tweeting the poem one line at a time.
 See [`example_flocks/ginsberg_botflock`](/example_flocks/ginsberg_botflock/)
 and [b-ginsberg on git.charlesreid1.com](https://git.charlesreid1.com/bots/b-ginsberg).
 
-### Example: Apollo Space Junk Bot Flock
+## Example: Apollo Space Junk Bot Flock
 
 The Apollo Space Junk Bot Flock uses queneau generation
 to create fake Apollo space mission radio chatter.
@@ -149,7 +149,7 @@ This bot flock runs multiple `QueneauSheep`.
 See [`example_flocks/apollo_botflock`](/example_flocks/apollo_botflock/)
 and [b-apollo on git.charlesreid1.com](https://git.charlesreid1.com/bots/b-apollo).
 
-### Example: Mathematics Tripos Bot
+## Example: Mathematics Tripos Bot
 
 The Math Tripos bot is basically a flock with a single photo-a-day bot.
 It demonstrates how to create a bot flock with one single bot.

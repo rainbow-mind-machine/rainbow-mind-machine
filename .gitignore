@@ -1,4 +1,10 @@
+# ignore built documentation
+site/
+
+# ignore secret twitter app keys
 apikeys.py
+
+# ignore secret bot keys
 *.json
 
 # Byte-compiled / optimized / DLL files

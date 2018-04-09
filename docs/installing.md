@@ -1,6 +1,5 @@
 # Installing rainbow mind machine
 
-
 To install rainbow mind machine manually, use the 
 normal `setup.py` procedure:
 
@@ -18,11 +17,12 @@ pip install rainbowmindmachine
 ```
 
 
-## What You Will Need to Run a Bot Flock
+# What You Need to Run a Bot Flock
 
-You will need a few things before you can start using rainbow mind machine.
+You will need a few additional things before you can get a bot flock
+up and running with rainbow mind machine.
 
-### A Bot Idea
+## A Bot Idea
 
 You will need to decide on the behaviors
 you want the bot to have, so you know how to 
@@ -40,19 +40,31 @@ query a database, call an API, etc.).
 
 See [`example_flocks/`](/example_flocks).
 
-### Bot Flock Accounts
+## Bot Master Account
 
-This tool handles everything _but_ the creation 
-of the bot accounts. 
+It's good practice to create the Twitter application 
+you'll be using to run your bot flock under a bot master account.
 
-You _must_ have a Twitter account for each bot 
-already created.
+Like your Twitter application, the bot master account 
+can be used to run as many bot flocks as you would like,
+so you don't need to make it flock-specific.
 
-No customization of the account is needed - 
+This account is also (obviously) not itself a bot,
+so you can use your personal twitter account 
+as the bot master account.
+
+## Bot Accounts
+
+This tool handles everything _but_ the creation of bot accounts. 
+
+You _must_ have a Twitter account for each bot already created.
+
+No customization of the bot accounts is needed 
+prior to using rainbow mind machine - 
 rainbow mind machine can take care of setting
 profile, profile color, bio, and avatar information.
 
-### A Twitter App
+## A Twitter App
 
 You also need to create a Twitter application.
 You can use one application across all of your 
@@ -80,5 +92,4 @@ consumer_secret = '123456'
 ```
 
 See the `apikeys.example.py` file.
-
 
