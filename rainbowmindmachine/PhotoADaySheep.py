@@ -40,7 +40,7 @@ class PhotoADaySheep(Sheep):
 
             photo_a_day: tweet an image a day
         """
-        rmm.Sheep.perform_action(self,action,params)
+        Sheep.perform_action(self,action,params)
 
         if action=='photo_a_day':
             self.photo_a_day(params)
