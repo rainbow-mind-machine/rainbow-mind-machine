@@ -14,16 +14,10 @@ import base64
 
 class Sheep(object):
     """
-    App object (dict) to manage app info
-    Account object (dict) to manage account info
-
-    The bot performs two kinds of actions:
-    1. Tweeting (real or fake)
-    2. Non-tweeting
-
-    Bot tweeting is a multi-layered action:
-    * Outer loop - populate tweet queue 
-    * Inner loop - tweet from tweet queue
+    - json file is stored as self.params and contains everything the sheep needs
+    - by default, bot tweeting is two-layered:
+        - outer loop populates tweet queue
+        - inner loop tweets from the tweet queue
     """
     def __init__(self, json_file, lumberjack, **kwargs):
         """
@@ -54,7 +48,7 @@ class Sheep(object):
 
     def twitter_api_init(self):
         """
-        This uses Json file (loaded into self.params)
+        This uses json input file (loaded into self.params)
         to construct a Twitter API instance.
         
         This is what the bot uses to tweet, 
