@@ -16,7 +16,9 @@ alive = r'''
 '''
 
 class Shepherd(object):
-
+    """
+    Spin up the Sheep and let them roam free
+    """
     def __init__(self, 
                  json_key_dir, 
                  sheep_class=Sheep, 
