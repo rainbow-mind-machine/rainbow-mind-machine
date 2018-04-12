@@ -4,8 +4,9 @@ from setuptools import setup
 # and https://packaging.python.org/guides/migrating-to-pypi-org/#uploading
 # and https://gist.github.com/gboeing/dcfaf5e13fad16fc500717a3a324ec17
 # 
+# one time:
+# 
 #   $ python setup.py register
-#   $ python setup.py sdist
 # 
 # add following to ~/.pypirc:
 # 
@@ -17,6 +18,12 @@ from setuptools import setup
 # username:charlesreid1
 # password:YOURPASSWORDHERE
 #
+# make distribution package bundle:
+# 
+#   $ python setup.py sdist
+#
+# upload it to pypi:
+# 
 #   $ python setup.py sdist upload
 #
 # test it out with virtualenv:
@@ -27,7 +34,7 @@ from setuptools import setup
 
 
 setup(name='rainbowmindmachine',
-      version='0.5.1',
+      version='0.5.2',
       description='An extendable framework for running Twitter bot flocks.',
       url='http://charlesreid1.github.io/rainbow-mind-machine',
       author='charlesreid1',
