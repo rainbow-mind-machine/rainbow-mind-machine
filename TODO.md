@@ -9,11 +9,11 @@
 
 docstrings:
 - <s>Keymaker docstrings</s>
-- Shepherd docstrings
-- Sheep docstrings
+- <s>Shepherd docstrings</s>
+- <s>Sheep docstrings</s>
 
 documentation:
-- sphinx/mkdocs
+- <s>mkdocs</s>
 
 Keymaker:
 - keymaker: files-based keymaker, and items-based keymaker

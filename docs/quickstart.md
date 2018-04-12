@@ -106,7 +106,7 @@ For example,
 to define a new `populate_queue()` 
 behavior:
 
-```
+```python
 import rmm 
 
 class CustomSheep(rmm.Sheep):
