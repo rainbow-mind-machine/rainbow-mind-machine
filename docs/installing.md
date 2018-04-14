@@ -16,6 +16,11 @@ To install rainbow mind machine with pip:
 pip install rainbowmindmachine
 ```
 
+## Required Packages
+
+If you need a list of required packages, see `requirements.txt`.
+These packages will be installed using either of the above 
+installation methods.
 
 # What You Need to Run a Bot Flock
 
