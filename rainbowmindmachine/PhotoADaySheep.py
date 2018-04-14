@@ -1,8 +1,6 @@
 import twitter
 import logging
-import glob
-import os
-import time
+import os, glob, time
 from datetime import datetime
 from .Sheep import Sheep
 
@@ -34,65 +32,135 @@ class PhotoADaySheep(Sheep):
     def perform_action(self,action,params):
         """
         Performs action indicated by string (action),
-        passing a dictionary of parameters (params)
+        passing a dictionary of parameters (params).
 
-        Actions:
+        The user should not call tweet() directly
+        for the PhotoADaySheep, they should call
+        photo_a_day() instead.
 
-            photo_a_day: tweet an image a day
+        Available (additional) actions:
+        - photo_a_day
         """
-        Sheep.perform_action(self,action,params)
+        if(action=='tweet'):
+            err = "Error: Do not call the 'tweet' action on "
+            err += "PhotoADaySheep directly. Call the 'photo_a_day' "
+            err += "action instead."
+            self.lumberjack.log(err)
+            raise Exception(err)
 
-        if action=='photo_a_day':
-            self.photo_a_day(params)
+        # We presume calling perform_action(), the dispatcher method
+        # in the parent class, will also pick up methods defined in the
+        # child class. We should verify this first, though.
+        #Sheep.perform_action(self,action,params)
+
+        # In meantime, hard code:
+        # Use the dispatcher method pattern
+        if hasattr( self, action ):
+            method = getattr( self, action )
+            method( params )
 
 
-
-    def populate_queue(self,params):
+    def populate_queue(self, params):
         """
-        Load parameters and prepare the tweet queue.
+        PhotoADaySheep works slightly differently,
+        since it is a multimedia Sheep.
 
-        This is essentially the heart of the custom
-        bot behavior. We have chosen to have the 
-        photo a day bot tweet one image per day,
-        with the name of each image being an integer
-        corresponding to the day of the year.
-        Use images_template and replace zero-filled 
-        integer day of the year with {i}:
+        The populate queue method does not return a list 
+        of tweets, it returns a list of image files.
+
+        The photo_a_day() method uploads the image, attaches 
+        a message (same each time), and sends off the tweet.
+
+        Parameters:
+        -------------
+
+        params contains two keys:
+            
+            images_dir:         directory containing images
+            images_template:    filename pattern, with {i} in place of day of year
+
+        Pass e.g. {i:03} for zero filled integer.
+
+        Example params dictionary:
 
             { 
                 "images_dir" : "puppy_images",
-                "images_template" : "puppies_{i}.jpg"
+                "images_pattern" : "puppies_{i:03}.jpg"
             }
 
-        This method is only called by the public 
-        tweet() method.
+        TODO:
+        ------
+        - may want to improve handling.
+        - philosophy of "keep it simple" is ok for a bot
+        - transform bots into templates
+        - point is not to provide a bunch of templates
+        - point is to arm you with an extensible framework
+        - we implement opinionated decisions
+        - however, we keep it simple and easy to override defaults
+        - if you want text + images, extend it yourself.
+        - there's a bazillion ways to define bot behavior.
+        - we don't want to prescribe any in particular.
+        - templates are *literally*, lemme throw this bot together.
         """
-        img_name = params['images_template'].format(i="%03d"%(i))
-        img_glob = os.path.join(params['images_dir'], img_name)
-        return glob.glob(img_glob)
+        if('images_dir' not in params.keys()):
+            err = "Error: no images directory provided to "
+            err += "PhotoADaySheep via 'images_dir' parameter"
+            self.lumberjack.log(err)
+            raise Exception(err)
+        if('images_pattern' not in params.keys()):
+            err = "Error: no image filename pattern (e.g., \"my_image_{i}.jpg\") "
+            err += "were provided to PhotoADaySheep via 'images_template' parameter"
+            self.lumberjack.log(err)
+            raise Exception(err)
+
+        # This method should load _all_ images,
+        # indexed by day of year.
+        # 
+        # This is kind of stupid, but... sigh...
+
+        image_dir = params['images_dir']
+        image_files = []
+        for i in range(366):
+            params['images_pattern'].format(i=doy)
+
+            # don't bother checking if they exist here
+            filep = os.path.join(image_dir, image_file)
+            image_files.append( filep )
+        
+        return image_files
 
 
     def photo_a_day(self,params):
         """
+        Runs forever.
         Tweets an image a day,
-        at 8 o'clock or so.
+        at 8 o'clock or so,
+        then goes back to sleep.
 
-        Parameters:
+        params dictionary settings:
 
             upload: boolean, upload media or not
 
             publish: boolean, publish or not
+
+            image_dir: directory containing images
+
+            image_pattern: image file pattern - use {i}
 
         """
 
         # --------------------------
         # Process parameters
 
+        # tweet_params contains params for this tweet
+        # it starts as a copy of params (tweet <-- sheep),
+        # but we'll add more stuff as we go.
         tweet_params = params
 
         # Default parameter values
         defaults = {}
         defaults['publish'] = False
+        defaults['upload'] = False
 
         # populate missing params with default values
         for dk in defaults.keys():
@@ -102,17 +170,18 @@ class PhotoADaySheep(Sheep):
 
         # --------------------------
         # Start The Calendar
+        # 
+        # Granted, this is a bit more complicated 
+        # than it could be, but it's relatively simple,
+        # and if it ain't broke, don't fix it.
 
-        remcycle = 5
+        remcycle = 120 # sleep (in seconds)
 
         prior_dd = 0
         while True:
 
             try:
 
-                # Repopulate in case there are changes
-                twit_images = self.populate_queue(tweet_params)
-        
                 now = datetime.now()
                 yy, mm, dd, hh, mm = (now.year, now.month, now.day, now.hour, now.minute)
 
@@ -122,14 +191,17 @@ class PhotoADaySheep(Sheep):
 
                 if( abs(dd-prior_dd)>0 and hh>(8 + offset)):
 
-                    # Index = days since beginning of year
-                    index = (datetime.now() - datetime(yy,1,1,0,0,0)).days
+                    # Index = doy of year
+                    doy = datetime.now().timetuple().tm_yday
+
+                    # Repopulate in case there are changes
+                    twit_images = self.populate_queue(tweet_params)
 
                     # If there is a photo for this date,
-                    if(index < len(twit_images)):
+                    if(doy < len(twit_images)):
 
                         # Get photo for this date
-                        tweet_params['image_file'] = twit_images[index]
+                        tweet_params['image_file'] = twit_images[doy]
 
                         img_info = {}
 
@@ -146,11 +218,17 @@ class PhotoADaySheep(Sheep):
                         else:
                             self._print("Testing image tweet: %s"%(tweet_params['image_file']))
 
+                    else:
+                        err = "Warning: for doy = %d, could not find not find "%(doy)
+                        err += "the corresponding image %s"%( tweet_params['image_pattern'].format(i=doy) )
+                        msg = self.timestamp_message(err)
+                        self.lumberjack.log(msg)
+
                     # Update prior_dd
                     prior_dd = dd
 
                 msg = self.timestamp_message("Sleeping...")
-                logging.info(msg)
+                self.lumberjack.log(msg)
 
                 time.sleep(remcycle)
 
@@ -168,9 +246,9 @@ class PhotoADaySheep(Sheep):
                 raise Exception(err)
 
 
-                logging.info(msg1)
-                logging.info(msg2)
-                logging.info(msg3)
+                self.lumberjack.log(msg1)
+                self.lumberjack.log(msg2)
+                self.lumberjack.log(msg3)
 
                 time.sleep(remcycle)
 
@@ -194,15 +272,14 @@ class PhotoADaySheep(Sheep):
             
             if e.message[0]['code'] == 185:
                 msg = self.timestamp_message("Twitter error: Daily message limit reached")
-                logging.info(msg)
+                self.lumberjack.log(msg)
 
             elif e.message[0]['code'] == 187:
                 msg = self.timestamp_message("Twitter error: Duplicate error")
-                logging.info(msg)
+                self.lumberjack.log(msg)
             
             else:
                 msg = self.timestamp_message("Twitter error: "+e.message)
-                logging.info(msg)
-
+                self.lumberjack.log(msg)
 
 
