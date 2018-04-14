@@ -185,11 +185,11 @@ class PhotoADaySheep(Sheep):
                 now = datetime.now()
                 yy, mm, dd, hh, mm = (now.year, now.month, now.day, now.hour, now.minute)
 
-                # offset for server 
-                # +8 london time, +0 if time fixed
-                offset = 0
+                # the time will always be zulu in a docker container, +8 hr offset
+                offset = 8
 
-                if( abs(dd-prior_dd)>0 and hh>(8 + offset)):
+                hour_to_tweet = 8
+                if( abs(dd-prior_dd)>0 and hh>(hour_to_tweet + offset)):
 
                     # Index = doy of year
                     doy = datetime.now().timetuple().tm_yday
