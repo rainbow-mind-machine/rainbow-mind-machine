@@ -12,7 +12,7 @@ See [TODO.md](/TODO.md).
 
 # [Unreleased]
 
-# [0.6] - 2018-04-12
+# [0.6] - 2018-04-14
 
 ### Added
 - Added a changelog
