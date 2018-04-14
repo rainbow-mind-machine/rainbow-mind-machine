@@ -88,6 +88,7 @@ class Sheep(object):
         - follow_user
         - unfollow_user
         """
+        # Use the dispatcher method pattern
         if hasattr( self, action ):
             method = getattr( self, action )
             method( params )
@@ -154,7 +155,9 @@ class Sheep(object):
         """
         if( 'bio' not in params.keys()):
             # what are you doing??
-            raise Exception("change_bio() action called without 'bio' key specified in the parameters dict.")
+            err = "change_bio() action called without 'bio' key specified in the parameters dict."
+            self.lumberjack.log(err)
+            raise Exception(err)
 
         bot_bio = params['bio']
 
@@ -194,7 +197,9 @@ class Sheep(object):
         """
         if( 'background' not in params.keys() and 'links' not in params.keys()):
             # what are you doing??
-            raise Exception("change_color() action called without 'background' or 'links' keys specified in the parameters dict.")
+            err = "change_color() action called without 'background' or 'links' keys specified in the parameters dict."
+            self.lumberjack.log(err)
+            raise Exception(err)
 
         # json sent to the Twitter API
         payload = {}
@@ -246,9 +251,13 @@ class Sheep(object):
 
         if 'image' not in params.keys():
             # what are you doing?
-            raise Exception("change_image() action called without an 'image' key specified in the params dict.")
+            err = "change_image() action called without an 'image' key specified in the params dict."
+            self.lumberjack.log(err)
+            raise Exception(err)
         elif os.path.isfile(params['image']) is False:
-            raise Exception("change_image() action called with 'image' key of params dict pointing to a non-existent file.")
+            err = "change_image() action called with 'image' key of params dict pointing to a non-existent file."
+            self.lumberjack.log(err)
+            raise Exception(err)
         else: 
             img_file = params['image']
             b64 = base64.encodestring(open(img_file,"rb").read())
@@ -287,7 +296,9 @@ class Sheep(object):
 
         if 'username' not in params.keys():
             # what are you doing?
-            raise Exception("follow_user() action called without a 'username' key specified in the params dict.")
+            err = "follow_user() action called without a 'username' key specified in the params dict."
+            self.lumberjack.log(err)
+            raise Exception(err)
         else: 
             payload['user_id'] = params['username']
 
@@ -323,7 +334,9 @@ class Sheep(object):
 
         if 'username' not in params.keys():
             # what are you doing?
-            raise Exception("unfollow_user() action called without a 'username' key specified in the params dict.")
+            err = "unfollow_user() action called without a 'username' key specified in the params dict."
+            self.lumberjack.log(err)
+            raise Exception(err)
         else: 
             payload['user_id'] = params['username']
 
