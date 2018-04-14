@@ -31,6 +31,9 @@ See [TODO.md](/TODO.md).
 
 # [0.5] - 2018-04-12
 
+### Added
+- Added documentation folder
+
 ### Changed
 - Fixed a bug with photo bot explicitly using `rmm`
 
@@ -41,13 +44,18 @@ See [TODO.md](/TODO.md).
 - Added setup.py and pip-friendly packaging
 - Added Dockerfile
 - Added project to Pypi: [rainbowmindmachine](https://pypi.python.org/pypi/rainbowmindmachine)
+- Added project to Dockerhub
+- Based other bot projects on rmm 
+    (see [bots on git.charlesreid1.com](https://git.charlesreid1.com/bots))
+- Sheep actios: follow someone, unfollow someone
+- Sheep/Shepherd use dispatcher pattern to perform actions
 
 ### Changed
 - Converted all code to Python 3
 - Replaced old photo bot (different twitter API) with tripos engine
 
 ### Deprecated
-- Python 2 support
+- Python 2 no longer supported
 
 ### Removed
 
