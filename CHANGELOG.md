@@ -16,10 +16,18 @@ See [TODO.md](/TODO.md).
 
 ### Added
 - Added a changelog
+- Added clarification to motivation behind rmm: 
+    - we aren't providing templates for every bot you could possibly want to build
+    - we are providing lego bricks for building the bot of your dreams
+    - the defaults and templates are implemented as dead-simple low-maintenance bots
+    - more advanced bots are totally possible, but YOU have to extend rainbow mind machine
 
 ### Changed
 - Docker images now use [jfloff/alpine-python](https://github.com/jfloff/alpine-python)
 - Final docker image size cut from >900 MB to 330 MB
+
+### Fixed
+- Major bug fixes for PhotoADay Sheep's sloppy import
 
 # [0.5] - 2018-04-12
 
