@@ -10,7 +10,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 See [TODO.md](/TODO.md).
 
+# [0.6.4] - 2018-04-15
+
+### Removed
+- removed dependency on TwitterAPI
+
 # [0.6.3] - 2018-04-15
+
+### Fixed
+- fixing failed upload with 0.6.2
+
+# [0.6.2] - 2018-04-15
 
 ### Fixed
 - fixing another bug in photoaday bot due to another variable name
