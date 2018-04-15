@@ -121,7 +121,7 @@ class PhotoADaySheep(Sheep):
         image_dir = params['images_dir']
         image_files = []
         for doy in range(366):
-            params['images_pattern'].format(i=doy)
+            image_file = params['images_pattern'].format(i=doy)
 
             # don't bother checking if they exist here
             filep = os.path.join(image_dir, image_file)
@@ -241,10 +241,8 @@ class PhotoADaySheep(Sheep):
                 msg2 = self.timestamp_message(str(err))
                 msg3 = self.timestamp_message("Sheep is continuing...")
 
-
-                # For debugging:
+                # Add this line in to debug sheep
                 raise Exception(err)
-
 
                 self.lumberjack.log(msg1)
                 self.lumberjack.log(msg2)

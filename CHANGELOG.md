@@ -10,6 +10,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 See [TODO.md](/TODO.md).
 
+# [0.6.3] - 2018-04-15
+
+### Fixed
+- fixing another bug in photoaday bot due to another variable name
+
 # [0.6.1] - 2018-04-15
 
 ### Fixed

@@ -17,6 +17,11 @@ from setuptools import setup
 # [pypi]
 # username:charlesreid1
 # password:YOURPASSWORDHERE
+# 
+# 
+# -----------------------
+# note: add testing to workflow
+# note: add test.pypi.org to workflow
 #
 # make distribution package bundle:
 # 
@@ -34,7 +39,7 @@ from setuptools import setup
 
 
 setup(name='rainbowmindmachine',
-      version='0.6.1',
+      version='0.6.3',
       description='An extendable framework for running Twitter bot flocks.',
       url='http://charlesreid1.github.io/rainbow-mind-machine',
       author='charlesreid1',
