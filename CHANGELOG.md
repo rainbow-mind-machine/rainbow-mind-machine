@@ -10,7 +10,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 See [TODO.md](/TODO.md).
 
-# [Unreleased]
+# [0.6.1] - 2018-04-15
+
+### Fixed
+- fixed a bug in photoaday bot due to a variable name. `docker logs <container-name>`
 
 # [0.6] - 2018-04-14
 
