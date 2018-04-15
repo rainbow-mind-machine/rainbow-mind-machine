@@ -37,3 +37,8 @@ getting a bot up and running, and a few bot flock examples.
 See [DOCKER](/docs/docker.md) for more information about
 using rainbow mind machine in a docker container.
 
+## Dev Workflow
+
+See [DevWorkflow.md](/DevWorkflow.md) for info about the workflow for 
+uploading changes to pypi and dockerhub.
+
