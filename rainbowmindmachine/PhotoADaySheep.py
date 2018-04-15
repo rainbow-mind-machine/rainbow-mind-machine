@@ -120,7 +120,7 @@ class PhotoADaySheep(Sheep):
 
         image_dir = params['images_dir']
         image_files = []
-        for i in range(366):
+        for doy in range(366):
             params['images_pattern'].format(i=doy)
 
             # don't bother checking if they exist here
