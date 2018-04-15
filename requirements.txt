@@ -1,5 +1,4 @@
 simplejson==3.13
 oauth2>=1.5
 python-twitter==3.4.1
-TwitterAPI==2.4.6
 TextBlob==0.15
