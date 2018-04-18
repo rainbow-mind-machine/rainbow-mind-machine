@@ -90,17 +90,6 @@ class PhotoADaySheep(Sheep):
 
         TODO:
         ------
-        - may want to improve handling.
-        - philosophy of "keep it simple" is ok for a bot
-        - transform bots into templates
-        - point is not to provide a bunch of templates
-        - point is to arm you with an extensible framework
-        - we implement opinionated decisions
-        - however, we keep it simple and easy to override defaults
-        - if you want text + images, extend it yourself.
-        - there's a bazillion ways to define bot behavior.
-        - we don't want to prescribe any in particular.
-        - templates are *literally*, lemme throw this bot together.
         """
         if('images_dir' not in params.keys()):
             err = "Error: no images directory provided to "
@@ -207,7 +196,13 @@ class PhotoADaySheep(Sheep):
 
                         # Upload image 
                         if(tweet_params['upload']):
+
+                            ###############################################################
+                            ####################### fixme #################################
                             img_info = self.upload_image_to_twitter(tweet_params)
+                            #
+                            # see tinyurl.com/rmm-fixme-link
+                            ###############################################################
 
                         if(tweet_params['upload'] and tweet_params['publish']):
                             twit = {

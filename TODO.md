@@ -1,5 +1,18 @@
 # TODO
 
+## from photo a day sheep bot
+
+- may want to improve handling.
+- philosophy of "keep it simple" is ok for a bot
+- transform bots into templates
+- point is not to provide a bunch of templates
+- point is to arm you with an extensible framework
+- we implement opinionated decisions
+- however, we keep it simple and easy to override defaults
+- if you want text + images, extend it yourself.
+- there's a bazillion ways to define bot behavior.
+- we don't want to prescribe any in particular.
+- templates are *literally*, lemme throw this bot together.
 
 ## do it now
 
