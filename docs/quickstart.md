@@ -159,5 +159,5 @@ from the Cambridge University Mathematical Tripos,
 in LaTeX format. Each LaTeX equation is converted to png.
 The bot posts a new question each day.
 
-See [b-tripos on git.charlesreid1.com](git.charlesreid1.com/bots/b-tripos).
+See [b-tripos on git.charlesreid1.com](https://git.charlesreid1.com/bots/b-tripos).
 

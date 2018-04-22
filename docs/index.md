@@ -7,7 +7,7 @@ It uses a Keymaker object to do the one-time authentication step with Twitter,
 and uses a Shepherd-Sheep model to run the flock.
 
 rainbow mind machine is a **framework** because it provides components (Keymaker, Shepherd, and Sheep)
-with specific roles and ways of interactig.
+with specific roles and ways of interacting.
 
 rainbow mind machine is **extendable** to keep bots from becoming boring. 
 There are a limited number of components to extend (2), 
