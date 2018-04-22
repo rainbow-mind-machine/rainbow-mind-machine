@@ -1,43 +1,134 @@
-
 <!DOCTYPE html>
-<html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Installing - rainbow mind machine</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-    <title>Installing &mdash; rainbow mind machine</title>
-
-    <link rel="shortcut icon" href="../img/favicon.ico">
-    <link rel="stylesheet" href="../css/alabaster.css" type="text/css">
-    <link rel="stylesheet" href="../css/alabaster-overrides.css" type="text/css">
-
-    
-      <link href="../css/bootstrap.css" rel="stylesheet">
-    
-      <link href="../css/custom.css" rel="stylesheet">
-    
-
-    
-      <script src="../search/require.js"></script>
-    
-      <script src="../search/search.js"></script>
-    
-
-    
-
-    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
-
-    
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/bootstrap.css" rel="stylesheet">
+  <link href="../css/custom.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Installing";
+    var mkdocs_page_input_path = "installing.md";
+    var mkdocs_page_url = "/installing/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
   
 </head>
-<body>
 
-  <div class="document">
-    <div class="documentwrapper">
-      <div class="bodywrapper">
-        <div class="body" role="main">
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> rainbow mind machine</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
           
-            <h1 id="installing-rainbow-mind-machine">Installing rainbow mind machine</h1>
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Installing</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#installing-rainbow-mind-machine">Installing rainbow mind machine</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#required-packages">Required Packages</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#what-you-need-to-run-a-bot-flock">What You Need to Run a Bot Flock</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#a-bot-idea">A Bot Idea</a></li>
+        
+            <li><a class="toctree-l3" href="#bot-master-account">Bot Master Account</a></li>
+        
+            <li><a class="toctree-l3" href="#bot-accounts">Bot Accounts</a></li>
+        
+            <li><a class="toctree-l3" href="#a-twitter-app">A Twitter App</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../quickstart/">Quick Start</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../docker/">Docker</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">rainbow mind machine</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Installing</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="installing-rainbow-mind-machine">Installing rainbow mind machine</h1>
 <p>To install rainbow mind machine manually, use the 
 normal <code>setup.py</code> procedure:</p>
 <pre><code>git clone https://github.com/charlesreid1/rainbow-mind-machine.git
@@ -50,13 +141,17 @@ python setup.py install
 <pre><code>pip install rainbowmindmachine
 </code></pre>
 
+<h2 id="required-packages">Required Packages</h2>
+<p>If you need a list of required packages, see <code>requirements.txt</code>.
+These packages will be installed using either of the above 
+installation methods.</p>
 <h1 id="what-you-need-to-run-a-bot-flock">What You Need to Run a Bot Flock</h1>
 <p>You will need a few additional things before you can get a bot flock
 up and running with rainbow mind machine.</p>
 <h2 id="a-bot-idea">A Bot Idea</h2>
 <p>You will need to decide on the behaviors
 you want the bot to have, so you know how to 
-structure the bot repo, what data to include,
+structure the bot repository, what data to include,
 and how to extend Sheep and Shepherd.</p>
 <p>You will be defining how the Sheep 
 (one sheep = one bot)
@@ -105,112 +200,53 @@ consumer_secret = '123456'
 </code></pre>
 
 <p>See the <code>apikeys.example.py</code> file.</p>
-            
-          
-        </div>
-      </div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../quickstart/" class="btn btn-neutral float-right" title="Quick Start">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
     </div>
-    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-      <div class="sphinxsidebarwrapper">
-        
-          
-            
-  <h1 class="logo"><a href="..">rainbow mind machine</a></h1>
-
-
-
-          
-            
-
-
-
-<h3>Table Of Contents</h3>
-
-<nav>
-  
-  
-    <ul>
-    
-  </ul>
-  
-    <ul>
-    
-      <li><a href="#a-bot-idea">A Bot Idea</a></li>
-      <ul>
-    
-  </ul>
-    
-      <li><a href="#bot-master-account">Bot Master Account</a></li>
-      <ul>
-    
-  </ul>
-    
-      <li><a href="#bot-accounts">Bot Accounts</a></li>
-      <ul>
-    
-  </ul>
-    
-      <li><a href="#a-twitter-app">A Twitter App</a></li>
-      <ul>
-    
-  </ul>
-    
-  </ul>
   
 
-  
-</nav>
-          
-            
-  <h3>Related Topics</h3>
-  <ul>
-    
-      <li>Previous: <a href=".." title="previous chapter">
-        Home
-      </a></li>
-    
-    
-      <li>Next: <a href="../quickstart/" title="next chapter">
-        Quick Start
-      </a></li>
-    
-  </ul>
+  <hr/>
 
-          
-            <div id="searchbox" style="display: none;" role="search">
-  <h3>Quick search</h3>
-  <form class="search" action="../search.html" method="get">
-    <input name="q" type="text">
-    <input value="Go" type="submit">
-  </form>
-  <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-  </p>
-</div>
-<script type="text/javascript">
-  document.getElementById("searchbox").style.display = "block";
-</script>
-          
-        
-      </div>
-    </div>
-    <div class="clearer"></div>
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
   </div>
 
-  
-    <div class="footer">
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
       
-      
-        
-        Powered by <a href="http://www.mkdocs.org">MkDocs 0.17.3</a>
-        &amp; <a href="https://github.com/iamale/mkdocs-alabaster">Alabaster</a>
-      
-    </div>
-  
+        </div>
+      </div>
 
-  <!--
-  MkDocs version      : 0.17.3
-  Docs Build Date UTC : 2018-04-09 00:41:17
-  -->
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../quickstart/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
 </body>
 </html>
