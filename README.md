@@ -25,20 +25,20 @@ while still abstracting away messy details.
 
 ## Installing rainbow mind machine
 
-See [INSTALLING](/docs/installing.md) for installation instructions.
+See [installing](/docs/installing.md) for installation instructions.
 
 ## Quick Start
 
-See [QUICKSTART](/docs/quickstart.md) for a quick guide to 
+See [quickstart](/docs/quickstart.md) for a quick guide to 
 getting a bot up and running, and a few bot flock examples.
 
 ## Docker
 
-See [DOCKER](/docs/docker.md) for more information about
+See [docker](/docs/docker.md) for more information about
 using rainbow mind machine in a docker container.
 
 ## Dev Workflow
 
-See [DevWorkflow.md](/DevWorkflow.md) for info about the workflow for 
+See [dev-workflow.md](/docs/dev-workflow.md) for info about the workflow for 
 uploading changes to pypi and dockerhub.
 
