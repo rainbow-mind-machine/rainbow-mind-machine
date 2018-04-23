@@ -4,12 +4,6 @@ body {
 div.body {
     background-color: #efefef;
 }
-
-/* default logo font sizes are a bit crazy. */
-div.sphinxsidebar h1.logo {
-    font-size: 24px;
-}
-div.sphinxsidebar h3 {
-    font-size: 16px;
-    padding-top: 30px;
+pre {
+    background-color: #ddd;
 }
