@@ -4,6 +4,6 @@ body {
 div.body {
     background-color: #efefef;
 }
-pre {
+.md-typeset pre {
     background-color: #ddd;
 }
