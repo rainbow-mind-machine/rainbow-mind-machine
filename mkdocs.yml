@@ -21,3 +21,4 @@ pages:
   - 'Installing':   'installing.md'
   - 'Quick Start':  'quickstart.md'
   - 'Docker':       'docker.md'
+  - 'Developers Workflow': 'dev-workflow.md'
