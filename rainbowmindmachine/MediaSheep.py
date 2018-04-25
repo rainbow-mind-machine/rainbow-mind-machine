@@ -1,4 +1,4 @@
-from .SHeep import Sheep
+from .Sheep import Sheep
 
 class MediaSheep(Sheep):
 
