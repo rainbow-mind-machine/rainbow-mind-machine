@@ -12,6 +12,12 @@ See [TODO.md](/TODO.md).
 
 # [0.6.4] - 2018-04-15
 
+### Changed
+
+- changed URL for project to https://pages.charlesreid1.com/b-rainbow-mind-machine
+
+# [0.6.4] - 2018-04-15
+
 ### Removed
 - removed dependency on TwitterAPI
 
