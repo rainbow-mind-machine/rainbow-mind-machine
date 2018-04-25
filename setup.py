@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='rainbowmindmachine',
-      version='0.6.6',
+      version='0.6.5',
       description='An extendable framework for running Twitter bot flocks.',
       url='https://pages.charlesreid1.com/b-rainbow-mind-machine',
       author='charlesreid1',
