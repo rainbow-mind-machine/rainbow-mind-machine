@@ -1,6 +1,6 @@
 import urllib
 import requests
-import oauth
+import oauth2 as oauth
 import twitter
 import logging
 import os, glob, time
@@ -32,7 +32,7 @@ class PhotoADaySheep(MediaSheep):
     
         photo_a_day: tweet an image a day
     """
-    def perform_action(self,action,params):
+    def perform_action(self,action,extra_params):
         """
         Performs action indicated by string (action),
         passing a dictionary of parameters (params).
@@ -51,19 +51,13 @@ class PhotoADaySheep(MediaSheep):
             self.lumberjack.log(err)
             raise Exception(err)
 
-        # We presume calling perform_action(), the dispatcher method
-        # in the parent class, will also pick up methods defined in the
-        # child class. We should verify this first, though.
-        #Sheep.perform_action(self,action,params)
-
-        # In meantime, hard code:
         # Use the dispatcher method pattern
         if hasattr( self, action ):
             method = getattr( self, action )
-            method( params )
+            method( extra_params )
 
 
-    def populate_queue(self, params):
+    def populate_queue(self, extra_params):
         """
         PhotoADaySheep works slightly differently,
         since it is a multimedia Sheep.
@@ -77,14 +71,14 @@ class PhotoADaySheep(MediaSheep):
         Parameters:
         -------------
 
-        params contains two keys:
+        extra_params contains two keys:
             
             images_dir:         directory containing images
             images_template:    filename pattern, with {i} in place of day of year
 
         Pass e.g. {i:03} for zero filled integer.
 
-        Example params dictionary:
+        Example extra_params dictionary:
 
             { 
                 "images_dir" : "puppy_images",
@@ -94,12 +88,12 @@ class PhotoADaySheep(MediaSheep):
         TODO:
         ------
         """
-        if('images_dir' not in params.keys()):
+        if('images_dir' not in extra_params.keys()):
             err = "Error: no images directory provided to "
             err += "PhotoADaySheep via 'images_dir' parameter"
             self.lumberjack.log(err)
             raise Exception(err)
-        if('images_pattern' not in params.keys()):
+        if('images_pattern' not in extra_params.keys()):
             err = "Error: no image filename pattern (e.g., \"my_image_{i}.jpg\") "
             err += "were provided to PhotoADaySheep via 'images_template' parameter"
             self.lumberjack.log(err)
@@ -110,10 +104,10 @@ class PhotoADaySheep(MediaSheep):
         # 
         # This is kind of stupid, but... sigh...
 
-        image_dir = params['images_dir']
+        image_dir = extra_params['images_dir']
         image_files = []
         for doy in range(366):
-            image_file = params['images_pattern'].format(i=doy)
+            image_file = extra_params['images_pattern'].format(i=doy)
 
             # don't bother checking if they exist here
             filep = os.path.join(image_dir, image_file)
@@ -122,16 +116,14 @@ class PhotoADaySheep(MediaSheep):
         return image_files
 
 
-    def photo_a_day(self,params):
+    def photo_a_day(self,tweet_params):
         """
         Runs forever.
         Tweets an image a day,
         at 8 o'clock or so,
         then goes back to sleep.
 
-        params dictionary settings:
-
-            upload: boolean, upload media or not
+        tweet_params dictionary settings:
 
             publish: boolean, publish or not
 
@@ -144,17 +136,13 @@ class PhotoADaySheep(MediaSheep):
         # --------------------------
         # Process parameters
 
-        # tweet_params contains params for this tweet
-        # it starts as a copy of params (tweet <-- sheep),
-        # but we'll add more stuff as we go.
-        tweet_params = params
+        # tweet_params contains parameters for this tweet
 
         # Default parameter values
         defaults = {}
         defaults['publish'] = False
-        defaults['upload'] = False
 
-        # populate missing params with default values
+        # populate missing parameters with default values
         for dk in defaults.keys():
             if dk not in tweet_params.keys():
                 tweet_params[dk] = defaults[dk]
@@ -194,28 +182,14 @@ class PhotoADaySheep(MediaSheep):
                     if(doy < len(twit_images)):
 
                         # Get photo for this date
-                        tweet_params['image_file'] = twit_images[doy]
+                        media_attachment = twit_images[doy]
 
-                        img_info = {}
+                        twit = tweet_params['message']
 
-                        # Upload image 
-                        if(tweet_params['upload']):
-
-                            ###############################################################
-                            ####################### fixme #################################
-                            img_info = self.upload_image_to_twitter(tweet_params)
-                            #
-                            # see tinyurl.com/rmm-fixme-link
-                            ###############################################################
-
-                        if(tweet_params['upload'] and tweet_params['publish']):
-                            twit = {
-                                        'status': 'Your daily Mathematical Tripos question.',
-                                        'media_ids': img_info['media_id_string']
-                                    }
-                            self._tweet(twit)
+                        if(tweet_params['publish']):
+                            self._tweet(twit, media=media_attachment)
                         else:
-                            self._print("Testing image tweet: %s"%(tweet_params['image_file']))
+                            self._print("Testing image tweet: %s"%(media_attachment))
 
                     else:
                         err = "Warning: for doy = %d, could not find not find "%(doy)
@@ -251,93 +225,4 @@ class PhotoADaySheep(MediaSheep):
 
             except AssertionError:
                 raise Exception("Error: tweet queue was empty. Check your populate_queue() method definition.")
-
-
-
-    def _tweet(self,twit):
-
-        try:
-            # tweet:
-            stats = self.t.statuses.update(
-                    status = twit['status'],
-                    media_ids = twit['media_ids']
-                    )
-
-            msg = self.timestamp_message(">>> Tweet was successful")
-
-        except twitter.TwitterError as e:
-            
-            if e.message[0]['code'] == 185:
-                msg = self.timestamp_message("Twitter error: Daily message limit reached")
-                self.lumberjack.log(msg)
-
-            elif e.message[0]['code'] == 187:
-                msg = self.timestamp_message("Twitter error: Duplicate error")
-                self.lumberjack.log(msg)
-            
-            else:
-                msg = self.timestamp_message("Twitter error: "+e.message)
-                self.lumberjack.log(msg)
-
-    def upload_image_to_twitter(self, params):
-
-        # Set up instances of our Token and Consumer.
-        token = oauth.Token(key = params['oauth_token'],
-                            secret = params['oauth_token_secret'])
-
-        consumer = oauth.Consumer(key = params['consumer_token'],
-                                  secret = params['consumer_token_secret'])
-
-        client = oauth.Client(consumer,token)
-
-        url = "https://upload.twitter.com/1.1/media/upload.json"
-
-        imgfile = params['image_file']
-
-        # Generate multipart data and headers from content
-        datagen, headers = multipart_encode({'media': open(imgfile,'rb')})
-
-        req = oauth.Request.from_consumer_and_token(
-                consumer, 
-                token=token, 
-                http_url=url,
-                parameters=None, 
-                http_method="POST")
-
-        req.sign_request(oauth.SignatureMethod_HMAC_SHA1(), consumer, token)
-
-        # Generate multipart data and headers from content
-        datagen, headers = multipart_encode({'media': open(tail,'rb')})
-
-        # Body to string
-        body = "".join(datagen)
-
-        # Create the request 
-        resp, content = client.request(
-                    url,
-                    method = "POST",
-                    body=body,
-                    headers=headers
-                    )
-
-                d = {}
-
-        if resp['status']=='200':
-
-            # we have our media id string!
-
-            d = json.loads(content)
-            ### media_id_string = c['media_id_string']
-            ### media_id = c['media_id']
-
-            msg = self.timestamp_message('MEDIA UPLOAD SUCCESS')
-            self.lumberjack.log(msg)
-            self.lumberjack.log("%s"%(d))
-
-        else:
-
-            msg = self.timestamp_message('MEDIA UPLOAD FAILURE')
-            self.lumberjack.log(msg)
-
-        return d
 
