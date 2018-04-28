@@ -1,4 +1,5 @@
 import urllib
+import oauth2 as oauth
 import twitter
 import time
 import simplejson as json
@@ -72,10 +73,10 @@ class Sheep(object):
         self.lumberjack.log(msg)
 
 
-    def perform_action(self,action,params):
+    def perform_action(self,action,extra_params):
         """
         Performs action indicated by string action,
-        passing a dictionary of parameters.
+        passing a dictionary of extra parameters.
 
         Available actions:
         - dummy
@@ -91,11 +92,11 @@ class Sheep(object):
         # Use the dispatcher method pattern
         if hasattr( self, action ):
             method = getattr( self, action )
-            method( params )
+            method( extra_params )
 
 
 
-    def dummy(self,params):
+    def dummy(self,extra_params):
         """
         Debug:
         Do nothing
@@ -103,14 +104,14 @@ class Sheep(object):
         pass
 
 
-    def echo(self,params):
+    def echo(self,extra_params):
         """
         Just say hi
         """
         print("Hello world!")
 
 
-    def change_url(self,params):
+    def change_url(self,extra_params):
         """
         Update twitter profile url 
 
@@ -119,11 +120,11 @@ class Sheep(object):
 
         Does not return anything
         """
-        if( 'url' not in params.keys()):
+        if( 'url' not in extra_params.keys()):
             # what are you doing??
             raise Exception("change_url() action called without 'url' key specified in the parameters dict.")
 
-        bot_url = params['url']
+        bot_url = extra_params['url']
 
         # Set the API endpoint 
         api_url = "https://api.twitter.com/1.1/account/update_profile.json"
@@ -144,7 +145,7 @@ class Sheep(object):
 
 
 
-    def change_bio(self,params):
+    def change_bio(self,extra_params):
         """
         Update twitter profile bio
 
@@ -153,13 +154,13 @@ class Sheep(object):
 
         Does not return anything
         """
-        if( 'bio' not in params.keys()):
+        if( 'bio' not in extra_params.keys()):
             # what are you doing??
             err = "change_bio() action called without 'bio' key specified in the parameters dict."
             self.lumberjack.log(err)
             raise Exception(err)
 
-        bot_bio = params['bio']
+        bot_bio = extra_params['bio']
 
         handle = self.params['screen_name']
 
@@ -182,7 +183,7 @@ class Sheep(object):
         self.lumberjack.log(content)
 
 
-    def change_color(self,params):
+    def change_color(self,extra_params):
         """
         Update twitter profile colors
 
@@ -191,11 +192,11 @@ class Sheep(object):
         links           RGB code for links color (no #)
         
         Example:
-        params = {'background':'3D3D3D', 'link':'AAF'}
+        extra_params = {'background':'3D3D3D', 'link':'AAF'}
 
         Does not return anything
         """
-        if( 'background' not in params.keys() and 'links' not in params.keys()):
+        if( 'background' not in extra_params.keys() and 'links' not in extra_params.keys()):
             # what are you doing??
             err = "change_color() action called without 'background' or 'links' keys specified in the parameters dict."
             self.lumberjack.log(err)
@@ -204,12 +205,12 @@ class Sheep(object):
         # json sent to the Twitter API
         payload = {}
 
-        if 'background' in params.keys():
-            background_rgbcode = params['background']
+        if 'background' in extra_params.keys():
+            background_rgbcode = extra_params['background']
             payload['profile_background_color'] = background_rgbcode
 
-        if 'links' in params.keys():
-            links_rgbcode = params['links']
+        if 'links' in extra_params.keys():
+            links_rgbcode = extra_params['links']
             payload['profile_link_color'] = links_rgbcode
 
         handle = self.params['screen_name']
@@ -233,7 +234,7 @@ class Sheep(object):
 
 
 
-    def change_image(self,params):
+    def change_image(self,extra_params):
         """
         Change a user's avatar image.
 
@@ -249,17 +250,17 @@ class Sheep(object):
         # json sent to the Twitter API
         payload = {}
 
-        if 'image' not in params.keys():
+        if 'image' not in extra_params.keys():
             # what are you doing?
             err = "change_image() action called without an 'image' key specified in the params dict."
             self.lumberjack.log(err)
             raise Exception(err)
-        elif os.path.isfile(params['image']) is False:
+        elif os.path.isfile(extra_params['image']) is False:
             err = "change_image() action called with 'image' key of params dict pointing to a non-existent file."
             self.lumberjack.log(err)
             raise Exception(err)
         else: 
-            img_file = params['image']
+            img_file = extra_params['image']
             b64 = base64.encodestring(open(img_file,"rb").read())
 
         # Set the API endpoint 
@@ -281,7 +282,7 @@ class Sheep(object):
 
 
 
-    def follow_user(self, params, notify=True):
+    def follow_user(self, extra_params, notify=True):
         """
         Follow a twitter user
 
@@ -294,13 +295,13 @@ class Sheep(object):
         # json sent to the Twitter API
         payload = {}
 
-        if 'username' not in params.keys():
+        if 'username' not in extra_params.keys():
             # what are you doing?
             err = "follow_user() action called without a 'username' key specified in the params dict."
             self.lumberjack.log(err)
             raise Exception(err)
         else: 
-            payload['user_id'] = params['username']
+            payload['user_id'] = extra_params['username']
 
         # Set the API endpoint 
         url = "https://api.twitter.com/1.1/friendships/create.json"
@@ -320,7 +321,7 @@ class Sheep(object):
         self.lumberjack.log(content)
 
 
-    def unfollow_user(self, params, notify=True):
+    def unfollow_user(self, extra_params, notify=True):
         """
         Unfollow a twitter user
 
@@ -332,13 +333,13 @@ class Sheep(object):
         # json sent to the Twitter API
         payload = {}
 
-        if 'username' not in params.keys():
+        if 'username' not in extra_params.keys():
             # what are you doing?
             err = "unfollow_user() action called without a 'username' key specified in the params dict."
             self.lumberjack.log(err)
             raise Exception(err)
         else: 
-            payload['user_id'] = params['username']
+            payload['user_id'] = extra_params['username']
 
         # Set the API endpoint 
         url = "https://api.twitter.com/1.1/friendships/destroy.json"
@@ -385,7 +386,7 @@ class Sheep(object):
 
 
 
-    def tweet(self,params):
+    def tweet(self, extra_params, media=None):
         """
         tweet() handles scheduling.
 
@@ -397,17 +398,16 @@ class Sheep(object):
             outer_sleep         Outer loop sleep time (10 s)
             publish             Actually publish (False)
 
-        Not sure if we need this keyword:
+        Additional parameters:
 
-            tweet_metadata      Tweet metadata ({})
+            media               A URL, a local file, or a file-like object (something with a read() method)
+                                or a list of any of the above
 
         This function never ends, so it never returns.
         """
 
         # --------------------------
         # Process parameters
-
-        tweet_params = params
 
         # Default parameter values
         defaults = {}
@@ -418,8 +418,8 @@ class Sheep(object):
 
         # populate missing params with default values
         for dk in defaults.keys():
-            if dk not in tweet_params.keys():
-                tweet_params[dk] = defaults[dk]
+            if dk not in extra_params.keys():
+                extra_params[dk] = defaults[dk]
 
         # --------------------------
         # The Real McCoy
@@ -442,15 +442,15 @@ class Sheep(object):
                     twit = tweet_queue.popleft()
 
                     # Fire off the tweet
-                    if tweet_params['publish']:
-                        self._tweet( twit )
+                    if extra_params['publish']:
+                        self._tweet( twit, media=media )
                     else:
-                        self._print( twit )
+                        self._print( twit, media=media )
 
 
-                    time.sleep( tweet_params['inner_sleep'] )
+                    time.sleep( extra_params['inner_sleep'] )
 
-                time.sleep( tweet_params['outer_sleep'] )
+                time.sleep( extra_params['outer_sleep'] )
 
                 msg = self.timestamp_message("Completed a cycle.")
                 self.lumberjack.log(msg)
@@ -468,13 +468,13 @@ class Sheep(object):
                 self.lumberjack.log(msg2)
                 self.lumberjack.log(msg3)
 
-                time.sleep( tweet_params['outer_sleep'] )
+                time.sleep( extra_params['outer_sleep'] )
 
             except AssertionError:
                 raise Exception("Error: tweet queue was empty. Check your populate_queue() method definition.")
 
 
-    def _tweet(self,twit):
+    def _tweet(self,twit,media):
         """
         Private method.
         Publish a twit.
@@ -483,12 +483,14 @@ class Sheep(object):
 
         try:
             # tweet:
-            stats = self.api.PostUpdates(twit)
+            if(media is not None):
+                stats = self.api.PostUpdates(twit,media=media)
+            else:
+                stats = self.api.PostUpdates(twit)
 
             # everything else:
-            for stat in stats:
-                msg = self.timestamp_message(">>> "+twit)
-                self.lumberjack.log(msg)
+            msg = self.timestamp_message(">>> "+twit)
+            self.lumberjack.log(msg)
 
         except twitter.TwitterError as e:
             
