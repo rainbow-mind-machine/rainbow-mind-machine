@@ -1,5 +1,9 @@
 # Using rainbow mind machine With Docker
 
+![the twittur](twittur.jpg)
+
+**This is what you get when you cross a doker wale with a twittur burd. [credit](credits.md)**
+
 To use rainbow mind machine from a docker container,
 you can build the container yourself using the 
 `Dockerfile` in this repository;
@@ -13,16 +17,21 @@ You can use the `make_rmm_container.sh` script to build
 the base rainbow mind machine container 
 (called `rmm_base`): 
 
+```
+$ ./make_rmm_container.sh
+```
+
+This makes a local container image named `rmm`.
 
 ## Pulling Docker Container
 
-You can also pull the container from dockerhub:
+You can also pull the rainbow mind machine container from dockerhub:
 
 ```
 docker pull charlesreid1/rainbowmindmachine
 ```
 
-[rainbow mind machine on dockerhub]()
+[rainbow mind machine on dockerhub](https://hub.docker.com/r/charlesreid1/rainbowmindmachine)
 
 ## Docker Compose
 

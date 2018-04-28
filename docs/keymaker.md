@@ -1,5 +1,9 @@
 # The Keymaker
 
+![the keymaker](keymaker.jpg)
+
+**You can definitely trust this keymaker. [credit](credits.md)**
+
 The Keymaker is the object that is used to 
 authenticate with twitter and generate the 
 oauth keys the application needs to do things

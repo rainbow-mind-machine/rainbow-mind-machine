@@ -1,5 +1,9 @@
 # The Shepherd
 
+![the shepherd](shepherd.jpg)
+
+**The rainbow mind machine shepherd. [credit](credits.md)**
+
 The Shepherd is a very simple object.
 The Shepherd is essentially a data 
 container for storing Sheep. When 

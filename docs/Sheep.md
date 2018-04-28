@@ -1,5 +1,9 @@
 # Sheep
 
+![the sheep](sheep.jpg)
+
+**The rainbow mind machine sheep. [credit](credits.md)**
+
 Structure of the Sheep:
 
 * Constructor:
