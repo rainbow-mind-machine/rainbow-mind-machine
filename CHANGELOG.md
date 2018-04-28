@@ -10,6 +10,19 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 See [TODO.md](/TODO.md).
 
+# [0.7.0] - 2018-04-28
+
+### Added
+
+- Added documentation for Sheep, Shepherd, Keymaker
+- Improved dev workflow documentation
+
+### Changed
+
+- Media now handled correctly
+    - Sheep.tweet() now takes a media argument, uses python-twitter to handle media
+    - PhotoADaySheep uses media argument of tweet method
+
 # [0.6.4] - 2018-04-15
 
 ### Changed
