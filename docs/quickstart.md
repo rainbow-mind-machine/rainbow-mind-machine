@@ -5,11 +5,13 @@ how this works.
 
 Remember, we only have 3 objects we need to understand:
 
-* The Keymaker (makes/manages keys and authenticates with Twitter)
-* The Shepherd (one shepherd = one bot flock, runs the flock)
-* The Sheep (one sheep = one bot, defines bot behavior)
+* [The Keymaker](keymaker.md) (makes/manages keys and authenticates with Twitter)
+* [The Shepherd](shepherd.md) (runs the flock; one shepherd = one bot flock)
+* [The Sheep](sheep.md) (runs a bot, and defines bot's behavior; one sheep = one bot)
 
 # Keymaker: Authentication Step
+
+Also see the [keymaker](keymaker.md) page.
 
 The first step in rainbow mind machine is to run the Keymaker
 to give the application permission to tweet on behalf of 
@@ -65,7 +67,9 @@ When this script is run, the Keymaker will
 go through a series of interactive steps 
 to create keys from each item.
 
-# Running the Bot Flock
+# A Shepherd to Run the Bot Flock
+
+Also see the [shepherd](shepherd.md) page.
 
 Once that is done, make a Shepherd for the bot flock,
 and point it to the keys the Keymaker created 
@@ -90,6 +94,8 @@ Twitter page color, and will then spin up
 one thread per sheep.
 
 # Customizing Sheep
+
+Also see the [sheep](sheep.md) page.
 
 We didn't specify what kind of Sheep we want 
 the Shepherd to create, so the Shepherd uses
@@ -137,8 +143,20 @@ a flock running multiple `PoemSheep`, with
 each Sheep loading a poem from a text file 
 and tweeting the poem one line at a time.
 
-See [`example_flocks/ginsberg_botflock`](/example_flocks/ginsberg_botflock/)
-and [b-ginsberg on git.charlesreid1.com](https://git.charlesreid1.com/bots/b-ginsberg).
+Source code: [git.charlesreid1.com/bots/b-ginsberg](https://git.charlesreid1.com/bots/b-ginsberg).
+
+Bot page: [pages.charlesreid1.com/b-ginsberg](https://pages.charlesreid1.com/b-ginsberg)
+
+## Example: Paradise Lost Bot Flock
+
+The Paradise Lost bot flock is another simple example 
+of a flock running multiple `PoemSheep`, with 
+each Sheep loading a poem from a text file 
+and tweeting the poem one line at a time.
+
+Source code: [git.charlesreid1.com/bots/b-milton](https://git.charlesreid1.com/bots/b-milton).
+
+Bot page: [pages.charlesreid1.com/b-milton](https://pages.charlesreid1.com/b-milton)
 
 ## Example: Apollo Space Junk Bot Flock
 
@@ -146,8 +164,9 @@ The Apollo Space Junk Bot Flock uses queneau generation
 to create fake Apollo space mission radio chatter.
 This bot flock runs multiple `QueneauSheep`.
 
-See [`example_flocks/apollo_botflock`](/example_flocks/apollo_botflock/)
-and [b-apollo on git.charlesreid1.com](https://git.charlesreid1.com/bots/b-apollo).
+Source code: [git.charlesreid1.com/bots/b-apollo](https://git.charlesreid1.com/bots/b-apollo).
+
+Bot page: [pages.charlesreid1.com/b-apollo](https://pages.charlesreid1.com/b-apollo)
 
 ## Example: Mathematics Tripos Bot
 
@@ -159,5 +178,7 @@ from the Cambridge University Mathematical Tripos,
 in LaTeX format. Each LaTeX equation is converted to png.
 The bot posts a new question each day.
 
-See [b-tripos on git.charlesreid1.com](https://git.charlesreid1.com/bots/b-tripos).
+Source code: [git.charlesreid1.com/bots/b-tripos](https://git.charlesreid1.com/bots/b-tripos).
+
+Bot page: [pages.charlesreid1.com/b-tripos](https://pages.charlesreid1.com/b-tripos)
 

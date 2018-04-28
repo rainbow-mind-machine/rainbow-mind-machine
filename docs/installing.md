@@ -60,9 +60,8 @@ as the bot master account.
 
 ## Bot Accounts
 
-This tool handles everything _but_ the creation of bot accounts. 
-
-You _must_ have a Twitter account for each bot already created.
+rainbow mind machine handles everything _but_ the creation of bot accounts. 
+You must have a Twitter account for each bot already created.
 
 No customization of the bot accounts is needed 
 prior to using rainbow mind machine - 
