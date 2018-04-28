@@ -2,7 +2,7 @@
 site/
 
 # ignore secret twitter app keys
-apikeys.py
+*apikeys*
 
 # ignore secret bot keys
 *.json

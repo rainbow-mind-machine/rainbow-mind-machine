@@ -1,16 +1,9 @@
 import urllib
 import oauth2 as oauth
-import os
-import re
+import os, re, glob
 import simplejson as json
 import subprocess
-
-try:
-    from apikeys import *
-except ImportError:
-    warning = "Warning: Keymaker was unable to find apikeys.py. This will only be a problem if you are requesting keys."
-    print(warning)
-
+from os.path import isfile, isdir, exists, join
 
 
 class Keymaker(object):
@@ -31,17 +24,77 @@ class Keymaker(object):
         self.request_token_url = 'https://api.twitter.com/oauth/request_token'
         self.authorize_url = 'https://api.twitter.com/oauth/authorize'
         self.access_token_url = 'https://api.twitter.com/oauth/access_token'
+        
+        self.apikeys_set = False
 
-        # apikeys.py defines
-        # consumer_key
-        # consumer_secret
+
+    def set_apikeys_env(self):
+        """
+        Set the API keys using environment variables:
+
+            $CONSUMER_TOKEN
+            $CONSUMER_TOKEN_SECRET
+        """
+        if( os.environ('CONSUMER_TOKEN') and os.environ('CONSUMER_TOKEN_SECRET') ):
+            self.consumer_token = {}
+            self.consumer_token['consumer_token'] = os.environ('CONSUMER_TOKEN')
+            self.consumer_token['consumer_token_secret'] = os.environ('CONSUMER_TOKEN')
+            self.apikeys_set = True
+        else:
+            raise Exception("Error: environment variables CONSUMER_TOKEN and CONSUMER_TOKEN_SECRET were not set.")
+
+
+    def set_apikeys_file(self,f_apikeys):
+        """
+        Set the API keys using an external JSON file
+        with the keys:
+
+            consumer_token
+            consumer_token_secret
+        """
+        if( not exists(f_apikeys) ):
+            # Nope, no idea
+            raise Exception("Error: could not find specified apikeys file %s"%(f_apikeys))
+
+        elif( not isfile(f_apikeys) ):
+
+            # user specified a directory.
+            # check if it contains apikeys.json
+            f_apikeys = join(f_apikeys,'apikeys.json')
+            if( not isfile( f_apikeys ) ):
+                raise Exception("Error: could not find specified apikeys file %s"%(f_apikeys))
+
         try:
-            consumer_token = {}
-            consumer_token['consumer_token'] = consumer_key
-            consumer_token['consumer_token_secret'] = consumer_secret
-            self.consumer_token = consumer_token
+            with open(f_apikeys,'r') as f:
+                d = json.load(f)
+        except (json.errors.JSONDecodeError):
+            raise Exception("Error: given file %s is not valid JSON"%(f_apikeys))
+        
+        self.set_apikeys_dict(d)
+
+
+
+    def set_apikeys_dict(self,d_apikeys):
+        """
+        Set the API keys by passing a dictionary
+        with the keys
+
+            consumer_token
+            consumer_token_secret
+        """
+        ct = ['consumer_token','consumer_token_secret']
+        try:
+            self.consumer_token = {}
+            for k in ct:
+                self.consumer_token[k] = d_apikeys[k]
+
+            self.apikeys_set = True
+
         except(NameError, KeyError):
-            raise Exception("Error: could not read consumer tokens from apikeys.py.")
+            err = "Error: could not set API keys, invalid keys provided.\n\n"
+            err += "Expected: %s\n\n"%(", ".join(ct))
+            err += "Received: %s\n\n"%(", ".join(d_apikeys.keys()))
+            raise Exception(err)
 
 
 
@@ -65,7 +118,6 @@ class Keymaker(object):
         """
         if('name' not in item.keys() or 'json' not in item.keys()):
             raise Exception("Error: to use make_a_key, you must specify 'name' and 'json' keys in your input.")
-
 
         # Step 1:
         # Get a private key to tweet as this user,
@@ -99,11 +151,16 @@ class Keymaker(object):
 
 
 
-    def _make_a_key(self,item):
+    def _make_a_key(self, item, interactive=True):
         """
         This private method makes a key for an arbitrary "item"
         (nothing is done with the item).
+
+        If interactive=False, this simply passes through. 
         """
+        if(not self.apikeys_set):
+            raise Exception("Error: API keys were not set for the Shepherd.")
+
         item_ = str(item)
         print("="*45)
         print("Item: %s"%(item_))
@@ -112,100 +169,102 @@ class Keymaker(object):
         # (Step 1 is to get a list of items.)
 
         # Step 2 is to make a Twitter API key for each item.
+        if not interactive:
+            return {}
+
         make_key = ''
         while make_key != 'y' and make_key != 'n':
             make_key = input('Make key? (y/n) ')
-        
+            
         if make_key=='n':
             print("Skipping keymaking for %s"%item_)
 
             return {}
 
+        print("Starting keymaking for %s"%item_)
+
+        consumer = oauth.Consumer(consumer_key, consumer_secret)
+        client = oauth.Client(consumer)
+
+        # Step 2.1: Get a request token. This is a temporary token that is used for 
+        # having the user authorize an access token and to sign the request to obtain 
+        # said access token.
+        # https://dev.twitter.com/docs/api/1/get/oauth/authenticate
+        resp, content = client.request(self.request_token_url,"GET")
+        if resp['status'] != '200':
+            raise Exception("Invalid response %s. If apikeys.py is present, your keys may be invalid." % resp['status'])
+
+        request_token = dict(urllib.parse.parse_qsl(content))
+        oauth_token = request_token[b'oauth_token'].decode('utf-8')
+        oauth_token_secret = request_token[b'oauth_token_secret'].decode('utf-8')
+
+        print("Request Token:")
+        print("    - oauth_token        = %s" % oauth_token)
+        print("    - oauth_token_secret = %s" % oauth_token_secret)
+        print("")
+
+        # Step 2.2: Redirect to the provider. Since this is a CLI script we do not 
+        # redirect. In a web application you would redirect the user to the URL
+        # below.
+
+        print("Visit the following app authorization link:")
+        print("%s?oauth_token=%s" % (self.authorize_url, oauth_token ))
+        print("")
+        print("Sign in as the user to be associated with %s"%item_)
+        print("")
+
+        # After the user has granted access to you, the consumer, the provider will
+        # redirect you to whatever URL you have told them to redirect to. You can 
+        # usually define this in the oauth_callback argument as well.
+        
+        # this should be a 7-digit number
+        seven_digit_number = re.compile("[0-9]{7}")
+        oauth_verifier = ''
+        count = 0
+        while not (seven_digit_number.match(oauth_verifier) or oauth_verifier == 'n'):
+            if count > 0:
+                print("PIN must be a 7-digit number. Enter 'n' to skip or 'r' to renew the link.")
+            oauth_verifier = input('What is the PIN? ')
+            count += 1
+
+        if oauth_verifier == 'n':
+
+            # party pooper
+            return {}
+
+        elif oauth_verifier == 'r':
+
+            # go through the oauth dance again
+            self.make_a_key(item)
+        
         else:
-            print("Starting keymaking for %s"%item_)
 
-            consumer = oauth.Consumer(consumer_key, consumer_secret)
-            client = oauth.Client(consumer)
-
-            # Step 2.1: Get a request token. This is a temporary token that is used for 
-            # having the user authorize an access token and to sign the request to obtain 
-            # said access token.
-            # https://dev.twitter.com/docs/api/1/get/oauth/authenticate
-            resp, content = client.request(self.request_token_url,"GET")
-            if resp['status'] != '200':
-                raise Exception("Invalid response %s. If apikeys.py is present, your keys may be invalid." % resp['status'])
-
-            request_token = dict(urllib.parse.parse_qsl(content))
+            # Step 2.3: Once the consumer has redirected the user back to the oauth_callback
+            # URL you can request the access token the user has approved. You use the 
+            # request token to sign this request. After this is done you throw away the
+            # request token and use the access token returned. You should store this 
+            # access token somewhere safe, like a database, for future use.
             oauth_token = request_token[b'oauth_token'].decode('utf-8')
-            oauth_token_secret = request_token[b'oauth_token_secret'].decode('utf-8')
+            oauth_token_secret = request_token[b'oauth_token'].decode('utf-8')
+            token = oauth.Token(oauth_token, oauth_token_secret)
 
-            print("Request Token:")
-            print("    - oauth_token        = %s" % oauth_token)
-            print("    - oauth_token_secret = %s" % oauth_token_secret)
-            print("")
-
-            # Step 2.2: Redirect to the provider. Since this is a CLI script we do not 
-            # redirect. In a web application you would redirect the user to the URL
-            # below.
-
-            print("Visit the following app authorization link:")
-            print("%s?oauth_token=%s" % (self.authorize_url, oauth_token ))
-            print("")
-            print("Sign in as the user to be associated with %s"%item_)
-            print("")
-
-            # After the user has granted access to you, the consumer, the provider will
-            # redirect you to whatever URL you have told them to redirect to. You can 
-            # usually define this in the oauth_callback argument as well.
+            token.set_verifier(oauth_verifier)
+            client = oauth.Client(consumer, token)
             
-            # this should be a 7-digit number
-            seven_digit_number = re.compile("[0-9]{7}")
-            oauth_verifier = ''
-            count = 0
-            while not (seven_digit_number.match(oauth_verifier) or oauth_verifier == 'n'):
-                if count > 0:
-                    print("PIN must be a 7-digit number. Enter 'n' to skip or 'r' to renew the link.")
-                oauth_verifier = input('What is the PIN? ')
-                count += 1
+            resp, content = client.request(self.access_token_url, "POST")
+            access_token = dict(urllib.parse.parse_qsl(content))
 
-            if oauth_verifier == 'n':
+            # Step 2.4: Make a dict with all relevant Sheep info
+            d = {}
+            for key in self.consumer_token.keys():
+                d[key] = self.consumer_token[key]
 
-                # party pooper
-                return {}
+            for key in access_token.keys():
+                d[key] = access_token[key]
 
-            elif oauth_verifier == 'r':
+            print("Successfully obtained Twitter API key for %s"%item_)
 
-                # go through the oauth dance again
-                self.make_a_key(item)
-            
-            else:
-
-                # Step 2.3: Once the consumer has redirected the user back to the oauth_callback
-                # URL you can request the access token the user has approved. You use the 
-                # request token to sign this request. After this is done you throw away the
-                # request token and use the access token returned. You should store this 
-                # access token somewhere safe, like a database, for future use.
-                oauth_token = request_token[b'oauth_token'].decode('utf-8')
-                oauth_token_secret = request_token[b'oauth_token'].decode('utf-8')
-                token = oauth.Token(oauth_token, oauth_token_secret)
-
-                token.set_verifier(oauth_verifier)
-                client = oauth.Client(consumer, token)
-                
-                resp, content = client.request(self.access_token_url, "POST")
-                access_token = dict(urllib.parse.parse_qsl(content))
-
-                # Step 2.4: Make a dict with all relevant Sheep info
-                d = {}
-                for key in self.consumer_token.keys():
-                    d[key] = self.consumer_token[key]
-
-                for key in access_token.keys():
-                    d[key] = access_token[key]
-
-                print("Successfully obtained Twitter API key for %s"%item_)
-
-                return d
+            return d
 
 
 
@@ -215,11 +274,11 @@ class FilesKeymaker(Keymaker):
     Makes keys by iterating through a directory
     and making a key for each file.
     """
-    def __init__(self,extension=''):
+    def __init__(self, extension=''):
         Keymaker.__init__(self)
-        self.extension = extension
+        self.files_extension = extension
 
-    def make_keys(self,files_dir,keys_out_dir='keys/'):
+    def make_keys(self,files_dir,keys_out_dir='keys/',interactive=True):
         """
         Make multiple keys.
 
@@ -229,32 +288,23 @@ class FilesKeymaker(Keymaker):
         This bypasses the make_a_key() method
         defined in Sheep, and calls
         _make_a_key() directly.
+
+        If interative=False, this simply passes through.
         """
-        # This is the JSON key for the key-value pair 
-        # storing the unique file correspoinding to this key.
-        # This way, the bot remembers the original file 
-        # from which it was created.
+        # Set the name of the key 
+        # that will store the JSON file.
+        # 
+        # This is how each bot can remember
+        # what file was used to initialize it.
+
         self.file_key = 'file'
 
         # Step 1
         # Get list of files
-        raw_files = os.listdir(files_dir) 
-        files = []
-        extension = self.extension 
-        for rfile in raw_files:
-
-            # if user specifies file extensions,
-            # only ask for files with that extension
-            # 
-            # otherwise, do every file
-
-            if extension != '':
-                el = len(extension)
-                elp1 = el+1
-                if rfile[-elp1:] == '.'+extension:
-                    files.append(rfile)
-            else:
-                files.append(rfile)
+        if self.files_extension == '':
+            files = glob.glob( join(files_dir, "*") )
+        else:
+            files = glob.glob( join(files_dir, "*.%s"%(self.files_extension) ) )
 
         if(len(files)==0):
             raise Exception("FilesKeymaker: Error: no files found!")
@@ -263,12 +313,11 @@ class FilesKeymaker(Keymaker):
 
         # Step 2
         # For each file, ask the user if they want to make a key for it
-        consumer_token = self.consumer_token
         for f in files:
 
             full_file = os.path.join(files_dir,f)
 
-            d = self._make_a_key(full_file)
+            d = self._make_a_key(full_file, interactive=interactive)
 
             if(d != {}):
 
@@ -279,7 +328,7 @@ class FilesKeymaker(Keymaker):
                 full_keys_file = re.sub(files_dir,keys_out_dir,full_file)
                 _, ext = os.path.splitext(full_keys_file)
 
-                if(self.extension == ''):
+                if(self.files_extension == ''):
                     keys_file = full_keys_file+".json"
                 else:
                     keys_file = re.sub(ext,'.json',full_keys_file)
@@ -288,6 +337,8 @@ class FilesKeymaker(Keymaker):
                       json.dump(d, outfile)
                 print("Successfully exported a key bundle for file %s to JSON file %s"%(full_file, keys_file))
 
+            else:
+                print("Did not export a key bundle for file %s (no auth step!)"%(full_file))
 
 
 class TxtKeymaker(FilesKeymaker):

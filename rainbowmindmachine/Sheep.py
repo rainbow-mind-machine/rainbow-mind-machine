@@ -443,9 +443,14 @@ class Sheep(object):
 
                     # Fire off the tweet
                     if extra_params['publish']:
-                        self._tweet( twit, media=media )
+
+                        if(media is None):
+                            self._tweet( twit )
+                        else:
+                            self._tweet( twit, media=media )
+
                     else:
-                        self._print( twit, media=media )
+                        self._print( twit )
 
 
                     time.sleep( extra_params['inner_sleep'] )

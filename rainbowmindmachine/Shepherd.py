@@ -1,5 +1,5 @@
 import twitter
-import os, re, time
+import os, re, time, glob
 import simplejson as json
 
 from multiprocessing import Pool
@@ -62,14 +62,19 @@ class Shepherd(object):
 
         This assumes keys have already been created by Keymaker. 
         """
-        try:
-            raw_files = os.listdir(json_key_dir)
-        except OSError:
-            raise Exception("Error: key directory "+json_key_dir+" does not exist. Have you run the Keymaker?")
+        raw_files = glob.glob(os.join(json_key_dir,"*.json"))
         for rfile in raw_files:
-            if rfile[-5:] == '.json':
+
+            # check if this is actually a sheep file
+            # load the json and check for oauth key
+
+            with open(rfile,'r') as f:
+                d = json.load(f)
+
+            if 'oauth_token' in d.keys():
                 full_filename = os.path.join(json_key_dir,rfile)
                 self.all_json.append(full_filename)
+
 
     def _setup_sheep(self,sheep_class):
         """

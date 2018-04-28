@@ -19,9 +19,12 @@ See [TODO.md](/TODO.md).
 
 ### Changed
 
-- Media now handled correctly
-    - Sheep.tweet() now takes a media argument, uses python-twitter to handle media
+- Changed how media is attached to tweet
+    - Sheep.tweet() now takes a media argument
+    - Let python-twitter library handle media
     - PhotoADaySheep uses media argument of tweet method
+- Changed apikeys.py arrangement
+    - Problematic for tests, changed to take a filename
 
 # [0.6.4] - 2018-04-15
 
