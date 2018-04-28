@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://pages.charlesreid1.com/b-rainbow-mind-machine/docker/">
+        <link rel="canonical" href="https://pages.charlesreid1.com/b-rainbow-mind-machine/sheep/">
       
       
       
@@ -38,7 +38,7 @@
     
     
       
-        <title>Docker - rainbow mind machine</title>
+        <title>Sheep - rainbow mind machine</title>
       
     
     
@@ -78,7 +78,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#using-rainbow-mind-machine-with-docker" tabindex="1" class="md-skip">
+      <a href="#sheep" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -104,7 +104,7 @@
                 rainbow mind machine
               </span>
               <span class="md-header-nav__topic">
-                Docker
+                Sheep
               </span>
             
           
@@ -242,10 +242,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     
     <label class="md-nav__link" for="nav-4">
       Components
@@ -273,11 +275,20 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../sheep/" title="Sheep" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+    <a href="./" title="Sheep" class="md-nav__link md-nav__link--active">
       Sheep
     </a>
+    
   </li>
 
         
@@ -302,83 +313,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Docker
-      </label>
-    
-    <a href="./" title="Docker" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../docker/" title="Docker" class="md-nav__link">
       Docker
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#building-standalone-docker-container" title="Building Standalone Docker Container" class="md-nav__link">
-    Building Standalone Docker Container
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pulling-docker-container" title="Pulling Docker Container" class="md-nav__link">
-    Pulling Docker Container
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-compose" title="Docker Compose" class="md-nav__link">
-    Docker Compose
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#developer-concerns" title="Developer Concerns" class="md-nav__link">
-    Developer Concerns
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#controlling-the-docker-image-size" title="Controlling the Docker Image Size" class="md-nav__link">
-    Controlling the Docker Image Size
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -423,56 +362,6 @@
     
   
   
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#building-standalone-docker-container" title="Building Standalone Docker Container" class="md-nav__link">
-    Building Standalone Docker Container
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pulling-docker-container" title="Pulling Docker Container" class="md-nav__link">
-    Pulling Docker Container
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-compose" title="Docker Compose" class="md-nav__link">
-    Docker Compose
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#developer-concerns" title="Developer Concerns" class="md-nav__link">
-    Developer Concerns
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#controlling-the-docker-image-size" title="Controlling the Docker Image Size" class="md-nav__link">
-    Controlling the Docker Image Size
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -484,69 +373,55 @@
               
                 
                 
-                <h1 id="using-rainbow-mind-machine-with-docker">Using rainbow mind machine With Docker<a class="headerlink" href="#using-rainbow-mind-machine-with-docker" title="Permanent link">&para;</a></h1>
-<p><img alt="the twittur" src="../twittur.jpg" /></p>
-<p><strong>This is what you get when you cross a doker wale with a twittur burd. <a href="../credits/">credit</a></strong></p>
-<p>To use rainbow mind machine from a docker container,
-you can build the container yourself using the 
-<code>Dockerfile</code> in this repository;
-you can use a container image from dockerhub;
-or you can use docker compose and the <code>docker-compose.yml</code> 
-file in this directory.</p>
-<h2 id="building-standalone-docker-container">Building Standalone Docker Container<a class="headerlink" href="#building-standalone-docker-container" title="Permanent link">&para;</a></h2>
-<p>You can use the <code>make_rmm_container.sh</code> script to build
-the base rainbow mind machine container 
-(called <code>rmm_base</code>): </p>
-<div class="codehilite"><pre><span></span>$ ./make_rmm_container.sh
-</pre></div>
-
-
-<p>This makes a local container image named <code>rmm</code>.</p>
-<h2 id="pulling-docker-container">Pulling Docker Container<a class="headerlink" href="#pulling-docker-container" title="Permanent link">&para;</a></h2>
-<p>You can also pull the rainbow mind machine container from dockerhub:</p>
-<div class="codehilite"><pre><span></span>docker pull charlesreid1/rainbowmindmachine
-</pre></div>
-
-
-<p><a href="https://hub.docker.com/r/charlesreid1/rainbowmindmachine">rainbow mind machine on dockerhub</a></p>
-<h2 id="docker-compose">Docker Compose<a class="headerlink" href="#docker-compose" title="Permanent link">&para;</a></h2>
-<p>For an example bot using rainbow mind machine in a docker container, see:</p>
-<ul>
-<li><a href="https://git.charlesreid1.com/bots/b-apollo">b-apollo</a></li>
-<li><a href="https://git.charlesreid1.com/bots/b-ginsberg">b-ginsberg</a></li>
-<li><a href="https://git.charlesreid1.com/bots/b-milton">b-milton</a></li>
-</ul>
-<p>The basic steps are as follows:</p>
-<ul>
-<li>Create a Twitter application</li>
-<li>Create a rainbow mind machine bot application</li>
-<li>Run the container pod interactively once with <code>docker-compose run &lt;name-of-service&gt;</code></li>
-<li>Run the container pod in detached mode with <code>docker-compose up -d</code></li>
-</ul>
-<h2 id="developer-concerns">Developer Concerns<a class="headerlink" href="#developer-concerns" title="Permanent link">&para;</a></h2>
-<h3 id="controlling-the-docker-image-size">Controlling the Docker Image Size<a class="headerlink" href="#controlling-the-docker-image-size" title="Permanent link">&para;</a></h3>
-<p>The official Python Docker images are huge: 
-the absolute smallest image is 200 MB, and 
-a full python 3 container using debian takes
-nearly 1 GB. </p>
-<p>To reduce the size of these images, you can use 
-a couple of strategies.</p>
+                <h1 id="sheep">Sheep<a class="headerlink" href="#sheep" title="Permanent link">&para;</a></h1>
+<p><img alt="the sheep" src="../sheep.jpg" /></p>
+<p><strong>The rainbow mind machine sheep. <a href="../credits/">credit</a></strong></p>
+<p>Structure of the Sheep:</p>
 <ul>
 <li>
-<p>Use alpine for the "real deal" - it is designed to be minimal 
-    but requires bundling any "extras" into the container</p>
-</li>
-<li>
-<p>Use an image designed to be small</p>
+<p>Constructor:</p>
 <ul>
-<li><a href="https://github.com/jfloff/alpine-python">jfloff/alpine-python</a></li>
+<li>Create lumberjack logger</li>
+<li>Initialize Twitter API instance</li>
+<li>Initialize parameters from JSON file (sheep-specific/account-specific parameters)</li>
+<li>Initialize parameters passed into constructor (overwrites JSON file parameters)</li>
+<li>These parameters are available as <code>self.params</code></li>
 </ul>
 </li>
 <li>
-<p>Maintain logical separation </p>
+<p>Twitter API initialization method:</p>
 <ul>
-<li>one container per flock</li>
-<li>one pod per server</li>
+<li>Initializes Twitter API</li>
+<li>Uses <code>self.params</code> to set consumer token</li>
+<li>Uses parameters from JSON file to get oauth token</li>
+</ul>
+</li>
+<li>
+<p>Perform action method(s):</p>
+<ul>
+<li>Uses dispatcher method</li>
+<li>If we call <code>perform_action('tweet')</code>, this will 
+    look for a method called <code>tweet()</code> and run it.</li>
+</ul>
+</li>
+<li>
+<p>Action methods (general template):</p>
+<ul>
+<li>User will pass in extra parameters (action-specific parameters)</li>
+<li>Parameter validation</li>
+<li>Set API endpoint</li>
+<li>Use oauth token to create oath Client object</li>
+<li>use client to make POST request</li>
+</ul>
+</li>
+<li>
+<p>Tweet method:</p>
+<ul>
+<li>Tweet method has an inner loop and an outer loop</li>
+<li>In the inner loop the bot populates a queue and tweets each tweet in the queue</li>
+<li>In the outer loop (infinite loop) the bot continually repeats the inner loop</li>
+<li>Inner sleep/outer sleep set the time interval between tweets and between runs 
+    of the inner loop</li>
 </ul>
 </li>
 </ul>
@@ -570,7 +445,7 @@ a couple of strategies.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../shepherd/" title="Shepherd" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../keymaker/" title="Keymaker" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -579,19 +454,19 @@ a couple of strategies.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Shepherd
+                Keymaker
               </span>
             </div>
           </a>
         
         
-          <a href="../dev-workflow/" title="Developers Workflow" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../shepherd/" title="Shepherd" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Developers Workflow
+                Shepherd
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

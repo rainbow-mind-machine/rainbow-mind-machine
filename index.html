@@ -11,6 +11,8 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
+        <link rel="canonical" href="https://pages.charlesreid1.com/b-rainbow-mind-machine/">
+      
       
       
         <meta name="lang:clipboard.copy" content="Copy to clipboard">
@@ -51,8 +53,8 @@
     
       <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
-        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700|Ubuntu+Mono">
+        <style>body,input{font-family:"Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono","Courier New",Courier,monospace}</style>
       
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
@@ -85,9 +87,9 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="." title="rainbow mind machine" class="md-header-nav__button md-logo">
+        <a href="https://pages.charlesreid1.com/b-rainbow-mind-machine" title="rainbow mind machine" class="md-header-nav__button md-logo">
           
-            <i class="md-icon">settings input component</i>
+            <i class="md-icon">settings_input_component</i>
           
         </a>
       </div>
@@ -139,6 +141,24 @@
         
       </div>
       
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://git.charlesreid1.com/bots/b-rainbow-mind-machine" title="Go to repository" class="md-source" data-md-source="">
+    
+    <div class="md-source__repository">
+      b-rainbow-mind-machine
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
     </div>
   </nav>
 </header>
@@ -158,11 +178,27 @@
   <label class="md-nav__title md-nav__title--site" for="drawer">
     <span class="md-nav__button md-logo">
       
-        <i class="md-icon">settings input component</i>
+        <i class="md-icon">settings_input_component</i>
       
     </span>
     rainbow mind machine
   </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://git.charlesreid1.com/bots/b-rainbow-mind-machine" title="Go to repository" class="md-source" data-md-source="">
+    
+    <div class="md-source__repository">
+      b-rainbow-mind-machine
+    </div>
+  </a>
+
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -226,6 +262,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#get-in-touch" title="Get In Touch" class="md-nav__link">
+    Get In Touch
+  </a>
+  
+</li>
+      
       
       
       
@@ -266,6 +309,66 @@
       
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Components
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Components
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="keymaker/" title="Keymaker" class="md-nav__link">
+      Keymaker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="sheep/" title="Sheep" class="md-nav__link">
+      Sheep
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="shepherd/" title="Shepherd" class="md-nav__link">
+      Shepherd
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item">
     <a href="docker/" title="Docker" class="md-nav__link">
       Docker
@@ -281,6 +384,18 @@
   <li class="md-nav__item">
     <a href="dev-workflow/" title="Developers Workflow" class="md-nav__link">
       Developers Workflow
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="credits/" title="Credits" class="md-nav__link">
+      Credits
     </a>
   </li>
 
@@ -333,6 +448,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#get-in-touch" title="Get In Touch" class="md-nav__link">
+    Get In Touch
+  </a>
+  
+</li>
+      
       
       
       
@@ -350,12 +472,14 @@
               
                 
                 
-                <h1 id="rainbow-mind-machine">rainbow-mind-machine</h1>
+                <h1 id="rainbow-mind-machine">rainbow-mind-machine<a class="headerlink" href="#rainbow-mind-machine" title="Permanent link">&para;</a></h1>
+<p><img alt="tinysheep" src="./tinysheep.jpg" /></p>
 <p><strong>rainbow mind machine</strong> is an extendable framework for running Twitter bot flocks in Python.</p>
 <p>rainbow mind machine helps with managing multiple twitter bots (bot flocks).
 It uses a Keymaker object to do the one-time authentication step with Twitter,
 and uses a Shepherd-Sheep model to run the flock.</p>
-<p>rainbow mind machine is a <strong>framework</strong> because it provides components (Keymaker, Shepherd, and Sheep)
+<p>rainbow mind machine is a <strong>framework</strong> because it provides components 
+(<a href="keymaker/">Keymaker</a>, <a href="shepherd/">Shepherd</a>, and <a href="sheep/">Sheep</a>)
 with specific roles and ways of interacting.</p>
 <p>rainbow mind machine is <strong>extendable</strong> to keep bots from becoming boring. 
 There are a limited number of components to extend (2), 
@@ -367,17 +491,19 @@ or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.</p>
 <p><a href="https://pypi.python.org/pypi/rainbowmindmachine/0.4">rainbow mind machine on pypi</a></p>
 <p><a href="https://hub.docker.com/r/charlesreid1/rainbowmindmachine/">rainbow mind machine on dockerhub</a></p>
-<h2 id="installing-rainbow-mind-machine">Installing rainbow mind machine</h2>
+<h2 id="installing-rainbow-mind-machine">Installing rainbow mind machine<a class="headerlink" href="#installing-rainbow-mind-machine" title="Permanent link">&para;</a></h2>
 <p>See <a href="installing/">installing</a> for installation instructions.</p>
-<h2 id="quick-start">Quick Start</h2>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <p>See <a href="quickstart/">quickstart</a> for a quick guide to 
 getting a bot up and running, and a few bot flock examples.</p>
-<h2 id="docker">Docker</h2>
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
 <p>See <a href="docker/">docker</a> for more information about
 using rainbow mind machine in a docker container.</p>
-<h2 id="dev-workflow">Dev Workflow</h2>
+<h2 id="dev-workflow">Dev Workflow<a class="headerlink" href="#dev-workflow" title="Permanent link">&para;</a></h2>
 <p>See <a href="dev-workflow/">dev-workflow</a> for info about the workflow for 
 uploading changes to pypi and dockerhub.</p>
+<h2 id="get-in-touch">Get In Touch<a class="headerlink" href="#get-in-touch" title="Permanent link">&para;</a></h2>
+<p>Contact the author: <code>rainbowmindmachine__at__charlesreid1.com</code></p>
                 
                   
                 
@@ -419,6 +545,10 @@ uploading changes to pypi and dockerhub.</p>
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018 <a href="https://charlesreid1.com">Charles Reid</a>, released under the <a href="https://opensource.org/licenses/MIT">MIT License</a>.<br />Photo Credit: <a href="https://www.flickr.com/photos/russloar/">Russ Loar</a> under the <a href="https://creativecommons.org/licenses/by-nc-nd/2.0/">CC BY-NC-ND License</a>
+          </div>
         
         powered by
         <a href="http://www.mkdocs.org">MkDocs</a>
