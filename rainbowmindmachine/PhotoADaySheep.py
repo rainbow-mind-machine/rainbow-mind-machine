@@ -1,3 +1,6 @@
+import urllib
+import requests
+import oauth
 import twitter
 import logging
 import os, glob, time
@@ -178,7 +181,8 @@ class PhotoADaySheep(MediaSheep):
                 offset = 8
 
                 hour_to_tweet = 8
-                if( abs(dd-prior_dd)>0 and hh>(hour_to_tweet + offset)):
+                #if( abs(dd-prior_dd)>0 and hh>(hour_to_tweet + offset)):
+                if True:
 
                     # Index = doy of year
                     doy = datetime.now().timetuple().tm_yday
@@ -275,4 +279,65 @@ class PhotoADaySheep(MediaSheep):
                 msg = self.timestamp_message("Twitter error: "+e.message)
                 self.lumberjack.log(msg)
 
+    def upload_image_to_twitter(self, params):
+
+        # Set up instances of our Token and Consumer.
+        token = oauth.Token(key = params['oauth_token'],
+                            secret = params['oauth_token_secret'])
+
+        consumer = oauth.Consumer(key = params['consumer_token'],
+                                  secret = params['consumer_token_secret'])
+
+        client = oauth.Client(consumer,token)
+
+        url = "https://upload.twitter.com/1.1/media/upload.json"
+
+        imgfile = params['image_file']
+
+        # Generate multipart data and headers from content
+        datagen, headers = multipart_encode({'media': open(imgfile,'rb')})
+
+        req = oauth.Request.from_consumer_and_token(
+                consumer, 
+                token=token, 
+                http_url=url,
+                parameters=None, 
+                http_method="POST")
+
+        req.sign_request(oauth.SignatureMethod_HMAC_SHA1(), consumer, token)
+
+        # Generate multipart data and headers from content
+        datagen, headers = multipart_encode({'media': open(tail,'rb')})
+
+        # Body to string
+        body = "".join(datagen)
+
+        # Create the request 
+        resp, content = client.request(
+                    url,
+                    method = "POST",
+                    body=body,
+                    headers=headers
+                    )
+
+                d = {}
+
+        if resp['status']=='200':
+
+            # we have our media id string!
+
+            d = json.loads(content)
+            ### media_id_string = c['media_id_string']
+            ### media_id = c['media_id']
+
+            msg = self.timestamp_message('MEDIA UPLOAD SUCCESS')
+            self.lumberjack.log(msg)
+            self.lumberjack.log("%s"%(d))
+
+        else:
+
+            msg = self.timestamp_message('MEDIA UPLOAD FAILURE')
+            self.lumberjack.log(msg)
+
+        return d
 
