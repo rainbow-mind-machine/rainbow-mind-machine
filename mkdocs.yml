@@ -1,4 +1,10 @@
-site_name: rainbow mind machine
+site_name: "rainbow mind machine"
+site_url: https://pages.charlesreid1.com/b-rainbow-mind-machine
+repo_name: b-rainbow-mind-machine
+repo_url: https://git.charlesreid1.com/bots/b-rainbow-mind-machine
+
+copyright: 'Copyright &copy; 2018 <a href="https://charlesreid1.com">Charles Reid</a>'
+
 docs_dir: docs
 site_dir: site
 extra_css:
@@ -10,15 +16,24 @@ theme:
     primary: 'red'
     accent: 'red'
   logo:
-    icon: 'settings input component'
+    icon: 'settings_input_component'
   font:
-    text: 'Roboto'
-    code: 'Roboto Mono'
+    text: 'Ubuntu'
+    code: 'Ubuntu Mono'
 markdown_extensions:
   - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
 pages:
   - 'Home':         'index.md'
   - 'Installing':   'installing.md'
   - 'Quick Start':  'quickstart.md'
+  - Components:
+    - 'Keymaker':     'keymaker.md'
+    - 'Sheep':        'sheep.md'
+    - 'Shepherd':     'shepherd.md'
   - 'Docker':       'docker.md'
   - 'Developers Workflow': 'dev-workflow.md'
+
