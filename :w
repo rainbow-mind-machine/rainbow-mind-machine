@@ -1,0 +1,158 @@
+# The Keymaker
+
+![the keymaker](keymaker.jpg)
+
+**You can definitely trust this keymaker. [credit](credits.md)**
+
+The Keymaker is the object that is used to 
+authenticate with Twitter and generate the 
+OAuth keys the application needs to do things
+on behalf of a user.
+
+## The Three-Legged OAuth Process
+
+The Keymaker carries out a one-time authorization step that needs to 
+be done once for each Sheep = Twitter bot = Twitter account.
+
+The Keymaker will be given a set of "items" (more on this in a moment),
+with one item = one Sheep = one bot = one Twitter account, etc.
+The Keymaker iterates through each item and performs the three-legged
+OAuth process.
+
+Here's a summary of the process:
+
+* The three legs are: the user (the bot account), the credential-checker (Twitter), and the consumer (your rainbowmindmachine app - specifically, the Keymaker)
+* The Keymaker will initiate the process by requesting an OAuth URL from Twitter 
+    (this is how a Twitter app asks a user for permission to access their account)
+* Twitter will return an OAuth URL to the Keymaker, which will pass it to the user
+* The user will open the URL in their browser, and sign in using a bot account
+* Twitter will verify the credentials of the user, and create a temporary PIN number that is shown to the user
+* The user will copy and paste that PIN number into the Keymaker, which passes the PIN to Twitter
+* Twitter verifies the PIN matches the one given to the user, and grants the application the access it requested.
+
+Why the song and dance? The three-legged authentication process is intended to 
+allow applications to verify a user's identity (i.e., yes this user _actually_ granted
+permission for the application to control their account) without having to handle
+sensitive data like a user's hashed password. It also keeps Twitter in control of the 
+process.
+
+## Example
+
+Let's look at an example. To create the [Apollo Space Junk Bot Flock](https://pages.charlesreid1.com/b-apollo),
+we would use three items corresponding to three Apollo Space Junk
+bots ([@apollo11junk](https://twitter.com/apollo11junk), 
+[@apollo12junk](https://twitter.com/apollo12junk), 
+[@apollo13junk](https://twitter.com/apollo13junk)).
+Because these are Queneau dialogue generation bots,
+the three items are three JSON files filled with data used 
+by the bots to generate dialogue.
+
+## Keymaker Subclasses
+
+rainbow mind machine is intended to be extensible, so it's important
+we cover how to create derived classes from the Keymaker class.
+
+We have two examples: the `FileKeymaker` and the `TxtKeymaker`.
+These two Keymakers make it easy for the Keymaker to use
+files of a particular type (e.g., text files or image files)
+as the "items" the Keymaker uses to create the Sheep bots.
+
+
+# Keymaker Credentials
+
+## Keymaker Input: API Keys
+
+The Keymaker requires two pieces of information as input:
+
+* Consumer token API key
+* Consumer token secret API key
+
+These tokens are used to authenticate yourself (your app) 
+with Twitter, and allow them to confirm you are the owner of 
+your Twitter app. They are not associated with a bot account.
+The Consumer Token and Consumer Token Secret API keys should be
+available from the Settings of the bot master account.
+
+(You did create a [bot master](installing.md) account, 
+didn't you?!?)
+
+There are three ways to pass the API keys into the Keymaker:
+via JSON file, via a dictionary, or via environment variables.
+
+### Using a JSON File
+
+To specify your API keys in a JSON file:
+
+**`apikeys.json`:**
+
+```text
+{
+    "consumer_token" : "AAAAAAA",
+    "consumer_secret_token" : "BBBBBBBB"
+}
+```
+
+Then create the Keymaker and set up the API keys like this:
+
+**`make_shepherd_with_json.py`:**
+
+```python
+import rainbowmindmachine as rmm
+
+keymaker = rmm.Keymaker()
+keymaker.set_apikeys_file('apikeys.json')
+```
+
+### Using a Python Dictionary
+
+To specify your API keys using a python dictionary
+
+**`make_shepherd_with_dict.py`:**
+
+```python
+import rainbowmindmachine as rmm
+
+keymaker = rmm.Keymaker()
+keymaker.set_apikeys_dict({
+    "consumer_token" : "AAAAAAAAAAAA",
+    "consumer_token_secret" : "BBBBBBBBBBBBB"
+})
+```
+
+### Using Environment Variables
+
+This last method is useful if you want to set up integration tests
+and use actual API keys, but you don't want to hard-code them in a
+file or risk them leaking out. Most test services like Travis 
+provide mechanisms for getting credentials and secrets into
+test containers.
+
+To use this method, set the two environment variables:
+
+```text
+$ export CONSUMER_TOKEN="AAAAAAAA"
+$ export CONSUMER_TOKEN_SECRET="BBBBBBBBBBB"
+```
+
+Now make the Keymaker as follows:
+
+```python
+import rainbowmindmachine as rmm
+keymaker = rmm.Keymaker()
+keymaker.set_apikeys_env()
+```
+
+## Keymaker Process: OAuth Authentication Steps
+
+We won't cover the OAuth steps in great detail - 
+see the source code if you want more information 
+about how it's done - but we use the `oauth2` library
+to authenticate the application and obtain permission
+to use the Twitter bot's account.
+
+
+## Keymaker Output: The OAuth Keys
+
+
+
+

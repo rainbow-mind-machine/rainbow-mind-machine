@@ -273,9 +273,52 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Keymaker
+      </label>
+    
     <a href="./" title="Keymaker" class="md-nav__link md-nav__link--active">
       Keymaker
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-three-legged-oauth-process" title="The Three-Legged OAuth Process" class="md-nav__link">
+    The Three-Legged OAuth Process
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keymaker-subclasses" title="Keymaker Subclasses" class="md-nav__link">
+    Keymaker Subclasses
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -362,6 +405,36 @@
     
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-three-legged-oauth-process" title="The Three-Legged OAuth Process" class="md-nav__link">
+    The Three-Legged OAuth Process
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keymaker-subclasses" title="Keymaker Subclasses" class="md-nav__link">
+    Keymaker Subclasses
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -377,18 +450,149 @@
 <p><img alt="the keymaker" src="../keymaker.jpg" /></p>
 <p><strong>You can definitely trust this keymaker. <a href="../credits/">credit</a></strong></p>
 <p>The Keymaker is the object that is used to 
-authenticate with twitter and generate the 
-oauth keys the application needs to do things
+authenticate with Twitter and generate the 
+OAuth keys the application needs to do things
 on behalf of a user.</p>
-<p>There is a one-time authorization step needed
-for each bot. The Keymaker generates an OAuth 
-token request URL, the user visits the URL and 
-signs in to Twitter, and the user then passes
-a PIN number back to the Keymaker.</p>
-<p>The Keymaker will generate keys for each bot,
-and will store each bot's keys in a JSON file.
-The Keymaker will not be needed again until a 
-new set of keys need to be generated.</p>
+<h2 id="the-three-legged-oauth-process">The Three-Legged OAuth Process<a class="headerlink" href="#the-three-legged-oauth-process" title="Permanent link">&para;</a></h2>
+<p>The Keymaker carries out a one-time authorization step that needs to 
+be done once for each Sheep = Twitter bot = Twitter account.</p>
+<p>The Keymaker will be given a set of "items" (more on this in a moment),
+with one item = one Sheep = one bot = one Twitter account, etc.
+The Keymaker iterates through each item and performs the three-legged
+OAuth process.</p>
+<p>Here's a summary of the process:</p>
+<ul>
+<li>The three legs are: the user (the bot account), the credential-checker (Twitter), and the consumer (your rainbowmindmachine app - specifically, the Keymaker)</li>
+<li>The Keymaker will initiate the process by requesting an OAuth URL from Twitter 
+    (this is how a Twitter app asks a user for permission to access their account)</li>
+<li>Twitter will return an OAuth URL to the Keymaker, which will pass it to the user</li>
+<li>The user will open the URL in their browser, and sign in using a bot account</li>
+<li>Twitter will verify the credentials of the user, and create a temporary PIN number that is shown to the user</li>
+<li>The user will copy and paste that PIN number into the Keymaker, which passes the PIN to Twitter</li>
+<li>Twitter verifies the PIN matches the one given to the user, and grants the application the access it requested.</li>
+</ul>
+<p>Why the song and dance? The three-legged authentication process is intended to 
+allow applications to verify a user's identity (i.e., yes this user <em>actually</em> granted
+permission for the application to control their account) without having to handle
+sensitive data like a user's hashed password. It also keeps Twitter in control of the 
+process.</p>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p>Let's look at an example. To create the <a href="https://pages.charlesreid1.com/b-apollo">Apollo Space Junk Bot Flock</a>,
+we would use three items corresponding to three Apollo Space Junk
+bots (<a href="https://twitter.com/apollo11junk">@apollo11junk</a>, 
+<a href="https://twitter.com/apollo12junk">@apollo12junk</a>, 
+<a href="https://twitter.com/apollo13junk">@apollo13junk</a>).
+Because these are Queneau dialogue generation bots,
+the three items are three JSON files filled with data used 
+by the bots to generate dialogue.</p>
+<h2 id="keymaker-subclasses">Keymaker Subclasses<a class="headerlink" href="#keymaker-subclasses" title="Permanent link">&para;</a></h2>
+<p>rainbow mind machine is intended to be extensible, so it's important
+we cover how to create derived classes from the Keymaker class.</p>
+<p>We have two examples: the <code>FileKeymaker</code> and the <code>TxtKeymaker</code>.
+These two Keymakers make it easy for the Keymaker to use
+files of a particular type (e.g., text files or image files)
+as the "items" the Keymaker uses to create the Sheep bots.</p>
+<h1 id="keymaker-credentials">Keymaker Credentials<a class="headerlink" href="#keymaker-credentials" title="Permanent link">&para;</a></h1>
+<h2 id="keymaker-input-api-keys">Keymaker Input: API Keys<a class="headerlink" href="#keymaker-input-api-keys" title="Permanent link">&para;</a></h2>
+<p>The Keymaker requires two pieces of information as input:</p>
+<ul>
+<li>Consumer token API key</li>
+<li>Consumer token secret API key</li>
+</ul>
+<p>These tokens are used to authenticate yourself (your app) 
+with Twitter, and allow them to confirm you are the owner of 
+your Twitter app. They are not associated with a bot account.
+The Consumer Token and Consumer Token Secret API keys should be
+available from the Settings of the bot master account.</p>
+<p>(You did create a <a href="../installing/">bot master</a> account, 
+didn't you?!?)</p>
+<p>There are three ways to pass the API keys into the Keymaker:
+via JSON file, via a dictionary, or via environment variables.</p>
+<h3 id="using-a-json-file">Using a JSON File<a class="headerlink" href="#using-a-json-file" title="Permanent link">&para;</a></h3>
+<p>To specify your API keys in a JSON file:</p>
+<p><strong><code>apikeys.json</code>:</strong></p>
+<div class="codehilite"><pre><span></span>{
+    &quot;consumer_token&quot; : &quot;AAAAAAA&quot;,
+    &quot;consumer_secret_token&quot; : &quot;BBBBBBBB&quot;
+}
+</pre></div>
+
+
+<p>Then create the Keymaker and set up the API keys like this:</p>
+<p><strong><code>make_shepherd_with_json.py</code>:</strong></p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
+
+<span class="n">keymaker</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Keymaker</span><span class="p">()</span>
+<span class="n">keymaker</span><span class="o">.</span><span class="n">set_apikeys_file</span><span class="p">(</span><span class="s1">&#39;apikeys.json&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="using-a-python-dictionary">Using a Python Dictionary<a class="headerlink" href="#using-a-python-dictionary" title="Permanent link">&para;</a></h3>
+<p>To specify your API keys using a python dictionary</p>
+<p><strong><code>make_shepherd_with_dict.py</code>:</strong></p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
+
+<span class="n">keymaker</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Keymaker</span><span class="p">()</span>
+<span class="n">keymaker</span><span class="o">.</span><span class="n">set_apikeys_dict</span><span class="p">({</span>
+    <span class="s2">&quot;consumer_token&quot;</span> <span class="p">:</span> <span class="s2">&quot;AAAAAAAAAAAA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;consumer_token_secret&quot;</span> <span class="p">:</span> <span class="s2">&quot;BBBBBBBBBBBBB&quot;</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<h3 id="using-environment-variables">Using Environment Variables<a class="headerlink" href="#using-environment-variables" title="Permanent link">&para;</a></h3>
+<p>This last method is useful if you want to set up integration tests
+and use actual API keys, but you don't want to hard-code them in a
+file or risk them leaking out. Most test services like Travis 
+provide mechanisms for getting credentials and secrets into
+test containers.</p>
+<p>To use this method, set the two environment variables:</p>
+<div class="codehilite"><pre><span></span>$ export CONSUMER_TOKEN=&quot;AAAAAAAA&quot;
+$ export CONSUMER_TOKEN_SECRET=&quot;BBBBBBBBBBB&quot;
+</pre></div>
+
+
+<p>Now make the Keymaker as follows:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
+
+<span class="n">keymaker</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Keymaker</span><span class="p">()</span>
+<span class="n">keymaker</span><span class="o">.</span><span class="n">set_apikeys_env</span><span class="p">()</span>
+</pre></div>
+
+
+<h2 id="keymaker-output-oauth-keys">Keymaker Output: OAuth Keys<a class="headerlink" href="#keymaker-output-oauth-keys" title="Permanent link">&para;</a></h2>
+<p>Once the Keymaker and the user go through the three-legged authentication process,
+Twitter will give the application a pair of OAuth tokens (a token and a secret token)
+that the application can use to control the user's account at the specified permissions
+level (this will last indefinitely, or until the user revokes access in their Twitter Settings).</p>
+<p>New OAuth tokens can be easily re-made using the same 
+three-legged authentication processs, in case the OAuth keys
+are lost or the user revoked access and needs to re-grant it.</p>
+<p>The Keymaker outputs these OAuth tokens, together with other
+information that will be useful for the Sheep object,
+into a Python dictionary, and outputs that to a JSON file
+that will be passed to the Sheep once the <a href="../shepherd/">Shepherd</a>
+creates each Sheep.</p>
+<p>The JSON files are "bot keys", in the "keys to the car" or "keys to the kingdom" sense.
+They are stored in a bot key directory, which can be configured (see below).</p>
+<h2 id="keymaker-process-make-a-key">Keymaker Process: Make a Key<a class="headerlink" href="#keymaker-process-make-a-key" title="Permanent link">&para;</a></h2>
+<p>Once you have your keymaker set up with API keys, 
+you can make the OAuth tokens (the bot keys)
+using the <code>Keymaker.make_a_key()</code> method.</p>
+<p>(Derived Keymaker classes will usually override
+or replace this method, e.g., with a 
+<code>make_keys()</code> method.)</p>
+<p>If we want to test out the Keymaker and create keys 
+for a single bot, we can specify the name of the bot
+and the name of the JSON file to dump it to
+(and control the name of the bot keys directory):</p>
+<div class="codehilite"><pre><span></span>import rainbowmindmachine as rmm
+
+keymaker = rmm.Keymaker()
+keymaker.make_a_key( name = &#39;My Bot&#39;,
+                     json = &#39;mybot.json&#39;,
+                     keys_out_dir = &#39;bot_keys&#39;)
+</pre></div>
                 
                   
                 
