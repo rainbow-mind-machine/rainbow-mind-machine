@@ -7,6 +7,9 @@ thisdir = os.path.abspath(os.path.dirname(__file__))
 
 class TestKeymaker(TestCase):
 
+    def setUpClass(self):
+        self.keys_dir = 'tests/keys'
+
     def test_default_keymaker_apikeys_env(self):
         """
         Test ability to create single key using consumer token from environment vars
@@ -22,7 +25,7 @@ class TestKeymaker(TestCase):
                 'name' : 'test_default_keymaker_apikeys_env',
                 'json' : 'test_default_keymaker_apikeys_env.json'
             },
-            keys_out_dir='tests/keys/',
+            keys_out_dir=self.keys_dir,
             interactive=False)
 
         os.environ['CONSUMER_TOKEN'] = ''
@@ -44,7 +47,7 @@ class TestKeymaker(TestCase):
                 'name' : 'test_default_keymaker_apikeys_file',
                 'json' : 'test_default_keymaker_apikeys_file.json'
             },
-            keys_out_dir='tests/keys/',
+            keys_out_dir=self.keys_dir,
             interactive=False)
 
         output = out.getvalue().strip()
@@ -66,7 +69,7 @@ class TestKeymaker(TestCase):
                 'name' : 'test_default_keymaker_apikeys_dict',
                 'json' : 'test_default_keymaker_apikeys_dict.json'
             },
-            keys_out_dir='tests/keys/',
+            keys_out_dir=self.keys_dir,
             interactive=False)
 
         output = out.getvalue().strip()
@@ -86,8 +89,8 @@ class TestKeymaker(TestCase):
         filesdir = os.path.join(thisdir,'files/')
         with captured_output() as (out, err):
             keymaker.make_keys(filesdir,
-                    keys_out_dir='tests/keys/',
-                    interactive=False)
+                keys_out_dir=self.keys_dir,
+                interactive=False)
         output = out.getvalue().strip()
         self.assertIn('Did not export a key bundle', output)
 
@@ -104,8 +107,12 @@ class TestKeymaker(TestCase):
         txtdir = os.path.join(thisdir,'txt/')
         with captured_output() as (out, err):
             keymaker.make_keys(txtdir,
-                    keys_out_dir='tests/keys/',
-                    interactive=False)
+                keys_out_dir=self.keys_dir,
+                interactive=False)
         output = out.getvalue().strip()
         self.assertIn('Did not export a key bundle', output)
+
+    def tearDownClass(self):
+        # Remove the keys directory we created
+        subprocess.call(['rm','-rf',self.keys_dir])
 
