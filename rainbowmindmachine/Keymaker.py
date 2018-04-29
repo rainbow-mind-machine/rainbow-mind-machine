@@ -3,7 +3,8 @@ import oauth2 as oauth
 import os, re, glob
 import simplejson as json
 import subprocess
-from os.path import isfile, isdir, exists, join
+from os.path import isfile, isdir, exists
+from os.path import join, basename, splitext
 
 
 class Keymaker(object):
@@ -27,6 +28,11 @@ class Keymaker(object):
         
         self.apikeys_set = False
 
+    # 
+    # 
+    # Load Application (Consumer) API Keys
+    # 
+    #
 
     def set_apikeys_env(self):
         """
@@ -35,10 +41,10 @@ class Keymaker(object):
             $CONSUMER_TOKEN
             $CONSUMER_TOKEN_SECRET
         """
-        if( os.environ('CONSUMER_TOKEN') and os.environ('CONSUMER_TOKEN_SECRET') ):
+        if( os.environ['CONSUMER_TOKEN'] and os.environ['CONSUMER_TOKEN_SECRET'] ):
             self.consumer_token = {}
-            self.consumer_token['consumer_token'] = os.environ('CONSUMER_TOKEN')
-            self.consumer_token['consumer_token_secret'] = os.environ('CONSUMER_TOKEN')
+            self.consumer_token['consumer_token'] = os.environ['CONSUMER_TOKEN']
+            self.consumer_token['consumer_token_secret'] = os.environ['CONSUMER_TOKEN']
             self.apikeys_set = True
         else:
             raise Exception("Error: environment variables CONSUMER_TOKEN and CONSUMER_TOKEN_SECRET were not set.")
@@ -73,7 +79,6 @@ class Keymaker(object):
         self.set_apikeys_dict(d)
 
 
-
     def set_apikeys_dict(self,d_apikeys):
         """
         Set the API keys by passing a dictionary
@@ -97,56 +102,64 @@ class Keymaker(object):
             raise Exception(err)
 
 
+    # 
+    # 
+    # Make Bot OAuth Keys
+    # 
+    #
 
-    def make_a_key(self, item, keys_out_dir='keys/'):
+    def make_a_key(self, item, keys_out_dir='keys/', interactive=True):
         """
-        Make a single key.
+        Public method to make a single key from a single item.
 
         If you make bots one item at a time, 
-        you are bypassing the normal method of 
-        creating multiple bots at a time (bot flock).
+        you are bypassing the "normal" method of 
+        creating multiple bots at a time (bot flock),
+        so you must specify an item.
 
-        This requires you to specify an item,
-        which is a dictionary containing a name for the bot
-        and a location for a key file to be created.
+        An item is a dictionary with two keys:
 
-        The item dict must contain the keys 'name' and 'json'.
-
-        The key 'name' gives the bot a label.
-
-        The key 'json' indicates the json file where the key is stored. (ALL PATHS ARE IGNORED.)
+            name :  Label for the bot
+            json :  The name of the JSON file in which to save
+                    the bot OAuth key (all paths are ignored).
         """
         if('name' not in item.keys() or 'json' not in item.keys()):
             raise Exception("Error: to use make_a_key, you must specify 'name' and 'json' keys in your input.")
 
         # Step 1:
         # Get a private key to tweet as this user,
-        # and bundle it up with other bot parameters.
+        # and if ok, populate with this item's details
 
-        d = self._make_a_key(item['name'])
+        d = self._make_a_key(item['name'], interactive=interactive)
 
-        # Store the user's parameter dictionary 
-        # together with the Twitter API key
-        for key in item.keys():
-            d[key] = item[key]
+        if(d != {}):
 
+            # Store the item data passed in
+            # together with the Twitter API key
+            for key in item.keys():
+                d[key] = item[key]
 
-        # Step 2:
-        # Export the bot data bundle to a json file
-        # in the keys directory.
-        # Ignore any prefix the user provides 
-        # and just grab the basename of the json file.
+            # Step 2:
+            # Export the bot data bundle to a json file
+            # in the keys directory.
+            # Ignore any prefix the user provides 
+            # and just grab the basename of the json file.
 
-        # Make a key dir
-        subprocess.call(["mkdir","-p",keys_out_dir])
+            # Make a key dir
+            subprocess.call(["mkdir","-p",keys_out_dir])
 
-        keys_file = os.path.basename(item['json'])
-        keys_out = os.path.join(keys_out_dir,keys_file)
+            keys_file = basename(item['json'])
+            keys_out = join(keys_out_dir,keys_file)
 
-        with open(keys_out,'w') as outfile:
-            json.dump(d,outfile)
+            with open(keys_out,'w') as outfile:
+                json.dump(d,outfile)
 
-        print("Successfully exported a key bundle for item %s to JSON file %s"%(item['name'],keys_out))
+            print("Successfully exported a key bundle for item %s to JSON file %s"%(item['name'],keys_out))
+
+        else:
+            # If we run non-interactively (test),
+            # this is what we will get
+            print("Did not export a key bundle for file %s (no auth step!)"%(full_file))
 
 
 
@@ -291,16 +304,11 @@ class FilesKeymaker(Keymaker):
 
         If interative=False, this simply passes through.
         """
-        # Set the name of the key 
-        # that will store the JSON file.
-        # 
-        # This is how each bot can remember
-        # what file was used to initialize it.
+        # Step 1:
+        # Take care of file related-tasks for this bot
+        # (finding files, storing files)
 
-        self.file_key = 'file'
-
-        # Step 1
-        # Get list of files
+        # Get list of files from which we will create bots 
         if self.files_extension == '':
             files = glob.glob( join(files_dir, "*") )
         else:
@@ -311,11 +319,17 @@ class FilesKeymaker(Keymaker):
 
         files.sort()
 
-        # Step 2
-        # For each file, ask the user if they want to make a key for it
+        # Each bot needs to save its own file.
+        # This sets the key that stores that info.
+        self.file_key = 'file'
+
+
+        # Step 2:
+        # Iterate over each file and ask the user if 
+        # they want to make a key for that file
         for f in files:
 
-            full_file = os.path.join(files_dir,f)
+            full_file = join(files_dir,f)
 
             d = self._make_a_key(full_file, interactive=interactive)
 
@@ -326,7 +340,7 @@ class FilesKeymaker(Keymaker):
                 # Step 2.5: Export our Sheep key info to a JSON file
                 subprocess.call(["mkdir","-p",keys_out_dir])
                 full_keys_file = re.sub(files_dir,keys_out_dir,full_file)
-                _, ext = os.path.splitext(full_keys_file)
+                _, ext = splitext(full_keys_file)
 
                 if(self.files_extension == ''):
                     keys_file = full_keys_file+".json"
@@ -338,6 +352,8 @@ class FilesKeymaker(Keymaker):
                 print("Successfully exported a key bundle for file %s to JSON file %s"%(full_file, keys_file))
 
             else:
+                # If we run non-interactively (test),
+                # this is what we will get
                 print("Did not export a key bundle for file %s (no auth step!)"%(full_file))
 
 
