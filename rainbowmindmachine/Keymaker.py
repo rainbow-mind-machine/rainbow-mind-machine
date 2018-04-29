@@ -19,6 +19,9 @@ class Keymaker(object):
 
     This results in one public/private key pair per sheep.
     With a sheep's keys, you can tweet as that sheep.
+
+    (NOTE: Keymaker does not use Lumberjack, 
+    Lumberjack is for the flock only.)
     """
     def __init__(self):
         # We won't do much here
@@ -177,7 +180,8 @@ class Keymaker(object):
         If interactive=False, this simply passes through. 
         """
         if(not self.apikeys_set):
-            raise Exception("Error: API keys were not set for the Shepherd.")
+            err = "Error: API keys were not set for the Shepherd."
+            raise Exception(err)
 
         item_ = str(item)
         print("="*45)

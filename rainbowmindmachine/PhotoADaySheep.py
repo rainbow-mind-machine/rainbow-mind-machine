@@ -5,9 +5,9 @@ import twitter
 import logging
 import os, glob, time
 from datetime import datetime
-from .MediaSheep import MediaSheep
+from .Sheep import Sheep
 
-class PhotoADaySheep(MediaSheep):
+class PhotoADaySheep(Sheep):
     """
     This sheep will tweet a photo a day.
 

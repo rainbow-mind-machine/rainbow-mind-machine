@@ -48,8 +48,8 @@ class Lumberjack(object):
 
     def __init__(self, 
                  flock_name = 'Anonymous Flock of Cowards',
-                 log_level = logging.INFO, 
-                 log_file = 'rainbowmindmachine.log'):
+                 log_file = 'rainbowmindmachine.log',
+                 **kwargs):
         """
         Initialize the logging module to log 
         output from bots to a user-specified file.
@@ -58,8 +58,7 @@ class Lumberjack(object):
         located in the directory in which the bot 
         script is run.
 
-        The user also specifies a name (for the log),
-        and a log level. (Currently, everything is INFO.)
+        The user also specifies a name (for the log).
         """
 
         # These are pretty solid, so hard-code them
@@ -67,22 +66,25 @@ class Lumberjack(object):
         date_str = '%m-%d-%Y %H:%M:%S'
 
         # Configure logging
-        logging.basicConfig(level = log_level,
-                            format = format_str,
-                            datefmt = date_str,
-                            filename = log_file,
-                            filemode = 'w')
+        logging.basicConfig(level = logging.INFO,
+                            datefmt = date_str)
 
-        # Set log target: console
-        console = logging.StreamHandler()
-        console.setLevel(logging.INFO)
-        self.logger = logging.getLogger('rainbowmindmachine')
-        self.logger.addHandler(console)
+        formatter = logging.Formatter(format_str)
+
+        logger = logging.getLogger('rainbowmindmachine')
+
+        fh = logging.FileHandler(log_file)
+        fh.setLevel(logging.INFO)
+        logger.addHandler(fh)
+
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.INFO)
+        logger.addHandler(ch)
 
         logo = LOGO
-        self.logger.info(logo)
-        self.logger.info("-"*40)
-        self.logger.info("Flock name: %s"%(flock_name))
-        self.logger.info("Flock log file: %s"%(log_file))
-        self.logger.info("-"*40)
+        logger.info(logo)
+        logger.info("-"*40)
+        logger.info("Flock name: %s"%(flock_name))
+        logger.info("Flock log file: %s"%(log_file))
+        logger.info("-"*40)
 

@@ -113,11 +113,12 @@ class Sheep(object):
 
         Does not return anything
         """
+        logger = logging.getLogger('rainbowmindmachine')
+
         if( 'url' not in extra_params.keys()):
             err = "change_url() action called without 'url' key specified in the parameters dict."
+            logger.error(err)
             raise Exception(err)
-
-        logger = logging.getLogger('rainbowmindmachine')
 
         bot_url = extra_params['url']
 
@@ -152,11 +153,12 @@ class Sheep(object):
 
         Does not return anything
         """
+        logger = logging.getLogger('rainbowmindmachine')
+
         if( 'bio' not in extra_params.keys()):
             err = "change_bio() action called without 'bio' key specified in the parameters dict."
+            logger.error(err)
             raise Exception(err)
-
-        logger = logging.getLogger('rainbowmindmachine')
 
         bot_bio = extra_params['bio']
 
@@ -194,8 +196,11 @@ class Sheep(object):
 
         Does not return anything
         """
+        logger = logging.getLogger('rainbowmindmachine')
+
         if( 'background' not in extra_params.keys() and 'links' not in extra_params.keys()):
             err = "change_color() action called without 'background' or 'links' keys specified in the parameters dict."
+            logger.error(err)
             raise Exception(err)
 
         # json sent to the Twitter API
@@ -246,20 +251,22 @@ class Sheep(object):
 
         This method does not return anything
         """
+        logger = logging.getLogger('rainbowmindmachine')
+
         # json sent to the Twitter API
         payload = {}
 
         if 'image' not in extra_params.keys():
             err = "change_image() action called without an 'image' key specified in the params dict."
+            logger.error(err)
             raise Exception(err)
         elif os.path.isfile(extra_params['image']) is False:
             err = "change_image() action called with 'image' key of params dict pointing to a non-existent file."
+            logger.error(err)
             raise Exception(err)
         else: 
             img_file = extra_params['image']
             b64 = base64.encodestring(open(img_file,"rb").read())
-
-        logger = logging.getLogger('rainbowmindmachine')
 
         # Set the API endpoint 
         api_url = "https://api.twitter.com/1.1/account/update_profile_image.json"
@@ -293,16 +300,17 @@ class Sheep(object):
 
         This method does not return anything
         """
+        logger = logging.getLogger('rainbowmindmachine')
+
         # json sent to the Twitter API
         payload = {}
 
         if 'username' not in extra_params.keys():
             err = "follow_user() action called without a 'username' key specified in the params dict."
+            logger.error(err)
             raise Exception(err)
         else: 
             payload['user_id'] = extra_params['username']
-
-        logger = logging.getLogger('rainbowmindmachine')
 
         # Set the API endpoint 
         url = "https://api.twitter.com/1.1/friendships/create.json"
@@ -334,16 +342,17 @@ class Sheep(object):
 
         This method does not return anything
         """
+        logger = logging.getLogger('rainbowmindmachine')
+
         # json sent to the Twitter API
         payload = {}
 
         if 'username' not in extra_params.keys():
             err = "unfollow_user() action called without a 'username' key specified in the params dict."
+            logger.error(err)
             raise Exception(err)
         else: 
             payload['user_id'] = extra_params['username']
-
-        logger = logging.getLogger('rainbowmindmachine')
 
         # Set the API endpoint 
         url = "https://api.twitter.com/1.1/friendships/destroy.json"
@@ -378,9 +387,7 @@ class Sheep(object):
         tweet_queue = deque(maxlen=maxlen)
         
         for j in range(maxlen):
-
             tweet = "Hello world! That's number %d of 5."%(j+1)
-
             tweet_queue.extend([tweet])
 
         logger = logging.getLogger('rainbowmindmachine')
@@ -483,7 +490,10 @@ class Sheep(object):
                 time.sleep( extra_params['outer_sleep'] )
 
             except AssertionError:
-                raise Exception("Error: tweet queue was empty. Check your populate_queue() method definition.")
+
+                err = "Error: tweet queue was empty. Check your populate_queue() method definition."
+                logger.error(err)
+                raise Exception(err)
 
 
     def _tweet(self,twit,media):
