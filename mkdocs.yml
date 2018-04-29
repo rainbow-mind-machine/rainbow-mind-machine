@@ -32,8 +32,8 @@ pages:
   - 'Quick Start':  'quickstart.md'
   - Components:
     - 'Keymaker':   'keymaker.md'
-    - 'Sheep':      'sheep.md'
     - 'Shepherd':   'shepherd.md'
+    - 'Sheep':      'sheep.md'
   - 'Docker':       'docker.md'
   - 'Developers Workflow': 'dev-workflow.md'
   - 'Credits':      'credits.md'
