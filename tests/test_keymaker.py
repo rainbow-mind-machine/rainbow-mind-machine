@@ -22,13 +22,13 @@ class TestKeymaker(TestCase):
                 'name' : 'test_default_keymaker_apikeys_env',
                 'json' : 'test_default_keymaker_apikeys_env.json'
             },
+            keys_out_dir='tests/keys/',
             interactive=False)
 
         os.environ['CONSUMER_TOKEN'] = ''
         os.environ['CONSUMER_TOKEN_SECRET'] = ''
 
         output = out.getvalue().strip()
-        self.assertIn('Successfully exported a key bundle', output)
 
     def test_default_keymaker_apikeys_file(self):
         """
@@ -44,11 +44,11 @@ class TestKeymaker(TestCase):
                 'name' : 'test_default_keymaker_apikeys_file',
                 'json' : 'test_default_keymaker_apikeys_file.json'
             },
+            keys_out_dir='tests/keys/',
             interactive=False)
 
         output = out.getvalue().strip()
         self.assertIn('Did not export a key bundle', output)
-        self.assertIn('Successfully exported a key bundle', output)
 
     def test_default_keymaker_apikeys_dict(self):
         """
@@ -66,11 +66,11 @@ class TestKeymaker(TestCase):
                 'name' : 'test_default_keymaker_apikeys_dict',
                 'json' : 'test_default_keymaker_apikeys_dict.json'
             },
+            keys_out_dir='tests/keys/',
             interactive=False)
 
         output = out.getvalue().strip()
         self.assertIn('Did not export a key bundle', output)
-        self.assertIn('Successfully exported a key bundle', output)
 
     def test_files_keymaker(self):
         """
@@ -85,10 +85,11 @@ class TestKeymaker(TestCase):
 
         filesdir = os.path.join(thisdir,'files/')
         with captured_output() as (out, err):
-            keymaker.make_keys(filesdir,interactive=False)
+            keymaker.make_keys(filesdir,
+                    keys_out_dir='tests/keys/',
+                    interactive=False)
         output = out.getvalue().strip()
         self.assertIn('Did not export a key bundle', output)
-        self.assertIn('Successfully exported a key bundle', output)
 
     def test_txt_keymaker(self):
         """
@@ -102,8 +103,9 @@ class TestKeymaker(TestCase):
 
         txtdir = os.path.join(thisdir,'txt/')
         with captured_output() as (out, err):
-            keymaker.make_keys(txtdir,interactive=False)
+            keymaker.make_keys(txtdir,
+                    keys_out_dir='tests/keys/',
+                    interactive=False)
         output = out.getvalue().strip()
         self.assertIn('Did not export a key bundle', output)
-        self.assertIn('Successfully exported a key bundle', output)
 

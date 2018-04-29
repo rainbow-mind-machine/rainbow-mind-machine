@@ -159,7 +159,7 @@ class Keymaker(object):
         else:
             # If we run non-interactively (test),
             # this is what we will get
-            print("Did not export a key bundle for file %s (no auth step!)"%(full_file))
+            print("Did not export a key bundle for item %s (no auth step!)"%(item['name']))
 
 
 
