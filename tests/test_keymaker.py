@@ -1,6 +1,6 @@
 import rainbowmindmachine as rmm
 from unittest import TestCase
-import os
+import os, subprocess
 from .utils import captured_output
 
 thisdir = os.path.abspath(os.path.dirname(__file__))
@@ -22,17 +22,17 @@ class TestKeymaker(TestCase):
         keymaker.set_apikeys_env()
 
         with captured_output() as (out, err):
-            keymaker.make_a_key({
-                'name' : 'test_default_keymaker_apikeys_env',
-                'json' : 'test_default_keymaker_apikeys_env.json'
-            },
-            keys_out_dir=self.keys_dir,
-            interactive=False)
+            keymaker.make_a_key(
+                name = 'test_default_keymaker_apikeys_env',
+                json = 'test_default_keymaker_apikeys_env.json',
+                keys_out_dir=self.keys_dir,
+                interactive=False)
 
         os.environ['CONSUMER_TOKEN'] = ''
         os.environ['CONSUMER_TOKEN_SECRET'] = ''
 
         output = out.getvalue().strip()
+        self.assertIn('Did not export a key bundle', output)
 
     def test_default_keymaker_apikeys_file(self):
         """
@@ -44,12 +44,11 @@ class TestKeymaker(TestCase):
         keymaker.set_apikeys_file(apikeys)
 
         with captured_output() as (out, err):
-            keymaker.make_a_key({
-                'name' : 'test_default_keymaker_apikeys_file',
-                'json' : 'test_default_keymaker_apikeys_file.json'
-            },
-            keys_out_dir=self.keys_dir,
-            interactive=False)
+            keymaker.make_a_key(
+                name = 'test_default_keymaker_apikeys_file',
+                json = 'test_default_keymaker_apikeys_file.json',
+                keys_out_dir=self.keys_dir,
+                interactive=False)
 
         output = out.getvalue().strip()
         self.assertIn('Did not export a key bundle', output)
@@ -66,12 +65,11 @@ class TestKeymaker(TestCase):
         })
 
         with captured_output() as (out, err):
-            keymaker.make_a_key({
-                'name' : 'test_default_keymaker_apikeys_dict',
-                'json' : 'test_default_keymaker_apikeys_dict.json'
-            },
-            keys_out_dir=self.keys_dir,
-            interactive=False)
+            keymaker.make_a_key(
+                name = 'test_default_keymaker_apikeys_dict',
+                json = 'test_default_keymaker_apikeys_dict.json',
+                keys_out_dir = self.keys_dir,
+                interactive = False)
 
         output = out.getvalue().strip()
         self.assertIn('Did not export a key bundle', output)
