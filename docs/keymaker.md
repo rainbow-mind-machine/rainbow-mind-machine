@@ -58,9 +58,9 @@ files of a particular type (e.g., text files or image files)
 as the "items" the Keymaker uses to create the Sheep bots.
 
 
-# Keymaker Credentials
+## Keymaker Credentials
 
-## Keymaker Input: API Keys
+### Keymaker Input: API Keys
 
 The Keymaker requires two pieces of information as input:
 
