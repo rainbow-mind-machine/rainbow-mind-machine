@@ -2,15 +2,14 @@
 
 ## tests
 
-tests:
-- write more tests.
-- think coverage. 
-- keymaker, sheep, shepherd.
-- also, logger.
+keymaker tests:
 
-failing?
-- problem reading from apikeys
-- need to be able to point to external json
+shepherd tests:
+
+sheep tests:
+
+logger tests:
+
 
 ## do it now
 

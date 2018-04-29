@@ -14,6 +14,7 @@ See [TODO.md](/TODO.md).
 
 ### Added
 
+- Added tests for Keymaker
 - Added documentation for Sheep, Shepherd, Keymaker
 - Improved dev workflow documentation
 
@@ -23,8 +24,9 @@ See [TODO.md](/TODO.md).
     - Sheep.tweet() now takes a media argument
     - Let python-twitter library handle media
     - PhotoADaySheep uses media argument of tweet method
-- Changed apikeys.py arrangement
-    - Problematic for tests, changed to take a filename
+- Changed apikeys.py arrangement to take filename arg
+    - Importing as module was problematic for tests
+    - Now pass in using a JSON file, a dictionary, or env vars
 
 # [0.6.4] - 2018-04-15
 
