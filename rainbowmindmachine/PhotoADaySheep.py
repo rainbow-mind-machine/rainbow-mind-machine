@@ -48,7 +48,6 @@ class PhotoADaySheep(MediaSheep):
             err = "Error: Do not call the 'tweet' action on "
             err += "PhotoADaySheep directly. Call the 'photo_a_day' "
             err += "action instead."
-            self.lumberjack.log(err)
             raise Exception(err)
 
         # Use the dispatcher method pattern
@@ -91,12 +90,10 @@ class PhotoADaySheep(MediaSheep):
         if('images_dir' not in extra_params.keys()):
             err = "Error: no images directory provided to "
             err += "PhotoADaySheep via 'images_dir' parameter"
-            self.lumberjack.log(err)
             raise Exception(err)
         if('images_pattern' not in extra_params.keys()):
             err = "Error: no image filename pattern (e.g., \"my_image_{i}.jpg\") "
             err += "were provided to PhotoADaySheep via 'images_template' parameter"
-            self.lumberjack.log(err)
             raise Exception(err)
 
         # This method should load _all_ images,
@@ -155,6 +152,8 @@ class PhotoADaySheep(MediaSheep):
         # than it could be, but it's relatively simple,
         # and if it ain't broke, don't fix it.
 
+        logger = logging.getLogger('rainbowmindmachine')
+
         remcycle = 120 # sleep (in seconds)
 
         prior_dd = 0
@@ -195,13 +194,13 @@ class PhotoADaySheep(MediaSheep):
                         err = "Warning: for doy = %d, could not find not find "%(doy)
                         err += "the corresponding image %s"%( tweet_params['image_pattern'].format(i=doy) )
                         msg = self.timestamp_message(err)
-                        self.lumberjack.log(msg)
+                        logger.info(msg)
 
                     # Update prior_dd
                     prior_dd = dd
 
                 msg = self.timestamp_message("Sleeping...")
-                self.lumberjack.log(msg)
+                logger.info(msg)
 
                 time.sleep(remcycle)
 
@@ -217,9 +216,9 @@ class PhotoADaySheep(MediaSheep):
                 # Add this line in to debug sheep
                 raise Exception(err)
 
-                self.lumberjack.log(msg1)
-                self.lumberjack.log(msg2)
-                self.lumberjack.log(msg3)
+                logger.info(msg1)
+                logger.info(msg2)
+                logger.info(msg3)
 
                 time.sleep(remcycle)
 

@@ -8,36 +8,27 @@ import traceback
 from collections import deque
 import base64
 
-# Note:
-# when ready to get to uploading media,
-# see https://github.com/twitterdev/large-video-upload-python/blob/master/async-upload.py#L60
-# (yuck)
-
 class Sheep(object):
     """
-    - json file is stored as self.params and contains everything the sheep needs
+    - input bot key (JSON file) is stored as self.params and contains everything the sheep needs
     - by default, bot tweeting is two-layered:
         - outer loop populates tweet queue
         - inner loop tweets from the tweet queue
     """
-    def __init__(self, json_file, lumberjack, **kwargs):
+    def __init__(self, json_file, **kwargs):
         """
-        A Sheep object manages information for a single Twitter account.
+        A Sheep object manages information for a single Twitter bot account.
+        The information (oauth keys, bot name, bot account, etc) are contained
+        in the JSON file passed in by the Shepherd.
 
-        This information consists of public/private keys,
-        and is contained in a json file (passed into the constructor).
-
-        This info is used to create a Twitter API instance.
-
-        **kwargs should include any information or parameters
-        that are unique to the Sheep and that it should remember.
+        The JSON file contains information compiled by the Keymaker.
+        If there is other information the Shepherd needs to pass to the 
+        Sheep that is not in the JSON file, it can use keyword args.
         """
         # This is where we should initialize the Twitter API instance 
         # using params found in the json file.
         with open(json_file,'r') as f:
             self.params = json.load(f)
-
-        self.lumberjack = lumberjack
 
         self.twitter_api_init()
 
@@ -69,8 +60,10 @@ class Sheep(object):
                                 consumer_secret     = self.params['consumer_token_secret'],
                                 access_token_key    = self.params['oauth_token'],
                                 access_token_secret = self.params['oauth_token_secret'])
+
+        logger = logging.getLogger('rainbowmindmachine')
         msg = self.timestamp_message("Set up Twitter API for bot "+self.params['screen_name'])
-        self.lumberjack.log(msg)
+        logger.info(msg)
 
 
     def perform_action(self,action,extra_params):
@@ -121,8 +114,10 @@ class Sheep(object):
         Does not return anything
         """
         if( 'url' not in extra_params.keys()):
-            # what are you doing??
-            raise Exception("change_url() action called without 'url' key specified in the parameters dict.")
+            err = "change_url() action called without 'url' key specified in the parameters dict."
+            raise Exception(err)
+
+        logger = logging.getLogger('rainbowmindmachine')
 
         bot_url = extra_params['url']
 
@@ -131,9 +126,12 @@ class Sheep(object):
 
         token = oauth.Token(key = self.params['oauth_token'], 
                          secret = self.params['oauth_token_secret'])
+
         consumer = oauth.Consumer(key = self.params['consumer_token'], 
                                secret = self.params['consumer_token_secret'])
+
         client = oauth.Client(consumer,token)
+
         resp, content = client.request(
                 api_url,
                 method = "POST",
@@ -141,7 +139,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        self.lumberjack.log(content)
+        logger.info(content)
 
 
 
@@ -155,10 +153,10 @@ class Sheep(object):
         Does not return anything
         """
         if( 'bio' not in extra_params.keys()):
-            # what are you doing??
             err = "change_bio() action called without 'bio' key specified in the parameters dict."
-            self.lumberjack.log(err)
             raise Exception(err)
+
+        logger = logging.getLogger('rainbowmindmachine')
 
         bot_bio = extra_params['bio']
 
@@ -180,7 +178,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        self.lumberjack.log(content)
+        logger.info(content)
 
 
     def change_color(self,extra_params):
@@ -197,9 +195,7 @@ class Sheep(object):
         Does not return anything
         """
         if( 'background' not in extra_params.keys() and 'links' not in extra_params.keys()):
-            # what are you doing??
             err = "change_color() action called without 'background' or 'links' keys specified in the parameters dict."
-            self.lumberjack.log(err)
             raise Exception(err)
 
         # json sent to the Twitter API
@@ -220,9 +216,12 @@ class Sheep(object):
 
         token = oauth.Token(key = self.params['oauth_token'], 
                          secret = self.params['oauth_token_secret'])
+
         consumer = oauth.Consumer(key = self.params['consumer_token'], 
                                secret = self.params['consumer_token_secret'])
+
         client = oauth.Client(consumer,token)
+
         resp, content = client.request(
                 url,
                 method = "POST",
@@ -230,7 +229,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        self.lumberjack.log(content)
+        logger.info(content)
 
 
 
@@ -251,26 +250,28 @@ class Sheep(object):
         payload = {}
 
         if 'image' not in extra_params.keys():
-            # what are you doing?
             err = "change_image() action called without an 'image' key specified in the params dict."
-            self.lumberjack.log(err)
             raise Exception(err)
         elif os.path.isfile(extra_params['image']) is False:
             err = "change_image() action called with 'image' key of params dict pointing to a non-existent file."
-            self.lumberjack.log(err)
             raise Exception(err)
         else: 
             img_file = extra_params['image']
             b64 = base64.encodestring(open(img_file,"rb").read())
+
+        logger = logging.getLogger('rainbowmindmachine')
 
         # Set the API endpoint 
         api_url = "https://api.twitter.com/1.1/account/update_profile_image.json"
 
         token = oauth.Token(key = self.params['oauth_token'], 
                          secret = self.params['oauth_token_secret'])
+
         consumer = oauth.Consumer(key = self.params['consumer_token'], 
                                secret = self.params['consumer_token_secret'])
+
         client = oauth.Client(consumer,token)
+
         resp, content = client.request(
                 api_url,
                 method = "POST",
@@ -278,7 +279,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        self.lumberjack.log(content)
+        logger.info(content)
 
 
 
@@ -296,21 +297,24 @@ class Sheep(object):
         payload = {}
 
         if 'username' not in extra_params.keys():
-            # what are you doing?
             err = "follow_user() action called without a 'username' key specified in the params dict."
-            self.lumberjack.log(err)
             raise Exception(err)
         else: 
             payload['user_id'] = extra_params['username']
+
+        logger = logging.getLogger('rainbowmindmachine')
 
         # Set the API endpoint 
         url = "https://api.twitter.com/1.1/friendships/create.json"
 
         token = oauth.Token(key = self.params['oauth_token'], 
                          secret = self.params['oauth_token_secret'])
+
         consumer = oauth.Consumer(key = self.params['consumer_token'], 
                                secret = self.params['consumer_token_secret'])
+
         client = oauth.Client(consumer,token)
+
         resp, content = client.request(
                 url,
                 method = "POST",
@@ -318,7 +322,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        self.lumberjack.log(content)
+        logger.info(content)
 
 
     def unfollow_user(self, extra_params, notify=True):
@@ -334,12 +338,12 @@ class Sheep(object):
         payload = {}
 
         if 'username' not in extra_params.keys():
-            # what are you doing?
             err = "unfollow_user() action called without a 'username' key specified in the params dict."
-            self.lumberjack.log(err)
             raise Exception(err)
         else: 
             payload['user_id'] = extra_params['username']
+
+        logger = logging.getLogger('rainbowmindmachine')
 
         # Set the API endpoint 
         url = "https://api.twitter.com/1.1/friendships/destroy.json"
@@ -356,7 +360,7 @@ class Sheep(object):
                 headers=None
                 )
         
-        self.lumberjack.log(content)
+        logger.info(content)
 
 
 
@@ -379,8 +383,9 @@ class Sheep(object):
 
             tweet_queue.extend([tweet])
 
+        logger = logging.getLogger('rainbowmindmachine')
         msg = self.timestamp_message("Finished populating a new tweet queue with %d tweets."%(len(tweet_queue)))
-        self.lumberjack.log(msg)
+        logger.info(msg)
 
         return tweet_queue
 
@@ -428,6 +433,8 @@ class Sheep(object):
         # 
         # apply some rube goldberg logic to figure out when to tweet each item
 
+        logger = logging.getLogger('rainbowmindmachine')
+
         while True:
 
             try:
@@ -458,7 +465,7 @@ class Sheep(object):
                 time.sleep( extra_params['outer_sleep'] )
 
                 msg = self.timestamp_message("Completed a cycle.")
-                self.lumberjack.log(msg)
+                logger.info(msg)
 
 
             except Exception:
@@ -469,9 +476,9 @@ class Sheep(object):
                 msg2 = self.timestamp_message(traceback.format_exc())
                 msg3 = self.timestamp_message("Sheep is continuing...")
 
-                self.lumberjack.log(msg1)
-                self.lumberjack.log(msg2)
-                self.lumberjack.log(msg3)
+                logger.info(msg1)
+                logger.info(msg2)
+                logger.info(msg3)
 
                 time.sleep( extra_params['outer_sleep'] )
 
@@ -486,6 +493,8 @@ class Sheep(object):
         """
         # call twitter api to tweet the twit
 
+        logger = logging.getLogger('rainbowmindmachine')
+
         try:
             # tweet:
             if(media is not None):
@@ -495,21 +504,21 @@ class Sheep(object):
 
             # everything else:
             msg = self.timestamp_message(">>> "+twit)
-            self.lumberjack.log(msg)
+            logger.info(msg)
 
         except twitter.TwitterError as e:
             
             if e.message[0]['code'] == 185:
                 msg = self.timestamp_message("Twitter error: Daily message limit reached")
-                self.lumberjack.log(msg)
+                logger.info(msg)
 
             elif e.message[0]['code'] == 187:
                 msg = self.timestamp_message("Twitter error: Duplicate error")
-                self.lumberjack.log(msg)
+                logger.info(msg)
             
             else:
                 msg = self.timestamp_message("Twitter error: "+e.message)
-                self.lumberjack.log(msg)
+                logger.info(msg)
 
 
         ## DEBUG
@@ -523,8 +532,9 @@ class Sheep(object):
         Private method.
         Print a twit.
         """
+        logger = logging.getLogger('rainbowmindmachine')
         msg = self.timestamp_message("> "+twit)
-        self.lumberjack.log(msg)
+        logger.info(msg)
 
 
     def timestamp_message(self,message):

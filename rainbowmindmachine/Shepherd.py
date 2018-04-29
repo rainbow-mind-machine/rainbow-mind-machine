@@ -8,7 +8,7 @@ from multiprocessing.dummy import Pool as ThreadPool
 from .Sheep import *
 from .Lumberjack import *
 
-alive = r'''
+its_alive = r'''
  _______ _______ __ _______      _______ _____   _______ ___ ___ _______ __ __ __
 |_     _|_     _|  |     __|    |   _   |     |_|_     _|   |   |    ___|  |  |  |
  _|   |_  |   |  |_|__     |    |       |       |_|   |_|   |   |    ___|__|__|__|
@@ -17,26 +17,39 @@ alive = r'''
 
 class Shepherd(object):
     """
-    Spin up the Sheep and let them roam free
+    Spin up the flock of Sheep and let them roam free
     """
     def __init__(self, 
                  json_key_dir, 
+                 flock_name,
                  sheep_class=Sheep, 
                  **kwargs):
         """
         Create a Shepherd.
 
-        json_key_dir        Directory where Sheep API keys are located
-        sheep_class         Type of Sheep
-        kwargs              Logging parameters passed directly to Lumberjack logger
+            json_key_dir:       Directory where Sheep API keys are located
 
-        For example, the Apollo queneau bot is 
-        created as follows:
+            flock_name:         The name of the bot flock (used to format log messages)
+
+            sheep_class:        Type of Sheep
+
+            kwargs:             Logging parameters passed directly to Lumberjack logger
+
+        For example, a flock of Queneau Sheep is created like this:
 
             sh = rmm.Shepherd('keys/',
-                              sheep_class = rmm.QueneauSheep,
-                              log_file = '/path/to/log')
+                              flock_name = 'Queneau Flock',
+                              sheep_class = rmm.QueneauSheep)
+
+        To pass a custom log file name to lumberjack:
+
+            sh = rmm.Shepherd('keys/',
+                              flock_name = 'Plain Old Flock of Sheep',
+                              log_file = '/path/to/my/log')
         """
+
+        # save flock name
+        self.name = flock_name
 
         # contains each of our sheep
         self.all_sheep = []
@@ -45,11 +58,18 @@ class Shepherd(object):
         # (one for each sheep)
         self.all_json = []
 
-        # create the lumberjack instance
-        # that all sheep will use to log msgs
-        # (parameters checked/enforced by Lumberjack, 
-        #  we are just passing them through.)
-        self.lumberjack = Lumberjack(**kwargs)
+        # Create a Lumberjack instance to configure the logs.
+        # This sets the log configuration for a logger named
+        # 'rainbowmindmachine'
+        # 
+        # Rather saving lumberjack, we just say
+        # logger = logging.getLogger('rainbowmindmachine')
+        # logger.info('sjasdljflasdkjflksj')
+        # 
+        lumberjack = Lumberjack(**kwargs)
+        # 
+        # Set it and forget it, 
+        # we don't need lumberjack anymore
 
         self._setup_keys(json_key_dir)
         self._setup_sheep(sheep_class)
@@ -62,7 +82,7 @@ class Shepherd(object):
 
         This assumes keys have already been created by Keymaker. 
         """
-        raw_files = glob.glob(os.join(json_key_dir,"*.json"))
+        raw_files = glob.glob(os.path.join(json_key_dir,"*.json"))
         for rfile in raw_files:
 
             # check if this is actually a sheep file
@@ -80,14 +100,19 @@ class Shepherd(object):
         """
         Create the Sheep objects (the bot swarm).
         """
+        logger = logging.getLogger('rainbowmindmachine')
+
         MySheepClass = sheep_class
-        self.lumberjack.log("Bot Flock Shepherd: Creating flock")
+        logger.info("Bot Flock Shepherd: Creating flock %s"%(self.name))
+
         for jsonf in self.all_json:
-            self.lumberjack.log("Bot Flock Shepherd: Making Sheep for file %s"%jsonf)
-            mysheep = MySheepClass(jsonf, self.lumberjack)
+            logger.info("Bot Flock Shepherd: Making Sheep for file %s"%(jsonf))
+            mysheep = MySheepClass(jsonf)
             self.all_sheep.append(mysheep)
 
-        self.lumberjack.log(alive)
+        logger.info(self.name)
+        logger.info(its_alive)
+
 
     def perform_action(self,action,params={}):
         """

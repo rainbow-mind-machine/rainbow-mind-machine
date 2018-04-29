@@ -108,7 +108,10 @@ class Keymaker(object):
     # 
     #
 
-    def make_a_key(self, item, keys_out_dir='keys/', interactive=True):
+    def make_a_key( self, 
+                    name, json,
+                    keys_out_dir='keys/', 
+                    interactive=True):
         """
         Public method to make a single key from a single item.
 
@@ -117,20 +120,22 @@ class Keymaker(object):
         creating multiple bots at a time (bot flock),
         so you must specify an item.
 
-        An item is a dictionary with two keys:
+            name :          Label for the bot
 
-            name :  Label for the bot
-            json :  The name of the JSON file in which to save
-                    the bot OAuth key (all paths are ignored).
+            json :          The name of the JSON file in which to save
+                            the bot OAuth key (all paths are ignored).
+
+            keys_out_dir :  Directory in which to place final JSON keys
+                            containing OAuth tokens and other bot info
+
+            interactive :   Go through the interactive three-legged OAuth process
+                            (only set to False for testing)
         """
-        if('name' not in item.keys() or 'json' not in item.keys()):
-            raise Exception("Error: to use make_a_key, you must specify 'name' and 'json' keys in your input.")
-
         # Step 1:
         # Get a private key to tweet as this user,
         # and if ok, populate with this item's details
 
-        d = self._make_a_key(item['name'], interactive=interactive)
+        d = self._make_a_key(name, interactive=interactive)
 
         if(d != {}):
 
@@ -148,18 +153,18 @@ class Keymaker(object):
             # Make a key dir
             subprocess.call(["mkdir","-p",keys_out_dir])
 
-            keys_file = basename(item['json'])
+            keys_file = basename(json)
             keys_out = join(keys_out_dir,keys_file)
 
             with open(keys_out,'w') as outfile:
                 json.dump(d,outfile)
 
-            print("Successfully exported a key bundle for item %s to JSON file %s"%(item['name'],keys_out))
+            print("Successfully exported a key bundle for item %s to JSON file %s"%(name,keys_out))
 
         else:
             # If we run non-interactively (test),
             # this is what we will get
-            print("Did not export a key bundle for item %s (no auth step!)"%(item['name']))
+            print("Did not export a key bundle for item %s (no auth step!)"%(name))
 
 
 

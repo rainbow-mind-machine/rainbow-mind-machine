@@ -32,8 +32,9 @@ class QueneauSheep(Sheep):
 
         tweet_queue = deque(messages,maxlen=Nmessages)
 
+        logger = logging.getLogger('rainbowmindmachine')
         msg = self.timestamp_message("Finished populating a new tweet queue with %d queneau dialogue tweets."%(len(tweet_queue)))
-        self.lumberjack.log(msg)
+        logger.info(msg)
 
         return tweet_queue
 

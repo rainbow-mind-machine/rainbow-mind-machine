@@ -40,8 +40,8 @@ LOGO = r'''
 
 
                         Hello, darling,
-                            I'm the lumberjack logger.
-
+                            I'm the lumberjack logger,
+                                here to configure your logs.
 '''
 
 class Lumberjack(object):
@@ -76,12 +76,13 @@ class Lumberjack(object):
         # Set log target: console
         console = logging.StreamHandler()
         console.setLevel(logging.INFO)
-        logging.getLogger('').addHandler(console)
+        self.logger = logging.getLogger('rainbowmindmachine')
+        self.logger.addHandler(console)
 
         logo = LOGO
-        logging.info(logo)
-
-
-    def log(self, msg):
-        logging.info(msg)
+        self.logger.info(logo)
+        self.logger.info("-"*40)
+        self.logger.info("Flock name: %s"%(flock_name))
+        self.logger.info("Flock log file: %s"%(log_file))
+        self.logger.info("-"*40)
 

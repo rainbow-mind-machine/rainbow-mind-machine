@@ -33,8 +33,9 @@ class PoemSheep(Sheep):
 
         tweet_queue = deque(lines,maxlen=len(lines))
 
+        logger = logging.getLogger('rainbowmindmachine')
         msg = self.timestamp_message("Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue)))
-        logging.info(msg)
+        logger.info(msg)
 
         return tweet_queue
 
