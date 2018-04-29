@@ -7,6 +7,7 @@ thisdir = os.path.abspath(os.path.dirname(__file__))
 
 class TestKeymaker(TestCase):
 
+    @classmethod
     def setUpClass(self):
         self.keys_dir = 'tests/keys'
 
@@ -112,6 +113,7 @@ class TestKeymaker(TestCase):
         output = out.getvalue().strip()
         self.assertIn('Did not export a key bundle', output)
 
+    @classmethod
     def tearDownClass(self):
         # Remove the keys directory we created
         subprocess.call(['rm','-rf',self.keys_dir])
