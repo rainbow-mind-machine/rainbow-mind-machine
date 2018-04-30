@@ -3,6 +3,12 @@ from unittest import TestCase
 import os, subprocess
 from .utils import captured_output
 
+
+"""
+Test Keymaker classes
+"""
+
+
 thisdir = os.path.abspath(os.path.dirname(__file__))
 
 class TestKeymaker(TestCase):
