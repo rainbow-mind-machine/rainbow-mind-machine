@@ -3,12 +3,17 @@ from unittest import TestCase
 import sys, os, subprocess, logging
 from .utils import captured_output, LoggingContext
 
+
+"""
+Test Shepherd classes
+"""
+
+
+thisdir = os.path.abspath(os.path.dirname(__file__))
+
 class TestShepherd(TestCase):
     """
     Test the Shepherd class.
-
-    This should be run after the Sheep
-    and Keymaker tests.
     """
 
     @classmethod
@@ -16,17 +21,15 @@ class TestShepherd(TestCase):
         """
         Create fake bot keys to simulate
         the output of the Keymaker.
-
-        Fake bot keys have a couple of necessary
-        key-value pairs, and some optional ones.
-
-        Here we just create the bare minimum key.
+        We create a bare minimum fake key.
         """
         key_dir = "tests/shepherd_test_keys/"
-        # Note that this key should go in a JSON file,
-        # since that's how the sheep takes its parameters.
-        # Also, the name in json should be the name 
-        # given to this key file (path must be specified separately)
+
+        # These parameters go in a JSON file and are given to the Sheep on creation.
+        # The name of the bot key JSON file is set by the 'json' item below.
+        # 
+        # Here, we create two fake bot keys for two bots
+        # 
         fake_bot_keys = [{
             'consumer_token' : 'AAAAA',
             'consumer_token_secret' : 'BBBBB',
