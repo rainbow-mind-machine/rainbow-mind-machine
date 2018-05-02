@@ -1,14 +1,35 @@
 # TODO
 
+
+## documentation
+
+focus on common tasks?
+
+I want to set up my keys:
+* Create keymaker
+* Run keymaker
+* Result: folder full of JSON files (bot keys)
+
+I want to do something with my bot flock:
+* Run Shepherd - it is the entrypoint
+* Shepherd will check bot keys
+* For each bot key, create new bot sheep
+* Perform an action en masse
+
+
+
 ## tests
 
-keymaker tests:
+tests should alwaysalways capture output,
+even if doing nothing with it.
 
-shepherd tests:
+keymaker tests: done 
 
-sheep tests:
+shepherd tests: in progress
 
-logger tests:
+sheep tests: in progress
+
+logger tests: (N/A) (logging fixed as part of testing)
 
 
 ## do it now

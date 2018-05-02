@@ -2,6 +2,7 @@ import urllib
 import oauth2 as oauth
 import twitter
 import time
+import logging
 import simplejson as json
 import datetime
 import traceback

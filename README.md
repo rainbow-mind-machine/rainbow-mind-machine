@@ -19,7 +19,9 @@ and we can incrementally improve, extend, override,
 or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.
 
-[rainbow mind machine on pypi](https://pypi.python.org/pypi/rainbowmindmachine/0.4)
+[rainbow mind machine on charlesreid1.com](https://pages.charlesreid1.com/b-rainbow-mind-machine)
+
+[rainbow mind machine on pypi](https://pypi.python.org/pypi/rainbowmindmachine)
 
 [rainbow mind machine on dockerhub](https://hub.docker.com/r/charlesreid1/rainbowmindmachine/)
 

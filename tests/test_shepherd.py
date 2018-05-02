@@ -15,6 +15,7 @@ class TestShepherd(TestCase):
     """
     Test the Shepherd class.
     """
+    keys_dir = "tests/shepherd_test_keys/"
 
     @classmethod
     def setUpClass(self):
@@ -23,7 +24,6 @@ class TestShepherd(TestCase):
         the output of the Keymaker.
         We create a bare minimum fake key.
         """
-        key_dir = "tests/shepherd_test_keys/"
 
         # These parameters go in a JSON file and are given to the Sheep on creation.
         # The name of the bot key JSON file is set by the 'json' item below.
@@ -51,6 +51,9 @@ class TestShepherd(TestCase):
             'json' : 'GGGGG.json'
         }]
 
+        mkdir_cmd = ['mkdir', '-p', self.keys_dir]
+        subprocess.call(mkdir_cmd)
+
 
     def test_shepherd(self):
         """
@@ -72,9 +75,9 @@ class TestShepherd(TestCase):
 
                 # Create the Shepherd (this starts the logger)
                 s = rmm.Shepherd(
-                    flock_name='test flock',
-                    json_key_dir='tests/keys',
-                    sheep_class=rmm.Sheep
+                    flock_name = 'test flock',
+                    json_keys_dir = 'tests/shepherd_test_keys',
+                    sheep_class = rmm.Sheep
                 )
 
             stderrlog = err.getvalue().strip()
@@ -84,10 +87,21 @@ class TestShepherd(TestCase):
 
 
     def test_queneau_shepherd(self):
-        #log_file = 'tests/test_queneau_shepherd.log'
-        #sh = rmm.Shepherd('keys/',
-        #                  flock_name = 'My Apollo Flock',
-        #                  sheep_class = rmm.QueneauSheep,
-        #                  log_file = log_file)
-        pass
+        log_file = 'tests/test_queneau_shepherd.log'
+        sh = rmm.Shepherd(json_keys_dir = 'keys/',
+                          flock_name = 'My Apollo Flock',
+                          sheep_class = rmm.QueneauSheep,
+                          log_file = log_file)
+        # we are passing it fake key data
+        # non-existent json should (hopefully) raise an error here
+
+
+    @classmethod
+    def tearDownClass(self):
+        """
+        Clean up the fake bot keys
+        """
+        rmdir_cmd = ['rm', '-rf', self.keys_dir]
+        subprocess.call(rmdir_cmd)
+
 

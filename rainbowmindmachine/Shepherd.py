@@ -20,14 +20,14 @@ class Shepherd(object):
     Spin up the flock of Sheep and let them roam free
     """
     def __init__(self, 
-                 json_key_dir, 
+                 json_keys_dir, 
                  flock_name,
                  sheep_class=Sheep, 
                  **kwargs):
         """
         Create a Shepherd.
 
-            json_key_dir:       Directory where Sheep API keys are located
+            json_keys_dir:      Directory where Sheep API keys are located
 
             flock_name:         The name of the bot flock (used to format log messages)
 
@@ -37,13 +37,13 @@ class Shepherd(object):
 
         For example, a flock of Queneau Sheep is created like this:
 
-            sh = rmm.Shepherd('keys/',
+            sh = rmm.Shepherd(json_keys_dir = 'keys/',
                               flock_name = 'Queneau Flock',
                               sheep_class = rmm.QueneauSheep)
 
         To pass a custom log file name to lumberjack:
 
-            sh = rmm.Shepherd('keys/',
+            sh = rmm.Shepherd(json_eys_dir = 'keys/',
                               flock_name = 'Plain Old Flock of Sheep',
                               log_file = '/path/to/my/log')
         """
@@ -71,34 +71,59 @@ class Shepherd(object):
         # Set it and forget it, 
         # we don't need lumberjack anymore
 
-        self._setup_keys(json_key_dir)
+        self._setup_keys(json_keys_dir)
         self._setup_sheep(sheep_class)
+
+        # should probably set self.params
+        # before calling setup keys/sheep
         self.params = kwargs
 
 
-    def _setup_keys(self,json_key_dir):
+    def _key_is_valid(self, json_key_file):
         """
-        Set up the Twitter account keys with the Shepherd.
-
-        This assumes keys have already been created by Keymaker. 
+        Given a JSON file with a bot key,
+        check if it is a valid key.
         """
-        raw_files = glob.glob(os.path.join(json_key_dir,"*.json"))
-        for rfile in raw_files:
+        required_keys = ['consumer_token',
+                        'consumer_token_secret',
+                        'oauth_token',
+                        'oauth_token_secret',
+                        'user_id']
 
-            # check if this is actually a sheep file
-            # load the json and check for oauth key
+        bot_key = {}
+        with open(json_key_file,'r') as f:
+            bot_key = json.load(f)
 
-            with open(rfile,'r') as f:
-                d = json.load(f)
+        for rk in required_keys:
+            if rk not in bot_key.keys():
+                return False
 
-            if 'oauth_token' in d.keys():
-                full_filename = os.path.join(json_key_dir,rfile)
-                self.all_json.append(full_filename)
+        return True
+
+
+    def _setup_keys(self, json_keys_dir):
+        """
+        For each json bot key file in the keys directory,
+        validate the key, then add it to the list.
+
+        This assumes the key has already been made
+        with the Keymaker.
+        """
+        logger = logging.getLogger('rainbowmindmachine')
+        logger.info("Bot Flock Shepherd: Validating keys")
+        json_key_files = glob.glob(os.path.join(json_keys_dir, "*.json"))
+        for json_key_file in json_key_files:
+            if _key_is_valid(json_key_file):
+                logger.info("Key %s: VALID")
+                self.all_json.append(json_key_file)
+            else:
+                logger.info("Key %s: INVALID")
 
 
     def _setup_sheep(self,sheep_class):
         """
-        Create the Sheep objects (the bot swarm).
+        For each validated json bot key file,
+        initialize a Sheep object with that bot key.
         """
         logger = logging.getLogger('rainbowmindmachine')
 
@@ -110,7 +135,7 @@ class Shepherd(object):
             mysheep = MySheepClass(jsonf)
             self.all_sheep.append(mysheep)
 
-        logger.info(self.name)
+        logger.info("Bot Flock Shepherd: Successfully created flock %s"%(self.name))
         logger.info(its_alive)
 
 
