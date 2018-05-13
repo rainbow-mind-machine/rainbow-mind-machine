@@ -108,7 +108,7 @@ To run one set of tests in a given test file,
 use the syntax:
 
 ```
-$ nostests package_name.tests.test_something
+$ nosetests tests.test_keymaker
 ```
 
 To run one specific test, use the syntax
