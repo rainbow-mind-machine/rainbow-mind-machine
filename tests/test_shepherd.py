@@ -59,10 +59,24 @@ class TestShepherd(TestCase):
         """
         Create a simple Shepherd.
 
-        The Shepherd expects keys to exist already. 
-        Constructor calls setup_keys and setup_sheep.
-        Function setup_keys expects each key to have 'oauth_token'.
-        Function setup_sheep expects a list of JSON files
+        The Shepherd expects keys to exist already (that's the Keymaker's job).
+        It will create one Sheep per key.
+
+        The Shepherd constructor requires a label for the flock,
+        a directory where JSON keys (one key per Sheep) are located, 
+        and what class of Sheep to use when creating Sheep.
+
+        The Shepherd constructor calls _setup_keys() and _setup_sheep().
+
+        Function _setup_keys() expects each key (a dictionary)
+        to contain a key-value pair for 'oauth_token'.
+        This oauth token is what the Keymaker helps you generate.
+        If your keys do not have all required fields, 
+        this is the method that will stop you.
+        See _key_is_valid() method in Shepherd.py.
+
+        Function _setup_sheep() iterates over each key processed
+        by _setup_keys() and makes one Sheep from each key.
         """
         logger = logging.getLogger('rainbowmindmachine')
         h = logging.StreamHandler(sys.stdout)
@@ -103,5 +117,8 @@ class TestShepherd(TestCase):
         """
         rmdir_cmd = ['rm', '-rf', self.keys_dir]
         subprocess.call(rmdir_cmd)
+
+        rmlog_cmd = ['rm', '-rf', 'rainbowmindmachine.log']
+        subprocess.call(rmlog_cmd)
 
 
