@@ -1,6 +1,3 @@
-[submodule "docs/mkdocs-alabaster"]
-	path = docs/mkdocs-alabaster
-	url = https://github.com/charlesreid1/mkdocs-alabaster
 [submodule "mkdocs-material"]
 	path = mkdocs-material
 	url = https://git.charlesreid1.com/charlesreid1/mkdocs-material.git
