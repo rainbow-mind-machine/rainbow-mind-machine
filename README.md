@@ -43,4 +43,3 @@ using rainbow mind machine in a docker container.
 
 See [dev-workflow.md](/docs/dev-workflow.md) for info about the workflow for 
 uploading changes to pypi and dockerhub.
-
