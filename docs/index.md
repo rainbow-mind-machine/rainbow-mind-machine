@@ -24,7 +24,9 @@ while still abstracting away messy details.
 
 [rainbow mind machine on pypi](https://pypi.python.org/pypi/rainbowmindmachine/0.4)
 
-[rainbow mind machine on dockerhub](https://hub.docker.com/r/charlesreid1/rainbowmindmachine/)
+[rainbow mind machine on dockerhub](https://hub.docker.com/r/rainbowmindmachine/rainbowmindmachine/)
+
+[rainbow mind machine organization on github](https://github.com/rainbow-mind-machine)
 
 ## Installing rainbow mind machine
 
