@@ -47,5 +47,5 @@ uploading changes to pypi and dockerhub.
 
 ## Get In Touch
 
-Contact the author: `rainbowmindmachine__at__charlesreid1.com`
+Contact the author: `rainbowmindmachine@charlesreid1.com`
 
