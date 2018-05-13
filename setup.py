@@ -6,7 +6,7 @@ with open('requirements.txt') as f:
 
 setup(  name='rainbowmindmachine',
         version=__version__,
-        description='An extendable framework for running Twitter bot flocks.',
+        description='The extensible framework for running Twitter bot flocks.',
         url='https://pages.charlesreid1.com/b-rainbow-mind-machine',
         author='charlesreid1',
         author_email='charles@charlesreid1.com',

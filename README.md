@@ -18,12 +18,13 @@ That means we start out with bots that "just work"
 and we can incrementally improve, extend, override,
 or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.
+[rainbow mind machine documentation on charlesreid1.com](https://pages.charlesreid1.com/b-rainbow-mind-machine)
 
-[rainbow mind machine on charlesreid1.com](https://pages.charlesreid1.com/b-rainbow-mind-machine)
+[rainbow mind machine on pypi](https://pypi.python.org/pypi/rainbowmindmachine/0.4)
 
-[rainbow mind machine on pypi](https://pypi.python.org/pypi/rainbowmindmachine)
+[rainbow mind machine on dockerhub](https://hub.docker.com/r/rainbowmindmachine/rainbowmindmachine/)
 
-[rainbow mind machine on dockerhub](https://hub.docker.com/r/charlesreid1/rainbowmindmachine/)
+[rainbow mind machine organization on github](https://github.com/rainbow-mind-machine)
 
 ## Installing rainbow mind machine
 
@@ -43,3 +44,8 @@ using rainbow mind machine in a docker container.
 
 See [dev-workflow.md](/docs/dev-workflow.md) for info about the workflow for 
 uploading changes to pypi and dockerhub.
+
+## Get In Touch
+
+Contact the author: `rainbowmindmachine@charlesreid1.com`
+

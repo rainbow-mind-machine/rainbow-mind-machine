@@ -2,7 +2,7 @@
 
 ![tinysheep](tinysheep.jpg)
 
-**rainbow mind machine** is an extendable framework for running Twitter bot flocks in Python.
+**rainbow mind machine** is an extensible framework for running Twitter bot flocks in Python.
 
 rainbow mind machine helps with managing multiple twitter bots (bot flocks).
 It uses a Keymaker object to do the one-time authentication step with Twitter,
@@ -12,7 +12,7 @@ rainbow mind machine is a **framework** because it provides components
 ([Keymaker](keymaker.md), [Shepherd](shepherd.md), and [Sheep](sheep.md))
 with specific roles and ways of interacting.
 
-rainbow mind machine is **extendable** to keep bots from becoming boring. 
+rainbow mind machine is **extensible** to keep bots from becoming boring. 
 There are a limited number of components to extend (2), 
 these two components have a simple and clear function call order,
 and rainbow mind machine tries to use sensible defaults.
@@ -21,6 +21,8 @@ That means we start out with bots that "just work"
 and we can incrementally improve, extend, override,
 or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.
+
+[rainbow mind machine documentation on charlesreid1.com](https://pages.charlesreid1.com/b-rainbow-mind-machine)
 
 [rainbow mind machine on pypi](https://pypi.python.org/pypi/rainbowmindmachine/0.4)
 

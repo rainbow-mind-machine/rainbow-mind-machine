@@ -70,16 +70,52 @@ git tag -a vX.Y -m 'rainbow mind machine X.Y'
 ```
 
 
-## Pypy workflow 
+## Pypy process 
 
-Pypi workflow:
+Pypi process:
 
 * One-time: set up your .pypirc
 * Make the package bundle
 * Upload the package bundle to Pypi
 * Test the package with virtualenv
-* 
 
-## Dockerhub workflow
 
+## Dockerhub process
+
+Create automated build
+
+Set up Dockerhub webhook endpoint in the Github repo,
+so that committing to Github will trigger a Dockerhub
+build.
+
+
+# Testing Workflow
+
+To run tests with nose, run the following command
+from the main repo directory:
+
+```
+$ nosetests -v
+```
+
+To run without capturing stdout:
+
+```
+$ nosetests --nocapture
+```
+
+To run one set of tests in a given test file, 
+use the syntax:
+
+```
+$ nostests package_name.tests.test_something
+```
+
+To run one specific test, use the syntax
+`module.path:ClassNameInFile.method_name`
+[(hat tip)](https://stackoverflow.com/a/3704797).
+
+```
+$ nosetests tests.test_shepherd:TestShepherd.test_shepherd
+```
 
