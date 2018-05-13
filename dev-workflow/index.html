@@ -423,16 +423,42 @@ python -m http.server 8000
 </pre></div>
 
 
-<h2 id="pypy-workflow">Pypy workflow<a class="headerlink" href="#pypy-workflow" title="Permanent link">&para;</a></h2>
-<p>Pypi workflow:</p>
+<h2 id="pypy-process">Pypy process<a class="headerlink" href="#pypy-process" title="Permanent link">&para;</a></h2>
+<p>Pypi process:</p>
 <ul>
 <li>One-time: set up your .pypirc</li>
 <li>Make the package bundle</li>
 <li>Upload the package bundle to Pypi</li>
 <li>Test the package with virtualenv</li>
-<li></li>
 </ul>
-<h2 id="dockerhub-workflow">Dockerhub workflow<a class="headerlink" href="#dockerhub-workflow" title="Permanent link">&para;</a></h2>
+<h2 id="dockerhub-process">Dockerhub process<a class="headerlink" href="#dockerhub-process" title="Permanent link">&para;</a></h2>
+<p>Create automated build</p>
+<p>Set up Dockerhub webhook endpoint in the Github repo,
+so that committing to Github will trigger a Dockerhub
+build.</p>
+<h1 id="testing-workflow">Testing Workflow<a class="headerlink" href="#testing-workflow" title="Permanent link">&para;</a></h1>
+<p>To run tests with nose, run the following command
+from the main repo directory:</p>
+<div class="codehilite"><pre><span></span>$ nosetests -v
+</pre></div>
+
+
+<p>To run without capturing stdout:</p>
+<div class="codehilite"><pre><span></span>$ nosetests --nocapture
+</pre></div>
+
+
+<p>To run one set of tests in a given test file, 
+use the syntax:</p>
+<div class="codehilite"><pre><span></span>$ nosetests tests.test_keymaker
+</pre></div>
+
+
+<p>To run one specific test, use the syntax
+<code>module.path:ClassNameInFile.method_name</code>
+<a href="https://stackoverflow.com/a/3704797">(hat tip)</a>.</p>
+<div class="codehilite"><pre><span></span>$ nosetests tests.test_shepherd:TestShepherd.test_shepherd
+</pre></div>
                 
                   
                 
