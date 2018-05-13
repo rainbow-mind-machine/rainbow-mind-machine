@@ -1,7 +1,7 @@
 import urllib
 import oauth2 as oauth
 import os, re, glob
-import simplejson as json
+import json
 import subprocess
 from os.path import isfile, isdir, exists
 from os.path import join, basename, splitext
