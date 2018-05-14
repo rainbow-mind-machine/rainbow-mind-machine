@@ -113,7 +113,7 @@ class Shepherd(object):
         logger.info("Bot Flock Shepherd: Validating keys")
         json_key_files = glob.glob(os.path.join(json_keys_dir, "*.json"))
         for json_key_file in json_key_files:
-            if _key_is_valid(json_key_file):
+            if self._key_is_valid(json_key_file):
                 logger.info("Key %s: VALID")
                 self.all_json.append(json_key_file)
             else:
