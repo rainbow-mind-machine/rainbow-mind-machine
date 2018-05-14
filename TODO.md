@@ -1,5 +1,15 @@
 # TODO
 
+## add docker container test to tests
+
+does the docker container build
+
+can we run a command with it
+
+can we run the tests in it
+
+(triggering tests from tests??)
+
 ## wtf is with these stupid errors
 
 This is running validate keys.
