@@ -1,5 +1,37 @@
 # TODO
 
+## wtf is with these stupid errors
+
+This is running validate keys.
+
+How the hell is this not being caught by tests?
+
+I'm sick and tired of fixing these idiotic problems.
+
+```
+----------------------------------------
+INFO:rainbowmindmachine:----------------------------------------
+Flock name: Anonymous Flock of Cowards
+INFO:rainbowmindmachine:Flock name: Anonymous Flock of Cowards
+Flock log file: rainbowmindmachine.log
+INFO:rainbowmindmachine:Flock log file: rainbowmindmachine.log
+----------------------------------------
+INFO:rainbowmindmachine:----------------------------------------
+Bot Flock Shepherd: Validating keys
+INFO:rainbowmindmachine:Bot Flock Shepherd: Validating keys
+Traceback (most recent call last):
+  File "TriposBot.py", line 46, in <module>
+    run()
+  File "TriposBot.py", line 17, in run
+    sheep_class = rmm.PhotoADaySheep)
+  File "/usr/lib/python3.6/site-packages/rainbowmindmachine-0.7.2-py3.6.egg/rainbowmindmachine/Shepherd.py", line 74, in __init__
+    self._setup_keys(json_keys_dir)
+  File "/usr/lib/python3.6/site-packages/rainbowmindmachine-0.7.2-py3.6.egg/rainbowmindmachine/Shepherd.py", line 116, in _setup_keys
+    if _key_is_valid(json_key_file):
+NameError: name '_key_is_valid' is not defined
+running bot
+```
+
 
 ## documentation
 
@@ -17,10 +49,16 @@ I want to do something with my bot flock:
 * Perform an action en masse
 
 
+## fix the logger
+
+Kill the lumberjack.
+
+Use sys.stout and sys.stderr instead.
+
 
 ## tests
 
-tests should alwaysalways capture output,
+tests should always capture output,
 even if doing nothing with it.
 
 keymaker tests: done 
@@ -141,6 +179,8 @@ Sheep:
 
 <s>documentation:
 - mkdocs</s>
+
+
 
 ## do it later
 
