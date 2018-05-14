@@ -14,10 +14,6 @@ setup(  name='rainbowmindmachine',
         tests_require=['nose'],
         license='MIT',
         packages=['rainbowmindmachine'],
-        install_requires=['simplejson>=3.13',
-            'oauth2>=1.5',
-            'python-twitter>=3.4.1',
-            'TextBlob>=0.15',
-            'oauth2client>=3.0.0'],
+        install_requires=required,
         zip_safe=False)
 
