@@ -10,6 +10,8 @@ can we run the tests in it
 
 (triggering tests from tests??)
 
+catch dumb stuff like - the very first time the photo bot hits a photo - splat, it dies.)
+
 ## wtf is with these stupid errors
 
 This is running validate keys.
