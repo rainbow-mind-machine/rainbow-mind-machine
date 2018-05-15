@@ -183,7 +183,15 @@ class PhotoADaySheep(Sheep):
                         # Get photo for this date
                         media_attachment = twit_images[doy]
 
-                        twit = tweet_params['message']
+                        try:
+                            twit = tweet_params['message']
+
+                        except KeyError:
+                            err = "Warning: could not find a message, using hello world"
+                            msg = self.timestamp_message(err)
+                            logger.info(msg)
+
+                            twit = 'Hello world'
 
                         if(tweet_params['publish']):
                             self._tweet(twit, media=media_attachment)
