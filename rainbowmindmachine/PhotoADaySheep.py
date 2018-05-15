@@ -168,8 +168,7 @@ class PhotoADaySheep(Sheep):
                 offset = 8
 
                 hour_to_tweet = 8
-                #if( abs(dd-prior_dd)>0 and hh>(hour_to_tweet + offset)):
-                if True:
+                if( abs(dd-prior_dd)>0 and hh>(hour_to_tweet + offset)):
 
                     # Index = doy of year
                     doy = datetime.now().timetuple().tm_yday
