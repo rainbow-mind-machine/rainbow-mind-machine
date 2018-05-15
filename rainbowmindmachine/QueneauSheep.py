@@ -1,3 +1,4 @@
+import logging
 from collections import deque
 from .Sheep import Sheep
 from .queneau import DialogueAssembler

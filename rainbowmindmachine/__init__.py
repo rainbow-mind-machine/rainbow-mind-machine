@@ -1,4 +1,4 @@
-__version__ = "0.7.3"
+__version__ = "0.7.5"
 from .Lumberjack import *
 from .Keymaker import *
 from .Shepherd import *

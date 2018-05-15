@@ -497,7 +497,7 @@ class Sheep(object):
                 raise Exception(err)
 
 
-    def _tweet(self,twit,media):
+    def _tweet(self,twit,media=None):
         """
         Private method.
         Publish a twit.
