@@ -114,10 +114,10 @@ class Shepherd(object):
         json_key_files = glob.glob(os.path.join(json_keys_dir, "*.json"))
         for json_key_file in json_key_files:
             if self._key_is_valid(json_key_file):
-                logger.info("Key %s: VALID")
+                logger.info("Key %s: VALID"%(json_key_file))
                 self.all_json.append(json_key_file)
             else:
-                logger.info("Key %s: INVALID")
+                logger.info("Key %s: INVALID"%(json_key_file))
 
 
     def _setup_sheep(self,sheep_class):
