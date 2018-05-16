@@ -9,6 +9,10 @@ import traceback
 from collections import deque
 import base64
 
+"""
+Sheep
+"""
+
 class Sheep(object):
     """
     - input bot key (JSON file) is stored as self.params and contains everything the sheep needs
@@ -18,6 +22,10 @@ class Sheep(object):
     """
     def __init__(self, json_file, **kwargs):
         """
+        json_file - parameters that come from the keys (and the Keymaker, and the key-making process)
+
+        kwargs - extra parameter args passed into the Sheep from the Shepherd
+
         A Sheep object manages information for a single Twitter bot account.
         The information (oauth keys, bot name, bot account, etc) are contained
         in the JSON file passed in by the Shepherd.
@@ -50,12 +58,6 @@ class Sheep(object):
         Uses bear's python-twitter library from Github
         (official version of what was the Google Code python-twitter):
         https://github.com/bear/python-twitter
-
-        (bear's twitter api library gave some problems 
-        when tweeting with attached media - may use a different 
-        twitter library...)
-
-        TODO: follow up on this
         """
         self.api = twitter.Api( consumer_key        = self.params['consumer_token'],
                                 consumer_secret     = self.params['consumer_token_secret'],
