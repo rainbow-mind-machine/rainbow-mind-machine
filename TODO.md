@@ -1,24 +1,88 @@
 # TODO
 
-## add docker container test to tests
 
-does the docker container build
+## Documentation
 
-can we run a command with it
+On the one hand, it feels like a bit too much.
 
-can we run the tests in it
+On the other hand, too much to explain.
 
-(triggering tests from tests??)
+Focus on common tasks (relates to clarifying who stores what):
 
-catch dumb stuff like - the very first time the photo bot hits a photo - splat, it dies.)
+* I want to set up my keys. What do I do?
+    * Create a Keymaker
+    * Run the Keymaker
+    * Outcome is folder full of JSON files
 
-## wtf is with these stupid errors
+* I want to do something with my bot flock
+    * run Shepherd, which is the flock entry point
+    * Shepherd will check bot keys
+    * for each bot key, create a new bot Sheep
+    * perform an action en masse
 
-This is running validate keys.
 
-How the hell is this not being caught by tests?
+### Logging
 
-I'm sick and tired of fixing these idiotic problems.
+Add logging to the documentation.
+
+Unfortunately, even after revamping the entire logging system,
+I'm still a bit fuzzy on how it works, and I still don't think
+it's doing what it needs to do.
+
+
+## Examples
+
+Going through a deep clean of each class, fully documenting,
+leads to many loose ends.
+
+To keep the documentation reasonable and readable,
+move illustrative details into the examples,
+and refer to them in the documentation.
+
+
+### Usability Examples
+
+How do I use this thing?
+
+Like the tests, but less "test" and more "octo-banana".
+
+
+### Extensibility Examples
+
+How and when do I extend the Keymaker?
+
+How and when do I extend the Shepherd?
+
+How and when do I extend the Sheep?
+
+
+## Testing
+
+An absolute slog, but also important.
+
+
+### Tests Need To Write
+
+<s>Logger tests</s> (logging fixed as part of testing)
+
+<s>Keymaker tests</s> done
+
+Shepherd tests (in progress)
+
+Sheep tests
+
+
+### Container Tests
+
+Tests of the docker container:
+
+* Does the docker container build
+* Can we run a command with it
+* Can we run the non-auth tests in it (triggering tests from tests)
+* Catch dumb stuff like copying into wrong dir in container
+
+
+### Really Stupid Errors Not Being Caught By Tests
 
 ```
 ----------------------------------------
@@ -45,41 +109,49 @@ running bot
 ```
 
 
-## documentation
 
-focus on common tasks?
-
-I want to set up my keys:
-* Create keymaker
-* Run keymaker
-* Result: folder full of JSON files (bot keys)
-
-I want to do something with my bot flock:
-* Run Shepherd - it is the entrypoint
-* Shepherd will check bot keys
-* For each bot key, create new bot sheep
-* Perform an action en masse
-
-
-## fix the logger
-
-Kill the lumberjack.
-
-Use sys.stout and sys.stderr instead.
-
-
-## tests
-
-tests should always capture output,
-even if doing nothing with it.
-
-keymaker tests: done 
-
-shepherd tests: in progress
-
-sheep tests: in progress
-
-logger tests: (N/A) (logging fixed as part of testing)
+```
+[36mstormy_tripos_1    |[0m [2018-04-16 16:40:08 @math_tripos] Sleeping...
+[36mstormy_tripos_1    |[0m [2018-04-16 16:42:08 @math_tripos] Sleeping...
+[36mstormy_tripos_1    |[0m [2018-04-16 16:44:08 @math_tripos] Sleeping...
+[36mstormy_tripos_1    |[0m [2018-04-16 16:46:08 @math_tripos] Sleeping...
+[36mstormy_tripos_1    |[0m [2018-04-16 16:48:08 @math_tripos] Sleeping...
+[36mstormy_tripos_1    |[0m [2018-04-16 16:50:08 @math_tripos] Sleeping...
+[36mstormy_tripos_1    |[0m [2018-04-16 16:52:08 @math_tripos] Sleeping...
+[36mstormy_tripos_1    |[0m [2018-04-16 16:54:09 @math_tripos] Sleeping...
+[36mstormy_tripos_1    |[0m [2018-04-16 16:56:09 @math_tripos] Sleeping...
+[36mstormy_tripos_1    |[0m [2018-04-16 16:58:09 @math_tripos] Sleeping...
+[36mstormy_tripos_1    |[0m running bot
+[36mstormy_tripos_1    |[0m Traceback (most recent call last):
+[36mstormy_tripos_1    |[0m   File "/usr/lib/python3.6/site-packages/rainbowmindmachine-0.6.4-py3.6.egg/rainbowmindmachine/PhotoADaySheep.py", line 210, in photo_a_day
+[36mstormy_tripos_1    |[0m     img_info = self.upload_image_to_twitter(tweet_params)
+[36mstormy_tripos_1    |[0m AttributeError: 'PhotoADaySheep' object has no attribute 'upload_image_to_twitter'
+[36mstormy_tripos_1    |[0m 
+[36mstormy_tripos_1    |[0m During handling of the above exception, another exception occurred:
+[36mstormy_tripos_1    |[0m 
+[36mstormy_tripos_1    |[0m Traceback (most recent call last):
+[36mstormy_tripos_1    |[0m   File "TriposBot.py", line 46, in <module>
+[36mstormy_tripos_1    |[0m     run()
+[36mstormy_tripos_1    |[0m   File "TriposBot.py", line 36, in run
+[36mstormy_tripos_1    |[0m     'images_pattern' : '{i:03}.jpg'
+[36mstormy_tripos_1    |[0m   File "/usr/lib/python3.6/site-packages/rainbowmindmachine-0.6.4-py3.6.egg/rainbowmindmachine/Shepherd.py", line 111, in perform_pool_action
+[36mstormy_tripos_1    |[0m     results = pool.map(do_it,self.all_sheep)
+[36mstormy_tripos_1    |[0m   File "/usr/lib/python3.6/multiprocessing/pool.py", line 266, in map
+[36mstormy_tripos_1    |[0m     return self._map_async(func, iterable, mapstar, chunksize).get()
+[36mstormy_tripos_1    |[0m   File "/usr/lib/python3.6/multiprocessing/pool.py", line 644, in get
+[36mstormy_tripos_1    |[0m     raise self._value
+[36mstormy_tripos_1    |[0m   File "/usr/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+[36mstormy_tripos_1    |[0m     result = (True, func(*args, **kwds))
+[36mstormy_tripos_1    |[0m   File "/usr/lib/python3.6/multiprocessing/pool.py", line 44, in mapstar
+[36mstormy_tripos_1    |[0m     return list(map(*args))
+[36mstormy_tripos_1    |[0m   File "/usr/lib/python3.6/site-packages/rainbowmindmachine-0.6.4-py3.6.egg/rainbowmindmachine/Shepherd.py", line 108, in do_it
+[36mstormy_tripos_1    |[0m     sheep.perform_action(action,params)
+[36mstormy_tripos_1    |[0m   File "/usr/lib/python3.6/site-packages/rainbowmindmachine-0.6.4-py3.6.egg/rainbowmindmachine/PhotoADaySheep.py", line 60, in perform_action
+[36mstormy_tripos_1    |[0m     method( params )
+[36mstormy_tripos_1    |[0m   File "/usr/lib/python3.6/site-packages/rainbowmindmachine-0.6.4-py3.6.egg/rainbowmindmachine/PhotoADaySheep.py", line 245, in photo_a_day
+[36mstormy_tripos_1    |[0m     raise Exception(err)
+[36mstormy_tripos_1    |[0m Exception: 'PhotoADaySheep' object has no attribute 'upload_image_to_twitter'
+```
 
 
 ## do it now
@@ -106,10 +178,6 @@ Keymaker:
 
 sheep:
 - add new actions 
-
-infrastructure: documentation
-- mkdocs for documentation
-- webhooks to build documentation
 
 infrastructure: pypi
 - branches and tags on pypi?
