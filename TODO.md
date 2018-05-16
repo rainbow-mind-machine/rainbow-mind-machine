@@ -20,6 +20,8 @@ Focus on common tasks (relates to clarifying who stores what):
     * for each bot key, create a new bot Sheep
     * perform an action en masse
 
+Clarifying the role of each thing (see issues).
+
 
 ### Logging
 
