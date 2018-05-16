@@ -106,8 +106,11 @@ class TestShepherd(TestCase):
                           flock_name = 'My Apollo Flock',
                           sheep_class = rmm.QueneauSheep,
                           log_file = log_file)
+
         # we are passing it fake key data
-        # non-existent json should (hopefully) raise an error here
+        # non-existent json will only raise an error
+        # if we ask the Sheep to tweet live.
+        # (........so where do we do that??)
 
 
     @classmethod
