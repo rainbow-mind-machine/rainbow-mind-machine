@@ -10,11 +10,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 See [TODO.md](/TODO.md).
 
-# [0.7.0] - 2018-04-28
+# [0.7] - 2018-05-15
 
 ### Added
 
 - Added tests for Keymaker
+- Added tests for Shepherd
 - Added documentation for Sheep, Shepherd, Keymaker
 - Improved dev workflow documentation
 
@@ -28,35 +29,10 @@ See [TODO.md](/TODO.md).
     - Importing as module was problematic for tests
     - Now pass in using a JSON file, a dictionary, or env vars
 
-# [0.6.4] - 2018-04-15
-
-### Changed
-
-- changed URL for project to https://pages.charlesreid1.com/b-rainbow-mind-machine
-
-# [0.6.4] - 2018-04-15
-
-### Removed
-- removed dependency on TwitterAPI
-
-# [0.6.3] - 2018-04-15
-
-### Fixed
-- fixing failed upload with 0.6.2
-
-# [0.6.2] - 2018-04-15
-
-### Fixed
-- fixing another bug in photoaday bot due to another variable name
-
-# [0.6.1] - 2018-04-15
-
-### Fixed
-- fixed a bug in photoaday bot due to a variable name. `docker logs <container-name>`
-
-# [0.6] - 2018-04-14
+# [0.6] - 2018-04-15
 
 ### Added
+
 - Added a changelog
 - Added clarification to motivation behind rmm: 
     - we aren't providing templates for every bot you could possibly want to build
@@ -65,11 +41,21 @@ See [TODO.md](/TODO.md).
     - more advanced bots are totally possible, but YOU have to extend rainbow mind machine
 
 ### Changed
+
+- changed URL for project to https://pages.charlesreid1.com/b-rainbow-mind-machine
 - Docker images now use [jfloff/alpine-python](https://github.com/jfloff/alpine-python)
 - Final docker image size cut from >900 MB to 330 MB
 
 ### Fixed
+
+- fixed a bug in photoaday bot due to a variable name. `docker logs <container-name>`
+- fixing another bug in photoaday bot due to another variable name
+- fixing failed upload with 0.6.2
 - Major bug fixes for PhotoADay Sheep's sloppy import
+
+### Removed
+
+- removed dependency on TwitterAPI
 
 # [0.5] - 2018-04-12
 
@@ -105,3 +91,4 @@ See [TODO.md](/TODO.md).
 
 
 (Some links to specific tags ought to go here...)
+
