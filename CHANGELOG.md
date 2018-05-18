@@ -42,7 +42,7 @@ See [TODO.md](/TODO.md).
 
 ### Changed
 
-- changed URL for project to https://pages.charlesreid1.com/b-rainbow-mind-machine
+- changed URL for project to https://pages.charlesreid1.com/rainbow-mind-machine
 - Docker images now use [jfloff/alpine-python](https://github.com/jfloff/alpine-python)
 - Final docker image size cut from >900 MB to 330 MB
 

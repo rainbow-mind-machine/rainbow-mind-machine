@@ -18,7 +18,8 @@ That means we start out with bots that "just work"
 and we can incrementally improve, extend, override,
 or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.
-[rainbow mind machine documentation on charlesreid1.com](https://pages.charlesreid1.com/b-rainbow-mind-machine)
+
+[rainbow mind machine documentation on charlesreid1.com](https://pages.charlesreid1.com/rainbow-mind-machine)
 
 [rainbow mind machine on pypi](https://pypi.python.org/pypi/rainbowmindmachine/0.4)
 

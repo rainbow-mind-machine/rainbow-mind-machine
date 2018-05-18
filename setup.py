@@ -4,7 +4,7 @@ from rainbowmindmachine import __version__
 setup(  name='rainbowmindmachine',
         version=__version__,
         description='The extensible framework for running Twitter bot flocks.',
-        url='https://pages.charlesreid1.com/b-rainbow-mind-machine',
+        url='https://pages.charlesreid1.com/rainbow-mind-machine',
         author='charlesreid1',
         author_email='charles@charlesreid1.com',
         test_suite='nose.collector',
