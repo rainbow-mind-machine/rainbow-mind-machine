@@ -66,7 +66,7 @@ class SocialSheep(Sheep):
     
         def flush(self):
             """Flush the toilet (get fresh tweets)"""
-            self.bowl = list(api.GetSearch(terms='#rainbowmindmachine',count=10))
+            self.bowl = list(self.api.GetSearch(terms='#rainbowmindmachine',count=10))
 
             # self.bowl is a list of Status objects
             # this is really useful:
@@ -81,12 +81,12 @@ class SocialSheep(Sheep):
         def favorite(self):
             """Favorite every tweet in the toilet"""
             for s in self.bowl:
-                api.CreateFavorite(status=s)
+                self.api.CreateFavorite(status=s)
     
         def retweet(self):
             """Retweet every tweet in the toilet"""
             for s in self.bowl:
-                api.PostRetweet(status_id=s['id'])
+                self.api.PostRetweet(status_id=s['id'])
 
         def follow(self):
             """
@@ -94,7 +94,7 @@ class SocialSheep(Sheep):
             """
             # self.hurd is a list of strings (usernames)
             for u in self.hurd:
-                api.CreateFriendship(screen_name=u)
+                self.api.CreateFriendship(screen_name=u)
 
 
 
@@ -109,10 +109,10 @@ class SocialSheep(Sheep):
         It then calls a Plumber to install a Toilet.
         """
         # Call super constructor
-        super().__init__(self, json_file, **kwargs)
+        super().__init__(json_file, **kwargs)
 
         # Now call a plumber to have a toilet installed
-        self._call_plumber(self.api)
+        self._call_plumber()
     
 
     def _call_plumber(self):
@@ -121,7 +121,7 @@ class SocialSheep(Sheep):
         """
         # Toilets take parameters for their search.
         # These come from the SocialSheep's parameters.
-        self.toilet = Toilet(self.api, self.params)
+        self.toilet = self.Toilet(self.api, self.params)
         self.flush_the_toilet()
 
 
