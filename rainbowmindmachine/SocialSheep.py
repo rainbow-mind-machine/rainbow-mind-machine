@@ -25,22 +25,14 @@ mainly to challenge ourselves to keep it short.
 """
 
 
-
+##########################
+# SocialSheep class
 
 class SocialSheep(Sheep):
     """
     SocialSheep receive parameters from their keys.
     Let Sheep take care of the constructor.
     """
-
-    #############################
-    # BurdHurd class
-
-    class BurdHurd(list):
-        """
-        The simplest class evar
-        """
-        pass
 
 
     #############################
@@ -54,6 +46,24 @@ class SocialSheep(Sheep):
         No other classes can use this Toilet.
         SocialSheep are *not* social about their Toilets.
         """
+
+        #############################
+        # BurdHurd class
+
+        class BurdHurd(list):
+            """
+            The simplest class evar.
+
+            Sometimes you can hear the Toilet 
+            whispering to the BurdHurd: 
+                
+                "no one will ever know about you except me."
+            """
+            pass
+
+        ####################################
+        # Ok, on with the Toilet class
+
         def __init__(self, api, params):
             """
             The Toilet uses the SocialSheep's api and params.
@@ -66,7 +76,7 @@ class SocialSheep(Sheep):
     
         def flush(self):
             """Flush the toilet (get fresh tweets)"""
-            self.bowl = list(self.api.GetSearch(terms='#rainbowmindmachine',count=10))
+            self.bowl = list(self.api.GetSearch(term='#rainbowmindmachine',count=10))
 
             # self.bowl is a list of Status objects
             # this is really useful:
@@ -74,7 +84,7 @@ class SocialSheep(Sheep):
             # 
             # a BurdHurd is just a list of usernames
             # pulled straight out of the toilet.
-            self.hurd = BurdHurd()
+            self.hurd = self.BurdHurd()
             for s in self.bowl:
                 self.hurd.append(s['user'])
     
@@ -98,8 +108,8 @@ class SocialSheep(Sheep):
 
 
 
-    #############################
-    # SocialSheep class
+    #############################################
+    # Ok, on with the SocialSheep class
 
     def __init__(self, json_file, **kwargs):
         """
