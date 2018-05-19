@@ -45,6 +45,10 @@ LOGO = r'''
 '''
 
 class Lumberjack(object):
+    """
+    The Lumberjack class just configures the logs
+    and then it's all finished.
+    """
 
     def __init__(self, 
                  flock_name = 'Anonymous Flock of Cowards',
@@ -81,8 +85,7 @@ class Lumberjack(object):
         ch.setLevel(logging.INFO)
         logger.addHandler(ch)
 
-        logo = LOGO
-        logger.info(logo)
+        logger.info(LOGO)
         logger.info("-"*40)
         logger.info("Flock name: %s"%(flock_name))
         logger.info("Flock log file: %s"%(log_file))

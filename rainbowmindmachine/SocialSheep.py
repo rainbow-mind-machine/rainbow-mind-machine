@@ -1,4 +1,5 @@
 import twitter
+from .Sheep import Sheep
 
 """
 Social Sheep
