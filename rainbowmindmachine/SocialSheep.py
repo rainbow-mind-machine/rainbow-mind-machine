@@ -87,14 +87,13 @@ class SocialSheep(Sheep):
             for s in self.bowl:
                 api.PostRetweet(status_id=s['id'])
 
-        def get_hurd(self):
+        def follow(self):
             """
-            Pull a BurdHurd (a list of Twitter Users)
-            out of the toilet.
+            Follow all users in a BurdHurd
             """
-            return self.hurd
-
-        def 
+            # self.hurd is a list of strings (usernames)
+            for u in self.hurd:
+                api.CreateFriendship(screen_name=u)
 
 
 
@@ -149,9 +148,9 @@ class SocialSheep(Sheep):
         """
         self.toilet.follow()
 
-    def list_toilet(self, public=False):
-        """Make a list from all the users in the toilet
-        """
-        self.toilet.make_list(public=public)
+    #def list_toilet(self, public=False):
+    #    """Make a list from all the users in the toilet
+    #    """
+    #    self.toilet.make_list(public=public)
 
 
