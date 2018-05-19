@@ -7,3 +7,60 @@ div.body {
 .md-typeset pre {
     background-color: #ddd;
 }
+input.input-group-lg {
+    line-height: 42px;
+    width: 380px;
+    margin-bottom: 20px;
+}
+
+/***************************************/
+
+.btn-primary {
+  color: #fff;
+  background-color: #ff1744;
+  border-color: #ff1744;
+}
+.btn-primary:focus,
+.btn-primary.focus {
+  color: #fff;
+  background-color: #ff1744;
+  border-color: #ff1744;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #ff1744;
+  border-color: #ff1744;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #ef5350;
+  border-color: #ef5350;
+}
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+  color: #fff;
+  background-color: #ef5350;
+  border-color: #ef5350;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+.btn-lg,
+.btn-group-lg > .btn {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
