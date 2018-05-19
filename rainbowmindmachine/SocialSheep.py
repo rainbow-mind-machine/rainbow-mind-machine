@@ -23,13 +23,7 @@ We define all of these classes in one file,
 mainly to challenge ourselves to keep it short.
 """
 
-class Toilet(object):
-    """
-    The Toilet class creates a small pool of tweets.
-    """
-    def __init__(self, api, params):
-        self.api = api
-        self.params = params
+
 
 
 class SocialSheep(Sheep):
@@ -37,6 +31,76 @@ class SocialSheep(Sheep):
     SocialSheep receive parameters from their keys.
     Let Sheep take care of the constructor.
     """
+
+    #############################
+    # BurdHurd class
+
+    class BurdHurd(list):
+        """
+        The simplest class evar
+        """
+        pass
+
+
+    #############################
+    # Toilet class
+
+    class Toilet(object):
+        """
+        The Toilet class creates a small pool of tweets.
+
+        This class is only defined within the scope of SocialSheep.
+        No other classes can use this Toilet.
+        SocialSheep are *not* social about their Toilets.
+        """
+        def __init__(self, api, params):
+            """
+            The Toilet uses the SocialSheep's api and params.
+            """
+            self.api = api
+            self.params = params
+
+            # Don't assume params contains search parameters.
+            # Do some validation here.
+    
+        def flush(self):
+            """Flush the toilet (get fresh tweets)"""
+            self.bowl = list(api.GetSearch(terms='#rainbowmindmachine',count=10))
+
+            # self.bowl is a list of Status objects
+            # this is really useful:
+            # http://python-twitter.readthedocs.io/en/latest/_modules/twitter/models.html#Status
+            # 
+            # a BurdHurd is just a list of usernames
+            # pulled straight out of the toilet.
+            self.hurd = BurdHurd()
+            for s in self.bowl:
+                self.hurd.append(s['user'])
+    
+        def favorite(self):
+            """Favorite every tweet in the toilet"""
+            for s in self.bowl:
+                api.CreateFavorite(status=s)
+    
+        def retweet(self):
+            """Retweet every tweet in the toilet"""
+            for s in self.bowl:
+                api.PostRetweet(status_id=s['id'])
+
+        def get_hurd(self):
+            """
+            Pull a BurdHurd (a list of Twitter Users)
+            out of the toilet.
+            """
+            return self.hurd
+
+        def 
+
+
+
+    #############################
+    # SocialSheep class
+
     def __init__(self, json_file, **kwargs):
         """
         SocialSheep constructor calls the Sheep constructor,
@@ -52,7 +116,8 @@ class SocialSheep(Sheep):
     
 
     def _call_plumber(self):
-        """Call a plumber to install a Toilet
+        """
+        Call a plumber to install a Toilet
         """
         # Toilets take parameters for their search.
         # These come from the SocialSheep's parameters.
@@ -61,36 +126,32 @@ class SocialSheep(Sheep):
 
 
     def flush_the_toilet(self):
-        """Flush the toilet to get some fresh tweets
+        """
+        Flush the toilet to get some fresh tweets
         """
         self.toilet.flush()
 
     def favorite_toilet(self):
-        """Favorite all the tweets in the toilet
         """
-        pass
+        Favorite all the tweets in the toilet
+        """
+        self.toilet.favorite()
 
     def retweet_toilet(self):
-        """Retweet all the tweets in the toilet
         """
-        pass
+        Retweet all the tweets in the toilet
+        """
+        self.toilet.retweet()
 
     def follow_toilet(self):
-        """Follow all the users in the toilet
         """
-        user_list = pull_users_from_toilet()
+        Follow all the users in the toilet
+        """
+        self.toilet.follow()
 
     def list_toilet(self, public=False):
         """Make a list from all the users in the toilet
         """
-        pass
-
-    def pull_users_from_toilet(self):
-        """Pull out a list of users from the toilet
-        """
-        users = self.toilet.get_users()
-
-
-
+        self.toilet.make_list(public=public)
 
 
