@@ -109,7 +109,7 @@ class Keymaker(object):
     # TODO: simplify!
 
     def make_a_key( self, 
-                    name, json,
+                    name, json_name,
                     keys_out_dir='keys/', 
                     interactive=True):
         """
@@ -122,7 +122,7 @@ class Keymaker(object):
 
             name :          Label for the bot
 
-            json :          The name of the JSON file in which to save
+            json_name :     The name of the JSON file in which to save
                             the bot OAuth key (all paths are ignored).
 
             keys_out_dir :  Directory in which to place final JSON keys
@@ -139,11 +139,6 @@ class Keymaker(object):
 
         if(d != {}):
 
-            # Store the item data passed in
-            # together with the Twitter API key
-            for key in item.keys():
-                d[key] = item[key]
-
             # Step 2:
             # Export the bot data bundle to a json file
             # in the keys directory.
@@ -153,7 +148,7 @@ class Keymaker(object):
             # Make a key dir
             subprocess.call(["mkdir","-p",keys_out_dir])
 
-            keys_file = basename(json)
+            keys_file = basename(json_name)
             keys_out = join(keys_out_dir,keys_file)
 
             with open(keys_out,'w') as outfile:
@@ -273,13 +268,20 @@ class Keymaker(object):
             resp, content = client.request(self.access_token_url, "POST")
             access_token = dict(urllib.parse.parse_qsl(content))
 
+            def strip(mystr):
+                if(type(mystr)==type(b'asdf')):
+                    return mystr.decode('utf-8')
+                return mystr
+
             # Step 2.4: Make a dict with all relevant Sheep info
             d = {}
             for key in self.consumer_token.keys():
-                d[key] = self.consumer_token[key]
+                value = self.consumer_token[key]
+                d[strip(key)] = strip(value)
 
             for key in access_token.keys():
-                d[key] = access_token[key]
+                value = access_token[key]
+                d[strip(key)] = strip(value)
 
             print("Successfully obtained Twitter API key for %s"%item_)
 
