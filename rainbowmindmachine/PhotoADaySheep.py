@@ -221,7 +221,7 @@ class PhotoADaySheep(Sheep):
                 msg3 = self.timestamp_message("Sheep is continuing...")
 
                 # Add this line in to debug sheep
-                raise Exception(err)
+                #raise Exception(err)
 
                 logger.info(msg1)
                 logger.info(msg2)
