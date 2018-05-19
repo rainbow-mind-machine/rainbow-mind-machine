@@ -19,13 +19,27 @@ and we can incrementally improve, extend, override,
 or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.
 
-[rainbow mind machine documentation on charlesreid1.com](https://pages.charlesreid1.com/rainbow-mind-machine)
+## Useful links
 
-[rainbow mind machine on pypi](https://pypi.python.org/pypi/rainbowmindmachine/0.4)
+You are here:
 
-[rainbow mind machine on dockerhub](https://hub.docker.com/r/rainbowmindmachine/rainbowmindmachine/)
+* [rainbow mind machine documentation on charlesreid1.com](https://pages.charlesreid1.com/rainbow-mind-machine)
 
-[rainbow mind machine organization on github](https://github.com/rainbow-mind-machine)
+Source code:
+
+* [rainbow mind machine source code on git.charlesreid1.com](https://git.charlesreid1.com/bots/rainbow-mind-machine)
+
+* [rainbow mind machine source code on github.com/rainbow-mind-machine/rainbow-mind-machine](https://github.com/rainbow-mind-machine/rainbow-mind-machine)
+
+Packaged products:
+
+* [rainbow mind machine package on pypi](https://pypi.org/project/rainbowmindmachine/) (`pip install rainbowmindmachine`)
+
+* [rainbow mind machine on dockerhub](https://hub.docker.com/r/rainbowmindmachine/rainbowmindmachine/) (`docker pull rainbowmindmachine/rainbowmindmachine`)
+
+Related projects:
+
+* [rainbow mind machine organization on github](https://github.com/rainbow-mind-machine)
 
 ## Installing rainbow mind machine
 

@@ -24,23 +24,25 @@ while still abstracting away messy details.
 
 ## Useful links
 
-[rainbow mind machine documentation on charlesreid1.com (you are here)](https://pages.charlesreid1.com/b-rainbow-mind-machine)
+You are here:
 
-source code:
+* [rainbow mind machine documentation on charlesreid1.com](https://pages.charlesreid1.com/rainbow-mind-machine)
 
-[rainbow mind machine source code on git.charlesreid1.com](https://git.charlesreid1.com/bots/b-rainbow-mind-machine)
+Source code:
 
-[rainbow mind machine source code on github.com/rainbow-mind-machine/rainbow-mind-machine](https://github.com/rainbow-mind-machine/rainbow-mind-machine)
+* [rainbow mind machine source code on git.charlesreid1.com](https://git.charlesreid1.com/bots/rainbow-mind-machine)
 
-packaged products:
+* [rainbow mind machine source code on github.com/rainbow-mind-machine/rainbow-mind-machine](https://github.com/rainbow-mind-machine/rainbow-mind-machine)
 
-[rainbow mind machine package on pypi](https://pypi.org/project/rainbowmindmachine/) (`pip install rainbowmindmachine`)
+Packaged products:
 
-[rainbow mind machine on dockerhub](https://hub.docker.com/r/rainbowmindmachine/rainbowmindmachine/) (`docker pull rainbowmindmachine/rainbowmindmachine`)
+* [rainbow mind machine package on pypi](https://pypi.org/project/rainbowmindmachine/) (`pip install rainbowmindmachine`)
 
-related projects:
+* [rainbow mind machine on dockerhub](https://hub.docker.com/r/rainbowmindmachine/rainbowmindmachine/) (`docker pull rainbowmindmachine/rainbowmindmachine`)
 
-[rainbow mind machine organization on github](https://github.com/rainbow-mind-machine)
+Related projects:
+
+* [rainbow mind machine organization on github](https://github.com/rainbow-mind-machine)
 
 ## Installing rainbow mind machine
 
