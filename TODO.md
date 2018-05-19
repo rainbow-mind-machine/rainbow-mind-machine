@@ -1,6 +1,15 @@
 # TODO
 
 
+## Branching
+
+`prime` branch: releases are tagged with prime numbers
+
+`dev` branch: where we develop stuff
+
+`feature` branch: where we *actually* develop stuff
+
+
 ## Documentation
 
 On the one hand, it feels like a bit too much.
