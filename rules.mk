@@ -27,8 +27,8 @@ init_docs: fix_remotes init_site init_mkdocs_material
 
 init_site:
 	rm -rf site
-	git clone -b gh-pages $(BMM_GH) site \
-	cd site && git remote add cmr $(BMM_CMR)
+	git clone -b gh-pages $(BMM_GH) site && \
+		cd site && git remote add cmr $(BMM_CMR)
 
 init_mkdocs_material:
 	wget https://tinyurl.com/sample-mkdocs-yml -O mkdocs.yml
@@ -43,7 +43,7 @@ init_mkdocs_material:
 # init_gh
 
 init_gh: fix_remotes
-	rm -r site && git clone $(BMM_GH) site
+	rm -rf site && git clone $(BMM_GH) site
 	set -x \
 		&& cd site/ \
 		&& git remote add cmr $(BMM_CMR) \
@@ -60,7 +60,7 @@ init_gh: fix_remotes
 ###############
 # deploy_docs
 
-deploy_docs: init_site
+deploy_docs: 
 	mkdocs build
 	cd site \
 		&& git add -A . \
