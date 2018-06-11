@@ -1,4 +1,7 @@
 import twitter
+import logging
+import traceback
+import time
 from .Sheep import Sheep
 
 """
@@ -64,19 +67,28 @@ class SocialSheep(Sheep):
         ####################################
         # Ok, on with the Toilet class
 
-        def __init__(self, api, params):
+        def __init__(self, api):
             """
             The Toilet uses the SocialSheep's api and params.
             """
             self.api = api
-            self.params = params
-
-            # Don't assume params contains search parameters.
-            # Do some validation here.
     
-        def flush(self):
-            """Flush the toilet (get fresh tweets)"""
-            self.bowl = list(self.api.GetSearch(term='#rainbowmindmachine',count=10))
+        def flush(self, **kwargs):
+            """
+            Flush the toilet (get fresh tweets).
+            
+            Currently only one parameter:
+
+                search_term     String to search for
+            """
+            if 'search_term' in kwargs:
+                search_term = kwargs['search_term']
+            else:
+                err = "ERROR: called SocialSheep flush() without search term.\n"
+                err += "Specify a search_term kwarg: flush(search_term = '...')"
+                raise Exception(err)
+
+            self.bowl = list(self.api.GetSearch(term=search_term,count=10))
 
             # self.bowl is a list of Status objects
             # this is really useful:
@@ -86,17 +98,21 @@ class SocialSheep(Sheep):
             # pulled straight out of the toilet.
             self.hurd = self.BurdHurd()
             for s in self.bowl:
-                self.hurd.append(s['user'])
+                self.hurd.append(s.user)
     
         def favorite(self):
-            """Favorite every tweet in the toilet"""
+            """Favorite every tweet in the toilet."""
             for s in self.bowl:
-                self.api.CreateFavorite(status=s)
+                try:
+                    self.api.CreateFavorite(status=s)
+                except twitter.error.TwitterError:
+                    # already faved
+                    pass
     
         def retweet(self):
             """Retweet every tweet in the toilet"""
             for s in self.bowl:
-                self.api.PostRetweet(status_id=s['id'])
+                self.api.PostRetweet(status_id=s.id)
 
         def follow(self):
             """
@@ -104,7 +120,14 @@ class SocialSheep(Sheep):
             """
             # self.hurd is a list of strings (usernames)
             for u in self.hurd:
-                self.api.CreateFriendship(screen_name=u)
+                try:
+                    self.api.CreateFriendship(screen_name=u.screen_name)
+                    logger = logging.getLogger('rainbowmindmachine')
+                    logger.info("Started following @%s"%(u.screen_name))
+                except twitter.error.TwitterError:
+                    # following ourselves,
+                    # or cannot find user
+                    pass
 
 
 
@@ -123,7 +146,7 @@ class SocialSheep(Sheep):
 
         # Now call a plumber to have a toilet installed
         self._call_plumber()
-    
+
 
     def _call_plumber(self):
         """
@@ -131,21 +154,64 @@ class SocialSheep(Sheep):
         """
         # Toilets take parameters for their search.
         # These come from the SocialSheep's parameters.
-        self.toilet = self.Toilet(self.api, self.params)
-        self.flush_the_toilet()
+        self.toilet = self.Toilet(self.api)
 
 
-    def flush_the_toilet(self):
-        """
-        Flush the toilet to get some fresh tweets
-        """
-        self.toilet.flush()
-
-    def favorite_toilet(self):
+    def favorite_toilet(self, **kwargs):
         """
         Favorite all the tweets in the toilet
+
+        Parameters:
+
+            sleep           Time to sleep between flushes
+
+        Call to flush passes along all of the parameters. 
+        The flush function takes the following parameter:
+            
+            search_term     String to search for
+
+        This function never ends, so it never returns.
         """
-        self.toilet.favorite()
+        defaults = {}
+        defaults['sleep'] = 1.0
+
+        # populate missing params with default values
+        extra_params = kwargs
+        for dk in defaults.keys():
+            if dk not in extra_params.keys():
+                extra_params[dk] = defaults[dk]
+
+        logger = logging.getLogger('rainbowmindmachine')
+
+        while True:
+
+            try:
+                self.toilet.flush(**kwargs)
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception flush()ing toilet"
+                logger.info(self.timestamp_message(err))
+                logger.info(self.timestamp_message(traceback.format_exc()))
+
+
+            try:
+                self.toilet.favorite()
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception favorite()ing toilet"
+                logger.info(self.timestamp_message(err))
+                logger.info(self.timestamp_message(traceback.format_exc()))
+
+
+
+            try:
+                self.toilet.follow()
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception favorite()ing toilet"
+                logger.info(self.timestamp_message(err))
+                logger.info(self.timestamp_message(traceback.format_exc()))
+
+
+            time.sleep( extra_params['sleep'] )
+
 
     def retweet_toilet(self):
         """

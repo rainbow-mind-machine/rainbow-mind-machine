@@ -139,7 +139,7 @@ class Shepherd(object):
         logger.info(its_alive)
 
 
-    def perform_action(self,action,params={}):
+    def perform_action(self,action,**kwargs):
         """
         Perform an action with each bot iteratively.
 
@@ -147,12 +147,12 @@ class Shepherd(object):
         """
         if len(self.all_sheep) > 0:
             for sheep in self.all_sheep:
-                sheep.perform_action(action,params)
+                sheep.perform_action(action,**kwargs)
         else:
             raise Exception("Error: The shepherd has no sheep!")
 
 
-    def perform_pool_action(self,action,params={}):
+    def perform_pool_action(self,action,**kwargs):
         """
         Create a thread pool to perform an action in parallel.
 
@@ -160,7 +160,7 @@ class Shepherd(object):
         """
 
         def do_it(sheep):
-            sheep.perform_action(action,params)
+            sheep.perform_action(action,**kwargs)
 
         pool = ThreadPool(len(self.all_sheep))
         results = pool.map(do_it,self.all_sheep)
