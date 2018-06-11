@@ -17,8 +17,22 @@ def setup():
             json_name = 'social_bot.json',
             keys_out_dir = 'keys'
         )
-    
+
+
 def tweet():
+    sh = rmm.Shepherd( json_keys_dir = 'keys/',
+                       flock_name = 'simple flock',
+                       sheep_class = TestSocialSheep
+                    )
+
+    sh.perform_action('tweet',
+            publish = False,
+            inner_sleep = 10,
+            outer_sleep = 60
+    )
+
+
+def favorite():
     sh = rmm.Shepherd( json_keys_dir = 'keys/',
                        flock_name = 'simple flock',
                        sheep_class = TestSocialSheep
@@ -28,7 +42,6 @@ def tweet():
             sleep = 60,
             search_term = '#rainbowmindmachine'
     )
-    #sh.perform_pool_action('tweet',{'publish':False})
 
 if __name__=="__main__":
     tweet()
