@@ -422,27 +422,23 @@
 <h2 id="building-documentation">Building Documentation<a class="headerlink" href="#building-documentation" title="Permanent link">&para;</a></h2>
 <p>To generate documentation locally,
 you will need mkdocs:</p>
-<div class="codehilite"><pre><span></span>pip install mkdocs
-</pre></div>
-
+<pre><code>pip install mkdocs
+</code></pre>
 
 <p>To make the documentation, execute the <code>mkdocs build</code>
 command from the main repository to build the site 
 into the directory <code>source/</code>:</p>
-<div class="codehilite"><pre><span></span>mkdocs build
-</pre></div>
-
+<pre><code>mkdocs build
+</code></pre>
 
 <p>To start a web server, use a lightweight python http server:</p>
-<div class="codehilite"><pre><span></span>cd source/
+<pre><code>cd source/
 python -m http.server 8000
-</pre></div>
-
+</code></pre>
 
 <p>or use mkdocs:</p>
-<div class="codehilite"><pre><span></span>mkdocs serve
-</pre></div>
-
+<pre><code>mkdocs serve
+</code></pre>
 
 <h1 id="bug-fix-workflow">Bug Fix Workflow<a class="headerlink" href="#bug-fix-workflow" title="Permanent link">&para;</a></h1>
 <p>Workflow for propagating bug fixes and additions.</p>
@@ -462,9 +458,8 @@ python -m http.server 8000
 <li>Create tag for release</li>
 </ul>
 <p>Create tag command:</p>
-<div class="codehilite"><pre><span></span>git tag -a vX.Y -m &#39;rainbow mind machine X.Y&#39;
-</pre></div>
-
+<pre><code>git tag -a vX.Y -m 'rainbow mind machine X.Y'
+</code></pre>
 
 <h2 id="pypy-process">Pypy process<a class="headerlink" href="#pypy-process" title="Permanent link">&para;</a></h2>
 <p>Pypi process:</p>
@@ -482,26 +477,23 @@ build.</p>
 <h1 id="testing-workflow">Testing Workflow<a class="headerlink" href="#testing-workflow" title="Permanent link">&para;</a></h1>
 <p>To run tests with nose, run the following command
 from the main repo directory:</p>
-<div class="codehilite"><pre><span></span>$ nosetests -v
-</pre></div>
-
+<pre><code>$ nosetests -v
+</code></pre>
 
 <p>To run without capturing stdout:</p>
-<div class="codehilite"><pre><span></span>$ nosetests --nocapture
-</pre></div>
-
+<pre><code>$ nosetests --nocapture
+</code></pre>
 
 <p>To run one set of tests in a given test file, 
 use the syntax:</p>
-<div class="codehilite"><pre><span></span>$ nosetests tests.test_keymaker
-</pre></div>
-
+<pre><code>$ nosetests tests.test_keymaker
+</code></pre>
 
 <p>To run one specific test, use the syntax
 <code>module.path:ClassNameInFile.method_name</code>
 <a href="https://stackoverflow.com/a/3704797">(hat tip)</a>.</p>
-<div class="codehilite"><pre><span></span>$ nosetests tests.test_shepherd:TestShepherd.test_shepherd
-</pre></div>
+<pre><code>$ nosetests tests.test_shepherd:TestShepherd.test_shepherd
+</code></pre>
                 
                   
                 

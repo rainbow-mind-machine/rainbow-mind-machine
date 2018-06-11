@@ -593,9 +593,8 @@ of the Shepherd class really simple.</p>
 dictionary called <code>kwargs</code> with any key-value pairs 
 the user passed in. This is stored in <code>self.params</code>
 at the end of the constructor:</p>
-<div class="codehilite"><pre><span></span>        self.params = kwargs
-</pre></div>
-
+<pre><code>        self.params = kwargs
+</code></pre>
 
 <p>This means that if you create a new Shepherd class
 like <code>CarMechanicShepherd</code>, and you need to pass in 
@@ -606,9 +605,8 @@ the Shepherd class automatically adds
 a key <code>uses_metric</code> with a value <code>True||False</code>
 to a dictionary <code>self.params</code> when you
 call the constructor like </p>
-<div class="codehilite"><pre><span></span>CarMechanicShepherd(uses_metric=False)
-</pre></div>
-
+<pre><code>CarMechanicShepherd(uses_metric=False)
+</code></pre>
 
 <p>Okay, back to the regularly scheduled program...</p>
 <h3 id="webhook-bot-flock">webhook bot flock<a class="headerlink" href="#webhook-bot-flock" title="Permanent link">&para;</a></h3>
@@ -658,15 +656,14 @@ corresponding to one bot corresponding to one Twitter
 account.</p>
 <p>The <code>_setup_sheep()</code> method would be modified from 
 its current arrangement (pseudocode):</p>
-<div class="codehilite"><pre><span></span>current _setup_sheep() method:
+<pre><code>current _setup_sheep() method:
     for json in list-of-all-json-files:
         create new sheep from json
         add new sheep to flock
-</pre></div>
-
+</code></pre>
 
 <p>to something more like (pseudocode):</p>
-<div class="codehilite"><pre><span></span>new _setup_sheep() method:
+<pre><code>new _setup_sheep() method:
     for (bot1, bot2) in list-of-all-bot-pairs:
         get key1 from keys
         create bot1 from key1
@@ -676,8 +673,7 @@ its current arrangement (pseudocode):</p>
 
         link bot1 and bot2
         add bot1 and bot2 to flock
-</pre></div>
-
+</code></pre>
 
 <p>In this case, we want to have two Queneau Sheep that 
 work almost exactly the same as normal Queneau Sheep,

@@ -448,24 +448,23 @@ in <code>apikeys.py</code>.</p>
 <p>In the example below, the "items" are strings containing the bot name.
 This uses credentials in <code>apikeys.py</code> and outputs key files
 at <code>keys/key1.json</code> and <code>keys/key2.json</code>.</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
+<pre><code class="python">import rainbowmindmachine as rmm
+import subprocess
 
-<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;mkdir&#39;</span><span class="p">,</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span><span class="s1">&#39;keys/&#39;</span><span class="p">])</span>
+subprocess.call(['mkdir','-p','keys/'])
 
-<span class="n">k</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Keymaker</span><span class="p">()</span>
+k = rmm.Keymaker()
 
-<span class="c1"># Create some keys</span>
-<span class="n">k</span><span class="o">.</span><span class="n">make_key</span><span class="p">({</span>
-    <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Twitter Bot 1&#39;</span><span class="p">,</span>     <span class="c1"># This is the bot label</span>
-    <span class="s1">&#39;json&#39;</span><span class="p">:</span><span class="s1">&#39;keys/key1.json&#39;</span>     <span class="c1"># This is the key file</span>
-<span class="p">})</span>
-<span class="n">k</span><span class="o">.</span><span class="n">make_key</span><span class="p">({</span>
-    <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Twitter Bot 2&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;json&#39;</span><span class="p">:</span><span class="s1">&#39;keys/key2.json&#39;</span>
-<span class="p">})</span>
-</pre></div>
-
+# Create some keys
+k.make_key({
+    'name':'Twitter Bot 1',     # This is the bot label
+    'json':'keys/key1.json'     # This is the key file
+})
+k.make_key({
+    'name':'Twitter Bot 2',
+    'json':'keys/key2.json'
+})
+</code></pre>
 
 <p>When this script is run, the Keymaker will 
 go through a series of interactive steps 
@@ -475,18 +474,17 @@ to create keys from each item.</p>
 <p>Once that is done, make a Shepherd for the bot flock,
 and point it to the keys the Keymaker created 
 in the <code>keys/</code> directory:</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
+<pre><code class="python">import rainbowmindmachine as rmm
 
-<span class="c1"># make the Shepherd</span>
-<span class="n">sh</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Shepherd</span><span class="p">(</span><span class="s2">&quot;keys/&quot;</span><span class="p">)</span>
+# make the Shepherd
+sh = rmm.Shepherd(&quot;keys/&quot;)
 
-<span class="c1"># Change everybody&#39;s Twitter page color</span>
-<span class="n">sh</span><span class="o">.</span><span class="n">perform_action</span><span class="p">(</span><span class="s1">&#39;change color&#39;</span><span class="p">,</span><span class="s1">&#39;#CFC&#39;</span><span class="p">)</span>
+# Change everybody's Twitter page color
+sh.perform_action('change color','#CFC')
 
-<span class="c1"># Everybody tweet in parallel</span>
-<span class="n">sh</span><span class="o">.</span><span class="n">perform_pool_action</span><span class="p">(</span><span class="s1">&#39;tweet&#39;</span><span class="p">)</span>
-</pre></div>
-
+# Everybody tweet in parallel
+sh.perform_pool_action('tweet')
+</code></pre>
 
 <p>Now you can run this in screen or as a background process,
 and it will sequentially change each bot's 
@@ -506,26 +504,24 @@ to define custom behaviors. </p>
 <p>For example,
 to define a new <code>populate_queue()</code> 
 behavior:</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rmm</span> 
+<pre><code class="python">import rmm 
 
-<span class="k">class</span> <span class="nc">CustomSheep</span><span class="p">(</span><span class="n">rmm</span><span class="o">.</span><span class="n">Sheep</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">populate_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">items</span><span class="p">):</span>
-        <span class="o">...</span>
-</pre></div>
-
+class CustomSheep(rmm.Sheep):
+    def populate_queue(self,items):
+        ...
+</code></pre>
 
 <p>Then modify the Shepherd to use this 
 new Sheep class:</p>
-<div class="codehilite"><pre><span></span><span class="c1"># make the Shepherd</span>
-<span class="n">sh</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Shepherd</span><span class="p">(</span><span class="s2">&quot;keys/&quot;</span><span class="p">,</span> <span class="n">sheep_class</span><span class="o">=</span><span class="n">CustomSheep</span><span class="p">)</span>
+<pre><code class="python"># make the Shepherd
+sh = rmm.Shepherd(&quot;keys/&quot;, sheep_class=CustomSheep)
 
-<span class="c1"># Change everybody&#39;s Twitter page color</span>
-<span class="n">sh</span><span class="o">.</span><span class="n">perform_action</span><span class="p">(</span><span class="s1">&#39;change color&#39;</span><span class="p">,</span><span class="s1">&#39;#CFC&#39;</span><span class="p">)</span>
+# Change everybody's Twitter page color
+sh.perform_action('change color','#CFC')
 
-<span class="c1"># Everybody tweet in parallel</span>
-<span class="n">sh</span><span class="o">.</span><span class="n">perform_pool_action</span><span class="p">(</span><span class="s1">&#39;tweet&#39;</span><span class="p">)</span>
-</pre></div>
-
+# Everybody tweet in parallel
+sh.perform_pool_action('tweet')
+</code></pre>
 
 <h1 id="more-examples">More Examples<a class="headerlink" href="#more-examples" title="Permanent link">&para;</a></h1>
 <h2 id="example-ginsberg-bot-flock">Example: Ginsberg Bot Flock<a class="headerlink" href="#example-ginsberg-bot-flock" title="Permanent link">&para;</a></h2>

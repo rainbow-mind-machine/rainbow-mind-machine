@@ -537,25 +537,25 @@ perform the <code>tweet</code> action using the bot account,
 and the last to perform the <code>favorite_toilet</code> action
 and repeatedly flush the toilet and favorite 
 everything in the toilet forever.</p>
-<div class="codehilite"><pre><span></span>import rainbowmindmachine as rmm
+<pre><code>import rainbowmindmachine as rmm
 
 def setup():
     k = rmm.Keymaker()
-    k.set_apikeys_file(&#39;apikeys.json&#39;)
+    k.set_apikeys_file('apikeys.json')
     k.make_a_key(
-            name = &#39;social_bot&#39;,
-            json_name = &#39;social_bot.json&#39;,
-            keys_out_dir = &#39;keys&#39;
+            name = 'social_bot',
+            json_name = 'social_bot.json',
+            keys_out_dir = 'keys'
         )
 
 
 def tweet():
-    sh = rmm.Shepherd( json_keys_dir = &#39;keys/&#39;,
-                       flock_name = &#39;simple flock&#39;,
+    sh = rmm.Shepherd( json_keys_dir = 'keys/',
+                       flock_name = 'simple flock',
                        sheep_class = rmm.SocialSheep
                     )
 
-    sh.perform_action(&#39;tweet&#39;,
+    sh.perform_action('tweet',
             publish = False,
             inner_sleep = 10,
             outer_sleep = 60
@@ -563,21 +563,20 @@ def tweet():
 
 
 def favorite():
-    sh = rmm.Shepherd( json_keys_dir = &#39;keys/&#39;,
-                       flock_name = &#39;simple flock&#39;,
+    sh = rmm.Shepherd( json_keys_dir = 'keys/',
+                       flock_name = 'simple flock',
                        sheep_class = TestSocialSheep
                     )
 
-    sh.perform_action(&#39;favorite_toilet&#39;,
+    sh.perform_action('favorite_toilet',
             sleep = 60,
-            search_term = &#39;#rainbowmindmachine&#39;
+            search_term = '#rainbowmindmachine'
     )
 
 
 if __name__==&quot;__main__&quot;:
     tweet()
-</pre></div>
-
+</code></pre>
 
 <h2 id="extending-the-social-sheep">Extending the Social Sheep<a class="headerlink" href="#extending-the-social-sheep" title="Permanent link">&para;</a></h2>
 <p>A quick example of how we can define our own
@@ -586,41 +585,41 @@ classes: here, we define a <code>populate_queue()</code>
 method for our Social Sheep, which enables us
 to customize both the tweeting and the favorite
 toilet behavior of our Sheep:</p>
-<div class="codehilite"><pre><span></span>import rainbowmindmachine as rmm
+<pre><code>import rainbowmindmachine as rmm
 
 class SuperTweetingSocialSheep(rmm.SocialSheep):
     def populate_queue(self):
         tweet_queue = []
-        tweet_queue.append(&#39;hello world 1/3 #rainbowmindmachine&#39;)
-        tweet_queue.append(&#39;i am not a bot 2/3 #rainbowmindmachine&#39;)
-        tweet_queue.append(&#39;do not be alarmed 3/3 #rainbowmindmachine&#39;)
+        tweet_queue.append('hello world 1/3 #rainbowmindmachine')
+        tweet_queue.append('i am not a bot 2/3 #rainbowmindmachine')
+        tweet_queue.append('do not be alarmed 3/3 #rainbowmindmachine')
         return tweet_queue
 
 
 def setup():
     k = rmm.Keymaker()
-    k.set_apikeys_file(&#39;apikeys.json&#39;)
+    k.set_apikeys_file('apikeys.json')
     k.make_a_key(
-            name = &#39;social_bot&#39;,
-            json_name = &#39;social_bot.json&#39;,
-            keys_out_dir = &#39;keys&#39;
+            name = 'social_bot',
+            json_name = 'social_bot.json',
+            keys_out_dir = 'keys'
         )
 
 
 def tweet():
-    sh = rmm.Shepherd( json_keys_dir = &#39;keys/&#39;,
-                       flock_name = &#39;simple flock&#39;,
+    sh = rmm.Shepherd( json_keys_dir = 'keys/',
+                       flock_name = 'simple flock',
                        sheep_class = TestSocialSheep
                     )
 
-    sh.perform_action(&#39;tweet&#39;,
+    sh.perform_action('tweet',
             inner_sleep = 10,
             outer_sleep = 60
     )
 
 if __name__==&quot;__main__&quot;:
     tweet()
-</pre></div>
+</code></pre>
                 
                   
                 
