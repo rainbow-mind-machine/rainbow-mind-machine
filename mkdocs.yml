@@ -2,6 +2,20 @@ site_name: "rainbow mind machine"
 site_url: https://pages.charlesreid1.com/rainbow-mind-machine
 repo_name: rainbow-mind-machine
 repo_url: https://github.com/rainbow-mind-machine/rainbow-mind-machine
+edit_uri: ""
+
+pages:
+  - 'Home':         'index.md'
+  - 'Installing':   'installing.md'
+  - 'Quick Start':  'quickstart.md'
+  - Components:
+    - 'Keymaker':   'keymaker.md'
+    - 'Shepherd':   'shepherd.md'
+    - 'Sheep':      'sheep.md'
+  - 'Docker':       'docker.md'
+  - 'Developers Workflow': 'dev-workflow.md'
+  - 'Credits':      'credits.md'
+
 
 copyright: 'Copyright &copy; 2018 <a href="https://charlesreid1.com">Charles Reid</a>, released under the <a href="https://opensource.org/licenses/MIT">MIT License</a>. rainbowmindmachine@charlesreid1.com<br />Photo Credit: <a href="https://www.flickr.com/photos/russloar/">Russ Loar</a> under the <a href="https://creativecommons.org/licenses/by-nc-nd/2.0/">CC BY-NC-ND License</a><br /><br /><br />
   <div class="classictemplate template" style="display: block;">
@@ -70,15 +84,3 @@ markdown_extensions:
       guess_lang: false
   - toc:
       permalink: true
-pages:
-  - 'Home':         'index.md'
-  - 'Installing':   'installing.md'
-  - 'Quick Start':  'quickstart.md'
-  - Components:
-    - 'Keymaker':   'keymaker.md'
-    - 'Shepherd':   'shepherd.md'
-    - 'Sheep':      'sheep.md'
-  - 'Docker':       'docker.md'
-  - 'Developers Workflow': 'dev-workflow.md'
-  - 'Credits':      'credits.md'
-
