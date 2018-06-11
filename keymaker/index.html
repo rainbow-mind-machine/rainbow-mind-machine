@@ -664,31 +664,34 @@ via JSON file, via a dictionary, or via environment variables.</p>
 <h3 id="using-a-json-file">Using a JSON File<a class="headerlink" href="#using-a-json-file" title="Permanent link">&para;</a></h3>
 <p>To specify your API keys in a JSON file:</p>
 <p><strong><code>apikeys.json</code>:</strong></p>
-<pre><code class="text">{
+<div class="codehilite"><pre><span></span>{
     &quot;consumer_token&quot; : &quot;AAAAAAA&quot;,
     &quot;consumer_secret_token&quot; : &quot;BBBBBBBB&quot;
 }
-</code></pre>
+</pre></div>
+
 
 <p>Then create the Keymaker and set up the API keys like this:</p>
 <p><strong><code>make_shepherd_with_json.py</code>:</strong></p>
-<pre><code class="python">import rainbowmindmachine as rmm
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
 
-keymaker = rmm.Keymaker()
-keymaker.set_apikeys_file('apikeys.json')
-</code></pre>
+<span class="n">keymaker</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Keymaker</span><span class="p">()</span>
+<span class="n">keymaker</span><span class="o">.</span><span class="n">set_apikeys_file</span><span class="p">(</span><span class="s1">&#39;apikeys.json&#39;</span><span class="p">)</span>
+</pre></div>
+
 
 <h3 id="using-a-python-dictionary">Using a Python Dictionary<a class="headerlink" href="#using-a-python-dictionary" title="Permanent link">&para;</a></h3>
 <p>To specify your API keys using a python dictionary</p>
 <p><strong><code>make_shepherd_with_dict.py</code>:</strong></p>
-<pre><code class="python">import rainbowmindmachine as rmm
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
 
-keymaker = rmm.Keymaker()
-keymaker.set_apikeys_dict({
-    &quot;consumer_token&quot; : &quot;AAAAAAAAAAAA&quot;,
-    &quot;consumer_token_secret&quot; : &quot;BBBBBBBBBBBBB&quot;
-})
-</code></pre>
+<span class="n">keymaker</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Keymaker</span><span class="p">()</span>
+<span class="n">keymaker</span><span class="o">.</span><span class="n">set_apikeys_dict</span><span class="p">({</span>
+    <span class="s2">&quot;consumer_token&quot;</span> <span class="p">:</span> <span class="s2">&quot;AAAAAAAAAAAA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;consumer_token_secret&quot;</span> <span class="p">:</span> <span class="s2">&quot;BBBBBBBBBBBBB&quot;</span>
+<span class="p">})</span>
+</pre></div>
+
 
 <h3 id="using-environment-variables">Using Environment Variables<a class="headerlink" href="#using-environment-variables" title="Permanent link">&para;</a></h3>
 <p>This last method is useful if you want to set up integration tests
@@ -697,16 +700,18 @@ file or risk them leaking out. Most test services like Travis
 provide mechanisms for getting credentials and secrets into
 test containers.</p>
 <p>To use this method, set the two environment variables:</p>
-<pre><code class="text">$ export CONSUMER_TOKEN=&quot;AAAAAAAA&quot;
+<div class="codehilite"><pre><span></span>$ export CONSUMER_TOKEN=&quot;AAAAAAAA&quot;
 $ export CONSUMER_TOKEN_SECRET=&quot;BBBBBBBBBBB&quot;
-</code></pre>
+</pre></div>
+
 
 <p>Now make the Keymaker as follows:</p>
-<pre><code class="python">import rainbowmindmachine as rmm
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
 
-keymaker = rmm.Keymaker()
-keymaker.set_apikeys_env()
-</code></pre>
+<span class="n">keymaker</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Keymaker</span><span class="p">()</span>
+<span class="n">keymaker</span><span class="o">.</span><span class="n">set_apikeys_env</span><span class="p">()</span>
+</pre></div>
+
 
 <h2 id="keymaker-output-oauth-keys">Keymaker Output: OAuth Keys<a class="headerlink" href="#keymaker-output-oauth-keys" title="Permanent link">&para;</a></h2>
 <p>Once the Keymaker and the user go through the three-legged authentication process,
@@ -734,13 +739,13 @@ or replace this method, e.g., with a
 for a single bot, we can specify the name of the bot
 and the name of the JSON file to dump it to
 (and control the name of the bot keys directory):</p>
-<pre><code>import rainbowmindmachine as rmm
+<div class="codehilite"><pre><span></span>import rainbowmindmachine as rmm
 
 keymaker = rmm.Keymaker()
-keymaker.make_a_key( name = 'My Bot',
-                     json = 'mybot.json',
-                     keys_out_dir = 'bot_keys')
-</code></pre>
+keymaker.make_a_key( name = &#39;My Bot&#39;,
+                     json = &#39;mybot.json&#39;,
+                     keys_out_dir = &#39;bot_keys&#39;)
+</pre></div>
                 
                   
                 
