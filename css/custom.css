@@ -13,6 +13,11 @@ input.input-group-lg {
     margin-bottom: 20px;
 }
 
+.md-typeset .highlight code, 
+.md-typeset .highlight pre {
+    background-color: #ddd;
+}
+
 /***************************************/
 
 .btn-primary {
