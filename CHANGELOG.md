@@ -10,6 +10,20 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 See [TODO.md](/TODO.md).
 
+# [0.8] - 2018-06-10
+
+### Added
+
+- SocialSheep
+    - currently just takes a search term
+    - favorites/follows/retweets/etc
+
+### Changed
+
+- Sheep and Shepherd use `**kwargs` and stop fiddling around
+    with this `extra_params` business
+    - this will break stuff
+
 # [0.7] - 2018-05-15
 
 ### Added
