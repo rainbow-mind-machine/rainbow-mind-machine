@@ -12,6 +12,7 @@ pages:
     - 'Keymaker':   'keymaker.md'
     - 'Shepherd':   'shepherd.md'
     - 'Sheep':      'sheep.md'
+    - 'Social Sheep': 'social_sheep.md'
   - 'Docker':       'docker.md'
   - 'Developers Workflow': 'dev-workflow.md'
   - 'Credits':      'credits.md'
