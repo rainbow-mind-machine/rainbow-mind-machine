@@ -4,6 +4,19 @@
 
 **The rainbow mind machine shepherd. [credit](credits.md)**
 
+> The shepherd's (_pasteur_) power manifests itself, therefore, in a duty, a task to
+> be undertaken, so that - and I think this is also an important characteristic of
+> pastoral power - the form it takes is not first of all the striking display of
+> strength and superiority. Pastoral power initially manifests itself in its zeal,
+> devotion, and endless application. What is the shepherd (_berger_)? Is (s)he someone
+> whose strength strikes people's eyes, like the sovereigns or gods, like the Greek
+> gods, who essentially appear in their splendor? Not at all. The shepherd is
+> someone who keeps watch. (S)he "keeps watch" in the sense, of course, of keeping an
+> eye out for possible evils, but above all in the sense of vigilance with regard
+> to any possible misfortune.
+>
+> - Michel Foucault, _Security, Territory, Population: Lectures at the Collége de France_ (1977-1978)
+
 ## what is the Shepherd?
 
 The Shepherd is a very simple object. 
