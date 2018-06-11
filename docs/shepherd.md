@@ -1,6 +1,6 @@
 # The Shepherd
 
-![the shepherd](shepherd.jpg)
+![the shepherd](img/shepherd.jpg)
 
 **The rainbow mind machine shepherd. [credit](credits.md)**
 

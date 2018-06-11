@@ -1,6 +1,6 @@
 # SocialSheep
 
-![the social sheep](sheep.jpg)
+![the (anti-)social sheep](img/social_sheep.jpg)
 
 **The social rainbow mind machine sheep. [credit](credits.md)**
 
@@ -29,11 +29,15 @@ Social Sheep can then:
 * follow all of the users who wrote the tweets;
 * any combination of the above, and more.
 
-## How to use it
+## Toilet Training: Using the Social Sheep
 
-Internally, the Social Sheep uses a toilet for an
-analogy: each search for N tweets matching a search
-term forms a small pool of tweets (a Toilet).
+Internally, the Social Sheep is performing a search
+for N tweets matching a given search term, and forms
+a small pool of tweets as a result. This pool of tweets
+is called a Toilet.
+
+![the toilet](img/social_toilet.jpg)
+
 The toilet is flush()ed each time a search is
 performed. The Social Sheep can favorite the
 toilet, follow the toilet, or retweet the toilet,
@@ -55,7 +59,6 @@ perform the `tweet` action using the bot account,
 and the last to perform the `favorite_toilet` action
 and repeatedly flush the toilet and favorite 
 everything in the toilet forever.
-
 
 ```
 import rainbowmindmachine as rmm

@@ -1,6 +1,6 @@
 # The Keymaker
 
-![the keymaker](keymaker.jpg)
+![the keymaker](img/keymaker.jpg)
 
 **You can definitely trust this keymaker. [credit](credits.md)**
 

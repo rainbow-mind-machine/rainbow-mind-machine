@@ -1,6 +1,6 @@
 # rainbow-mind-machine
 
-![tinysheep](sheep.jpg)
+![tinysheep](img/sheep.jpg)
 
 **rainbow mind machine** is an extensible framework for running Twitter bot flocks in Python.
 
@@ -21,6 +21,9 @@ That means we start out with bots that "just work"
 and we can incrementally improve, extend, override,
 or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.
+
+See the [Shepherd](shepherd.md) page or the [Social Sheep](social_sheep.md) 
+page for examples.
 
 ## Useful links
 
