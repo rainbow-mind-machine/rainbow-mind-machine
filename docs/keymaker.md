@@ -1,6 +1,6 @@
 # The Keymaker
 
-![the keymaker](keymaker.jpg)
+![the keymaker](img/keymaker.jpg)
 
 **You can definitely trust this keymaker. [credit](credits.md)**
 
@@ -179,7 +179,7 @@ for a single bot, we can specify the name of the bot
 and the name of the JSON file to dump it to
 (and control the name of the bot keys directory):
 
-```
+```python
 import rainbowmindmachine as rmm
 
 keymaker = rmm.Keymaker()

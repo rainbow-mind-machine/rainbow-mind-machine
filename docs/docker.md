@@ -1,6 +1,6 @@
 # Using rainbow mind machine With Docker
 
-![the twittur](twittur.jpg)
+![the twittur](img/twittur.jpg)
 
 **This is what you get when you cross a doker wale with a twittur burd. [credit](credits.md)**
 

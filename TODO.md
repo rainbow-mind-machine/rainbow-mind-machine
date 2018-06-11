@@ -1,5 +1,24 @@
 # TODO
 
+## what rmm is not
+
+not a do-everything-for-one-account framework
+
+(although it can be used that way)
+
+bot flock creates one sheep per account and performs single action in parallel for each account
+
+you can have multiple sheep associated with a single account, but they will be
+doing the same action automatically.
+
+## Branching
+
+`prime` branch: releases are tagged with prime numbers
+
+`dev` branch: where we develop stuff
+
+`feature` branch: where we *actually* develop stuff
+
 
 ## Documentation
 

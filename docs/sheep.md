@@ -1,6 +1,6 @@
 # Sheep
 
-![the sheep](sheep.jpg)
+![the sheep](img/sheep.jpg)
 
 **The rainbow mind machine sheep. [credit](credits.md)**
 

@@ -45,6 +45,10 @@ LOGO = r'''
 '''
 
 class Lumberjack(object):
+    """
+    The Lumberjack class just configures the logs
+    and then it's all finished.
+    """
 
     def __init__(self, 
                  flock_name = 'Anonymous Flock of Cowards',
@@ -73,16 +77,15 @@ class Lumberjack(object):
 
         logger = logging.getLogger('rainbowmindmachine')
 
-        fh = logging.FileHandler(log_file)
-        fh.setLevel(logging.INFO)
-        logger.addHandler(fh)
+        #fh = logging.FileHandler(log_file)
+        #fh.setLevel(logging.INFO)
+        #logger.addHandler(fh)
 
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.INFO)
-        logger.addHandler(ch)
+        #ch = logging.StreamHandler()
+        #ch.setLevel(logging.INFO)
+        #logger.addHandler(ch)
 
-        logo = LOGO
-        logger.info(logo)
+        logger.info(LOGO)
         logger.info("-"*40)
         logger.info("Flock name: %s"%(flock_name))
         logger.info("Flock log file: %s"%(log_file))

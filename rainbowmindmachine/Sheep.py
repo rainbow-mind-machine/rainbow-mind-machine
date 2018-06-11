@@ -69,7 +69,7 @@ class Sheep(object):
         logger.info(msg)
 
 
-    def perform_action(self,action,extra_params):
+    def perform_action(self,action,**kwargs):
         """
         Performs action indicated by string action,
         passing a dictionary of extra parameters.
@@ -88,11 +88,11 @@ class Sheep(object):
         # Use the dispatcher method pattern
         if hasattr( self, action ):
             method = getattr( self, action )
-            method( extra_params )
+            method( **kwargs )
 
 
 
-    def dummy(self,extra_params):
+    def dummy(self,**kwargs):
         """
         Debug:
         Do nothing
@@ -100,14 +100,14 @@ class Sheep(object):
         pass
 
 
-    def echo(self,extra_params):
+    def echo(self,**kwargs):
         """
         Just say hi
         """
         print("Hello world!")
 
 
-    def change_url(self,extra_params):
+    def change_url(self,**kwargs):
         """
         Update twitter profile url 
 
@@ -117,6 +117,7 @@ class Sheep(object):
         Does not return anything
         """
         logger = logging.getLogger('rainbowmindmachine')
+        extra_params = kwargs
 
         if( 'url' not in extra_params.keys()):
             err = "change_url() action called without 'url' key specified in the parameters dict."
@@ -147,7 +148,7 @@ class Sheep(object):
 
 
 
-    def change_bio(self,extra_params):
+    def change_bio(self,**kwargs):
         """
         Update twitter profile bio
 
@@ -157,6 +158,7 @@ class Sheep(object):
         Does not return anything
         """
         logger = logging.getLogger('rainbowmindmachine')
+        extra_params = kwargs
 
         if( 'bio' not in extra_params.keys()):
             err = "change_bio() action called without 'bio' key specified in the parameters dict."
@@ -186,7 +188,7 @@ class Sheep(object):
         logger.info(content)
 
 
-    def change_color(self,extra_params):
+    def change_color(self,**kwargs):
         """
         Update twitter profile colors
 
@@ -200,6 +202,7 @@ class Sheep(object):
         Does not return anything
         """
         logger = logging.getLogger('rainbowmindmachine')
+        extra_params = kwargs
 
         if( 'background' not in extra_params.keys() and 'links' not in extra_params.keys()):
             err = "change_color() action called without 'background' or 'links' keys specified in the parameters dict."
@@ -241,7 +244,7 @@ class Sheep(object):
 
 
 
-    def change_image(self,extra_params):
+    def change_image(self,**kwargs):
         """
         Change a user's avatar image.
 
@@ -255,6 +258,7 @@ class Sheep(object):
         This method does not return anything
         """
         logger = logging.getLogger('rainbowmindmachine')
+        extra_params = kwargs
 
         # json sent to the Twitter API
         payload = {}
@@ -293,7 +297,7 @@ class Sheep(object):
 
 
 
-    def follow_user(self, extra_params, notify=True):
+    def follow_user(self, notify=True, **kwargs):
         """
         Follow a twitter user
 
@@ -304,6 +308,7 @@ class Sheep(object):
         This method does not return anything
         """
         logger = logging.getLogger('rainbowmindmachine')
+        extra_params = kwargs
 
         # json sent to the Twitter API
         payload = {}
@@ -336,7 +341,7 @@ class Sheep(object):
         logger.info(content)
 
 
-    def unfollow_user(self, extra_params, notify=True):
+    def unfollow_user(self, notify=True, **kwargs):
         """
         Unfollow a twitter user
 
@@ -346,6 +351,7 @@ class Sheep(object):
         This method does not return anything
         """
         logger = logging.getLogger('rainbowmindmachine')
+        extra_params = kwargs
 
         # json sent to the Twitter API
         payload = {}
@@ -376,8 +382,6 @@ class Sheep(object):
 
 
 
-
-
     def populate_queue(self):
         """
         populate_queue() handles content.
@@ -401,7 +405,7 @@ class Sheep(object):
 
 
 
-    def tweet(self, extra_params, media=None):
+    def tweet(self, media=None, **kwargs):
         """
         tweet() handles scheduling.
 
@@ -420,6 +424,8 @@ class Sheep(object):
 
         This function never ends, so it never returns.
         """
+
+        extra_params = kwargs
 
         # --------------------------
         # Process parameters
@@ -451,12 +457,13 @@ class Sheep(object):
                 
                 # Outer loop
                 tweet_queue = self.populate_queue()
+                nelements = len(tweet_queue)
 
-                assert (len(tweet_queue)>0)
+                assert nelements>0
 
-                for ii in range(len(tweet_queue)):
+                for ii in range(nelements):
 
-                    twit = tweet_queue.popleft()
+                    twit = tweet_queue.pop(0)
 
                     # Fire off the tweet
                     if extra_params['publish']:
