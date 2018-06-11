@@ -1,6 +1,14 @@
 import rainbowmindmachine as rmm
 import logging
 
+class TestSocialSheep(rmm.SocialSheep):
+    def populate_queue(self):
+        tweet_queue = []
+        tweet_queue.append('oh hello again world #rainbowmindmachine')
+        tweet_queue.append('you still should not be alarmed #rainbowmindmachine')
+        tweet_queue.append('i am still not a bot #rainbowmindmachine')
+        return tweet_queue
+
 def setup():
     k = rmm.Keymaker()
     k.set_apikeys_file('apikeys.json')
@@ -10,13 +18,18 @@ def setup():
             keys_out_dir = 'keys'
         )
     
-def run():
+def tweet():
     sh = rmm.Shepherd( json_keys_dir = 'keys/',
                        flock_name = 'simple flock',
-                       sheep_class = rmm.SocialSheep
+                       sheep_class = TestSocialSheep
                     )
-    sh.perform_action('tweet',{'publish':False})
+
+    sh.perform_action('favorite_toilet',
+            sleep = 60,
+            search_term = '#rainbowmindmachine'
+    )
     #sh.perform_pool_action('tweet',{'publish':False})
 
 if __name__=="__main__":
-    run()
+    tweet()
+
