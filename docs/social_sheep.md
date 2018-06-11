@@ -5,7 +5,7 @@
 **The social rainbow mind machine sheep. [credit](credits.md)**
 
 Social Sheep turn the normally reclusive and
-interoverted Sheep into extroverted bots that can
+introverted Sheep into extroverted bots that can
 interact with the Twitterverse through tweets.
 
 The `SocialSheep` class implements the ability to search
@@ -38,7 +38,7 @@ is called a Toilet.
 
 ![the toilet](img/social_toilet.jpg)
 
-The toilet is flush()ed each time a search is
+The toilet is `flush()`ed each time a search is
 performed. The Social Sheep can favorite the
 toilet, follow the toilet, or retweet the toilet,
 and when it is finished, it will take a nap,
@@ -60,10 +60,13 @@ and the last to perform the `favorite_toilet` action
 and repeatedly flush the toilet and favorite 
 everything in the toilet forever.
 
-```
+```python
 import rainbowmindmachine as rmm
 
 def setup():
+    """
+    Set up the flock
+    """
     k = rmm.Keymaker()
     k.set_apikeys_file('apikeys.json')
     k.make_a_key(
@@ -74,6 +77,9 @@ def setup():
 
 
 def tweet():
+    """
+    Each sheep is gonna tweet forever
+    """
     sh = rmm.Shepherd( json_keys_dir = 'keys/',
                        flock_name = 'simple flock',
                        sheep_class = rmm.SocialSheep
@@ -87,6 +93,9 @@ def tweet():
 
 
 def favorite():
+    """
+    Each sheep is gonna favorite #rainbowmindmachine tweets forever
+    """
     sh = rmm.Shepherd( json_keys_dir = 'keys/',
                        flock_name = 'simple flock',
                        sheep_class = TestSocialSheep
@@ -96,10 +105,6 @@ def favorite():
             sleep = 60,
             search_term = '#rainbowmindmachine'
     )
-
-
-if __name__=="__main__":
-    tweet()
 ```
 
 ## Extending the Social Sheep
@@ -111,10 +116,14 @@ method for our Social Sheep, which enables us
 to customize both the tweeting and the favorite
 toilet behavior of our Sheep:
 
-```
+```python
 import rainbowmindmachine as rmm
 
 class SuperTweetingSocialSheep(rmm.SocialSheep):
+    """
+    Social Sheep that extends populate_queue(), 
+    so this Social Sheep can also tweet.
+    """
     def populate_queue(self):
         tweet_queue = []
         tweet_queue.append('hello world 1/3 #rainbowmindmachine')
@@ -124,6 +133,9 @@ class SuperTweetingSocialSheep(rmm.SocialSheep):
 
 
 def setup():
+    """
+    Set up the flock
+    """
     k = rmm.Keymaker()
     k.set_apikeys_file('apikeys.json')
     k.make_a_key(
@@ -134,18 +146,18 @@ def setup():
 
 
 def tweet():
+    """
+    Tweet using the custom Sheep class
+    """
     sh = rmm.Shepherd( json_keys_dir = 'keys/',
                        flock_name = 'simple flock',
-                       sheep_class = TestSocialSheep
+                       sheep_class = SuperTweetingSocialSheep
                     )
 
     sh.perform_action('tweet',
             inner_sleep = 10,
             outer_sleep = 60
     )
-
-if __name__=="__main__":
-    tweet()
 ```
 
 
