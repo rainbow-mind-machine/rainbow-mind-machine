@@ -739,12 +739,12 @@ or replace this method, e.g., with a
 for a single bot, we can specify the name of the bot
 and the name of the JSON file to dump it to
 (and control the name of the bot keys directory):</p>
-<div class="codehilite"><pre><span></span>import rainbowmindmachine as rmm
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
 
-keymaker = rmm.Keymaker()
-keymaker.make_a_key( name = &#39;My Bot&#39;,
-                     json = &#39;mybot.json&#39;,
-                     keys_out_dir = &#39;bot_keys&#39;)
+<span class="n">keymaker</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Keymaker</span><span class="p">()</span>
+<span class="n">keymaker</span><span class="o">.</span><span class="n">make_a_key</span><span class="p">(</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;My Bot&#39;</span><span class="p">,</span>
+                     <span class="n">json</span> <span class="o">=</span> <span class="s1">&#39;mybot.json&#39;</span><span class="p">,</span>
+                     <span class="n">keys_out_dir</span> <span class="o">=</span> <span class="s1">&#39;bot_keys&#39;</span><span class="p">)</span>
 </pre></div>
                 
                   
