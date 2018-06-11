@@ -1,7 +1,4 @@
-.md-typeset .codehilite code, 
-.md-typeset .codehilite pre, 
-.md-typeset .highlight code,
-.md-typeset .highlight pre {
+div.codehilite {
     background-color: #ddd;
 }
 
