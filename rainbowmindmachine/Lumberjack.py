@@ -77,13 +77,13 @@ class Lumberjack(object):
 
         logger = logging.getLogger('rainbowmindmachine')
 
-        fh = logging.FileHandler(log_file)
-        fh.setLevel(logging.INFO)
-        logger.addHandler(fh)
+        #fh = logging.FileHandler(log_file)
+        #fh.setLevel(logging.INFO)
+        #logger.addHandler(fh)
 
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.INFO)
-        logger.addHandler(ch)
+        #ch = logging.StreamHandler()
+        #ch.setLevel(logging.INFO)
+        #logger.addHandler(ch)
 
         logger.info(LOGO)
         logger.info("-"*40)
