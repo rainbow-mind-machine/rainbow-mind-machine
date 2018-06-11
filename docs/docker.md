@@ -62,12 +62,12 @@ To reduce the size of these images, you can use
 a couple of strategies.
 
 * Use alpine for the "real deal" - it is designed to be minimal 
-    but requires bundling any "extras" into the container
+    but requires bundling any "extras" into the container.
+    This makes it rough to use for debugging, but perfect for
+    production.
 
-* Use an image designed to be small
-    * [jfloff/alpine-python](https://github.com/jfloff/alpine-python)
+* Use an image that's designed to have a small footprint.
+    We use [jfloff/alpine-python](https://github.com/jfloff/alpine-python).
 
-* Maintain logical separation 
-    * one container per flock
-    * one pod per server
+* Maintain logical separation - one container per flock, one pod per server.
 
