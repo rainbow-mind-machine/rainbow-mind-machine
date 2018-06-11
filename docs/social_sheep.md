@@ -1,6 +1,6 @@
 # SocialSheep
 
-![the (anti-)social sheep](img/social_sheep.jpg)
+![the (anti-)social sheep](img/social_sheep_no.jpg)
 
 **The social rainbow mind machine sheep. [credit](credits.md)**
 
