@@ -197,7 +197,8 @@ class Keymaker(object):
 
         print("Starting keymaking for %s"%item_)
 
-        consumer = oauth.Consumer(self.consumer_token['consumer_token'], self.consumer_token['consumer_token_secret'])
+        consumer = oauth.Consumer(self.consumer_token['consumer_token'], 
+                                  self.consumer_token['consumer_token_secret'])
         client = oauth.Client(consumer)
 
         # Step 2.1: Get a request token. This is a temporary token that is used for 
