@@ -205,7 +205,7 @@ class SocialSheep(Sheep):
             try:
                 self.toilet.follow()
             except Exception:
-                err = "ERROR: SocialSheep encountered exception favorite()ing toilet"
+                err = "ERROR: SocialSheep encountered exception follow()ing toilet"
                 logger.info(self.timestamp_message(err))
                 logger.info(self.timestamp_message(traceback.format_exc()))
 
