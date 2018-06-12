@@ -38,7 +38,7 @@ Each Milton account also owns one Twitter account, which it is using to tweet th
 and owns that account by owning an API key. This API key is contained in a JSON file.
 By giving each bot its own JSON file, we associate each bot with its own Twitter account.
 
-(This account setup is done by the Keymaker class.)
+(This account setup is done by the TwitterKeymaker class.)
 
 The outer loop represents instances of finishing the whole poem.
 The outer wait is the amount of time the bot waits once it has finished
@@ -76,14 +76,14 @@ like generating and sending tweets.
 
 # Other Notes
 
-## Keymaker
+## TwitterKeymaker
 
-Keymaker is the only class that uses apikeys.py, which contains
-the app's consumer tokens. these are used to get authentication 
+TwitterKeymaker is the only class that uses apikeys.py, which contains
+the app's consumer tokens. These are used to get authentication 
 tokens.
 
 The app-level information in apikeys is also bundled with the 
-account-level information created by Keymaker, so Keymaker 
+account-level information created by TiwtterKeymaker, so TwitterKeymaker 
 puts both into the Json file it creates. 
 
 This way, apikeys.py is only required once, at time of key creation.

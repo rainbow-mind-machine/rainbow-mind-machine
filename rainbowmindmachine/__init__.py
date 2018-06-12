@@ -1,5 +1,5 @@
 from .Lumberjack import *
-from .Keymaker import *
+from .TwitterKeymaker import *
 from .Shepherd import *
 from .Sheep import *
 from .SocialSheep import *

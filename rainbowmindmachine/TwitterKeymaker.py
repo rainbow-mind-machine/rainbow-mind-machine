@@ -7,20 +7,20 @@ from os.path import isfile, isdir, exists
 from os.path import join, basename, splitext
 
 
-class Keymaker(object):
+class TwitterKeymaker(object):
     """
     We do only what we are meant to do.
 
-    Keymaker takes a set of items and asks the user
+    TwitterKeymaker takes a set of items and asks the user
     if they would like to create a key from each item.
 
-    Keymaker handles the oauth mechanism and does the 
+    TwitterKeymaker handles the oauth mechanism and does the 
     three-legged authentication dance with Twitter.
 
     This results in one public/private key pair per sheep.
     With a sheep's keys, you can tweet as that sheep.
 
-    (NOTE: Keymaker does not use Lumberjack, 
+    (NOTE: TwitterKeymaker does not use Lumberjack, 
     Lumberjack is for the flock only.)
     """
     def __init__(self):
@@ -291,13 +291,13 @@ class Keymaker(object):
 
 
 
-class FilesKeymaker(Keymaker):
+class FilesKeymaker(TwitterKeymaker):
     """
     Makes keys by iterating through a directory
     and making a key for each file.
     """
     def __init__(self, extension=''):
-        Keymaker.__init__(self)
+        TwitterKeymaker.__init__(self)
         self.files_extension = extension
 
     def make_keys(self,files_dir,keys_out_dir='keys/',interactive=True):

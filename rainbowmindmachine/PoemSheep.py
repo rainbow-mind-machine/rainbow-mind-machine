@@ -23,8 +23,7 @@ class PoemSheep(Sheep):
         Called by Sheep::tweet()
         """
         # load each line of file into items in a list
-        # (the "file" key is set in FilesKeymaker class,
-        #  in Keymaker.py)
+        # (the "file" key is set by the FilesKeymaker class)
         with open(self.params['file']) as f:
             lines = f.read().splitlines()
 
