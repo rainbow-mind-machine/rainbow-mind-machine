@@ -1,8 +1,9 @@
 from setuptools import setup
-from rainbowmindmachine import __version__
+
+version = "0.8.4"
 
 setup(  name='rainbowmindmachine',
-        version=__version__,
+        version=version,
         description='The extensible framework for running Twitter bot flocks.',
         url='https://pages.charlesreid1.com/rainbow-mind-machine',
         author='charlesreid1',
@@ -11,7 +12,7 @@ setup(  name='rainbowmindmachine',
         tests_require=['nose'],
         license='MIT',
         packages=['rainbowmindmachine'],
-        install_requires=['oauth2',
+        install_requires=['oauth2>=1.5',
             'simplejson>=3.13',
             'python-twitter>=3.4.1',
             'TextBlob>=0.15',
