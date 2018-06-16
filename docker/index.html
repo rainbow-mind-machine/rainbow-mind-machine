@@ -577,20 +577,16 @@ a couple of strategies.</p>
 <ul>
 <li>
 <p>Use alpine for the "real deal" - it is designed to be minimal 
-    but requires bundling any "extras" into the container</p>
+    but requires bundling any "extras" into the container.
+    This makes it rough to use for debugging, but perfect for
+    production.</p>
 </li>
 <li>
-<p>Use an image designed to be small</p>
-<ul>
-<li><a href="https://github.com/jfloff/alpine-python">jfloff/alpine-python</a></li>
-</ul>
+<p>Use an image that's designed to have a small footprint.
+    We use <a href="https://github.com/jfloff/alpine-python">jfloff/alpine-python</a>.</p>
 </li>
 <li>
-<p>Maintain logical separation </p>
-<ul>
-<li>one container per flock</li>
-<li>one pod per server</li>
-</ul>
+<p>Maintain logical separation - one container per flock, one pod per server.</p>
 </li>
 </ul>
                 
