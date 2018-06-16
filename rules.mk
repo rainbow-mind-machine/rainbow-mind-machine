@@ -9,40 +9,15 @@ SHELL := /bin/bash
 default: 
 
 
-##########
-# utils
-
-fix_remotes: 
+util_fix_remotes: 
 	git remote set-url origin $(BMM_GH)
 	git remote set-url cmr $(BMM_CMR)
 
-submodule_init:
+util_submodule_init:
 	git submodule update --init
 
-
-##############
-# init_docs
-
-init_docs: fix_remotes init_site init_mkdocs_material
-
-init_site:
-	rm -rf site
-	git clone -b gh-pages $(BMM_GH) site && \
-		cd site && git remote add cmr $(BMM_CMR)
-
-init_mkdocs_material:
-	wget https://tinyurl.com/sample-mkdocs-yml -O mkdocs.yml
-	git submodule add $(MKM_CMR) \
-		&& git add mkdocs-material mkdocs.yml .gitmodules \
-		&& git commit mkdocs-material mkdocs.yml .gitmodules -m 'Initializing mkdocs-material submodule' \
-		&& git push origin \
-	mkdir docs && cp README.md docs/index.md
-
-
-#############
-# init_gh
-
-init_gh: fix_remotes
+# run once, after first clone, to create gh-pages branch
+init_gh: util_fix_remotes
 	rm -rf site && git clone $(BMM_GH) site
 	set -x \
 		&& cd site/ \
@@ -56,10 +31,25 @@ init_gh: fix_remotes
 		&& git push cmr gh-pages \
 		&& set +x
 
+# run once, after first clone, to add mkdocs submodule
+init_mkdocs_material:
+	wget https://tinyurl.com/sample-mkdocs-yml -O mkdocs.yml
+	git submodule add $(MKM_CMR) \
+		&& git add mkdocs-material mkdocs.yml .gitmodules \
+		&& git commit mkdocs-material mkdocs.yml .gitmodules -m 'Initializing mkdocs-material submodule' \
+		&& git push origin \
+	mkdir docs && cp README.md docs/index.md
 
-###############
-# deploy_docs
+# set up docs folder after cloning local copy
+setup_docs: fix_remotes util_submodule_init setup_site 
 
+# clone a copy of the gh-pages branch to gh-pages
+setup_site:
+	rm -rf site
+	git clone -b gh-pages $(BMM_GH) site && \
+		cd site && git remote add cmr $(BMM_CMR)
+
+# build and deploy the documentation
 deploy_docs: 
 	mkdocs build
 	cd site \
@@ -68,6 +58,10 @@ deploy_docs:
 		&& git push origin gh-pages \
 		&& git push cmr gh-pages
 
+# build and locally serve the documentation
+serve_docs: 
+	mkdocs build
+	mkdocs serve
 
 
 ########################
