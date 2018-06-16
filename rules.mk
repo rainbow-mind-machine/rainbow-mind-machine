@@ -63,9 +63,6 @@ serve_docs:
 	mkdocs build
 	mkdocs serve
 
-
-########################
-# testing 1 2 3
-
+# run tests
 test:
 	nosetests -v
