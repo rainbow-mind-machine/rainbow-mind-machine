@@ -1,0 +1,10 @@
+{"tokens": ["The clock is running.", "We have commit and we have lift-off", "at 2:13."], "speaker": "Lovell", "time": "000:00:00"}
+{"tokens": ["Okay.", "P11, Jim."], "speaker": "Swigert", "time": "000:01:00"}
+{"tokens": ["Yaw program.", "000:00:10 LCC", "Clear the tower."], "speaker": "Swigert", "time": "000:02:00"}
+{"tokens": ["Clear the tower."], "speaker": "Swigert", "time": "000:03:00"}
+{"tokens": ["Houston, Roger.", "Roll.", "[Long pause.]"], "speaker": "Kerwin", "time": "000:04:00"}
+{"tokens": ["13, Houston.", "Go at 30 seconds."], "speaker": "Kerwin", "time": "000:05:00"}
+{"tokens": ["Roll complete, and we are pitching."], "speaker": "Lovell", "time": "000:06:00"}
+{"tokens": ["Mark."], "speaker": "Kerwin", "time": "000:07:00"}
+{"tokens": ["I Bravo."], "speaker": "Lovell", "time": "000:08:00"}
+{"tokens": ["One-and-a-half g's.", "Okay, high Q coming up."], "speaker": "Lovell", "time": "000:09:00"}
