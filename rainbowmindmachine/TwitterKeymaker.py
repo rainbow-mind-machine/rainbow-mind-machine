@@ -1,3 +1,4 @@
+import boringmindmachine as bmm
 import urllib
 import oauth2 as oauth
 import os, re, glob
@@ -7,111 +8,70 @@ from os.path import isfile, isdir, exists
 from os.path import join, basename, splitext
 
 
-class TwitterKeymaker(object):
+class TwitterKeymaker(bmm.BoringOAuthKeymaker):
     """
     We do only what we are meant to do.
 
     TwitterKeymaker takes a set of items and asks the user
     if they would like to create a key from each item.
 
-    TwitterKeymaker handles the oauth mechanism and does the 
+    TwitterKeymaker handles the OAuth mechanism and does the 
     three-legged authentication dance with Twitter.
 
     This results in one public/private key pair per sheep.
     With a sheep's keys, you can tweet as that sheep.
-
-    (NOTE: TwitterKeymaker does not use Lumberjack, 
-    Lumberjack is for the flock only.)
     """
     def __init__(self):
-        # We won't do much here
-        self.request_token_url = 'https://api.twitter.com/oauth/request_token'
-        self.authorize_url = 'https://api.twitter.com/oauth/authorize'
-        self.access_token_url = 'https://api.twitter.com/oauth/access_token'
-        
-        self.apikeys_set = False
+        super().__init__('consumer_token','consumer_token_secret')
 
-
-    ###########################################
-    # Load Application (Consumer) API Keys
-
-    def set_apikeys_env(self):
-        """
-        Set the API keys using environment variables:
-
-            $CONSUMER_TOKEN
-            $CONSUMER_TOKEN_SECRET
-        """
-        if( os.environ['CONSUMER_TOKEN'] and os.environ['CONSUMER_TOKEN_SECRET'] ):
-            self.consumer_token = {}
-            self.consumer_token['consumer_token'] = os.environ['CONSUMER_TOKEN']
-            self.consumer_token['consumer_token_secret'] = os.environ['CONSUMER_TOKEN']
-            self.apikeys_set = True
-        else:
-            raise Exception("Error: environment variables CONSUMER_TOKEN and CONSUMER_TOKEN_SECRET were not set.")
-
-
-    def set_apikeys_file(self,f_apikeys):
-        """
-        Set the API keys using an external JSON file
-        with the keys:
-
-            consumer_token
-            consumer_token_secret
-        """
-        if( not exists(f_apikeys) ):
-            # Nope, no idea
-            raise Exception("Error: could not find specified apikeys file %s"%(f_apikeys))
-
-        elif( not isfile(f_apikeys) ):
-
-            # user specified a directory.
-            # check if it contains apikeys.json
-            f_apikeys = join(f_apikeys,'apikeys.json')
-            if( not isfile( f_apikeys ) ):
-                raise Exception("Error: could not find specified apikeys file %s"%(f_apikeys))
-
-        try:
-            with open(f_apikeys,'r') as f:
-                d = json.load(f)
-        except (json.errors.JSONDecodeError):
-            raise Exception("Error: given file %s is not valid JSON"%(f_apikeys))
-        
-        self.set_apikeys_dict(d)
-
-
-    def set_apikeys_dict(self,d_apikeys):
-        """
-        Set the API keys by passing a dictionary
-        with the keys
-
-            consumer_token
-            consumer_token_secret
-        """
-        ct = ['consumer_token','consumer_token_secret']
-        try:
-            self.consumer_token = {}
-            for k in ct:
-                self.consumer_token[k] = d_apikeys[k]
-
-            self.apikeys_set = True
-
-        except(NameError, KeyError):
-            err = "Error: could not set API keys, invalid keys provided.\n\n"
-            err += "Expected: %s\n\n"%(", ".join(ct))
-            err += "Received: %s\n\n"%(", ".join(d_apikeys.keys()))
-            raise Exception(err)
-
-
-    ###########################################
+    # ---
     # Make Bot OAuth Keys
-    #
-    # TODO: simplify!
 
-    def make_a_key( self, 
-                    name, json_name,
-                    keys_out_dir='keys/', 
-                    interactive=True):
+    # Bulk Key Methods:
+    # These all call the single key method.
+
+    def make_keys_from_strings(self, names, keys_out_dir):
+        """
+        Just pass in a list of strings (bot names),
+        and let the Keymaker do the OAuth dance once
+        for each bot name. Simple as that.
+        """
+        for name in names:
+            bot_name = self.slugify(name)
+            json_target = bot_name + ".json"
+            self.make_a_key(name, json_target, keys_out_dir)
+
+
+    def make_keys_from_dict(self, d, keys_out_dir):
+        """
+        Pass in a list of key-value pairs, and use the keys 
+        as the bot name.
+            
+            {
+                'super_bot' :   '...arbitrary...',
+                'spider_bot' :  '...',
+                'bat_bot' :     '...'
+            }
+
+        The key is the bot name, the value is arbitrary.
+        This key-value pair is preserved in the key file.
+        """
+        for name in d.keys():
+            bot_name = self.slugify(name)
+            json_target = bot_name + ".json"
+            make_a_key(bot_name, json_target, keys_out_dir, bot_name=d[bot_name])
+
+
+    # Single Key Method:
+    # The workhorse.
+    # This makes Bot OAuth keys.
+
+    def make_a_key( self,
+                    name,
+                    json_target,
+                    keys_out_dir='keys/',
+                    interactive=True,
+                    **kwargs):
         """
         Public method to make a single key from a single item.
 
