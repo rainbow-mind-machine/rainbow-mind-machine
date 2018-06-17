@@ -2,6 +2,12 @@
 
 ![tinysheep](img/sheep.jpg)
 
+**rainbow mind machine** is a set of boring base classes for building awesome bot flocks.
+
+**rainbow mind machine** helps with managing Twitter bot flocks.
+It builds on base classes provided by **boring mind machine**.
+
+
 ## All the shields
 
 [![works on my machine](https://img.shields.io/badge/works-on_my_machine-blue.svg)](https://img.shields.io/badge/works-on_my_machine-blue.svg)
@@ -23,30 +29,48 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/rainbow-mind-machine/rainbow-mind-machine.svg?style=social&label=Star&maxAge=2592000)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/stargazers/)
 
-## About
 
-**rainbow mind machine** is an extensible framework for running Twitter bot flocks in Python.
+## Links
 
-rainbow mind machine helps with managing multiple twitter bots (bot flocks).
-It uses a Keymaker object to do the one-time authentication step with Twitter,
-and uses a Shepherd-Sheep model to run the flock.
+rainbow mind machine (rmm) links:
 
-rainbow mind machine is a **framework** because it provides components 
-([Keymaker](mind-machine-docs/keymaker.md), [Shepherd](mind-machine-docs/shepherd.md),
-and [Sheep](mind-machine-docs/sheep.md)) with specific roles and ways of interacting.
+* rmm source code on Github: <https://github.com/rainbow-mind-machine/rainbow-mind-machine>
+* rmm documentation: <https://pages.charlesreid1.com/rainbow-mind-machine/>
+* rainbow mind machine organization on Github: <https://github.com/rainbow-mind-machine>
 
-rainbow mind machine is **extensible** to keep bots from becoming boring. 
-There are a limited number of components to extend (2), 
-these two components have a simple and clear function call order,
-and rainbow mind machine tries to use sensible defaults.
+releases:
 
-That means we start out with bots that "just work" 
-and we can incrementally improve, extend, override,
-or redefine behaviors to make them increasingly complex,
-while still abstracting away messy details.
+* rmm releases on Github: <https://github.com/rainbow-mind-machine/rainbow-mind-machine/releases>
+* rmm on pypi: <https://pypi.org/project/rainbowmindmachine/>
+* rmm on dockerhub: <https://hub.docker.com/r/rainbowmindmachine/rainbowmindmachine/>
 
-See the [TwitterShepherd](twitter_shepherd.md) page or the 
-[SocialSheep](social_sheep.md) page for examples.
+
+## Pages
+
+[About the Mind Machine Framework](mind-machine-docs/about.md) - general
+information about the mind machine framework (how does it work? what does it
+look like?)
+
+[About Rainbow Mind Machine](about.md) - about the rainbow mind machine library
+(what is it? what does it do?)
+
+[Installing](installing.md) - installation instructions (how do I install bmm?)
+
+[Quick Start](quickstart.md) - quick start instructions for getting started
+with rainbow mind machine - run your first Twitter bot!
+
+Documentation for components implemented in rainbow mind machine:
+
+* Keymakers:
+    * [TwitterKeymaker @ boring mind machine documentation](https://pages.charlesreid1.com/boring-mind-machine/keymaker_twitter/)
+* [rmm.Shepherd](rmm_shepherd.md)
+* [rmm.Sheep](rmm_sheep.md)
+* [rmm.PoemSheep](rmm_poemsheep.md)
+* [rmm.QueneauSheep](rmm_queneausheep.md)
+* [rmm.SocialSheep](rmm_socialsheep.md)
+
+
+
 
 ## Links
 
