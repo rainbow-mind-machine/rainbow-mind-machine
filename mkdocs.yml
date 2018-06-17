@@ -6,16 +6,28 @@ edit_uri: ""
 
 pages:
   - 'Home':         'index.md'
-  - 'Installing':   'installing.md'
-  - 'Quick Start':  'quickstart.md'
-  - Components:
-    - 'Keymaker':   'keymaker.md'
-    - 'Shepherd':   'shepherd.md'
-    - 'Sheep':      'sheep.md'
-    - 'Social Sheep': 'social_sheep.md'
-  - 'Docker':       'docker.md'
-  - 'Developers Workflow': 'dev-workflow.md'
-  - 'Credits':      'credits.md'
+
+  - 'Mind Machine Framework':
+    - 'About Mind Machine Framework': 'mind-machine-docs/about.md'
+    - 'Mind Machine Components':
+      - 'Keymaker' : 'mind-machine-docs/keymaker.md'
+      - 'Shepherd' : 'mind-machine-docs/shepherd.md'
+      - 'Sheep' : 'mind-machine-docs/sheep.md'
+
+  - 'Rainbow Mind Machine':
+    - 'About rmm': 'about.md'
+    - 'Installing rmm': 'installing.md'
+    - 'Quick Start': 'quickstart.md'
+    - 'Rainbow Mind Machine Components':
+      - 'Twitter Keymaker' : 'keymaker_twitter.md'
+      - 'Twitter Shepherd' : 'twitter_shepherd.md'
+      - 'Twitter Sheep' : 'twitter_sheep.md'
+    - 'Future Work and Ideas' : 'future.md'
+    - 'Credits' : 'credits.md'
+
+  - 'Mind Machine Developers':
+    - 'Contributing' : 'contributing.md'
+    - 'Developer Notes' : 'mind-machine-docs/dev.md'
 
 
 copyright: 'Copyright &copy; 2018 <a href="https://charlesreid1.com">Charles Reid</a>, released under the <a href="https://opensource.org/licenses/MIT">MIT License</a>. rainbowmindmachine@charlesreid1.com<br />Photo Credit: <a href="https://www.flickr.com/photos/russloar/">Russ Loar</a> under the <a href="https://creativecommons.org/licenses/by-nc-nd/2.0/">CC BY-NC-ND License</a><br /><br /><br />
