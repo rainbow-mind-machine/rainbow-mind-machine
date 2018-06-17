@@ -6,10 +6,13 @@ def setup():
     k.make_keys('data/')
     
 def run():
-    sh = rmm.Shepherd('keys/',
-            sheep_class=rmm.QueneauSheep
+    sh = rmm.Shepherd( json_keys_dir = 'keys/',
+                       flock_name = 'simple flock',
+                       sheep_class = TestSocialSheep
     )
-    sh.perform_pool_action('tweet',{'publish':False})
+    sh.perform_action('tweet',
+            publish = False
+    )
 
 if __name__=="__main__":
     setup()
