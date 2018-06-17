@@ -7,12 +7,13 @@ def setup():
     
 def run():
     sh = rmm.Shepherd( json_keys_dir = 'keys/',
-                       flock_name = 'simple flock',
-                       sheep_class = TestSocialSheep
+                       flock_name = 'apollo space junk bot flock',
+                       sheep_class = rmm.QueneauSheep
     )
-    sh.perform_action('tweet',
+    sh.perform_parallel_action('tweet',
             publish = False
     )
 
 if __name__=="__main__":
-    setup()
+    #setup()
+    run()
