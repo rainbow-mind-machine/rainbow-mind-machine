@@ -1,15 +1,13 @@
-# The Keymaker
+# The Twitter Keymaker
 
-![the keymaker](img/keymaker.jpg)
-
-**You can definitely trust this keymaker. [credit](credits.md)**
-
-The Keymaker is the object that is used to 
+The TwitterKeymaker is the object that is used to 
 authenticate with Twitter and generate the 
 OAuth keys the application needs to do things
 on behalf of a user.
 
 ## The Three-Legged OAuth Process
+
+(TODO: Update Keymaker -> TwitterKeymaker)
 
 The Keymaker carries out a one-time authorization step that needs to 
 be done once for each Sheep = Twitter bot = Twitter account.
