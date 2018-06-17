@@ -22,6 +22,7 @@ pages:
       - 'Twitter Keymaker' : 'keymaker_twitter.md'
       - 'Twitter Shepherd' : 'twitter_shepherd.md'
       - 'Twitter Sheep' : 'twitter_sheep.md'
+      - 'Social Sheep' : 'social_sheep.md'
     - 'Future Work and Ideas' : 'future.md'
     - 'Credits' : 'credits.md'
 

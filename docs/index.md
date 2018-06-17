@@ -32,8 +32,8 @@ It uses a Keymaker object to do the one-time authentication step with Twitter,
 and uses a Shepherd-Sheep model to run the flock.
 
 rainbow mind machine is a **framework** because it provides components 
-([Keymaker](keymaker.md), [Shepherd](shepherd.md), and [Sheep](sheep.md))
-with specific roles and ways of interacting.
+([Keymaker](mind-machine-docs/keymaker.md), [Shepherd](mind-machine-docs/shepherd.md),
+and [Sheep](mind-machine-docs/sheep.md)) with specific roles and ways of interacting.
 
 rainbow mind machine is **extensible** to keep bots from becoming boring. 
 There are a limited number of components to extend (2), 
@@ -45,10 +45,10 @@ and we can incrementally improve, extend, override,
 or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.
 
-See the [Shepherd](shepherd.md) page or the [Social Sheep](social_sheep.md) 
-page for examples.
+See the [TwitterShepherd](twitter_shepherd.md) page or the 
+[SocialSheep](social_sheep.md) page for examples.
 
-## Useful links
+## Links
 
 You are here:
 
@@ -72,22 +72,17 @@ Related projects:
 
 ## Installing rainbow mind machine
 
-See [installing](/installing.md) for installation instructions.
+See [installing](installing.md) for installation instructions.
 
 ## Quick Start
 
-See [quickstart](/quickstart.md) for a quick guide to 
+See [quickstart](quickstart.md) for a quick guide to 
 getting a bot up and running, and a few bot flock examples.
 
-## Docker
+## Developer Notes
 
-See [docker](/docker.md) for more information about
-using rainbow mind machine in a docker container.
-
-## Dev Workflow
-
-See [dev-workflow](/dev-workflow.md) for info about the workflow for 
-uploading changes to pypi and dockerhub.
+See [Developer Notes](mind-machine-docs/dev.md) for info about the 
+workflow for uploading changes to pypi and dockerhub.
 
 ## Get In Touch
 
