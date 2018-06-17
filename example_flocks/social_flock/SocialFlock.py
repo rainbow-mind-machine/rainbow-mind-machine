@@ -27,8 +27,8 @@ def tweet():
 
     sh.perform_action('tweet',
             publish = False,
-            inner_sleep = 10,
-            outer_sleep = 60
+            inner_sleep = 5,
+            outer_sleep = 10 
     )
 
 
