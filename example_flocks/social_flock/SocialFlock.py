@@ -1,5 +1,4 @@
 import rainbowmindmachine as rmm
-import logging
 
 class TestSocialSheep(rmm.SocialSheep):
     def populate_queue(self):
@@ -25,7 +24,7 @@ def tweet():
                        sheep_class = TestSocialSheep
                     )
 
-    sh.perform_action('tweet',
+    sh.perform_parallel_action('tweet',
             publish = False,
             inner_sleep = 5,
             outer_sleep = 10 
@@ -38,7 +37,7 @@ def favorite():
                        sheep_class = TestSocialSheep
                     )
 
-    sh.perform_action('favorite_toilet',
+    sh.perform_parallel_action('favorite_toilet',
             sleep = 60,
             search_term = '#rainbowmindmachine'
     )
