@@ -161,27 +161,76 @@ class SocialSheep(Sheep):
         """
         Favorite all the tweets in the toilet
 
-        Parameters:
+        kwargs:
+            sleep: Time to sleep between flushes
+            follow: boolean, should we follow all the tweeters in the toilet
 
-            sleep           Time to sleep between flushes
-
-        Call to flush passes along all of the parameters. 
+        The call to flush passes along all of the parameters. 
         The flush function takes the following parameter:
-            
-            search_term     String to search for
+
+        kwargs:
+            search_term: String to search for
 
         This function never ends, so it never returns.
         """
-        defaults = {}
-        defaults['sleep'] = 1.0
-
-        # populate missing params with default values
-        extra_params = kwargs
-        for dk in defaults.keys():
-            if dk not in extra_params.keys():
-                extra_params[dk] = defaults[dk]
-
         logger = logging.getLogger('rainbowmindmachine')
+
+        if('follow' not in kwargs.keys()):
+            kwargs['follow'] = False
+
+        if('sleep' not in kwargs.keys()):
+            err = "ERROR: called SocialSheep favorite() without search term.\n"
+            err += "Specify a search_term kwarg: flush(search_term = '...')"
+            raise Exception(err)
+
+        while True:
+
+            try:
+                self.toilet.flush(**kwargs)
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception flush()ing tweets in the Toilet"
+                logger.info(err)
+                logger.info(traceback.format_exc())
+
+            try:
+                self.toilet.favorite()
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception favorite()ing tweets in the Toilet"
+                logger.info(err)
+                logger.info(traceback.format_exc())
+
+            if kwargs['follow']:
+                try:
+                    self.toilet.follow()
+                except Exception:
+                    err = "ERROR: SocialSheep encountered exception follow()ing tweets in the Toilet"
+                    logger.info(err)
+                    logger.info(traceback.format_exc())
+
+            time.sleep( kwargs['sleep'] )
+
+
+    def follow(self, **kwargs):
+        """
+        Follow all the tweeters in the toilet
+
+        kwargs:
+            sleep: Time to sleep between flushes
+
+        Call to flush passes along all of the parameters. 
+        The flush function takes the following parameter:
+
+        kwargs:
+            search_term: String to search for
+
+        This function never ends, so it never returns.
+        """
+        logger = logging.getLogger('rainbowmindmachine')
+
+        if('sleep' not in kwargs.keys()):
+            err = "ERROR: called SocialSheep favorite() without search term.\n"
+            err += "Specify a search_term kwarg: flush(search_term = '...')"
+            raise Exception(err)
 
         while True:
 
@@ -189,29 +238,17 @@ class SocialSheep(Sheep):
                 self.toilet.flush(**kwargs)
             except Exception:
                 err = "ERROR: SocialSheep encountered exception flush()ing toilet"
-                logger.info(self.timestamp_message(err))
-                logger.info(self.timestamp_message(traceback.format_exc()))
-
+                logger.info(err)
+                logger.info(traceback.format_exc())
 
             try:
                 self.toilet.favorite()
             except Exception:
                 err = "ERROR: SocialSheep encountered exception favorite()ing toilet"
-                logger.info(self.timestamp_message(err))
-                logger.info(self.timestamp_message(traceback.format_exc()))
+                logger.info(err)
+                logger.info(traceback.format_exc())
 
-
-
-            try:
-                self.toilet.follow()
-            except Exception:
-                err = "ERROR: SocialSheep encountered exception follow()ing toilet"
-                logger.info(self.timestamp_message(err))
-                logger.info(self.timestamp_message(traceback.format_exc()))
-
-
-            time.sleep( extra_params['sleep'] )
-
+            time.sleep( kwargs['sleep'] )
 
     def retweet(self):
         """
