@@ -1,4 +1,3 @@
-from .Lumberjack import *
 from .Shepherd import *
 from .Sheep import *
 from .SocialSheep import *
