@@ -1,6 +1,5 @@
 import logging
-from collections import deque
-from .Sheep import Sheep
+from .SocialSheep import SocialSheep
 from .queneau import DialogueAssembler
 from random import random
 
@@ -11,7 +10,7 @@ These sheep tweet randomly-assembled
 dialog, generated using queneau assembly.
 """
 
-class QueneauSheep(Sheep):
+class QueneauSheep(SocialSheep):
 
     def populate_tweet_queue(self):
         """
