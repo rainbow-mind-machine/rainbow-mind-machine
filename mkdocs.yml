@@ -19,10 +19,12 @@ pages:
     - 'Installing rmm': 'installing.md'
     - 'Quick Start': 'quickstart.md'
     - 'Rainbow Mind Machine Components':
-      - 'Twitter Keymaker' : 'keymaker_twitter.md'
-      - 'Twitter Shepherd' : 'twitter_shepherd.md'
-      - 'Twitter Sheep' : 'twitter_sheep.md'
-      - 'Social Sheep' : 'social_sheep.md'
+      - 'Twitter Keymaker' : 'rmm_keymaker.md'
+      - 'Twitter Shepherd' : 'rmm_shepherd.md'
+      - 'Twitter Sheep' : 'rmm_sheep.md'
+      - 'Social Sheep' : 'rmm_social_sheep.md'
+      - 'Poem Sheep' : 'rmm_poem_sheep.md'
+      - 'Queneau Sheep' : 'rmm_queneau_sheep.md'
     - 'Future Work and Ideas' : 'future.md'
     - 'Credits' : 'credits.md'
 

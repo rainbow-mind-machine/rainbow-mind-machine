@@ -1,4 +1,4 @@
-# SocialSheep
+# Social Sheep
 
 ![the (anti-)social sheep](img/social_sheep_no.jpg)
 

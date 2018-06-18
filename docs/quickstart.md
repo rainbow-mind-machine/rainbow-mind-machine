@@ -51,6 +51,7 @@ import subprocess
 subprocess.call(['mkdir','-p','keys/'])
 
 k = rmm.Keymaker()
+k.set_api_keys_env()
 
 # Create some keys
 k.make_key({
