@@ -4,16 +4,37 @@ def setup():
     k = rmm.TxtKeymaker()
     k.set_apikeys_file('apikeys.json')
     k.make_keys('data/')
-    
-def run():
-    sh = rmm.Shepherd( json_keys_dir = 'keys/',
-                       flock_name = 'apollo space junk bot flock',
-                       sheep_class = rmm.QueneauSheep
+
+def shepherd():
+    sh = rmm.Shepherd(
+            json_keys_dir = 'keys/',
+            flock_name = 'apollo space junk bot flock',
+            sheep_class = rmm.QueneauSheep
     )
-    sh.perform_parallel_action('tweet',
+    return sh
+
+def set_url():
+    sh = shepherd()
+    sh.perform_serial_action(
+            'change_url',
+            url = 'https://pages.charlesreid1.com/b-apollo/'
+    )
+
+def tweet():
+    sh = shepherd()
+    sh.perform_parallel_action(
+            'tweet',
+            publish = False
+    )
+
+def fave():
+    sh = shepherd()
+    sh.perform_parallel_action(
+            'favorite',
             publish = False
     )
 
 if __name__=="__main__":
     #setup()
-    run()
+    fave()
+
