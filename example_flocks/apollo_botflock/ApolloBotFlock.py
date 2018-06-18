@@ -31,10 +31,12 @@ def fave():
     sh = shepherd()
     sh.perform_parallel_action(
             'favorite',
-            publish = False
+            search_term = 'Neil Armstrong',
+            sleep = 10
     )
 
 if __name__=="__main__":
     #setup()
+    #tweet()
     fave()
 
