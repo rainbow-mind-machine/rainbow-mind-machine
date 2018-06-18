@@ -32,7 +32,7 @@ def fave():
     sh.perform_parallel_action(
             'favorite',
             search_term = 'Neil Armstrong',
-            sleep = 10
+            sleep = 15
     )
 
 if __name__=="__main__":
