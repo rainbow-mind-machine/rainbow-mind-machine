@@ -13,7 +13,7 @@ dialog, generated using queneau assembly.
 
 class QueneauSheep(Sheep):
 
-    def populate_queue(self):
+    def populate_tweet_queue(self):
         """
         Populate a queue of tweets.
         Called by Sheep::tweet()
@@ -31,10 +31,10 @@ class QueneauSheep(Sheep):
             s = "%s: %s" % (speaker, " ".join(x for x, y in tokens))
             messages.append(s)
 
-        tweet_queue = deque(messages,maxlen=Nmessages)
+        tweet_queue = messages
 
         logger = logging.getLogger('rainbowmindmachine')
-        msg = self.timestamp_message("Finished populating a new tweet queue with %d queneau dialogue tweets."%(len(tweet_queue)))
+        msg = "Finished populating a new tweet queue with %d queneau dialogue tweets."%(len(tweet_queue))
         logger.info(msg)
 
         return tweet_queue
