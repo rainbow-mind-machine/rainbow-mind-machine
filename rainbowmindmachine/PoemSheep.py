@@ -1,6 +1,5 @@
-from collections import deque
+from .SocialSheep import SocialSheep
 import logging
-from .Sheep import Sheep
 
 """
 Poem Sheep
@@ -8,7 +7,7 @@ Poem Sheep
 These sheep tweet poems, one line at a time.
 """
 
-class PoemSheep(Sheep):
+class PoemSheep(SocialSheep):
     """
     This class mainly exists to redefine how 
     the tweet queue is populated at the beginning
@@ -30,10 +29,10 @@ class PoemSheep(Sheep):
         while '' in lines:
             lines.remove('')
 
-        tweet_queue = deque(lines,maxlen=len(lines))
+        tweet_queue = list(lines,maxlen=len(lines))
 
         logger = logging.getLogger('rainbowmindmachine')
-        msg = self.timestamp_message("Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue)))
+        msg = "Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue))
         logger.info(msg)
 
         return tweet_queue
