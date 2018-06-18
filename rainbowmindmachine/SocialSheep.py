@@ -1,8 +1,8 @@
+from .Sheep import Sheep
 import twitter
 import logging
 import traceback
 import time
-from .Sheep import Sheep
 
 """
 Social Sheep
@@ -157,7 +157,7 @@ class SocialSheep(Sheep):
         self.toilet = self.Toilet(self.api)
 
 
-    def favorite_toilet(self, **kwargs):
+    def favorite(self, **kwargs):
         """
         Favorite all the tweets in the toilet
 
@@ -213,21 +213,15 @@ class SocialSheep(Sheep):
             time.sleep( extra_params['sleep'] )
 
 
-    def retweet_toilet(self):
+    def retweet(self):
         """
         Retweet all the tweets in the toilet
         """
         self.toilet.retweet()
 
-    def follow_toilet(self):
+    def follow(self):
         """
         Follow all the users in the toilet
         """
         self.toilet.follow()
-
-    #def list_toilet(self, public=False):
-    #    """Make a list from all the users in the toilet
-    #    """
-    #    self.toilet.make_list(public=public)
-
 
