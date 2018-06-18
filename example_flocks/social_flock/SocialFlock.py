@@ -43,6 +43,6 @@ def favorite():
     )
 
 if __name__=="__main__":
-    setup()
-    #favorite()
+    #setup()
+    favorite()
 
