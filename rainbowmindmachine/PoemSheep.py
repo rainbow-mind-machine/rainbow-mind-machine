@@ -16,7 +16,7 @@ class PoemSheep(SocialSheep):
     For poems, the process is simple: 
     one line equals one tweet equals one slot in the queue.
     """
-    def populate_queue(self):
+    def populate_tweet_queue(self):
         """
         Populate a queue of tweets.
         Called by Sheep::tweet()
@@ -29,7 +29,7 @@ class PoemSheep(SocialSheep):
         while '' in lines:
             lines.remove('')
 
-        tweet_queue = list(lines,maxlen=len(lines))
+        tweet_queue = list(lines)
 
         logger = logging.getLogger('rainbowmindmachine')
         msg = "Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue))

@@ -1,38 +1,43 @@
 import rainbowmindmachine as rmm
-import logging
+import os, re
+from os.path import join
 
 def setup():
     k = rmm.TxtKeymaker()
+    k.set_apikeys_file('apikeys.json')
     k.make_keys('poems/')
 
-def set_img():
-    """
-    Running perform_action() with the change_image action
-    requires each bot to have a change_image param set.
-    
-    The change_image action takes one parameter, 'image',
-    which is the path to the image.
-    
-    Before we call perform_action(), we have to 
-    set the 'image' attritube for each sheep.
-    """
-    sh = rmm.Shepherd('keys/',
-                       sheep_class=rmm.PoemSheep)
+def shepherd():
+    sh = rmm.Shepherd(
+            json_keys_dir = 'keys/',
+            flock_name = 'paradise lost bot flock',
+            sheep_class = rmm.PoemSheep
+    )
+    return sh
 
-    for sheep in sh.all_sheep:
+def img():
+    """
+    change_image action requires an 'image' kwarg.
+    """
+    sh = shepherd()
+
+    for sheep in sh.flock:
         poem_file = sheep.params['file']
         img_file = re.sub('poems','img',poem_file)
         img_file = re.sub('txt','jpg',img_file)
         sheep.params['image'] = img_file
 
-    # TODO: add set_image perform_action
+    sh.perform_serial_action('change_image')
 
 def tweet():
     sh = rmm.Shepherd('keys/',sheep_class=rmm.PoemSheep)
-    sh.perform_pool_action('tweet',{'publish':False})
+    sh.perform_parallel_action(
+            'tweet',
+            publish = False
+    )
 
 if __name__=="__main__":
     setup()
-    #set_img()
+    #img()
     #tweet()
 
