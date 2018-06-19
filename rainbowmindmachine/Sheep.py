@@ -8,7 +8,7 @@ import simplejson as json
 import datetime
 import traceback
 import base64
-
+import os
 
 class Sheep(bmm.BoringSheep):
     """
@@ -224,39 +224,48 @@ class Sheep(bmm.BoringSheep):
     def change_image(self,**kwargs):
         """Update twitter profile bio.
 
+        Setting 'image' keyword argument takes the highest
+        priority and is the image used if present.
+
+        If that is not available, change_image() will look
+        for an 'image' keyword argument in the bot key.
+
         kwargs:
             image: The path to the image to use as the Twitter avatar
-
-        Note that unlike most actions, the parameter
-        passed in by the user must be pre-processed first.
 
         This method does not return anything.
         """
         logger = logging.getLogger('rainbowmindmachine')
 
-        if( 'image' not in kwargs.keys()):
-            err = "change_image() action called without 'image' key specified in the parameters dict."
+        if( 'image' not in kwargs.keys() and 'image' not in self.params):
+            err = "change_image() action called without 'image' key specified in the bot key or the parameters dict."
             logger.error(err)
             raise Exception(err)
 
-        if os.path.isfile(kwargs['image']) is False:
-            err = "change_image() action called with 'image' key of params dict pointing to a non-existent file."
-            logger.error(err)
-            raise Exception(err)
+        img_file = ''
+        if( 'image' in kwargs.keys() ):
+            img_file = kwargs['image']
+            if os.path.isfile(img_file) is False:
+                err = "change_image() action called with an 'image' key that is not a file!"
+                raise Exception(err)
+        elif( 'image' in self.params ):
+            img_file = self.params['image']
+            if os.path.isfile(img_file) is False:
+                err = "change_image() action called with an 'image' key that is not a file!"
+                raise Exception(err)
 
         # json sent to the Twitter API
         payload = {}
 
-        img_file = kwargs['image']
         b64 = base64.encodestring(open(img_file,"rb").read())
 
         # Set the API endpoint 
         api_url = "https://api.twitter.com/1.1/account/update_profile_image.json"
 
-        resp, content = client.request(
+        resp, content = self.client.request(
                 api_url,
                 method = "POST",
-                body=urllib.urlencode({'image': b64}),
+                body=urllib.parse.urlencode({'image': b64}),
                 headers=None
         )
 
@@ -290,7 +299,7 @@ class Sheep(bmm.BoringSheep):
         # Set the API endpoint 
         url = "https://api.twitter.com/1.1/friendships/create.json"
 
-        resp, content = client.request(
+        resp, content = self.client.request(
                 api_url,
                 method = "POST",
                 body=urllib.urlencode({'image': b64}),
