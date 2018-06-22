@@ -1,13 +1,5 @@
 # rainbow-mind-machine
 
-![tinysheep](img/sheep.jpg)
-
-**rainbow mind machine** is a set of boring base classes for building awesome bot flocks.
-
-**rainbow mind machine** helps with managing Twitter bot flocks.
-It builds on base classes provided by **boring mind machine**.
-
-
 ## All the shields
 
 [![works on my machine](https://img.shields.io/badge/works-on_my_machine-blue.svg)](https://img.shields.io/badge/works-on_my_machine-blue.svg)
@@ -28,6 +20,29 @@ It builds on base classes provided by **boring mind machine**.
 [![cthulhu](https://img.shields.io/badge/Ph'nglui%20mglw'nafh%20Cthulhu%20R'lyeh%20wgah'nagl%20fhtagn-m'latgh%20gnaiih%20Nyarlathotep%20geb%20Tsathoggua%20bug-blue.svg)](https://en.wikipedia.org/wiki/Cthulhu)
 
 [![GitHub stars](https://img.shields.io/github/stars/rainbow-mind-machine/rainbow-mind-machine.svg?style=social&label=Star&maxAge=2592000)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/stargazers/)
+
+
+## About 
+
+![tinysheep](img/sheep.jpg)
+
+**rainbow mind machine** is an extensible framework for running Twitter bot flocks in Python.
+
+**rainbow mind machine** helps with managing multiple twitter bots (bot flocks).
+It uses a Keymaker object to do the one-time authentication step with Twitter,
+and uses a Shepherd-Sheep model to run the flock.
+
+**rainbow mind machine** is a **framework** because it provides components
+(Keymaker, Shepherd, and Sheep) with specific roles and ways of interacting.
+
+**rainbow mind machine** is **extensible** to keep bots from becoming boring.
+There are a limited number of components to extend (2),
+these two components have a simple and clear function call order,
+and rainbow mind machine tries to use sensible defaults.
+
+The philosophy is to help users get started quickly,
+and build on simple behaviors to create complex, rich
+bot behaviors.
 
 
 ## Links
