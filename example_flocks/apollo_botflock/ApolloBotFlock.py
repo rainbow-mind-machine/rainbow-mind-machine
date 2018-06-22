@@ -6,7 +6,7 @@ def setup():
     k.make_keys('data/')
 
 def shepherd():
-    sh = rmm.Shepherd(
+    sh = rmm.TwitterShepherd(
             json_keys_dir = 'keys/',
             flock_name = 'apollo space junk bot flock',
             sheep_class = rmm.QueneauSheep
