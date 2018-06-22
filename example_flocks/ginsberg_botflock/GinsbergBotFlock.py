@@ -6,7 +6,7 @@ def setup():
     k.make_keys('poems/')
 
 def shepherd():
-    sh = rmm.Shepherd(
+    sh = rmm.TwitterShepherd(
             json_keys_dir = 'keys/',
             flock_name = 'ginsberg bot flock',
             sheep_class = rmm.PoemSheep
@@ -30,6 +30,6 @@ def fave():
 
 if __name__=="__main__":
     #setup()
-    #tweet()
-    fave()
+    tweet()
+    #fave()
 
