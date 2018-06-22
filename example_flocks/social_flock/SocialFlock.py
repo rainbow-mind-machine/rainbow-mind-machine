@@ -9,7 +9,7 @@ class TestSocialSheep(rmm.SocialSheep):
         return tweet_queue
 
 def setup():
-    k = rmm.Keymaker()
+    k = rmm.TwitterKeymaker()
     k.set_apikeys_file('apikeys.json')
     k.make_a_key(
             name = 'social_bot',
@@ -18,7 +18,7 @@ def setup():
         )
 
 def shepherd():
-    sh = rmm.Shepherd( 
+    sh = rmm.TwitterShepherd( 
             json_keys_dir = 'keys/',
             flock_name = 'simple flock',
             sheep_class = TestSocialSheep
@@ -44,5 +44,6 @@ def favorite():
 
 if __name__=="__main__":
     #setup()
-    favorite()
+    tweet()
+    #favorite()
 
