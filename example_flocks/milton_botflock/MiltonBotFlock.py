@@ -8,7 +8,7 @@ def setup():
     k.make_keys('poems/')
 
 def shepherd():
-    sh = rmm.Shepherd(
+    sh = rmm.TwitterShepherd(
             json_keys_dir = 'keys/',
             flock_name = 'paradise lost bot flock',
             sheep_class = rmm.PoemSheep
@@ -30,14 +30,14 @@ def img():
     sh.perform_serial_action('change_image')
 
 def tweet():
-    sh = rmm.Shepherd('keys/',sheep_class=rmm.PoemSheep)
+    sh = rmm.TwitterShepherd('keys/',sheep_class=rmm.PoemSheep)
     sh.perform_parallel_action(
             'tweet',
             publish = False
     )
 
 if __name__=="__main__":
-    setup()
+    #setup()
     #img()
-    #tweet()
+    tweet()
 
