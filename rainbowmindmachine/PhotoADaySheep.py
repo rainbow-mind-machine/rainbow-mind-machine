@@ -7,7 +7,7 @@ import os, glob, time
 from datetime import datetime
 from .Sheep import Sheep
 
-class PhotoADaySheep(Sheep):
+class PhotoADaySheep(TwitterSheep):
     """
     This sheep will tweet a photo a day.
 

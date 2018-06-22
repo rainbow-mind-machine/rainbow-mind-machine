@@ -1,5 +1,5 @@
-from .Shepherd import *
-from .Sheep import *
+from .TwitterShepherd import *
+from .TwitterSheep import *
 from .SocialSheep import *
 from .PoemSheep import *
 from .PhotoADaySheep import *

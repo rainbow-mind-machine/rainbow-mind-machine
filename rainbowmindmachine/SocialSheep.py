@@ -1,4 +1,4 @@
-from .Sheep import Sheep
+from .TwitterSheep import TwitterSheep
 import twitter
 import logging
 import traceback
@@ -31,7 +31,7 @@ mainly to challenge ourselves to keep it short.
 ##########################
 # SocialSheep class
 
-class SocialSheep(Sheep):
+class SocialSheep(TwitterSheep):
     """
     SocialSheep receive parameters from their keys.
     Let Sheep take care of the constructor.
