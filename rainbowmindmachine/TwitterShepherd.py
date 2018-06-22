@@ -10,7 +10,7 @@ We only need to define two methods:
         _create_sheep(self,bot_key)
 """
 
-class Shepherd(bmm.BoringShepherd):
+class TwitterShepherd(bmm.BoringShepherd):
 
     def _validate_key(self, bot_key, **kwargs):
         """

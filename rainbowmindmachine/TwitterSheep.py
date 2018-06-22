@@ -10,7 +10,7 @@ import traceback
 import base64
 import os
 
-class Sheep(bmm.BoringSheep):
+class TwitterSheep(bmm.BoringSheep):
     """
     rainbow mind machine Sheep class.
 

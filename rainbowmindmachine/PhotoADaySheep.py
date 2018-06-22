@@ -5,7 +5,7 @@ import twitter
 import logging
 import os, glob, time
 from datetime import datetime
-from .Sheep import Sheep
+from .TwitterSheep import TwitterSheep
 
 class PhotoADaySheep(TwitterSheep):
     """
