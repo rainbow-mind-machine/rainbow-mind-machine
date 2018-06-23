@@ -4,77 +4,81 @@
     
     <url>
      <loc>https://pages.charlesreid1.com/rainbow-mind-machine/</loc>
-     <lastmod>2018-06-15</lastmod>
+     <lastmod>2018-06-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
+        
+    <url>
+     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/mind-machine-docs/about/</loc>
+     <lastmod>2018-06-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://pages.charlesreid1.com/rainbow-mind-machine</loc>
+     <lastmod></lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/about/</loc>
+     <lastmod>2018-06-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     <url>
      <loc>https://pages.charlesreid1.com/rainbow-mind-machine/installing/</loc>
-     <lastmod>2018-06-15</lastmod>
+     <lastmod>2018-06-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
+        
     <url>
      <loc>https://pages.charlesreid1.com/rainbow-mind-machine/quickstart/</loc>
-     <lastmod>2018-06-15</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-        
-    <url>
-     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/keymaker/</loc>
-     <lastmod>2018-06-15</lastmod>
+     <lastmod>2018-06-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/shepherd/</loc>
-     <lastmod>2018-06-15</lastmod>
+     <loc>https://pages.charlesreid1.com/rainbow-mind-machine</loc>
+     <lastmod></lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/sheep/</loc>
-     <lastmod>2018-06-15</lastmod>
+     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/future/</loc>
+     <lastmod>2018-06-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
-    <url>
-     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/social_sheep/</loc>
-     <lastmod>2018-06-15</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    
-
-    
-    <url>
-     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/docker/</loc>
-     <lastmod>2018-06-15</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
-     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/dev-workflow/</loc>
-     <lastmod>2018-06-15</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
     <url>
      <loc>https://pages.charlesreid1.com/rainbow-mind-machine/credits/</loc>
-     <lastmod>2018-06-15</lastmod>
+     <lastmod>2018-06-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/contributing/</loc>
+     <lastmod>2018-06-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://pages.charlesreid1.com/rainbow-mind-machine/mind-machine-docs/dev/</loc>
+     <lastmod>2018-06-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
 </urlset>

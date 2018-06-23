@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://pages.charlesreid1.com/rainbow-mind-machine/quickstart/">
+        <link rel="canonical" href="https://pages.charlesreid1.com/rainbow-mind-machine/about/">
       
       
       
@@ -38,7 +38,7 @@
     
     
       
-        <title>Quick Start - rainbow mind machine</title>
+        <title>About rmm - rainbow mind machine</title>
       
     
     
@@ -97,7 +97,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#quick-start" tabindex="1" class="md-skip">
+      <a href="#about-rainbow-mind-machine" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -123,7 +123,7 @@
                 rainbow mind machine
               </span>
               <span class="md-header-nav__topic">
-                Quick Start
+                About rmm
               </span>
             
           
@@ -366,11 +366,63 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../about/" title="About rmm" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        About rmm
+      </label>
+    
+    <a href="./" title="About rmm" class="md-nav__link md-nav__link--active">
       About rmm
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-is-rainbow-mind-machine-simple" title="How is rainbow mind machine simple?" class="md-nav__link">
+    How is rainbow mind machine simple?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-rainbow-mind-machine-extend-or-do" title="What does rainbow mind machine extend or do?" class="md-nav__link">
+    What does rainbow mind machine extend or do?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-is-rainbow-mind-machine-poop-y" title="How is rainbow mind machine POOP-y?" class="md-nav__link">
+    How is rainbow mind machine POOP-y?
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -390,20 +442,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-    <a href="./" title="Quick Start" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../quickstart/" title="Quick Start" class="md-nav__link">
       Quick Start
     </a>
-    
   </li>
 
         
@@ -597,6 +640,36 @@
     
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-is-rainbow-mind-machine-simple" title="How is rainbow mind machine simple?" class="md-nav__link">
+    How is rainbow mind machine simple?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-rainbow-mind-machine-extend-or-do" title="What does rainbow mind machine extend or do?" class="md-nav__link">
+    What does rainbow mind machine extend or do?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-is-rainbow-mind-machine-poop-y" title="How is rainbow mind machine POOP-y?" class="md-nav__link">
+    How is rainbow mind machine POOP-y?
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -608,150 +681,32 @@
               
                 
                 
-                <h1 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h1>
-<p>Let's walk through a quick example to illustrate
-how <strong>rainbow mind machine</strong> (rmm) works.</p>
-<p>Remember, we only have 3 objects we need to understand:</p>
-<ul>
-<li><a href="../rmm_keymaker/">The rmm Keymaker</a> (makes/manages keys and authenticates with Twitter)</li>
-<li><a href="../rmm_shepherd/">The rmm Shepherd</a> (runs the flock; one shepherd = one bot flock)</li>
-<li><a href="../rmm_sheep/">The rmm Sheep</a> (runs a bot, and defines bot's behavior; one sheep = one bot)</li>
-</ul>
-<h1 id="keymaker-authentication-step">Keymaker: Authentication Step<a class="headerlink" href="#keymaker-authentication-step" title="Permanent link">&para;</a></h1>
-<p>Also see the <a href="../rmm_keymaker/">keymaker</a> page.</p>
-<p>The first step in rainbow mind machine is to run the Keymaker
-to give the application permission to tweet on behalf of 
-each of our bot users. This generates keys that the 
-rainbow mind machine application requires be present 
-to tweet as the bot flock.</p>
-<p>The Keymaker takes a set of items, and creates
-one key for each item. </p>
-<p>A set of items might be 
-a Python list with integers, or a folder full of 
-text files, or a set of URLs, or just plain old 
-string labels.</p>
-<p>The keys are what allow our application to tweet 
-using a bot account. </p>
-<p>We call <code>make_a_key()</code> on each item to create each key.</p>
-<p>The Keymaker <em>requires</em> that we specify
-a <code>name</code> parameter to name the bot and a <code>json</code> parameter
-to specify the location of the key.</p>
-<p>Also note, this requires that your Twitter app's 
-consumer secret and consumer token be set 
-in <code>apikeys.py</code>.</p>
-<p>In the example below, the "items" are strings containing the bot name.
-This uses credentials in <code>apikeys.py</code> and outputs key files
-at <code>keys/key1.json</code> and <code>keys/key2.json</code>.</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-
-<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;mkdir&#39;</span><span class="p">,</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span><span class="s1">&#39;keys/&#39;</span><span class="p">])</span>
-
-<span class="n">k</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Keymaker</span><span class="p">()</span>
-<span class="n">k</span><span class="o">.</span><span class="n">set_api_keys_env</span><span class="p">()</span>
-
-<span class="c1"># Create some keys</span>
-<span class="n">k</span><span class="o">.</span><span class="n">make_key</span><span class="p">({</span>
-    <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Twitter Bot 1&#39;</span><span class="p">,</span>     <span class="c1"># This is the bot label</span>
-    <span class="s1">&#39;json&#39;</span><span class="p">:</span><span class="s1">&#39;keys/key1.json&#39;</span>     <span class="c1"># This is the key file</span>
-<span class="p">})</span>
-<span class="n">k</span><span class="o">.</span><span class="n">make_key</span><span class="p">({</span>
-    <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Twitter Bot 2&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;json&#39;</span><span class="p">:</span><span class="s1">&#39;keys/key2.json&#39;</span>
-<span class="p">})</span>
-</pre></div>
-
-
-<p>When this script is run, the Keymaker will 
-go through a series of interactive steps 
-to create keys from each item.</p>
-<h1 id="a-shepherd-to-run-the-bot-flock">A Shepherd to Run the Bot Flock<a class="headerlink" href="#a-shepherd-to-run-the-bot-flock" title="Permanent link">&para;</a></h1>
-<p>Also see the <a href="../rmm_shepherd/">shepherd</a> page.</p>
-<p>Once that is done, make a Shepherd for the bot flock,
-and point it to the keys the Keymaker created 
-in the <code>keys/</code> directory:</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rainbowmindmachine</span> <span class="kn">as</span> <span class="nn">rmm</span>
-
-<span class="c1"># make the Shepherd</span>
-<span class="n">sh</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Shepherd</span><span class="p">(</span><span class="s2">&quot;keys/&quot;</span><span class="p">)</span>
-
-<span class="c1"># Change everybody&#39;s Twitter page color</span>
-<span class="n">sh</span><span class="o">.</span><span class="n">perform_action</span><span class="p">(</span><span class="s1">&#39;change color&#39;</span><span class="p">,</span><span class="s1">&#39;#CFC&#39;</span><span class="p">)</span>
-
-<span class="c1"># Everybody tweet in parallel</span>
-<span class="n">sh</span><span class="o">.</span><span class="n">perform_pool_action</span><span class="p">(</span><span class="s1">&#39;tweet&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Now you can run this in screen or as a background process,
-and it will sequentially change each bot's 
-Twitter page color, and will then spin up
-one thread per sheep.</p>
-<h1 id="customizing-sheep">Customizing Sheep<a class="headerlink" href="#customizing-sheep" title="Permanent link">&para;</a></h1>
-<p>Also see the <a href="../rmm_sheep/">sheep</a> page.</p>
-<p>We didn't specify what kind of Sheep we want 
-the Shepherd to create, so the Shepherd uses
-the default <code>Sheep</code> class.</p>
-<p>To change the behavior of your bot,
-you can use built-in Sheep types
-(<code>PhotoADaySheep</code>, <code>PoemSheep</code>, 
-<code>QueneauSheep</code>, etc.) 
-or you can extend the <code>Sheep</code> class
-to define custom behaviors. </p>
-<p>For example,
-to define a new <code>populate_queue()</code> 
-behavior:</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">rmm</span> 
-
-<span class="k">class</span> <span class="nc">CustomSheep</span><span class="p">(</span><span class="n">rmm</span><span class="o">.</span><span class="n">Sheep</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">populate_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">items</span><span class="p">):</span>
-        <span class="o">...</span>
-</pre></div>
-
-
-<p>Then modify the Shepherd to use this 
-new Sheep class:</p>
-<div class="codehilite"><pre><span></span><span class="c1"># make the Shepherd</span>
-<span class="n">sh</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">Shepherd</span><span class="p">(</span><span class="s2">&quot;keys/&quot;</span><span class="p">,</span> <span class="n">sheep_class</span><span class="o">=</span><span class="n">CustomSheep</span><span class="p">)</span>
-
-<span class="c1"># Change everybody&#39;s Twitter page color</span>
-<span class="n">sh</span><span class="o">.</span><span class="n">perform_action</span><span class="p">(</span><span class="s1">&#39;change color&#39;</span><span class="p">,</span><span class="s1">&#39;#CFC&#39;</span><span class="p">)</span>
-
-<span class="c1"># Everybody tweet in parallel</span>
-<span class="n">sh</span><span class="o">.</span><span class="n">perform_pool_action</span><span class="p">(</span><span class="s1">&#39;tweet&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<h1 id="more-examples">More Examples<a class="headerlink" href="#more-examples" title="Permanent link">&para;</a></h1>
-<h2 id="example-ginsberg-bot-flock">Example: Ginsberg Bot Flock<a class="headerlink" href="#example-ginsberg-bot-flock" title="Permanent link">&para;</a></h2>
-<p>The Ginsberg bot flock is a simple example of 
-a flock running multiple <code>PoemSheep</code>, with 
-each Sheep loading a poem from a text file 
-and tweeting the poem one line at a time.</p>
-<p>Source code: <a href="https://git.charlesreid1.com/bots/b-ginsberg">git.charlesreid1.com/bots/b-ginsberg</a>.</p>
-<p>Bot page: <a href="https://pages.charlesreid1.com/b-ginsberg">pages.charlesreid1.com/b-ginsberg</a></p>
-<h2 id="example-paradise-lost-bot-flock">Example: Paradise Lost Bot Flock<a class="headerlink" href="#example-paradise-lost-bot-flock" title="Permanent link">&para;</a></h2>
-<p>The Paradise Lost bot flock is another simple example 
-of a flock running multiple <code>PoemSheep</code>, with 
-each Sheep loading a poem from a text file 
-and tweeting the poem one line at a time.</p>
-<p>Source code: <a href="https://git.charlesreid1.com/bots/b-milton">git.charlesreid1.com/bots/b-milton</a>.</p>
-<p>Bot page: <a href="https://pages.charlesreid1.com/b-milton">pages.charlesreid1.com/b-milton</a></p>
-<h2 id="example-apollo-space-junk-bot-flock">Example: Apollo Space Junk Bot Flock<a class="headerlink" href="#example-apollo-space-junk-bot-flock" title="Permanent link">&para;</a></h2>
-<p>The Apollo Space Junk Bot Flock uses queneau generation
-to create fake Apollo space mission radio chatter.
-This bot flock runs multiple <code>QueneauSheep</code>.</p>
-<p>Source code: <a href="https://git.charlesreid1.com/bots/b-apollo">git.charlesreid1.com/bots/b-apollo</a>.</p>
-<p>Bot page: <a href="https://pages.charlesreid1.com/b-apollo">pages.charlesreid1.com/b-apollo</a></p>
-<h2 id="example-mathematics-tripos-bot">Example: Mathematics Tripos Bot<a class="headerlink" href="#example-mathematics-tripos-bot" title="Permanent link">&para;</a></h2>
-<p>The Math Tripos bot is basically a flock with a single photo-a-day bot.
-It demonstrates how to create a bot flock with one single bot.</p>
-<p>The Math Tripos bot has a directory full of 366 questions 
-from the Cambridge University Mathematical Tripos,
-in LaTeX format. Each LaTeX equation is converted to png.
-The bot posts a new question each day.</p>
-<p>Source code: <a href="https://git.charlesreid1.com/bots/b-tripos">git.charlesreid1.com/bots/b-tripos</a>.</p>
-<p>Bot page: <a href="https://pages.charlesreid1.com/b-tripos">pages.charlesreid1.com/b-tripos</a></p>
+                <h1 id="about-rainbow-mind-machine">About Rainbow Mind Machine<a class="headerlink" href="#about-rainbow-mind-machine" title="Permanent link">&para;</a></h1>
+<p><strong>rainbow mind machine (bmm)</strong> is a library for running Twitter bot flocks.
+It is owned by the <a href="https://github.com/rainbow-mind-machine">rainbow-mind-machine</a>
+organization on Github.</p>
+<p>Like all mind machines, <strong>rainbow mind machine</strong> is simple and extensible.</p>
+<hr />
+<p><strong>rainbow mind machine</strong> is an extensible framework for running Twitter bot flocks in Python.</p>
+<p>rainbow mind machine is a <strong>framework</strong> because it provides components 
+(<a href="../mind-machine-docs/keymaker/">Keymaker</a>, <a href="../mind-machine-docs/shepherd/">Shepherd</a>,
+and <a href="../mind-machine-docs/sheep/">Sheep</a>) with specific roles and ways of interacting.</p>
+<p>rainbow mind machine is <strong>extensible</strong> to keep bots from becoming boring. 
+There are a limited number of components to extend (2), 
+these two components have a simple and clear function call order,
+and rainbow mind machine tries to use sensible defaults.</p>
+<p>That means we start out with bots that "just work" 
+and we can incrementally improve, extend, override,
+or redefine behaviors to make them increasingly complex,
+while still abstracting away messy details.</p>
+<p>See the <a href="../rmm_shepherd/">rmm Shepherd</a> page or the 
+<a href="../rmm_social_sheep/">rmm SocialSheep</a> page for examples.</p>
+<h2 id="how-is-rainbow-mind-machine-simple">How is rainbow mind machine simple?<a class="headerlink" href="#how-is-rainbow-mind-machine-simple" title="Permanent link">&para;</a></h2>
+<p>(TODO: add how rmm is simple)</p>
+<h2 id="what-does-rainbow-mind-machine-extend-or-do">What does rainbow mind machine extend or do?<a class="headerlink" href="#what-does-rainbow-mind-machine-extend-or-do" title="Permanent link">&para;</a></h2>
+<p>(TODO: add what rmm extends or does)</p>
+<h2 id="how-is-rainbow-mind-machine-poop-y">How is rainbow mind machine POOP-y?<a class="headerlink" href="#how-is-rainbow-mind-machine-poop-y" title="Permanent link">&para;</a></h2>
+<p>(TODO: add rmm poopy stuff)</p>
                 
                   
                 
@@ -772,7 +727,7 @@ The bot posts a new question each day.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../installing/" title="Installing rmm" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../mind-machine-docs/sheep/" title="Sheep" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -781,19 +736,19 @@ The bot posts a new question each day.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Installing rmm
+                Sheep
               </span>
             </div>
           </a>
         
         
-          <a href="../rmm_keymaker/" title="Twitter Keymaker" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../installing/" title="Installing rmm" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Twitter Keymaker
+                Installing rmm
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
