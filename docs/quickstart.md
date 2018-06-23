@@ -1,17 +1,17 @@
 # Quick Start
 
 Let's walk through a quick example to illustrate
-how this works.
+how **rainbow mind machine** (rmm) works.
 
 Remember, we only have 3 objects we need to understand:
 
-* [The Keymaker](keymaker.md) (makes/manages keys and authenticates with Twitter)
-* [The Shepherd](shepherd.md) (runs the flock; one shepherd = one bot flock)
-* [The Sheep](sheep.md) (runs a bot, and defines bot's behavior; one sheep = one bot)
+* [The rmm Keymaker](rmm_keymaker.md) (makes/manages keys and authenticates with Twitter)
+* [The rmm Shepherd](rmm_shepherd.md) (runs the flock; one shepherd = one bot flock)
+* [The rmm Sheep](rmm_sheep.md) (runs a bot, and defines bot's behavior; one sheep = one bot)
 
 # Keymaker: Authentication Step
 
-Also see the [keymaker](keymaker.md) page.
+Also see the [keymaker](rmm_keymaker.md) page.
 
 The first step in rainbow mind machine is to run the Keymaker
 to give the application permission to tweet on behalf of 
@@ -70,7 +70,7 @@ to create keys from each item.
 
 # A Shepherd to Run the Bot Flock
 
-Also see the [shepherd](shepherd.md) page.
+Also see the [shepherd](rmm_shepherd.md) page.
 
 Once that is done, make a Shepherd for the bot flock,
 and point it to the keys the Keymaker created 
@@ -96,7 +96,7 @@ one thread per sheep.
 
 # Customizing Sheep
 
-Also see the [sheep](sheep.md) page.
+Also see the [sheep](rmm_sheep.md) page.
 
 We didn't specify what kind of Sheep we want 
 the Shepherd to create, so the Shepherd uses

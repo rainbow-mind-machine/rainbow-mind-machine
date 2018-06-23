@@ -155,7 +155,7 @@ are lost or the user revoked access and needs to re-grant it.
 The Keymaker outputs these OAuth tokens, together with other
 information that will be useful for the Sheep object,
 into a Python dictionary, and outputs that to a JSON file
-that will be passed to the Sheep once the [Shepherd](shepherd.md)
+that will be passed to the Sheep once the [Shepherd](rmm_shepherd.md)
 creates each Sheep.
 
 The JSON files are "bot keys", in the "keys to the car" or "keys to the kingdom" sense.

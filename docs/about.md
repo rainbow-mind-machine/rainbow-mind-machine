@@ -26,8 +26,8 @@ and we can incrementally improve, extend, override,
 or redefine behaviors to make them increasingly complex,
 while still abstracting away messy details.
 
-See the [TwitterShepherd](twitter_shepherd.md) page or the 
-[SocialSheep](social_sheep.md) page for examples.
+See the [rmm Shepherd](rmm_shepherd.md) page or the 
+[rmm SocialSheep](rmm_social_sheep.md) page for examples.
 
 
 

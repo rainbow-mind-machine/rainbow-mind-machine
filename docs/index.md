@@ -80,9 +80,9 @@ Documentation for components implemented in rainbow mind machine:
     * [TwitterKeymaker @ boring mind machine documentation](https://pages.charlesreid1.com/boring-mind-machine/keymaker_twitter/)
 * [rmm.Shepherd](rmm_shepherd.md)
 * [rmm.Sheep](rmm_sheep.md)
-* [rmm.PoemSheep](rmm_poemsheep.md)
-* [rmm.QueneauSheep](rmm_queneausheep.md)
-* [rmm.SocialSheep](rmm_socialsheep.md)
+* [rmm.PoemSheep](rmm_poem_sheep.md)
+* [rmm.QueneauSheep](rmm_queneau_sheep.md)
+* [rmm.SocialSheep](rmm_social_sheep.md)
 
 
 

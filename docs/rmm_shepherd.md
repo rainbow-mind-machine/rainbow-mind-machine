@@ -26,7 +26,7 @@ The Shepherd is a data container for storing Sheep.
 ## when does the Shepherd come in?
 
 The first thing a bot flock needs is a set of keys.
-That's what the [Keymaker](keymaker.md) is for.
+That's what the [Keymaker](rmm_keymaker.md) is for.
 
 Once the bot flock keys have been created with the Keymaker,
 the bot flock is started. To do that, the Shepherd
