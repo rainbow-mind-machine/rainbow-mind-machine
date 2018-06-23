@@ -1,3 +1,4 @@
+from .SocialSheep import SocialSheep
 import urllib
 import requests
 import oauth2 as oauth
@@ -6,6 +7,8 @@ import logging
 import os, glob, time
 from datetime import datetime
 from .TwitterSheep import TwitterSheep
+
+from utils import eprint
 
 class PhotoADaySheep(TwitterSheep):
     """
@@ -152,8 +155,6 @@ class PhotoADaySheep(TwitterSheep):
         # than it could be, but it's relatively simple,
         # and if it ain't broke, don't fix it.
 
-        logger = logging.getLogger('rainbowmindmachine')
-
         remcycle = 120 # sleep (in seconds)
 
         prior_dd = 0
@@ -188,7 +189,7 @@ class PhotoADaySheep(TwitterSheep):
                         except KeyError:
                             err = "PhotoADaySheep: Warning: could not find a message, using hello world"
                             msg = self.timestamp_message(err)
-                            logger.info(msg)
+                            eprint(msg)
 
                             twit = 'Hello world'
 
@@ -201,13 +202,13 @@ class PhotoADaySheep(TwitterSheep):
                         err = "PhotoADaySheep: Warning: for doy = %d, could not find not find "%(doy)
                         err += "the corresponding image %s"%( tweet_params['image_pattern'].format(i=doy) )
                         msg = self.timestamp_message(err)
-                        logger.info(msg)
+                        eprint(msg)
 
                     # Update prior_dd
                     prior_dd = dd
 
                 msg = self.timestamp_message("PhotoADaySheep: Sleeping...")
-                logger.info(msg)
+                eprint(msg)
 
                 time.sleep(remcycle)
 
@@ -223,9 +224,9 @@ class PhotoADaySheep(TwitterSheep):
                 # Add this line in to debug sheep
                 #raise Exception(err)
 
-                logger.info(msg1)
-                logger.info(msg2)
-                logger.info(msg3)
+                eprint(msg1)
+                eprint(msg2)
+                eprint(msg3)
 
                 time.sleep(remcycle)
 
