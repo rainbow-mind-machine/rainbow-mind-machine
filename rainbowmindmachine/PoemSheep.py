@@ -1,6 +1,6 @@
 from .SocialSheep import SocialSheep
 
-from utils import eprint
+from .utils import eprint
 
 """
 Poem Sheep

@@ -3,7 +3,7 @@ import twitter
 import traceback
 import time
 
-from utils import eprint
+from .utils import eprint
 
 """
 Social Sheep

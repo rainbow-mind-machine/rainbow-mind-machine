@@ -6,7 +6,7 @@ import base64
 import oauth2 as oauth
 import simplejson as json
 
-from utils import eprint
+from .utils import eprint
 
 class TwitterSheep(bmm.BoringSheep):
     """

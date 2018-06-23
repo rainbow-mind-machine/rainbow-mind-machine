@@ -8,7 +8,7 @@ import os, glob, time
 from datetime import datetime
 from .TwitterSheep import TwitterSheep
 
-from utils import eprint
+from .utils import eprint
 
 class PhotoADaySheep(TwitterSheep):
     """

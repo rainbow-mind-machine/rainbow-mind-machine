@@ -2,7 +2,7 @@ from .SocialSheep import SocialSheep
 from .queneau import DialogueAssembler
 from random import random
 
-from utils import eprint
+from .utils import eprint
 
 """
 Queneau Sheep
