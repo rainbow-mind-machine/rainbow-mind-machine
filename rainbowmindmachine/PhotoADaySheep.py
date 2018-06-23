@@ -186,7 +186,7 @@ class PhotoADaySheep(TwitterSheep):
                             twit = tweet_params['message']
 
                         except KeyError:
-                            err = "Warning: could not find a message, using hello world"
+                            err = "PhotoADaySheep: Warning: could not find a message, using hello world"
                             msg = self.timestamp_message(err)
                             logger.info(msg)
 
@@ -198,7 +198,7 @@ class PhotoADaySheep(TwitterSheep):
                             self._print("Testing image tweet: %s"%(media_attachment))
 
                     else:
-                        err = "Warning: for doy = %d, could not find not find "%(doy)
+                        err = "PhotoADaySheep: Warning: for doy = %d, could not find not find "%(doy)
                         err += "the corresponding image %s"%( tweet_params['image_pattern'].format(i=doy) )
                         msg = self.timestamp_message(err)
                         logger.info(msg)
@@ -206,7 +206,7 @@ class PhotoADaySheep(TwitterSheep):
                     # Update prior_dd
                     prior_dd = dd
 
-                msg = self.timestamp_message("Sleeping...")
+                msg = self.timestamp_message("PhotoADaySheep: Sleeping...")
                 logger.info(msg)
 
                 time.sleep(remcycle)
@@ -215,10 +215,10 @@ class PhotoADaySheep(TwitterSheep):
 
                 # oops!
 
-                msg1 = self.timestamp_message("Sheep encountered an exception. More info:")
+                msg1 = self.timestamp_message("PhotoADaySheep: encountered an exception. More info:")
                 # Fix this:
                 msg2 = self.timestamp_message(str(err))
-                msg3 = self.timestamp_message("Sheep is continuing...")
+                msg3 = self.timestamp_message("PhotoDAaySheep: continuing...")
 
                 # Add this line in to debug sheep
                 #raise Exception(err)

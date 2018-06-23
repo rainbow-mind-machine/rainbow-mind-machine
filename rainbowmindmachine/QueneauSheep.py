@@ -33,7 +33,7 @@ class QueneauSheep(SocialSheep):
         tweet_queue = messages
 
         logger = logging.getLogger('rainbowmindmachine')
-        msg = "Finished populating a new tweet queue with %d queneau dialogue tweets."%(len(tweet_queue))
+        msg = "QueneauSheep: Finished populating a new tweet queue with %d queneau dialogue tweets."%(len(tweet_queue))
         logger.info(msg)
 
         return tweet_queue

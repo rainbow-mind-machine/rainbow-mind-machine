@@ -1,3 +1,4 @@
+from .RainbowLumberjack import *
 from .TwitterShepherd import *
 from .TwitterSheep import *
 from .SocialSheep import *

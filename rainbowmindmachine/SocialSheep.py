@@ -123,7 +123,8 @@ class SocialSheep(TwitterSheep):
                 try:
                     self.api.CreateFriendship(screen_name=u.screen_name)
                     logger = logging.getLogger('rainbowmindmachine')
-                    logger.info("Started following @%s"%(u.screen_name))
+                    msg = "SocialSheep: started following @%s"%(u.screen_name)
+                    logger.info(msg)
                 except twitter.error.TwitterError:
                     # following ourselves,
                     # or cannot find user

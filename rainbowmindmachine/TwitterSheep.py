@@ -81,7 +81,7 @@ class TwitterSheep(bmm.BoringSheep):
         self.flock_name = bot_key['flock_name']
 
         logger = logging.getLogger('rainbowmindmachine')
-        msg = "Set up Twitter API for bot {screen_name}"
+        msg = "TwitterSheep: Set up Twitter API for bot {screen_name}"
         msg = msg.format(screen_name=self.params['screen_name'])
         logger.info(msg)
 
@@ -425,7 +425,7 @@ class TwitterSheep(bmm.BoringSheep):
 
                 time.sleep( kwargs['outer_sleep'] )
 
-                msg = "Completed a cycle."
+                msg = "TwitterSheep: Completed a cycle."
                 logger.info(msg)
 
             except Exception:
@@ -466,21 +466,21 @@ class TwitterSheep(bmm.BoringSheep):
                 stats = self.api.PostUpdates(twit)
 
             # everything else:
-            msg = "@%s tweeted: \"%s\""%(self.name, twit)
+            msg = "TwitterSheep: @%s tweeted: \"%s\""%(self.name, twit)
             logger.info(msg)
 
         except twitter.TwitterError as e:
             
             if e.message[0]['code'] == 185:
-                msg = "Twitter error: Daily message limit reached"
+                msg = "TwitterSheep: Twitter error: Daily message limit reached"
                 logger.info(msg)
 
             elif e.message[0]['code'] == 187:
-                msg = "Twitter error: Duplicate error"
+                msg = "TwitterSheep: Twitter error: Duplicate error"
                 logger.info(msg)
             
             else:
-                msg = "Twitter error: %s"%(e.message)
+                msg = "TwitterSheep: Twitter error: %s"%(e.message)
                 logger.info(msg)
 
 
@@ -506,7 +506,7 @@ class TwitterSheep(bmm.BoringSheep):
             tweet_queue.append(tweet)
 
         logger = logging.getLogger('rainbowmindmachine')
-        msg = "Finished populating a new tweet queue with %d tweets."%(len(tweet_queue))
+        msg = "TwitterSheep: Finished populating a new tweet queue with %d tweets."%(len(tweet_queue))
         logger.info(msg)
 
         return tweet_queue
@@ -518,6 +518,6 @@ class TwitterSheep(bmm.BoringSheep):
         Print a twit.
         """
         logger = logging.getLogger('rainbowmindmachine')
-        msg = "@%s printed: \"%s\""%(self.name, twit)
+        msg = "TwitterSheep: @%s printed: \"%s\""%(self.name, twit)
         logger.info(msg)
 
