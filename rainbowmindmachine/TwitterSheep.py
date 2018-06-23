@@ -78,7 +78,7 @@ class TwitterSheep(bmm.BoringSheep):
         self.name = bot_key['screen_name']
         self.flock_name = bot_key['flock_name']
 
-        msg = "TwitterSheep: Set up Twitter API for bot {screen_name}"
+        msg = "rainbow-mind-machine: TwitterSheep: Set up Twitter API for bot {screen_name}"
         msg = msg.format(screen_name=self.params['screen_name'])
         eprint(msg)
 
@@ -402,16 +402,16 @@ class TwitterSheep(bmm.BoringSheep):
 
                 time.sleep( kwargs['outer_sleep'] )
 
-                msg = "TwitterSheep: Completed a cycle."
+                msg = "rainbow-mind-machine: TwitterSheep: Completed a cycle."
                 eprint(msg)
 
             except Exception:
 
                 # oops!
 
-                msg1 = "Sheep encountered an exception. More info:"
+                msg1 = "rainbow-mind-machine: Sheep encountered an exception. More info:"
                 msg2 = traceback.format_exc()
-                msg3 = "Sheep is continuing..."
+                msg3 = "rainbow-mind-machine: Sheep is continuing..."
 
                 eprint(msg1)
                 eprint(msg2)
@@ -439,21 +439,21 @@ class TwitterSheep(bmm.BoringSheep):
                 stats = self.api.PostUpdates(twit)
 
             # everything else:
-            msg = "TwitterSheep: @%s tweeted: \"%s\""%(self.name, twit)
+            msg = "rainbow-mind-machine: TwitterSheep: @%s tweeted: \"%s\""%(self.name, twit)
             eprint(msg)
 
         except twitter.TwitterError as e:
             
             if e.message[0]['code'] == 185:
-                msg = "TwitterSheep: Twitter error: Daily message limit reached"
+                msg = "rainbow-mind-machine: TwitterSheep: Twitter error: Daily message limit reached"
                 eprint(msg)
 
             elif e.message[0]['code'] == 187:
-                msg = "TwitterSheep: Twitter error: Duplicate error"
+                msg = "rainbow-mind-machine: TwitterSheep: Twitter error: Duplicate error"
                 eprint(msg)
             
             else:
-                msg = "TwitterSheep: Twitter error: %s"%(e.message)
+                msg = "rainbow-mind-machine: TwitterSheep: Twitter error: %s"%(e.message)
                 eprint(msg)
 
 
@@ -478,7 +478,7 @@ class TwitterSheep(bmm.BoringSheep):
             tweet = "Hello world! That's number %d of 5."%(j+1)
             tweet_queue.append(tweet)
 
-        msg = "TwitterSheep: Finished populating a new tweet queue with %d tweets."%(len(tweet_queue))
+        msg = "rainbow-mind-machine: TwitterSheep: Finished populating a new tweet queue with %d tweets."%(len(tweet_queue))
         eprint(msg)
 
         return tweet_queue
@@ -489,6 +489,6 @@ class TwitterSheep(bmm.BoringSheep):
         Private method.
         Print a twit.
         """
-        msg = "TwitterSheep: @%s printed: \"%s\""%(self.name, twit)
+        msg = "rainbow-mind-machine: TwitterSheep: @%s printed: \"%s\""%(self.name, twit)
         eprint(msg)
 

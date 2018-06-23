@@ -187,7 +187,7 @@ class PhotoADaySheep(TwitterSheep):
                             twit = tweet_params['message']
 
                         except KeyError:
-                            err = "PhotoADaySheep: Warning: could not find a message, using hello world"
+                            err = "rainbow-mind-machine: PhotoADaySheep: Warning: could not find a message, using hello world"
                             msg = self.timestamp_message(err)
                             eprint(msg)
 
@@ -199,7 +199,7 @@ class PhotoADaySheep(TwitterSheep):
                             self._print("Testing image tweet: %s"%(media_attachment))
 
                     else:
-                        err = "PhotoADaySheep: Warning: for doy = %d, could not find not find "%(doy)
+                        err = "rainbow-mind-machine: PhotoADaySheep: Warning: for doy = %d, could not find not find "%(doy)
                         err += "the corresponding image %s"%( tweet_params['image_pattern'].format(i=doy) )
                         msg = self.timestamp_message(err)
                         eprint(msg)
@@ -207,7 +207,7 @@ class PhotoADaySheep(TwitterSheep):
                     # Update prior_dd
                     prior_dd = dd
 
-                msg = self.timestamp_message("PhotoADaySheep: Sleeping...")
+                msg = self.timestamp_message("rainbow-mind-machine: PhotoADaySheep: Sleeping...")
                 eprint(msg)
 
                 time.sleep(remcycle)
@@ -216,10 +216,10 @@ class PhotoADaySheep(TwitterSheep):
 
                 # oops!
 
-                msg1 = self.timestamp_message("PhotoADaySheep: encountered an exception. More info:")
+                msg1 = self.timestamp_message("rainbow-mind-machine: PhotoADaySheep: encountered an exception. More info:")
                 # Fix this:
                 msg2 = self.timestamp_message(str(err))
-                msg3 = self.timestamp_message("PhotoDAaySheep: continuing...")
+                msg3 = self.timestamp_message("rainbow-mind-machine: PhotoDAaySheep: continuing...")
 
                 # Add this line in to debug sheep
                 #raise Exception(err)

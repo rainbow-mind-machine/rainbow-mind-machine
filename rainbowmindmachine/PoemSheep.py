@@ -32,7 +32,7 @@ class PoemSheep(SocialSheep):
 
         tweet_queue = list(lines)
 
-        msg = "PoemSheep: Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue))
+        msg = "rainbow-mind-machine: PoemSheep: Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue))
         eprint(msg)
 
         return tweet_queue

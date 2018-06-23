@@ -33,7 +33,7 @@ class QueneauSheep(SocialSheep):
 
         tweet_queue = messages
 
-        msg = "QueneauSheep: Finished populating a new tweet queue with %d queneau dialogue tweets."%(len(tweet_queue))
+        msg = "rainbow-mind-machine: QueneauSheep: Finished populating a new tweet queue with %d queneau dialogue tweets."%(len(tweet_queue))
         eprint(msg)
 
         return tweet_queue
