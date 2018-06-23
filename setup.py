@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = "2"
+version = "3"
 
 setup(  name='rainbowmindmachine',
         version=version,
@@ -13,11 +13,7 @@ setup(  name='rainbowmindmachine',
         license='MIT',
         packages=['rainbowmindmachine'],
         install_requires=['boringmindmachine',
-            'oauth2>=1.5',
-            'simplejson>=3.13',
-            'python-twitter>=3.4.1',
-            'TextBlob>=0.15',
-            'oauth2client>=3.0.0',
-            'requests>=1.0.0'],
+            'TextBlob>=0.15'
+        ],
         zip_safe=False)
 

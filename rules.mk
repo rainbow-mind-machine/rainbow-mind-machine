@@ -66,3 +66,19 @@ serve_docs:
 # run tests
 test:
 	nosetests -v
+
+# upload to pypi
+pypi: pypi_upload pypi_test
+
+pypi_upload:
+	@echo "The following commands require that you have"
+	@echo "your pypi credentials stored in ~/.pypirc"
+	python setup.py sdist
+	python setup.py sdist upload
+
+pypi_test:
+	virtualenv testbmm
+	source testbmm/bin/activate
+	testbmm/bin/pip install boringmindmachine
+	rm -rf testbmm
+

@@ -14,3 +14,6 @@ include rules.mk
 # 
 # when you are ready, run:
 # make deploy_docs
+#
+# When you are ready to upload to pypi:
+# make pypi
