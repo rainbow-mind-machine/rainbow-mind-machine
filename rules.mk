@@ -77,8 +77,8 @@ pypi_upload:
 	python setup.py sdist upload
 
 pypi_test:
-	virtualenv testbmm
-	source testbmm/bin/activate
-	testbmm/bin/pip install boringmindmachine
-	rm -rf testbmm
+	virtualenv testmm
+	source testmm/bin/activate
+	testmm/bin/pip install $(SHORT)
+	rm -rf testmm
 
