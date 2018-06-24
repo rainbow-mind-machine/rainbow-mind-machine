@@ -12,7 +12,7 @@ setup(  name='rainbowmindmachine',
         tests_require=['nose'],
         license='MIT',
         packages=['rainbowmindmachine'],
-        install_requires=['boringmindmachine',
+        install_requires=['boringmindmachine==5',
             'TextBlob>=0.15'
         ],
         zip_safe=False)
