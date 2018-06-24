@@ -5,9 +5,9 @@ how **rainbow mind machine** (rmm) works.
 
 Remember, we only have 3 objects we need to understand:
 
-* [The rmm Keymaker](rmm_keymaker.md) (makes/manages keys and authenticates with Twitter)
-* [The rmm Shepherd](rmm_shepherd.md) (runs the flock; one shepherd = one bot flock)
-* [The rmm Sheep](rmm_sheep.md) (runs a bot, and defines bot's behavior; one sheep = one bot)
+* [The TwitterKeymaker](rmm_keymaker.md) (makes/manages keys and authenticates with Twitter)
+* [The TwitterShepherd](rmm_shepherd.md) (runs the flock; one shepherd = one bot flock)
+* [The TwitterSheep](rmm_sheep.md) (runs a bot, and defines bot's behavior; one sheep = one bot)
 
 # Keymaker: Authentication Step
 
