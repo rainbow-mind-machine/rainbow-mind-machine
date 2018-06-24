@@ -1,4 +1,5 @@
 import boringmindmachine as bmm
+from .TwitterSheep import TwitterSheep
 
 """
 rmm.Shepherd
@@ -14,7 +15,7 @@ class TwitterShepherd(bmm.BoringShepherd):
 
     def __init__(self,
             json_keys_dir,
-            sheep_class = bmm.TwitterSheep,
+            sheep_class = TwitterSheep,
             **kwargs):
         """
         This constructor calls the Boring Shepherd constructor.
