@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = "5"
+version = "7"
 
 setup(  name='rainbowmindmachine',
         version=version,
@@ -12,7 +12,7 @@ setup(  name='rainbowmindmachine',
         tests_require=['nose'],
         license='MIT',
         packages=['rainbowmindmachine'],
-        install_requires=['boringmindmachine==5',
+        install_requires=['boringmindmachine==7',
             'TextBlob>=0.15'
         ],
         zip_safe=False)
