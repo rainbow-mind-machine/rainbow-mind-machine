@@ -1,5 +1,19 @@
 # rainbow-mind-machine
 
+![tinysheep](img/sheep.jpg)
+
+**rainbow mind machine** is an extensible framework for running Twitter bot flocks in Python.
+
+**rainbow mind machine** uses the mind machine framework to provide the user
+with a simple set of building blocks for building bot flocks: a Keymaker, a
+Shepherd, and a Sheep.
+
+The philosophy is to help users get started quickly, and build on simple
+behaviors to create complex, rich bot behaviors.
+
+See [rainbow-mind-machine in action](https://twitter.com/apollo11junk)!
+
+
 ## All the shields
 
 ![latest prime number version](https://img.shields.io/badge/latest--prime--number--version-7-blue.svg)
@@ -25,29 +39,6 @@
 [![cthulhu](https://img.shields.io/badge/Ph'nglui%20mglw'nafh%20Cthulhu%20R'lyeh%20wgah'nagl%20fhtagn-m'latgh%20gnaiih%20Nyarlathotep%20geb%20Tsathoggua%20bug-blue.svg)](https://en.wikipedia.org/wiki/Cthulhu)
 
 [![GitHub stars](https://img.shields.io/github/stars/rainbow-mind-machine/rainbow-mind-machine.svg?style=social&label=Star&maxAge=2592000)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/stargazers/)
-
-
-## About 
-
-![tinysheep](docs/img/sheep.jpg)
-
-**rainbow mind machine** is an extensible framework for running Twitter bot flocks in Python.
-
-**rainbow mind machine** helps with managing multiple twitter bots (bot flocks).
-It uses a Keymaker object to do the one-time authentication step with Twitter,
-and uses a Shepherd-Sheep model to run the flock.
-
-**rainbow mind machine** is a **framework** because it provides components
-(Keymaker, Shepherd, and Sheep) with specific roles and ways of interacting.
-
-**rainbow mind machine** is **extensible** to keep bots from becoming boring.
-There are a limited number of components to extend (2),
-these two components have a simple and clear function call order,
-and rainbow mind machine tries to use sensible defaults.
-
-The philosophy is to help users get started quickly,
-and build on simple behaviors to create complex, rich
-bot behaviors.
 
 
 ## Links
