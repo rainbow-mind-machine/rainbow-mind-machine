@@ -681,11 +681,45 @@
               
                 
                 
-                <h1 id="about-rainbow-mind-machine">About Rainbow Mind Machine<a class="headerlink" href="#about-rainbow-mind-machine" title="Permanent link">&para;</a></h1>
-<p><strong>rainbow mind machine (bmm)</strong> is a library for running Twitter bot flocks.
+                <h1 id="about-rainbow-mind-machine">About rainbow mind machine<a class="headerlink" href="#about-rainbow-mind-machine" title="Permanent link">&para;</a></h1>
+<p><strong>rainbow mind machine (rmm)</strong> is a library for running Twitter bot flocks.
 It is owned by the <a href="https://github.com/rainbow-mind-machine">rainbow-mind-machine</a>
 organization on Github.</p>
 <p>Like all mind machines, <strong>rainbow mind machine</strong> is simple and extensible.</p>
+<h2 id="how-is-rainbow-mind-machine-simple">How is rainbow mind machine simple?<a class="headerlink" href="#how-is-rainbow-mind-machine-simple" title="Permanent link">&para;</a></h2>
+<p>The <strong>mind machine framework</strong> revolves around providing a few
+simple components for building bot flocks:</p>
+<ul>
+<li><a href="../mind-machine-docs/keymaker/">Keymaker classes</a></li>
+<li><a href="../mind-machine-docs/shepherd/">Shepherd classes</a></li>
+<li><a href="../mind-machine-docs/sheep/">Sheep classes</a></li>
+</ul>
+<p>But it gets even simpler than that:
+<a href="https://pages.charlesreid1.com/boring-mind-machine">boring-mind-machine</a>
+provides a <a href="https://pages.charlesreid1.com/boring-mind-machine/bmm_keymaker_twitter/">TwitterKeymaker class</a>,
+so that rainbow mind machine can focus exclusively on Shepherd and Sheep
+classes.</p>
+<p>That's pretty simple!</p>
+<h2 id="what-does-rainbow-mind-machine-extend-or-do">What does rainbow mind machine extend or do?<a class="headerlink" href="#what-does-rainbow-mind-machine-extend-or-do" title="Permanent link">&para;</a></h2>
+<p>rainbow mind machine is <strong>extensible</strong> to keep bots from becoming boring.  There
+are a limited number of components to extend (2), these two components have a
+simple and clear function call order, and rainbow mind machine tries to use
+sensible defaults.</p>
+<p>That means we start out with bots that "just work" 
+and we can incrementally improve, extend, override,
+or redefine behaviors to make them increasingly complex,
+while still abstracting away messy details.</p>
+<p>For examples, see the <a href="../rmm_shepherd/">TwitterShepherd</a>
+or <a href="../rmm_sheep/">TwitterSheep</a> pages.</p>
+<h2 id="how-is-rainbow-mind-machine-poop-y">How is rainbow mind machine POOP-y?<a class="headerlink" href="#how-is-rainbow-mind-machine-poop-y" title="Permanent link">&para;</a></h2>
+<p>The rainbow mind machine library makes good use of concepts in
+Python Object Oriented Programming, or POOP.</p>
+<p>The rainbow mind machine library uses inheritance, because the entire
+library is built on base classes provided by boring mind machine.</p>
+<p>Additionally, the whole way rainbow mind machine works is to
+provide a set of useful classes, but also make it easy for
+users to write their own classes.</p>
+<p>Everything is about classes.</p>
 <hr />
 <p><strong>rainbow mind machine</strong> is an extensible framework for running Twitter bot flocks in Python.</p>
 <p>rainbow mind machine is a <strong>framework</strong> because it provides components 
@@ -695,18 +729,6 @@ and <a href="../mind-machine-docs/sheep/">Sheep</a>) with specific roles and way
 There are a limited number of components to extend (2), 
 these two components have a simple and clear function call order,
 and rainbow mind machine tries to use sensible defaults.</p>
-<p>That means we start out with bots that "just work" 
-and we can incrementally improve, extend, override,
-or redefine behaviors to make them increasingly complex,
-while still abstracting away messy details.</p>
-<p>See the <a href="../rmm_shepherd/">rmm Shepherd</a> page or the 
-<a href="../rmm_social_sheep/">rmm SocialSheep</a> page for examples.</p>
-<h2 id="how-is-rainbow-mind-machine-simple">How is rainbow mind machine simple?<a class="headerlink" href="#how-is-rainbow-mind-machine-simple" title="Permanent link">&para;</a></h2>
-<p>(TODO: add how rmm is simple)</p>
-<h2 id="what-does-rainbow-mind-machine-extend-or-do">What does rainbow mind machine extend or do?<a class="headerlink" href="#what-does-rainbow-mind-machine-extend-or-do" title="Permanent link">&para;</a></h2>
-<p>(TODO: add what rmm extends or does)</p>
-<h2 id="how-is-rainbow-mind-machine-poop-y">How is rainbow mind machine POOP-y?<a class="headerlink" href="#how-is-rainbow-mind-machine-poop-y" title="Permanent link">&para;</a></h2>
-<p>(TODO: add rmm poopy stuff)</p>
                 
                   
                 

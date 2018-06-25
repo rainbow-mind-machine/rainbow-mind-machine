@@ -332,8 +332,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-three-legged-oauth-process" title="The Three-Legged OAuth Process" class="md-nav__link">
-    The Three-Legged OAuth Process
+  <a href="#using-the-keymaker" title="Using the Keymaker" class="md-nav__link">
+    Using the Keymaker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-the-three-legged-oauth-process" title="Background: The Three-Legged OAuth Process" class="md-nav__link">
+    Background: The Three-Legged OAuth Process
   </a>
   
 </li>
@@ -362,13 +369,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#using-the-keymaker" title="Using the Keymaker" class="md-nav__link">
-    Using the Keymaker
-  </a>
   
 </li>
       
@@ -666,8 +666,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-three-legged-oauth-process" title="The Three-Legged OAuth Process" class="md-nav__link">
-    The Three-Legged OAuth Process
+  <a href="#using-the-keymaker" title="Using the Keymaker" class="md-nav__link">
+    Using the Keymaker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-the-three-legged-oauth-process" title="Background: The Three-Legged OAuth Process" class="md-nav__link">
+    Background: The Three-Legged OAuth Process
   </a>
   
 </li>
@@ -699,13 +706,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#using-the-keymaker" title="Using the Keymaker" class="md-nav__link">
-    Using the Keymaker
-  </a>
-  
-</li>
-      
       
       
       
@@ -730,7 +730,18 @@
 service and generate the bot keys the application needs to do things on behalf
 of a user account.</p>
 <p>This document provides a high-level overview of the Keymaker.</p>
-<h2 id="the-three-legged-oauth-process">The Three-Legged OAuth Process<a class="headerlink" href="#the-three-legged-oauth-process" title="Permanent link">&para;</a></h2>
+<h2 id="using-the-keymaker">Using the Keymaker<a class="headerlink" href="#using-the-keymaker" title="Permanent link">&para;</a></h2>
+<p>If you don't care about all of this business and just want to know
+how to use the keymaker, see the <a href="https://pages.charlesreid1.com/boring-mind-machine">boring mind machine
+documentation</a>.</p>
+<p>Specifically, see coverage of the 
+<a href="https://pages.charlesreid1.com/boring-mind-machine/bmm_keymaker/">BoringOAuthKeymaker</a>
+class, along with the service-specific
+<a href="https://pages.charlesreid1.com/boring-mind-machine/bmm_keymaker_github/">Github Keymaker</a>,
+<a href="https://pages.charlesreid1.com/boring-mind-machine/bmm_keymaker_google/">Google Keymaker</a>, and 
+<a href="https://pages.charlesreid1.com/boring-mind-machine/bmm_keymaker_twitter/">Twitter Keymaker</a>
+classes.</p>
+<h2 id="background-the-three-legged-oauth-process">Background: The Three-Legged OAuth Process<a class="headerlink" href="#background-the-three-legged-oauth-process" title="Permanent link">&para;</a></h2>
 <p>In theory, not all Keymakers must do OAuth, but in practice,
 <strong>all Keymakers do OAuth</strong>.</p>
 <p>The Keymaker carries out a one-time authorization step that needs to 
@@ -777,7 +788,7 @@ and calls them by different names. For example:</p>
 <li>API token/API secret token</li>
 <li>etc...</li>
 </ul>
-<p>The <a href="#">boring mind machine</a>
+<p>The <a href="https://pages.charlesreid1.com/boring-mind-machine">boring mind machine</a>
 library provides a base OAuth Keymaker class
 called BoringOAuthKeymaker. This class implements
 the OAuth process in a generic way. The details
@@ -792,13 +803,6 @@ will create a JSON file with the bot key so that it can
 be used again in the future.</p>
 <p>The bot key contains both the API keys for the application,
 and the OAuth keys for the bot account.</p>
-<h2 id="using-the-keymaker">Using the Keymaker<a class="headerlink" href="#using-the-keymaker" title="Permanent link">&para;</a></h2>
-<p>For details about how to create keys using the
-OAuth Keymaker base class, see the 
-<a href="#">boring mind machine documentation</a>.</p>
-<p>To extend the Keymaker class, you should override
-the <code>make_keys()</code> method to create keys in whatever
-manner you wish.</p>
                 
                   
                 

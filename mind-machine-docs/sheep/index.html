@@ -337,9 +337,38 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Sheep
+      </label>
+    
     <a href="./" title="Sheep" class="md-nav__link md-nav__link--active">
       Sheep
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#defining-actions" title="Defining Actions" class="md-nav__link">
+    Defining Actions
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -599,6 +628,22 @@
     
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#defining-actions" title="Defining Actions" class="md-nav__link">
+    Defining Actions
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -611,7 +656,33 @@
                 
                 
                 <h1 id="the-sheep">The Sheep<a class="headerlink" href="#the-sheep" title="Permanent link">&para;</a></h1>
-<p>(TODO: add high level sheep summary)</p>
+<p><img alt="the sheep" src="../img/sheep.jpg" /></p>
+<p><strong>The rainbow mind machine sheep.</strong></p>
+<p>The Sheep is the component of the bot flock that actually
+performs the actions using the bot accounts.</p>
+<p>The Shepherd will instruct each Sheep to start performing an action - either in
+parallel (if it is a "forever" action like tweeting) or in serial (if it is a
+"one-time" action, like changing the bot user's profile).</p>
+<p>Each Sheep uses a bot key (created by the Keymaker and loaded by
+the Shepherd) to create an API instance in the constructor.
+Each Sheep then uses that API instance to perform actions.</p>
+<p>The BoringSheep base class in <a href="#">boring mind machine</a>
+defines a generic dispatcher method (which turns strings
+into function calls) to allow Shepherds to call particular
+actions for each Sheep.</p>
+<h2 id="defining-actions">Defining Actions<a class="headerlink" href="#defining-actions" title="Permanent link">&para;</a></h2>
+<p>To define an action, define a method for that action.
+(For example, to define a tweet action, make a <code>tweet()</code> method
+in the Sheep class you are using.)</p>
+<p>To control how the action works and introduce variation, you can 
+pass extra parameters (in the form of keyword arguments) to the
+action method, and the Shepherd will pass those along to the Sheep.</p>
+<p>The general pattern this follows is:</p>
+<ul>
+<li>set up or point to an API endpoint</li>
+<li>create or use the API client object to call the API endpoint</li>
+<li>process the results</li>
+</ul>
                 
                   
                 

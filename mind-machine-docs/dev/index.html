@@ -568,9 +568,66 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Developer Notes
+      </label>
+    
     <a href="./" title="Developer Notes" class="md-nav__link md-nav__link--active">
       Developer Notes
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#makefiles" title="Makefiles" class="md-nav__link">
+    Makefiles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-prime-number-version-system" title="The Prime Number Version System" class="md-nav__link">
+    The Prime Number Version System
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" title="Testing" class="md-nav__link">
+    Testing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" title="Release Process" class="md-nav__link">
+    Release Process
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" title="Docker" class="md-nav__link">
+    Docker
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -597,6 +654,50 @@
     
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#makefiles" title="Makefiles" class="md-nav__link">
+    Makefiles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-prime-number-version-system" title="The Prime Number Version System" class="md-nav__link">
+    The Prime Number Version System
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" title="Testing" class="md-nav__link">
+    Testing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" title="Release Process" class="md-nav__link">
+    Release Process
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" title="Docker" class="md-nav__link">
+    Docker
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -609,30 +710,68 @@
                 
                 
                 <h1 id="developer-notes">Developer Notes<a class="headerlink" href="#developer-notes" title="Permanent link">&para;</a></h1>
-<p>Makefiles:</p>
+<h2 id="makefiles">Makefiles<a class="headerlink" href="#makefiles" title="Permanent link">&para;</a></h2>
+<p>The Makefile in each mind machine repository provides rules to help you
+perform common tasks. There are three types of tasks:</p>
+<ol>
+<li>Makefile rules run after the <em>first</em> clone of a <em>brand-new</em> mind machine repo</li>
+<li>Makefile rules run after a fresh clone of an existing mind machine repo</li>
+<li>Makefile rules for testing, creating, deploying</li>
+</ol>
+<h2 id="the-prime-number-version-system">The Prime Number Version System<a class="headerlink" href="#the-prime-number-version-system" title="Permanent link">&para;</a></h2>
+<p>Crash course in the prime number version system:</p>
+<p>Branches:</p>
 <ul>
-<li>Makefile rules after first clone</li>
-<li>Makefile rules after fresh clone</li>
-<li>Makefile rules for test/deploy/docs</li>
+<li>
+<p><code>master</code> - contains stable, tagged releases. Each release is a unique prime
+  number, occurring in ascending order.</p>
+</li>
+<li>
+<p><code>dev</code> - development branch. All work happens here.</p>
+</li>
+<li>
+<p><code>feature</code> - feature branch. Feature branches are created from the dev branch,
+  and commits from these feature branches are merged back into the dev branch
+  before they are ultimately added to a mind machine release.</p>
+</li>
+<li>
+<p><code>release/vP</code> - branch preparing a release of version P. Changes on release
+  branches are almost always synchronized with the development branch.</p>
+</li>
 </ul>
-<p>Prime nubmer version system</p>
+<p>Workflow:</p>
 <ul>
-<li>Prime number version system repository</li>
-<li>Should describe workflows and give overview of tasks</li>
+<li>Start from a stable version on master</li>
+<li>Create branch dev from master (or pull from master into dev if it already exists)</li>
+<li>Create branch feature from dev (feature branch contains all work on a particular feature)</li>
+<li>When ready, merge changes from feature into dev</li>
+<li>Once dev branch is ready for a release, create a release candidate branch
+  <code>release/vP</code></li>
 </ul>
-<p>Testing:</p>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Using examples to test interactivity</li>
 <li>Tests are mainly smoke tests</li>
 <li>For complicated example, see bear/python-twitter on Github</li>
 </ul>
-<p>Releases:</p>
+<h2 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h2>
+<p>See branching workflow above. Checklist:</p>
 <ul>
-<li>Github releases</li>
-<li>Pypi upload</li>
-<li>Dockerhub (just an explanation of how it works/webhook)</li>
+<li>Test examples</li>
+<li>Test create Docker container</li>
+<li>Test documentation (but documentation can be/should be separate)</li>
+<li>Update submodules</li>
+<li>Mainly code</li>
 </ul>
-<p>Docker:</p>
+<p>When ready:</p>
+<ul>
+<li>Pypi upload</li>
+</ul>
+<p>How to set up:</p>
+<ul>
+<li>Dockerhub (update with new versions)</li>
+</ul>
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Developer considerations for docker container</li>
 </ul>

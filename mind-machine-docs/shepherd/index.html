@@ -325,9 +325,79 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Shepherd
+      </label>
+    
     <a href="./" title="Shepherd" class="md-nav__link md-nav__link--active">
       Shepherd
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-shepherd" title="what is the Shepherd?" class="md-nav__link">
+    what is the Shepherd?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-does-the-shepherd-come-in" title="when does the Shepherd come in?" class="md-nav__link">
+    when does the Shepherd come in?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-the-shepherd-tend-to-the-sheep" title="how does the Shepherd tend to the Sheep?" class="md-nav__link">
+    how does the Shepherd tend to the Sheep?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-and-how-do-you-extend-the-shepherd" title="when and how do you extend the Shepherd?" class="md-nav__link">
+    when and how do you extend the Shepherd?
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#webhook-bot-flock" title="webhook bot flock" class="md-nav__link">
+    webhook bot flock
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-bots-per-key-flock" title="two bots per key flock" class="md-nav__link">
+    two bots per key flock
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -599,6 +669,63 @@
     
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-shepherd" title="what is the Shepherd?" class="md-nav__link">
+    what is the Shepherd?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-does-the-shepherd-come-in" title="when does the Shepherd come in?" class="md-nav__link">
+    when does the Shepherd come in?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-the-shepherd-tend-to-the-sheep" title="how does the Shepherd tend to the Sheep?" class="md-nav__link">
+    how does the Shepherd tend to the Sheep?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-and-how-do-you-extend-the-shepherd" title="when and how do you extend the Shepherd?" class="md-nav__link">
+    when and how do you extend the Shepherd?
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#webhook-bot-flock" title="webhook bot flock" class="md-nav__link">
+    webhook bot flock
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-bots-per-key-flock" title="two bots per key flock" class="md-nav__link">
+    two bots per key flock
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -611,7 +738,117 @@
                 
                 
                 <h1 id="the-shepherd">The Shepherd<a class="headerlink" href="#the-shepherd" title="Permanent link">&para;</a></h1>
-<p>(TODO: Add high level shepherd summary)</p>
+<blockquote>
+<p>The shepherd's (<em>pasteur</em>) power manifests itself, therefore, in a duty, a task to
+be undertaken, so that - and I think this is also an important characteristic of
+pastoral power - the form it takes is not first of all the striking display of
+strength and superiority. Pastoral power initially manifests itself in its zeal,
+devotion, and endless application. What is the shepherd (<em>berger</em>)? Is (s)he someone
+whose strength strikes people's eyes, like the sovereigns or gods, like the Greek
+gods, who essentially appear in their splendor? Not at all. The shepherd is
+someone who keeps watch. (S)he "keeps watch" in the sense, of course, of keeping an
+eye out for possible evils, but above all in the sense of vigilance with regard
+to any possible misfortune.</p>
+<ul>
+<li>Michel Foucault, <em>Security, Territory, Population: Lectures at the Collége de France</em> (1977-1978)</li>
+</ul>
+</blockquote>
+<p><img alt="the shepherd" src="../img/shepherd.jpg" /></p>
+<p><strong>The rainbow mind machine shepherd.</strong></p>
+<h2 id="what-is-the-shepherd">what is the Shepherd?<a class="headerlink" href="#what-is-the-shepherd" title="Permanent link">&para;</a></h2>
+<p>The Shepherd is a very simple object: it is basically a data container
+for storing Sheep.</p>
+<h2 id="when-does-the-shepherd-come-in">when does the Shepherd come in?<a class="headerlink" href="#when-does-the-shepherd-come-in" title="Permanent link">&para;</a></h2>
+<p>The first thing a bot flock needs is a set of keys.
+That's what the <a href="../keymaker/">Keymaker</a> is for.</p>
+<p>Once the bot flock keys have been created with the Keymaker,
+the bot flock is started. To do that, the Shepherd
+initializes each Sheep with a corresponding JSON 
+key file (created by the Keymaker).</p>
+<h2 id="how-does-the-shepherd-tend-to-the-sheep">how does the Shepherd tend to the Sheep?<a class="headerlink" href="#how-does-the-shepherd-tend-to-the-sheep" title="Permanent link">&para;</a></h2>
+<p>In general, the Shepherd is a free-range parent, and lets the 
+Sheep go off and do their own thing.</p>
+<p>Note however, that in the spirit of extensibility,
+you can extend the Shepherd and Sheep classes to 
+change the nature of your bot flock.
+(See next section.)</p>
+<h2 id="when-and-how-do-you-extend-the-shepherd">when and how do you extend the Shepherd?<a class="headerlink" href="#when-and-how-do-you-extend-the-shepherd" title="Permanent link">&para;</a></h2>
+<p>The Shepherd class determines how much coordination
+happens among different Sheep in the flock and between
+the flock and the outside world (the Internet).</p>
+<p>Some simple examples:</p>
+<h3 id="webhook-bot-flock">webhook bot flock<a class="headerlink" href="#webhook-bot-flock" title="Permanent link">&para;</a></h3>
+<p>As an example of a bot flock that requires tighter integration
+between the Shepherd and the Sheep, imagine you want to create
+a bot fock where the bots can be controlled with webhooks.</p>
+<p>You would need the Shepherd to act as a central dispatcher 
+and process incoming webhooks to determine which webhook 
+payloads to pass on to which Sheep. But the Sheep also need
+to be modified to listen for instructions from the Shepherd.</p>
+<p>To modify the Shepherd class, we would add a method 
+that listens for incoming webhooks, and a method or 
+methods implementing logic about which payloads to
+pass along to which Sheep (or to call the appropriate
+functions when webhooks trigger flock-wide actions).</p>
+<p>To modify the Sheep class, we would add a <code>listen()</code> method
+that would run forever - ideally in parallel with other
+run-forever methods.</p>
+<h3 id="two-bots-per-key-flock">two bots per key flock<a class="headerlink" href="#two-bots-per-key-flock" title="Permanent link">&para;</a></h3>
+<p>Suppose we wanted to build an argument bot flock.
+This bot flock would consist of pairs of Sheep
+that use Queneau generation to create dialogue,
+and that argue back and forth forever with each other.</p>
+<p>This bot flock modifies the way that our Sheep
+coordinate with each other, which is an indication
+we should change the Shepherd class.</p>
+<p>The Sheep bots we will use will work identically to
+a normal Queneau Sheep bot. Each bot generates dialogue
+from a single speaker, and tweets it in response to 
+another bot tweeting.</p>
+<p>While we <strong>could</strong> extend the Sheep class to control the dialogue,
+it would be easier to use the inner/outer loop structure
+that the QueneauSheep class already has. That way, the Sheep
+do not require any extending.</p>
+<p>The Shepherd class needs to be modified by changing
+the way it instantiates bots from keys. Instead of 
+creating one bot per key, it should create two 
+bots per keys. </p>
+<p>(Note that the user will need to provide relevant
+details in the key or config dictionaries. For example,
+name and handle of both bot sides, inner/outer loop timing,
+etc.)</p>
+<p>The <code>-setup_keys()</code> method will not change, because 
+we want to maintain the consistency of one key file
+corresponding to one bot corresponding to one Twitter 
+account.</p>
+<p>The <code>_setup_sheep()</code> method would be modified from 
+its current arrangement (pseudocode):</p>
+<div class="codehilite"><pre><span></span>current _setup_sheep() method:
+    for json in list-of-all-json-files:
+        create new sheep from json
+        add new sheep to flock
+</pre></div>
+
+
+<p>to something more like (pseudocode):</p>
+<div class="codehilite"><pre><span></span>new _setup_sheep() method:
+    for (bot1, bot2) in list-of-all-bot-pairs:
+        get key1 from keys
+        create bot1 from key1
+
+        get key2 from keys
+        create bot2 from key2
+
+        link bot1 and bot2
+        add bot1 and bot2 to flock
+</pre></div>
+
+
+<p>In this case, we want to have two Queneau Sheep that 
+work almost exactly the same as normal Queneau Sheep,
+with perhaps a slight modification to make sure that
+each bot generates dialogue from a single speaker 
+corresponding to their party in the argument.</p>
                 
                   
                 

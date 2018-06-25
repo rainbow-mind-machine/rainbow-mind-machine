@@ -656,7 +656,7 @@
                 <h1 id="installing-rainbow-mind-machine">Installing rainbow mind machine<a class="headerlink" href="#installing-rainbow-mind-machine" title="Permanent link">&para;</a></h1>
 <p>To install rainbow mind machine manually, use the 
 normal <code>setup.py</code> procedure:</p>
-<div class="codehilite"><pre><span></span>git clone https://github.com/charlesreid1/rainbow-mind-machine.git
+<div class="codehilite"><pre><span></span>git clone https://github.com/rainbow-mind-machine/rainbow-mind-machine.git
 cd rainbow-mind-machine
 python setup.py build 
 python setup.py install
@@ -690,9 +690,9 @@ or it may be a complicated one
 query a database, call an API, etc.).</p>
 <p>See <a href="../example_flocks"><code>example_flocks/</code></a>.</p>
 <h2 id="bot-master-account">Bot Master Account<a class="headerlink" href="#bot-master-account" title="Permanent link">&para;</a></h2>
-<p>It's good practice to create the Twitter application 
+<p>It's good practice to create the OAuth application 
 you'll be using to run your bot flock under a bot master account.</p>
-<p>Like your Twitter application, the bot master account 
+<p>Like your OAuth application, the bot master account 
 can be used to run as many bot flocks as you would like,
 so you don't need to make it flock-specific.</p>
 <p>This account is also (obviously) not itself a bot,
@@ -700,7 +700,7 @@ so you can use your personal twitter account
 as the bot master account.</p>
 <h2 id="bot-accounts">Bot Accounts<a class="headerlink" href="#bot-accounts" title="Permanent link">&para;</a></h2>
 <p>rainbow mind machine handles everything <em>but</em> the creation of bot accounts. 
-You must have a Twitter account for each bot already created.</p>
+You must already have created a user account for each bot.</p>
 <p>No customization of the bot accounts is needed 
 prior to using rainbow mind machine - 
 rainbow mind machine can take care of setting
@@ -715,19 +715,13 @@ accounts a single application can control.</p>
 accounts themselves.</p>
 <p>This will register your rainbow mind machine bot flock 
 application with Twitter, and give you credentials 
-(a "consumer token" and a "consumer secret token" )
+(one token and one secret token)
 that will allow you to connect to Twitter's API
 as the rainbow mind machine application that you are 
 about to build.</p>
-<p>When you register your application Twitter will give you a consumer key 
-and a consumer secret. Assign these values to the variables <code>consumer_key</code>
-and <code>consumer_secret</code> in the file <code>apikeys.py</code>.</p>
-<div class="codehilite"><pre><span></span>consumer_key    = &#39;123456&#39;
-consumer_secret = &#39;123456&#39;
-</pre></div>
-
-
-<p>See the <code>apikeys.example.py</code> file.</p>
+<p>When you register your application you will get a token
+and a secret token. These are provided to the Keymaker.
+(See <a href="https://pages.charlesreid1.com/boring-mind-machine/">boring mind machine</a>.)</p>
                 
                   
                 
