@@ -2,12 +2,11 @@
 
 ## All the shields
 
-![latest prime number version](https://img.shields.io/badge/latest--prime--number--version-5-blue.svg)
+![latest prime number version](https://img.shields.io/badge/latest--prime--number--version-7-blue.svg)
 
 ![tests-passing](https://img.shields.io/badge/tests-passing-green.svg)
 [![works on my machine](https://img.shields.io/badge/works-on_my_machine-blue.svg)](https://img.shields.io/badge/works-on_my_machine-blue.svg)
 
-[![pypi versions](https://img.shields.io/pypi/pyversions/boringmindmachine.svg)](https://pypi.python.org/pypi/boringmindmachine/) 
 [![PyPI version rainbowmindmachine](https://badge.fury.io/py/rainbowmindmachine.svg)](https://pypi.python.org/pypi/rainbowmindmachine/)
 [![PyPI license](https://img.shields.io/pypi/l/rainbowmindmachine.svg)](https://pypi.python.org/pypi/rainbowmindmachine/)
 [![PyPI implementation](https://img.shields.io/pypi/implementation/rainbowmindmachine.svg)](https://pypi.python.org/pypi/rainbowmindmachine/)
