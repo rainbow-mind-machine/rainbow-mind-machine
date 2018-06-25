@@ -1,5 +1,5 @@
 import boringmindmachine as bmm
-from .RainbowLumberjack import RainbowLumberjack
+from .TwitterSheep import TwitterSheep
 
 """
 rmm.Shepherd
@@ -15,7 +15,7 @@ class TwitterShepherd(bmm.BoringShepherd):
 
     def __init__(self,
             json_keys_dir,
-            sheep_class = bmm.TwitterSheep,
+            sheep_class = TwitterSheep,
             **kwargs):
         """
         This constructor calls the Boring Shepherd constructor.
@@ -24,16 +24,13 @@ class TwitterShepherd(bmm.BoringShepherd):
 
             sheep_class:    Type of Sheep
 
-            kwargs:         Parameters passed on to both the Lumberjack and the Sheep
-
-        kwargs:
-
-            flock_name:     The name of the bot flock (used to format log messages)
-
+            kwargs:         Parameters passed on to the Sheep
         """
-        super().__init__(json_keys_dir, sheep_class=sheep_class, **kwargs)
-        # Create a rainbow lumberjack to set up the logs
-        lumberjack = RainbowLumberjack(**kwargs)
+        super().__init__(
+                json_keys_dir, 
+                sheep_class=sheep_class, 
+                **kwargs
+        )
 
     def _validate_key(self, bot_key, **kwargs):
         """

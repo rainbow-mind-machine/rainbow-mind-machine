@@ -2,12 +2,18 @@
 
 ## All the shields
 
+![latest prime number version](https://img.shields.io/badge/latest--prime--number--version-5-blue.svg)
+
+![tests-passing](https://img.shields.io/badge/tests-passing-green.svg)
 [![works on my machine](https://img.shields.io/badge/works-on_my_machine-blue.svg)](https://img.shields.io/badge/works-on_my_machine-blue.svg)
-[![gh pull requests](https://img.shields.io/github/issues-pr/rainbow-mind-machine/rainbow-mind-machine.svg)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/pull/)
-[![gh pull requests closed](https://img.shields.io/github/issues-pr-closed/rainbow-mind-machine/rainbow-mind-machine.svg)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/pull/)
+
+[![pypi versions](https://img.shields.io/pypi/pyversions/boringmindmachine.svg)](https://pypi.python.org/pypi/boringmindmachine/) 
 [![PyPI version rainbowmindmachine](https://badge.fury.io/py/rainbowmindmachine.svg)](https://pypi.python.org/pypi/rainbowmindmachine/)
 [![PyPI license](https://img.shields.io/pypi/l/rainbowmindmachine.svg)](https://pypi.python.org/pypi/rainbowmindmachine/)
 [![PyPI implementation](https://img.shields.io/pypi/implementation/rainbowmindmachine.svg)](https://pypi.python.org/pypi/rainbowmindmachine/)
+
+[![gh pull requests](https://img.shields.io/github/issues-pr/rainbow-mind-machine/rainbow-mind-machine.svg)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/pull/)
+[![gh pull requests closed](https://img.shields.io/github/issues-pr-closed/rainbow-mind-machine/rainbow-mind-machine.svg)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/pull/)
 [![GitHub issues](https://img.shields.io/github/issues/rainbow-mind-machine/rainbow-mind-machine.svg)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/issues/)
 [![GitHub issues-closed](https://img.shields.io/github/issues-closed/rainbow-mind-machine/rainbow-mind-machine.svg)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/issues?q=is%3Aissue+is%3Aclosed)
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/rainbow-mind-machine/rainbow-mind-machine.svg)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/pull/)
@@ -17,9 +23,9 @@
 [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
 [![Website pages.charlesreid1.com](https://img.shields.io/website-up-down-green-red/https/pages.charlesreid1.com.svg)](https://pages.charlesreid1.com/rainbow-mind-machine)
 
-[![GitHub stars](https://img.shields.io/github/stars/rainbow-mind-machine/rainbow-mind-machine.svg?style=social&label=Star&maxAge=2592000)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/stargazers/)
-
 [![cthulhu](https://img.shields.io/badge/Ph'nglui%20mglw'nafh%20Cthulhu%20R'lyeh%20wgah'nagl%20fhtagn-m'latgh%20gnaiih%20Nyarlathotep%20geb%20Tsathoggua%20bug-blue.svg)](https://en.wikipedia.org/wiki/Cthulhu)
+
+[![GitHub stars](https://img.shields.io/github/stars/rainbow-mind-machine/rainbow-mind-machine.svg?style=social&label=Star&maxAge=2592000)](https://github.com/rainbow-mind-machine/rainbow-mind-machine/stargazers/)
 
 
 ## About 

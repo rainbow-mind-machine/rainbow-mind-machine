@@ -1,3 +1,4 @@
+from .SocialSheep import SocialSheep
 import urllib
 import requests
 import oauth2 as oauth
@@ -6,6 +7,8 @@ import logging
 import os, glob, time
 from datetime import datetime
 from .TwitterSheep import TwitterSheep
+
+from .utils import eprint
 
 class PhotoADaySheep(TwitterSheep):
     """
@@ -152,8 +155,6 @@ class PhotoADaySheep(TwitterSheep):
         # than it could be, but it's relatively simple,
         # and if it ain't broke, don't fix it.
 
-        logger = logging.getLogger('rainbowmindmachine')
-
         remcycle = 120 # sleep (in seconds)
 
         prior_dd = 0
@@ -186,9 +187,9 @@ class PhotoADaySheep(TwitterSheep):
                             twit = tweet_params['message']
 
                         except KeyError:
-                            err = "PhotoADaySheep: Warning: could not find a message, using hello world"
+                            err = "rainbow-mind-machine: PhotoADaySheep: Warning: could not find a message, using hello world"
                             msg = self.timestamp_message(err)
-                            logger.info(msg)
+                            eprint(msg)
 
                             twit = 'Hello world'
 
@@ -198,16 +199,16 @@ class PhotoADaySheep(TwitterSheep):
                             self._print("Testing image tweet: %s"%(media_attachment))
 
                     else:
-                        err = "PhotoADaySheep: Warning: for doy = %d, could not find not find "%(doy)
+                        err = "rainbow-mind-machine: PhotoADaySheep: Warning: for doy = %d, could not find not find "%(doy)
                         err += "the corresponding image %s"%( tweet_params['image_pattern'].format(i=doy) )
                         msg = self.timestamp_message(err)
-                        logger.info(msg)
+                        eprint(msg)
 
                     # Update prior_dd
                     prior_dd = dd
 
-                msg = self.timestamp_message("PhotoADaySheep: Sleeping...")
-                logger.info(msg)
+                msg = self.timestamp_message("rainbow-mind-machine: PhotoADaySheep: Sleeping...")
+                eprint(msg)
 
                 time.sleep(remcycle)
 
@@ -215,17 +216,17 @@ class PhotoADaySheep(TwitterSheep):
 
                 # oops!
 
-                msg1 = self.timestamp_message("PhotoADaySheep: encountered an exception. More info:")
+                msg1 = self.timestamp_message("rainbow-mind-machine: PhotoADaySheep: encountered an exception. More info:")
                 # Fix this:
                 msg2 = self.timestamp_message(str(err))
-                msg3 = self.timestamp_message("PhotoDAaySheep: continuing...")
+                msg3 = self.timestamp_message("rainbow-mind-machine: PhotoDAaySheep: continuing...")
 
                 # Add this line in to debug sheep
                 #raise Exception(err)
 
-                logger.info(msg1)
-                logger.info(msg2)
-                logger.info(msg3)
+                eprint(msg1)
+                eprint(msg2)
+                eprint(msg3)
 
                 time.sleep(remcycle)
 

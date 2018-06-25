@@ -1,7 +1,8 @@
-import logging
 from .SocialSheep import SocialSheep
 from .queneau import DialogueAssembler
 from random import random
+
+from .utils import eprint
 
 """
 Queneau Sheep
@@ -32,9 +33,8 @@ class QueneauSheep(SocialSheep):
 
         tweet_queue = messages
 
-        logger = logging.getLogger('rainbowmindmachine')
-        msg = "QueneauSheep: Finished populating a new tweet queue with %d queneau dialogue tweets."%(len(tweet_queue))
-        logger.info(msg)
+        msg = "rainbow-mind-machine: QueneauSheep: Finished populating a new tweet queue with %d queneau dialogue tweets."%(len(tweet_queue))
+        eprint(msg)
 
         return tweet_queue
 

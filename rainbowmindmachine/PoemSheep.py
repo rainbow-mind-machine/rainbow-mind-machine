@@ -1,5 +1,6 @@
 from .SocialSheep import SocialSheep
-import logging
+
+from .utils import eprint
 
 """
 Poem Sheep
@@ -31,9 +32,8 @@ class PoemSheep(SocialSheep):
 
         tweet_queue = list(lines)
 
-        logger = logging.getLogger('rainbowmindmachine')
-        msg = "PoemSheep: Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue))
-        logger.info(msg)
+        msg = "rainbow-mind-machine: PoemSheep: Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue))
+        eprint(msg)
 
         return tweet_queue
 

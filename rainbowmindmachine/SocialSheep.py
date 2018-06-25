@@ -1,8 +1,9 @@
 from .TwitterSheep import TwitterSheep
 import twitter
-import logging
 import traceback
 import time
+
+from .utils import eprint
 
 """
 Social Sheep
@@ -122,9 +123,8 @@ class SocialSheep(TwitterSheep):
             for u in self.hurd:
                 try:
                     self.api.CreateFriendship(screen_name=u.screen_name)
-                    logger = logging.getLogger('rainbowmindmachine')
-                    msg = "SocialSheep: started following @%s"%(u.screen_name)
-                    logger.info(msg)
+                    msg = "rainbow-mind-machine: SocialSheep: started following @%s"%(u.screen_name)
+                    eprint(msg)
                 except twitter.error.TwitterError:
                     # following ourselves,
                     # or cannot find user
@@ -174,8 +174,6 @@ class SocialSheep(TwitterSheep):
 
         This function never ends, so it never returns.
         """
-        logger = logging.getLogger('rainbowmindmachine')
-
         if('follow' not in kwargs.keys()):
             kwargs['follow'] = False
 
@@ -190,23 +188,23 @@ class SocialSheep(TwitterSheep):
                 self.toilet.flush(**kwargs)
             except Exception:
                 err = "ERROR: SocialSheep encountered exception flush()ing tweets in the Toilet"
-                logger.info(err)
-                logger.info(traceback.format_exc())
+                eprint(err)
+                eprint(traceback.format_exc())
 
             try:
                 self.toilet.favorite()
             except Exception:
                 err = "ERROR: SocialSheep encountered exception favorite()ing tweets in the Toilet"
-                logger.info(err)
-                logger.info(traceback.format_exc())
+                eprint(err)
+                eprint(traceback.format_exc())
 
             if kwargs['follow']:
                 try:
                     self.toilet.follow()
                 except Exception:
                     err = "ERROR: SocialSheep encountered exception follow()ing tweets in the Toilet"
-                    logger.info(err)
-                    logger.info(traceback.format_exc())
+                    eprint(err)
+                    eprint(traceback.format_exc())
 
             time.sleep( kwargs['sleep'] )
 
@@ -226,8 +224,6 @@ class SocialSheep(TwitterSheep):
 
         This function never ends, so it never returns.
         """
-        logger = logging.getLogger('rainbowmindmachine')
-
         if('sleep' not in kwargs.keys()):
             err = "ERROR: called SocialSheep favorite() without search term.\n"
             err += "Specify a search_term kwarg: flush(search_term = '...')"
@@ -239,15 +235,15 @@ class SocialSheep(TwitterSheep):
                 self.toilet.flush(**kwargs)
             except Exception:
                 err = "ERROR: SocialSheep encountered exception flush()ing toilet"
-                logger.info(err)
-                logger.info(traceback.format_exc())
+                eprint(err)
+                eprint(traceback.format_exc())
 
             try:
                 self.toilet.favorite()
             except Exception:
                 err = "ERROR: SocialSheep encountered exception favorite()ing toilet"
-                logger.info(err)
-                logger.info(traceback.format_exc())
+                eprint(err)
+                eprint(traceback.format_exc())
 
             time.sleep( kwargs['sleep'] )
 

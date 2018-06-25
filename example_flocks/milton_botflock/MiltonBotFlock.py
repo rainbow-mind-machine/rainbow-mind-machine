@@ -30,7 +30,7 @@ def img():
     sh.perform_serial_action('change_image')
 
 def tweet():
-    sh = rmm.TwitterShepherd('keys/',sheep_class=rmm.PoemSheep)
+    sh = shepherd()
     sh.perform_parallel_action(
             'tweet',
             publish = False
