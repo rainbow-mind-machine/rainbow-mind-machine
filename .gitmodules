@@ -3,4 +3,4 @@
 	url = https://git.charlesreid1.com/charlesreid1/mkdocs-material.git
 [submodule "docs/mind-machine-docs"]
 	path = docs/mind-machine-docs
-	url = git@github.com:rainbow-mind-machine/mind-machine-docs.git
+	url = https://github.com/rainbow-mind-machine/mind-machine-docs.git
