@@ -68,11 +68,15 @@ class SocialSheep(TwitterSheep):
         ####################################
         # Ok, on with the Toilet class
 
-        def __init__(self, api):
+        def __init__(self, api, **kwargs):
             """
             The Toilet uses the SocialSheep's api and params.
             """
             self.api = api
+            if 'capacity' in kwargs:
+                self.capacity = int(kwargs['capacity'])
+            else:
+                self.capacity = 10
     
         def flush(self, **kwargs):
             """
@@ -89,7 +93,7 @@ class SocialSheep(TwitterSheep):
                 err += "Specify a search_term kwarg: flush(search_term = '...')"
                 raise Exception(err)
 
-            self.bowl = list(self.api.GetSearch(term=search_term,count=10))
+            self.bowl = list(self.api.GetSearch(term=search_term,count=self.capacity))
 
             # self.bowl is a list of Status objects
             # this is really useful:
@@ -106,6 +110,8 @@ class SocialSheep(TwitterSheep):
             for s in self.bowl:
                 try:
                     self.api.CreateFavorite(status=s)
+                    msg = "rainbow-mind-machine: SocialSheep: favorited tweet:\n%s"%(s.text)
+                    eprint(msg)
                 except twitter.error.TwitterError:
                     # already faved
                     pass
@@ -114,6 +120,8 @@ class SocialSheep(TwitterSheep):
             """Retweet every tweet in the toilet"""
             for s in self.bowl:
                 self.api.PostRetweet(status_id=s.id)
+                msg = "rainbow-mind-machine: SocialSheep: retweeted tweet:\n%s"%(s.text)
+                eprint(msg)
 
         def follow(self):
             """
@@ -141,21 +149,24 @@ class SocialSheep(TwitterSheep):
         which sets the Sheep's parameter values.
 
         It then calls a Plumber to install a Toilet.
+
+        kwargs:
+            capacity
         """
         # Call super constructor
         super().__init__(json_file, **kwargs)
 
         # Now call a plumber to have a toilet installed
-        self._call_plumber()
+        self._call_plumber(**kwargs)
 
 
-    def _call_plumber(self):
+    def _call_plumber(self,**kwargs):
         """
         Call a plumber to install a Toilet
         """
         # Toilets take parameters for their search.
         # These come from the SocialSheep's parameters.
-        self.toilet = self.Toilet(self.api)
+        self.toilet = self.Toilet(self.api,**kwargs)
 
 
     def favorite(self, **kwargs):
