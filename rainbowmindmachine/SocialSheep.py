@@ -84,16 +84,18 @@ class SocialSheep(TwitterSheep):
             
             Currently only one parameter:
 
-                search_term     String to search for
+                search_terms     String to search for
             """
-            if 'search_term' in kwargs:
-                search_term = kwargs['search_term']
+            if 'search_terms' in kwargs:
+                search_terms = kwargs['search_terms']
             else:
                 err = "ERROR: called SocialSheep flush() without search term.\n"
-                err += "Specify a search_term kwarg: flush(search_term = '...')"
+                err += "Specify search_terms kwarg: flush(search_terms = '...')"
                 raise Exception(err)
 
-            self.bowl = list(self.api.GetSearch(term=search_term,count=self.capacity))
+            self.bowl = []
+            for search_term in search_terms:
+                self.bowl += list(self.api.GetSearch(term=search_term,count=self.capacity))
 
             # self.bowl is a list of Status objects
             # this is really useful:
@@ -181,7 +183,7 @@ class SocialSheep(TwitterSheep):
         The flush function takes the following parameter:
 
         kwargs:
-            search_term: String to search for
+            search_terms: Strings to search for
 
         This function never ends, so it never returns.
         """
@@ -190,7 +192,7 @@ class SocialSheep(TwitterSheep):
 
         if('sleep' not in kwargs.keys()):
             err = "ERROR: called SocialSheep favorite() without search term.\n"
-            err += "Specify a search_term kwarg: flush(search_term = '...')"
+            err += "Specify search_terms kwarg: flush(search_terms = '...')"
             raise Exception(err)
 
         while True:
@@ -231,13 +233,13 @@ class SocialSheep(TwitterSheep):
         The flush function takes the following parameter:
 
         kwargs:
-            search_term: String to search for
+            search_terms: Strings to search for
 
         This function never ends, so it never returns.
         """
         if('sleep' not in kwargs.keys()):
             err = "ERROR: called SocialSheep favorite() without search term.\n"
-            err += "Specify a search_term kwarg: flush(search_term = '...')"
+            err += "Specify search_terms kwarg: flush(search_terms = '...')"
             raise Exception(err)
 
         while True:
