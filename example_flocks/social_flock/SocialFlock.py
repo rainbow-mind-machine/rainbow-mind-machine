@@ -13,7 +13,7 @@ def setup():
     k.set_apikeys_file('apikeys.json')
     k.make_a_key(
             name = 'social_bot',
-            json_name = 'social_bot.json',
+            json_target = 'social_bot.json',
             keys_out_dir = 'keys'
         )
 
@@ -38,12 +38,12 @@ def favorite():
     sh = shepherd()
     sh.perform_parallel_action(
             'favorite',
-            sleep = 60,
-            search_term = '#rainbowmindmachine'
+            sleep = 10,
+            search_terms = ['#rainbowmindmachine','@rmm_1b64538']
     )
 
 if __name__=="__main__":
     #setup()
-    tweet()
-    #favorite()
+    #tweet()
+    favorite()
 
