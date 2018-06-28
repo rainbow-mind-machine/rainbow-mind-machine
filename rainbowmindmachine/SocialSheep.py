@@ -145,7 +145,6 @@ class SocialSheep(TwitterSheep):
                     pass
 
 
-
     #############################################
     # Ok, on with the SocialSheep class
 
@@ -196,7 +195,7 @@ class SocialSheep(TwitterSheep):
 
         if('sleep' not in kwargs.keys()):
             err = "ERROR: called SocialSheep favorite() without search term.\n"
-            err += "Specify search_terms kwarg: flush(search_terms = '...')"
+            err += "Specify search_terms kwarg: flush(search_terms = ['a','b',...])"
             raise Exception(err)
 
         while True:
@@ -264,15 +263,53 @@ class SocialSheep(TwitterSheep):
 
             time.sleep( kwargs['sleep'] )
 
-    def retweet(self):
+    def retweet(self, **kwargs):
         """
         Retweet all the tweets in the toilet
-        """
-        self.toilet.retweet()
 
-    def follow(self):
+        kwargs:
+            sleep: Time to sleep between flushes
+            follow: boolean, should we follow all the tweeters in the toilet
+
+        The call to flush passes along all of the parameters. 
+        The flush function takes the following parameter:
+
+        kwargs:
+            search_terms: Strings to search for
+
+        This function never ends, so it never returns.
         """
-        Follow all the users in the toilet
-        """
-        self.toilet.follow()
+        if('follow' not in kwargs.keys()):
+            kwargs['follow'] = False
+
+        if('sleep' not in kwargs.keys()):
+            err = "ERROR: called SocialSheep retweet() without search term.\n"
+            err += "Specify search_terms kwarg: flush(search_terms = ['a','b',...])"
+            raise Exception(err)
+
+        while True:
+
+            try:
+                self.toilet.flush(**kwargs)
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception flush()ing tweets in the Toilet"
+                eprint(err)
+                eprint(traceback.format_exc())
+
+            try:
+                self.toilet.retweet()
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception retweet()ing tweets in the Toilet"
+                eprint(err)
+                eprint(traceback.format_exc())
+
+            if kwargs['follow']:
+                try:
+                    self.toilet.follow()
+                except Exception:
+                    err = "ERROR: SocialSheep encountered exception follow()ing tweets in the Toilet"
+                    eprint(err)
+                    eprint(traceback.format_exc())
+
+            time.sleep( kwargs['sleep'] )
 
