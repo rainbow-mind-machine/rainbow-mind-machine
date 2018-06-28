@@ -121,9 +121,13 @@ class SocialSheep(TwitterSheep):
         def retweet(self):
             """Retweet every tweet in the toilet"""
             for s in self.bowl:
-                self.api.PostRetweet(status_id=s.id)
-                msg = "rainbow-mind-machine: SocialSheep: retweeted tweet:\n%s"%(s.text)
-                eprint(msg)
+                try:
+                    self.api.PostRetweet(status_id=s.id)
+                    msg = "rainbow-mind-machine: SocialSheep: retweeted tweet:\n%s"%(s.text)
+                    eprint(msg)
+                except:
+                    # o noes!!! keep going
+                    pass
 
         def follow(self):
             """
