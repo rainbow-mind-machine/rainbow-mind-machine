@@ -2,6 +2,7 @@ from .TwitterSheep import TwitterSheep
 import twitter
 import traceback
 import time
+from datetime import datetime, timedelta
 
 from .utils import eprint
 
@@ -73,10 +74,6 @@ class SocialSheep(TwitterSheep):
             The Toilet uses the SocialSheep's api and params.
             """
             self.api = api
-            if 'capacity' in kwargs:
-                self.capacity = int(kwargs['capacity'])
-            else:
-                self.capacity = 10
     
         def flush(self, **kwargs):
             """
@@ -86,21 +83,54 @@ class SocialSheep(TwitterSheep):
 
                 search_terms     String to search for
             """
+            # search terms, hashtags, and handles to look for
             if 'search_terms' in kwargs:
                 search_terms = kwargs['search_terms']
             else:
                 err = "ERROR: called SocialSheep flush() without search term.\n"
-                err += "Specify search_terms kwarg: flush(search_terms = '...')"
+                err += "Specify search_terms kwarg: flush(search_terms = ['a', 'b', ... ])" 
                 raise Exception(err)
 
+            # capacity should be specified at each flush
+            if 'capacity' in kwargs:
+                self.capacity = int(kwargs['capacity'])
+                #msg = "rainbow-mind-machine: SocialSheep: Flushing Toilet with capacity %s"%(self.capacity)
+                #eprint(msg)
+            else:
+                self.capacity = 10
+                #msg = "rainbow-mind-machine: SocialSheep: Flushing Toilet with default capacity %s"%(self.capacity)
+                #eprint(msg)
+
             self.bowl = []
+            ago = datetime.today() - timedelta(days=2)
+            ago = ago.strftime("%Y-%m-%d")
             for search_term in search_terms:
-                self.bowl += list(self.api.GetSearch(term=search_term,count=self.capacity))
+                try:
+                    results = self.api.GetSearch(
+                                term = search_term,
+                                count = self.capacity,
+                                since = ago
+                    )
+
+                    filtered_results = []
+                    for j in results:
+                        if (j.user.screen_name!='nih_dcppc') or (j.text[0:2]!='RT') or (j.text[0]!="@"):
+                            filtered_results.append(j)
+                    self.bowl += filtered_results
+
+                except:
+                    msg = "rainbow-mind-machine: SocialSheep: search for term %s failed."%(search_term)
+                    eprint(msg)
+
+            for s in self.bowl:
+                if s.user is 'charlesreid1.dib':
+                    eprint("FOUND IT")
+            self.bowl.sort(key=lambda x: x.id, reverse=True)
 
             # self.bowl is a list of Status objects
             # this is really useful:
             # http://python-twitter.readthedocs.io/en/latest/_modules/twitter/models.html#Status
-            # 
+
             # a BurdHurd is just a list of usernames
             # pulled straight out of the toilet.
             self.hurd = self.BurdHurd()
@@ -123,7 +153,7 @@ class SocialSheep(TwitterSheep):
             for s in self.bowl:
                 try:
                     self.api.PostRetweet(status_id=s.id)
-                    msg = "rainbow-mind-machine: SocialSheep: retweeted tweet:\n%s"%(s.text)
+                    msg = "rainbow-mind-machine: SocialSheep: retweeted tweet:\n%s\n"%(s.text)
                     eprint(msg)
                 except:
                     # o noes!!! keep going
@@ -137,7 +167,7 @@ class SocialSheep(TwitterSheep):
             for u in self.hurd:
                 try:
                     self.api.CreateFriendship(screen_name=u.screen_name)
-                    msg = "rainbow-mind-machine: SocialSheep: started following @%s"%(u.screen_name)
+                    msg = "rainbow-mind-machine: SocialSheep: started following @%s\n"%(u.screen_name)
                     eprint(msg)
                 except twitter.error.TwitterError:
                     # following ourselves,
@@ -242,7 +272,7 @@ class SocialSheep(TwitterSheep):
         """
         if('sleep' not in kwargs.keys()):
             err = "ERROR: called SocialSheep favorite() without search term.\n"
-            err += "Specify search_terms kwarg: flush(search_terms = '...')"
+            err += "Specify search_terms kwarg: flush(search_terms = ['a', 'b', ...])"
             raise Exception(err)
 
         while True:
