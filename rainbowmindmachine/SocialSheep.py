@@ -85,6 +85,10 @@ class SocialSheep(TwitterSheep):
             Currently only one parameter:
 
                 search_terms     String to search for
+
+                ignore_threads  Whether to :ignore: tweets that occur somewhere
+                                inside (potentially long) threads
+
             """
             if 'search_terms' in kwargs:
                 search_terms = kwargs['search_terms']
@@ -93,13 +97,35 @@ class SocialSheep(TwitterSheep):
                 err += "Specify search_terms kwarg: flush(search_terms = '...')"
                 raise Exception(err)
 
+            if 'ignore_threads' in kwargs:
+                ignore_threads = kwargs['ignore_threads']
+            else:
+                # be safe
+                ignore_threads = True
+
+
             self.bowl = []
             for search_term in search_terms:
-                self.bowl += list(self.api.GetSearch(term=search_term,count=self.capacity))
+
+                if ignore_threads:
+
+                    # filter tweets that have an "in_reply_to_status_id" field
+                    for tweet in self.api.GetSearch( term=search_term,
+                                                     count=self.capacity):
+                        
+                        if tweet.in_reply_to_status_id is None:
+                            self.bowl.append(tweet)
+
+                else:
+
+                    # grab every tweet
+                    self.bowl += list(self.api.GetSearch(term=search_term,count=self.capacity))
 
             # self.bowl is a list of Status objects
             # this is really useful:
             # http://python-twitter.readthedocs.io/en/latest/_modules/twitter/models.html#Status
+            # so is this:
+            # https://github.com/bear/python-twitter/blob/e17af0e67b7270ae448908ad44235d03562509eb/twitter/models.py
             # 
             # a BurdHurd is just a list of usernames
             # pulled straight out of the toilet.
