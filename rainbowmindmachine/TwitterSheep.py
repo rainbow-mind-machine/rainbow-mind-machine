@@ -76,7 +76,6 @@ class TwitterSheep(bmm.BoringSheep):
 
         # Set names
         self.name = bot_key['screen_name']
-        self.flock_name = bot_key['flock_name']
 
         msg = "rainbow-mind-machine: TwitterSheep: Set up Twitter API for bot {screen_name}"
         msg = msg.format(screen_name=self.params['screen_name'])
