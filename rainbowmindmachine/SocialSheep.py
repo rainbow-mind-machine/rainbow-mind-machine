@@ -118,8 +118,14 @@ class SocialSheep(TwitterSheep):
 
                 for tweet in results:
 
+                    # Always ignore retweets
                     not_retweet = tweet.text[0:2]!='RT' and tweet.in_reply_to_status_id is None
+
+                    # Allow bot to ignore list of specific users
                     not_ignore_by = tweet.user.screen_name not in ignore_by
+
+                    # Ensure the tweet actually has the search term, b/c 
+                    # people at Twitter don't know what "search" means
                     has_search_term = search_term in tweet.text
 
                     if not_retweet:
@@ -130,6 +136,7 @@ class SocialSheep(TwitterSheep):
             # self.bowl is a list of Status objects
             # this is really useful:
             # http://python-twitter.readthedocs.io/en/latest/_modules/twitter/models.html#Status
+            # 
             # so is this:
             # https://github.com/bear/python-twitter/blob/e17af0e67b7270ae448908ad44235d03562509eb/twitter/models.py
             # 
@@ -259,44 +266,6 @@ class SocialSheep(TwitterSheep):
             time.sleep( kwargs['sleep'] )
 
 
-    def follow(self, **kwargs):
-        """
-        Follow all the tweeters in the toilet
-
-        kwargs:
-            sleep: Time to sleep between flushes
-
-        Call to flush passes along all of the parameters. 
-        The flush function takes the following parameter:
-
-        kwargs:
-            search_terms: Strings to search for
-
-        This function never ends, so it never returns.
-        """
-        if('sleep' not in kwargs.keys()):
-            err = "ERROR: called SocialSheep favorite() without search term.\n"
-            err += "Specify search_terms kwarg: flush(search_terms = '...')"
-            raise Exception(err)
-
-        while True:
-
-            try:
-                self.toilet.flush(**kwargs)
-            except Exception:
-                err = "ERROR: SocialSheep encountered exception flush()ing toilet"
-                eprint(err)
-                eprint(traceback.format_exc())
-
-            try:
-                self.toilet.favorite()
-            except Exception:
-                err = "ERROR: SocialSheep encountered exception favorite()ing toilet"
-                eprint(err)
-                eprint(traceback.format_exc())
-
-            time.sleep( kwargs['sleep'] )
-
     def retweet(self, **kwargs):
         """
         Retweet all the tweets in the toilet
@@ -344,6 +313,45 @@ class SocialSheep(TwitterSheep):
                     err = "ERROR: SocialSheep encountered exception follow()ing tweets in the Toilet"
                     eprint(err)
                     eprint(traceback.format_exc())
+
+            time.sleep( kwargs['sleep'] )
+
+
+    def follow(self, **kwargs):
+        """
+        Follow all the tweeters in the toilet
+
+        kwargs:
+            sleep: Time to sleep between flushes
+
+        Call to flush passes along all of the parameters. 
+        The flush function takes the following parameter:
+
+        kwargs:
+            search_terms: Strings to search for
+
+        This function never ends, so it never returns.
+        """
+        if('sleep' not in kwargs.keys()):
+            err = "ERROR: called SocialSheep favorite() without search term.\n"
+            err += "Specify search_terms kwarg: flush(search_terms = '...')"
+            raise Exception(err)
+
+        while True:
+
+            try:
+                self.toilet.flush(**kwargs)
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception flush()ing toilet"
+                eprint(err)
+                eprint(traceback.format_exc())
+
+            try:
+                self.toilet.favorite()
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception favorite()ing toilet"
+                eprint(err)
+                eprint(traceback.format_exc())
 
             time.sleep( kwargs['sleep'] )
 
