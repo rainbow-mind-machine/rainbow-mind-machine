@@ -142,7 +142,8 @@ class SocialSheep(TwitterSheep):
             for s in self.bowl:
                 try:
                     self.api.PostRetweet(status_id=s.id)
-                    msg = "rainbow-mind-machine: SocialSheep: retweeted tweet:\n%s"%(s.text)
+                    msg = "rainbow-mind-machine: SocialSheep: retweeted tweet:\n"
+                    msg += " [@%s] : %s\n"%(s.user.screen_name, s.text)
                     eprint(msg)
                 except:
                     # o noes!!! keep going
@@ -156,7 +157,7 @@ class SocialSheep(TwitterSheep):
             for u in self.hurd:
                 try:
                     self.api.CreateFriendship(screen_name=u.screen_name)
-                    msg = "rainbow-mind-machine: SocialSheep: started following @%s"%(u.screen_name)
+                    msg = "rainbow-mind-machine: SocialSheep: started following @%s\n"%(u.screen_name)
                     eprint(msg)
                 except twitter.error.TwitterError:
                     # following ourselves,
