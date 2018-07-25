@@ -76,7 +76,7 @@ class SocialSheep(TwitterSheep):
             if 'capacity' in kwargs:
                 self.capacity = int(kwargs['capacity'])
             else:
-                self.capacity = 10
+                self.capacity = 100
     
         def flush(self, **kwargs):
             """
@@ -97,29 +97,22 @@ class SocialSheep(TwitterSheep):
                 err += "Specify search_terms kwarg: flush(search_terms = '...')"
                 raise Exception(err)
 
-            if 'ignore_threads' in kwargs:
-                ignore_threads = kwargs['ignore_threads']
+            if 'ignore_by' in kwargs:
+                ignore_by = kwargs['ignore_by']
             else:
-                # be safe
-                ignore_threads = True
+                ignore_by = []
 
 
             self.bowl = []
             for search_term in search_terms:
 
-                if ignore_threads:
-
-                    # filter tweets that have an "in_reply_to_status_id" field
-                    for tweet in self.api.GetSearch( term=search_term,
-                                                     count=self.capacity):
-                        
-                        if tweet.in_reply_to_status_id is None:
+                results = self.api.GetSearch( term=search_term,
+                                              count=self.capacity)
+                for tweet in results:
+                    not_retweet = tweet.text[0:2]!='RT' and tweet.in_reply_to_status_id is None
+                    if not_retweet:
+                        if tweet.user.screen_name not in ignore_by:
                             self.bowl.append(tweet)
-
-                else:
-
-                    # grab every tweet
-                    self.bowl += list(self.api.GetSearch(term=search_term,count=self.capacity))
 
             # self.bowl is a list of Status objects
             # this is really useful:
@@ -182,7 +175,7 @@ class SocialSheep(TwitterSheep):
         It then calls a Plumber to install a Toilet.
 
         kwargs:
-            capacity
+            capacity        Number of tweets in the toilet
         """
         # Call super constructor
         super().__init__(json_file, **kwargs)
