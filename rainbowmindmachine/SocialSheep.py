@@ -102,17 +102,30 @@ class SocialSheep(TwitterSheep):
             else:
                 ignore_by = []
 
+            def stripat(s):
+                if s[0]=='@':
+                    return s[1:]
+                else:
+                    return s
+            
+            ignore_by = [stripat(j) for j in ignore_by]
 
             self.bowl = []
             for search_term in search_terms:
 
                 results = self.api.GetSearch( term=search_term,
                                               count=self.capacity)
+
                 for tweet in results:
+
                     not_retweet = tweet.text[0:2]!='RT' and tweet.in_reply_to_status_id is None
+                    not_ignore_by = tweet.user.screen_name not in ignore_by
+                    has_search_term = search_term in tweet.text
+
                     if not_retweet:
-                        if tweet.user.screen_name not in ignore_by:
-                            self.bowl.append(tweet)
+                        if not_ignore_by:
+                            if has_search_term:
+                                self.bowl.append(tweet)
 
             # self.bowl is a list of Status objects
             # this is really useful:
@@ -131,7 +144,8 @@ class SocialSheep(TwitterSheep):
             for s in self.bowl:
                 try:
                     self.api.CreateFavorite(status=s)
-                    msg = "rainbow-mind-machine: SocialSheep: favorited tweet:\n%s"%(s.text)
+                    msg = "rainbow-mind-machine: SocialSheep: favorited tweet:\n"
+                    msg += " [@%s] : %s\n"%(s.user.screen_name, s.text)
                     eprint(msg)
                 except twitter.error.TwitterError:
                     # already faved
