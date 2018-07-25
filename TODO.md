@@ -1,5 +1,29 @@
 # TODO
 
+
+# The New Todo
+
+
+better logging, facilitate error messages and communication
+
+if twitter shuts down write actions for RTs, we need to know
+
+where do the twitter bots log to???
+* stderr is maybe the right solution, but what about lucky-penny logs??
+* logging module in python is a miserable mess.
+* best: slack log, so we dogfood our own bots and quiet them down
+* email log, sms log, slack log
+
+this ties in with some other goals:
+* scripts that email, scripts that sms, scripts that slack
+
+
+<br />
+<br />
+<br />
+
+# The Old TODO
+
 ## what rmm is not
 
 not a do-everything-for-one-account framework
