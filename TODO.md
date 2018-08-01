@@ -1,5 +1,32 @@
 # TODO
 
+
+
+## logging
+
+get back into this.
+
+logs are spewing out "following X" when we are already following X
+
+in rainbow mind machine, we want to be able to say,
+this bot flock should report to this logging object.
+
+the logging object offers different channels.
+for example, an errors channel, a notification channel,
+a messages/tweets channel, etc.
+
+if there are any urgent problems, with the bot flock,
+those go to the errors channel. the errors channel
+should be set up with a slack webhook for a slack channel,
+or set up to dump errors to a log file, or whatevs.
+
+if there are less urgent messages, those should not be 
+sent to the same place or handled the same way.
+trying to rescue important information from the logs.
+
+
+
+
 ## what rmm is not
 
 not a do-everything-for-one-account framework
