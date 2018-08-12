@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://pages.charlesreid1.com/rainbow-mind-machine/credits/">
+        <link rel="canonical" href="https://pages.charlesreid1.com/rainbow-mind-machine/dev-workflow/">
       
       
       
@@ -38,7 +38,7 @@
     
     
       
-        <title>Credits - rainbow mind machine</title>
+        <title>Dev Workflow - rainbow mind machine</title>
       
     
     
@@ -102,7 +102,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../#credits" tabindex="1" class="md-skip">
+      <a href="../#dev-workflow" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -128,7 +128,7 @@
                 rainbow mind machine
               </span>
               <span class="md-header-nav__topic">
-                Credits
+                Dev Workflow
               </span>
             
           
@@ -350,12 +350,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
     <label class="md-nav__link" for="nav-3">
       Rainbow Mind Machine
@@ -515,20 +513,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" title="Credits" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../credits/" title="Credits" class="md-nav__link">
       Credits
     </a>
-    
   </li>
 
         
@@ -613,12 +602,94 @@
               
                 
                 
-                <h1 id="credits">Credits<a class="headerlink" href="#credits" title="Permanent link">&para;</a></h1>
-<p>Most of the magic in rainbow mind machine happens via the excellent
-<a href="https://github.com/bear/python-twitter">bear/python-twitter</a> library.</p>
-<p>All of the amazing artwork is available via the Creative Commons License
-compliments of user <a href="https://www.flickr.com/photos/russloar/">@russloar</a> 
-on flickr.  </p>
+                <h1 id="dev-workflow">Dev Workflow<a class="headerlink" href="#dev-workflow" title="Permanent link">&para;</a></h1>
+<h1 id="documentation-workflow">Documentation Workflow<a class="headerlink" href="#documentation-workflow" title="Permanent link">&para;</a></h1>
+<p>To get a copy of the documentation locally:</p>
+<h2 id="the-lazy-way">The Lazy Way<a class="headerlink" href="#the-lazy-way" title="Permanent link">&para;</a></h2>
+<p>Checkout a copy of the <code>gh-pages</code> branch.</p>
+<h2 id="building-documentation">Building Documentation<a class="headerlink" href="#building-documentation" title="Permanent link">&para;</a></h2>
+<p>To generate documentation locally,
+you will need mkdocs:</p>
+<div class="codehilite"><pre><span></span>pip install mkdocs
+</pre></div>
+
+
+<p>To make the documentation, execute the <code>mkdocs build</code>
+command from the main repository to build the site 
+into the directory <code>source/</code>:</p>
+<div class="codehilite"><pre><span></span>mkdocs build
+</pre></div>
+
+
+<p>To start a web server, use a lightweight python http server:</p>
+<div class="codehilite"><pre><span></span>cd source/
+python -m http.server 8000
+</pre></div>
+
+
+<p>or use mkdocs:</p>
+<div class="codehilite"><pre><span></span>mkdocs serve
+</pre></div>
+
+
+<h1 id="bug-fix-workflow">Bug Fix Workflow<a class="headerlink" href="#bug-fix-workflow" title="Permanent link">&para;</a></h1>
+<p>Workflow for propagating bug fixes and additions.</p>
+<h2 id="branch-workflow">Branch workflow<a class="headerlink" href="#branch-workflow" title="Permanent link">&para;</a></h2>
+<p>Branch workflow:</p>
+<ul>
+<li>development takes place on various feature branches</li>
+<li>the <code>master</code> branch contains the latest (unstable) code</li>
+<li>use tags to release particular versions</li>
+</ul>
+<h2 id="tags-workflow">Tags workflow<a class="headerlink" href="#tags-workflow" title="Permanent link">&para;</a></h2>
+<p>Tags workflow:</p>
+<ul>
+<li>When you've tested that everything is good to go:</li>
+<li>Increment version number in <code>setup.py</code></li>
+<li>Update changelog</li>
+<li>Create tag for release</li>
+</ul>
+<p>Create tag command:</p>
+<div class="codehilite"><pre><span></span>git tag -a vX.Y -m &#39;rainbow mind machine X.Y&#39;
+</pre></div>
+
+
+<h2 id="pypy-process">Pypy process<a class="headerlink" href="#pypy-process" title="Permanent link">&para;</a></h2>
+<p>Pypi process:</p>
+<ul>
+<li>One-time: set up your .pypirc</li>
+<li>Make the package bundle</li>
+<li>Upload the package bundle to Pypi</li>
+<li>Test the package with virtualenv</li>
+</ul>
+<h2 id="dockerhub-process">Dockerhub process<a class="headerlink" href="#dockerhub-process" title="Permanent link">&para;</a></h2>
+<p>Create automated build</p>
+<p>Set up Dockerhub webhook endpoint in the Github repo,
+so that committing to Github will trigger a Dockerhub
+build.</p>
+<h1 id="testing-workflow">Testing Workflow<a class="headerlink" href="#testing-workflow" title="Permanent link">&para;</a></h1>
+<p>To run tests with nose, run the following command
+from the main repo directory:</p>
+<div class="codehilite"><pre><span></span>$ nosetests -v
+</pre></div>
+
+
+<p>To run without capturing stdout:</p>
+<div class="codehilite"><pre><span></span>$ nosetests --nocapture
+</pre></div>
+
+
+<p>To run one set of tests in a given test file, 
+use the syntax:</p>
+<div class="codehilite"><pre><span></span>$ nosetests tests.test_keymaker
+</pre></div>
+
+
+<p>To run one specific test, use the syntax
+<code>module.path:ClassNameInFile.method_name</code>
+<a href="https://stackoverflow.com/a/3704797">(hat tip)</a>.</p>
+<div class="codehilite"><pre><span></span>$ nosetests tests.test_shepherd:TestShepherd.test_shepherd
+</pre></div>
                 
                   
                 
@@ -635,41 +706,6 @@ on flickr.  </p>
       
         
 <footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-        
-          <a href="../future/" title="Future Work and Ideas" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Future Work and Ideas
-              </span>
-            </div>
-          </a>
-        
-        
-          <a href="../contributing/" title="Contributing" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Contributing
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
