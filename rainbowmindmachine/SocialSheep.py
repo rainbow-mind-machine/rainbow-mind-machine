@@ -178,8 +178,6 @@ class SocialSheep(TwitterSheep):
             for u in self.hurd:
                 try:
                     self.api.CreateFriendship(screen_name=u.screen_name)
-                    msg = "rainbow-mind-machine: SocialSheep: started following @%s\n"%(u.screen_name)
-                    eprint(msg)
                 except twitter.error.TwitterError:
                     # following ourselves,
                     # or cannot find user
