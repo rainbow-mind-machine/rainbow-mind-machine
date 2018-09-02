@@ -76,7 +76,7 @@ class SocialSheep(TwitterSheep):
             if 'capacity' in kwargs:
                 self.capacity = int(kwargs['capacity'])
             else:
-                self.capacity = 10
+                self.capacity = 100
     
         def flush(self, **kwargs):
             """
@@ -97,33 +97,46 @@ class SocialSheep(TwitterSheep):
                 err += "Specify search_terms kwarg: flush(search_terms = '...')"
                 raise Exception(err)
 
-            if 'ignore_threads' in kwargs:
-                ignore_threads = kwargs['ignore_threads']
+            if 'ignore_by' in kwargs:
+                ignore_by = kwargs['ignore_by']
             else:
-                # be safe
-                ignore_threads = True
+                ignore_by = []
 
+            def stripat(s):
+                if s[0]=='@':
+                    return s[1:]
+                else:
+                    return s
+            
+            ignore_by = [stripat(j) for j in ignore_by]
 
             self.bowl = []
             for search_term in search_terms:
 
-                if ignore_threads:
+                results = self.api.GetSearch( term=search_term,
+                                              count=self.capacity)
 
-                    # filter tweets that have an "in_reply_to_status_id" field
-                    for tweet in self.api.GetSearch( term=search_term,
-                                                     count=self.capacity):
-                        
-                        if tweet.in_reply_to_status_id is None:
-                            self.bowl.append(tweet)
+                for tweet in results:
 
-                else:
+                    # Always ignore retweets
+                    not_retweet = tweet.text[0:2]!='RT' and tweet.in_reply_to_status_id is None
 
-                    # grab every tweet
-                    self.bowl += list(self.api.GetSearch(term=search_term,count=self.capacity))
+                    # Allow bot to ignore list of specific users
+                    not_ignore_by = tweet.user.screen_name not in ignore_by
+
+                    # Ensure the tweet actually has the search term, b/c 
+                    # people at Twitter don't know what "search" means
+                    has_search_term = search_term in tweet.text
+
+                    if not_retweet:
+                        if not_ignore_by:
+                            if has_search_term:
+                                self.bowl.append(tweet)
 
             # self.bowl is a list of Status objects
             # this is really useful:
             # http://python-twitter.readthedocs.io/en/latest/_modules/twitter/models.html#Status
+            # 
             # so is this:
             # https://github.com/bear/python-twitter/blob/e17af0e67b7270ae448908ad44235d03562509eb/twitter/models.py
             # 
@@ -138,7 +151,8 @@ class SocialSheep(TwitterSheep):
             for s in self.bowl:
                 try:
                     self.api.CreateFavorite(status=s)
-                    msg = "rainbow-mind-machine: SocialSheep: favorited tweet:\n%s"%(s.text)
+                    msg = "rainbow-mind-machine: SocialSheep: favorited tweet:\n"
+                    msg += " [@%s] : %s\n"%(s.user.screen_name, s.text)
                     eprint(msg)
                 except twitter.error.TwitterError:
                     # already faved
@@ -149,7 +163,8 @@ class SocialSheep(TwitterSheep):
             for s in self.bowl:
                 try:
                     self.api.PostRetweet(status_id=s.id)
-                    msg = "rainbow-mind-machine: SocialSheep: retweeted tweet:\n%s"%(s.text)
+                    msg = "rainbow-mind-machine: SocialSheep: retweeted tweet:\n"
+                    msg += " [@%s] : %s\n"%(s.user.screen_name, s.text)
                     eprint(msg)
                 except:
                     # o noes!!! keep going
@@ -163,7 +178,7 @@ class SocialSheep(TwitterSheep):
             for u in self.hurd:
                 try:
                     self.api.CreateFriendship(screen_name=u.screen_name)
-                    msg = "rainbow-mind-machine: SocialSheep: started following @%s"%(u.screen_name)
+                    msg = "rainbow-mind-machine: SocialSheep: started following @%s\n"%(u.screen_name)
                     eprint(msg)
                 except twitter.error.TwitterError:
                     # following ourselves,
@@ -182,7 +197,7 @@ class SocialSheep(TwitterSheep):
         It then calls a Plumber to install a Toilet.
 
         kwargs:
-            capacity
+            capacity        Number of tweets in the toilet
         """
         # Call super constructor
         super().__init__(json_file, **kwargs)
@@ -251,44 +266,6 @@ class SocialSheep(TwitterSheep):
             time.sleep( kwargs['sleep'] )
 
 
-    def follow(self, **kwargs):
-        """
-        Follow all the tweeters in the toilet
-
-        kwargs:
-            sleep: Time to sleep between flushes
-
-        Call to flush passes along all of the parameters. 
-        The flush function takes the following parameter:
-
-        kwargs:
-            search_terms: Strings to search for
-
-        This function never ends, so it never returns.
-        """
-        if('sleep' not in kwargs.keys()):
-            err = "ERROR: called SocialSheep favorite() without search term.\n"
-            err += "Specify search_terms kwarg: flush(search_terms = '...')"
-            raise Exception(err)
-
-        while True:
-
-            try:
-                self.toilet.flush(**kwargs)
-            except Exception:
-                err = "ERROR: SocialSheep encountered exception flush()ing toilet"
-                eprint(err)
-                eprint(traceback.format_exc())
-
-            try:
-                self.toilet.favorite()
-            except Exception:
-                err = "ERROR: SocialSheep encountered exception favorite()ing toilet"
-                eprint(err)
-                eprint(traceback.format_exc())
-
-            time.sleep( kwargs['sleep'] )
-
     def retweet(self, **kwargs):
         """
         Retweet all the tweets in the toilet
@@ -336,6 +313,45 @@ class SocialSheep(TwitterSheep):
                     err = "ERROR: SocialSheep encountered exception follow()ing tweets in the Toilet"
                     eprint(err)
                     eprint(traceback.format_exc())
+
+            time.sleep( kwargs['sleep'] )
+
+
+    def follow(self, **kwargs):
+        """
+        Follow all the tweeters in the toilet
+
+        kwargs:
+            sleep: Time to sleep between flushes
+
+        Call to flush passes along all of the parameters. 
+        The flush function takes the following parameter:
+
+        kwargs:
+            search_terms: Strings to search for
+
+        This function never ends, so it never returns.
+        """
+        if('sleep' not in kwargs.keys()):
+            err = "ERROR: called SocialSheep favorite() without search term.\n"
+            err += "Specify search_terms kwarg: flush(search_terms = '...')"
+            raise Exception(err)
+
+        while True:
+
+            try:
+                self.toilet.flush(**kwargs)
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception flush()ing toilet"
+                eprint(err)
+                eprint(traceback.format_exc())
+
+            try:
+                self.toilet.favorite()
+            except Exception:
+                err = "ERROR: SocialSheep encountered exception favorite()ing toilet"
+                eprint(err)
+                eprint(traceback.format_exc())
 
             time.sleep( kwargs['sleep'] )
 
