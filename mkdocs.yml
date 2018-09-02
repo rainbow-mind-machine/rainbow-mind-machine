@@ -4,7 +4,7 @@ repo_name: rainbow-mind-machine
 repo_url: https://github.com/rainbow-mind-machine/rainbow-mind-machine
 edit_uri: ""
 
-pages:
+nav:
   - 'Home':         'index.md'
 
   - 'Mind Machine Framework':
@@ -100,3 +100,9 @@ markdown_extensions:
       guess_lang: false
   - toc:
       permalink: true
+
+
+strict: true
+
+
+strict: true
