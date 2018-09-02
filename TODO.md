@@ -1,30 +1,25 @@
-# TODO
+## The New Todo
 
 
+better logging, facilitate error messages and communication
 
-## logging
+if twitter shuts down write actions for RTs, we need to know
 
-get back into this.
+where do the twitter bots log to???
+* stderr is maybe the right solution, but what about lucky-penny logs??
+* logging module in python is a miserable mess.
+* best: slack log, so we dogfood our own bots and quiet them down
+* email log, sms log, slack log
 
-logs are spewing out "following X" when we are already following X
-
-in rainbow mind machine, we want to be able to say,
-this bot flock should report to this logging object.
-
-the logging object offers different channels.
-for example, an errors channel, a notification channel,
-a messages/tweets channel, etc.
-
-if there are any urgent problems, with the bot flock,
-those go to the errors channel. the errors channel
-should be set up with a slack webhook for a slack channel,
-or set up to dump errors to a log file, or whatevs.
-
-if there are less urgent messages, those should not be 
-sent to the same place or handled the same way.
-trying to rescue important information from the logs.
+this ties in with some other goals:
+* scripts that email, scripts that sms, scripts that slack
 
 
+<br />
+<br />
+<br />
+
+# The Old TODO
 
 
 ## what rmm is not

@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0).
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# Version 17
+
+- fixed the way that social sheep collect tweets
+    - check that it is not a thread/retweet/subtweet
+    - add hanlde back in
+    - better error messages, better cleanup
+    - more information
+
+- revisiting the problem:
+    - why did this happen?
+    - the twitter overlords determined the application we were using
+      had credentials that were too new, and we needed to be verified
+    - solution: use my better, older credentials
+    - the real problem was that the bot failed to log and commnicate
+    - where is the log file anyway?
+    - we need to open up better logging and channels of communication
+    - even if it is just irregular slack messages every once and a while
+    - add this infrastructure to #alerts 
+
+
 # [Planned for 1.0]
 
 See [TODO.md](/TODO.md).
