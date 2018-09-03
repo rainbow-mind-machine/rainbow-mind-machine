@@ -1,4 +1,5 @@
 from .SocialSheep import SocialSheep
+import traceback
 import urllib
 import requests
 import oauth2 as oauth
@@ -51,6 +52,7 @@ class PhotoADaySheep(TwitterSheep):
             err = "Error: Do not call the 'tweet' action on "
             err += "PhotoADaySheep directly. Call the 'photo_a_day' "
             err += "action instead."
+            logging.error(err)
             raise Exception(err)
 
         # Use the dispatcher method pattern
@@ -93,122 +95,19 @@ class PhotoADaySheep(TwitterSheep):
         if('images_dir' not in extra_params.keys()):
             err = "Error: no images directory provided to "
             err += "PhotoADaySheep via 'images_dir' parameter"
+            logging.error(err)
             raise Exception(err)
         if('images_pattern' not in extra_params.keys()):
             err = "Error: no image filename pattern (e.g., \"my_image_{i}.jpg\") "
             err += "were provided to PhotoADaySheep via 'images_template' parameter"
+            logging.error(err)
             raise Exception(err)
 
-        # This method should load _all_ images,
-        # indexed by day of year.
-        # 
-        # This is kind of stupid, but... sigh...
-
-        image_dir = extra_params['images_dir']
-        image_files = []
-        for doy in range(366):
-            image_file = extra_params['images_pattern'].format(i=doy)
-
-            # don't bother checking if they exist here
-            filep = os.path.join(image_dir, image_file)
-            image_files.append( filep )
-        
-        return image_files
-
-
-    def photo_a_day(self,tweet_params):
-        """
-        Runs forever.
-        Tweets an image a day,
-        at 8 o'clock or so,
-        then goes back to sleep.
-
-        tweet_params dictionary settings:
-
-            publish: boolean, publish or not
-
-            image_dir: directory containing images
-
-            image_pattern: image file pattern - use {i}
-
-        """
-
-        # --------------------------
-        # Process parameters
-
-        # tweet_params contains parameters for this tweet
-
-        # Default parameter values
-        defaults = {}
-        defaults['publish'] = False
-
-        # populate missing parameters with default values
-        for dk in defaults.keys():
-            if dk not in tweet_params.keys():
-                tweet_params[dk] = defaults[dk]
-
-
-        # --------------------------
-        # Start The Calendar
-        # 
-        # Granted, this is a bit more complicated 
-        # than it could be, but it's relatively simple,
-        # and if it ain't broke, don't fix it.
-
-        remcycle = 120 # sleep (in seconds)
-
-        prior_dd = 0
-        while True:
-
-            try:
-
-                now = datetime.now()
-                yy, mm, dd, hh, mm = (now.year, now.month, now.day, now.hour, now.minute)
-
-                # the time will always be zulu in a docker container, +8 hr offset
-                offset = 8
-
-                hour_to_tweet = 8
-                if( abs(dd-prior_dd)>0 and hh>(hour_to_tweet + offset)):
-
-                    # Index = doy of year
-                    doy = datetime.now().timetuple().tm_yday
-
-                    # Repopulate in case there are changes
-                    twit_images = self.populate_queue(tweet_params)
-
-                    # If there is a photo for this date,
-                    if(doy < len(twit_images)):
-
-                        # Get photo for this date
-                        media_attachment = twit_images[doy]
-
-                        try:
-                            twit = tweet_params['message']
-
-                        except KeyError:
-                            err = "rainbow-mind-machine: PhotoADaySheep: Warning: could not find a message, using hello world"
-                            msg = self.timestamp_message(err)
-                            eprint(msg)
-
-                            twit = 'Hello world'
-
-                        if(tweet_params['publish']):
-                            self._tweet(twit, media=media_attachment)
-                        else:
-                            self._print("Testing image tweet: %s"%(media_attachment))
-
-                    else:
-                        err = "rainbow-mind-machine: PhotoADaySheep: Warning: for doy = %d, could not find not find "%(doy)
-                        err += "the corresponding image %s"%( tweet_params['image_pattern'].format(i=doy) )
-                        msg = self.timestamp_message(err)
-                        eprint(msg)
-
-                    # Update prior_dd
+        # This method should load _all_ images
                     prior_dd = dd
 
-                msg = self.timestamp_message("rainbow-mind-machine: PhotoADaySheep: Sleeping...")
-                eprint(msg)
+                msg = self.timestamp_message("PhotoADaySheep: photo_a_day(): Sleeping...")
+                logging.error(msg)
 
                 time.sleep(remcycle)
 
@@ -216,17 +115,16 @@ class PhotoADaySheep(TwitterSheep):
 
                 # oops!
 
-                msg1 = self.timestamp_message("rainbow-mind-machine: PhotoADaySheep: encountered an exception. More info:")
-                # Fix this:
-                msg2 = self.timestamp_message(str(err))
-                msg3 = self.timestamp_message("rainbow-mind-machine: PhotoDAaySheep: continuing...")
+                msg1 = self.timestamp_message("PhotoADaySheep: photo_a_day(): Encountered an exception. More info:")
+                msg2 = self.timestamp_message(traceback.format_exc())
+                msg3 = self.timestamp_message("PhotoADaySheep: photo_a_day(): Continuing...")
 
                 # Add this line in to debug sheep
                 #raise Exception(err)
 
-                eprint(msg1)
-                eprint(msg2)
-                eprint(msg3)
+                logging.error(msg1)
+                logging.error(msg2)
+                logging.error(msg3)
 
                 time.sleep(remcycle)
 

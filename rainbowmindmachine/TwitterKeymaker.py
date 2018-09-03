@@ -1,4 +1,6 @@
 import boringmindmachine as bmm
+
+import logging
 import subprocess
 import os, re, glob
 import json
@@ -61,12 +63,14 @@ class TwitterKeymaker(bmm.BoringOAuthKeymaker):
         # will be made, just return.
 
         if(not self.apikeys_set):
-            err = "Error: API keys were not set for the Shepherd."
+            err = "TwitterKeymaker Error: make_a_key(): API keys were not set for the Shepherd."
+            logging.error(err)
             raise Exception(err)
 
-        print("="*45)
-        print("Bot name: %s"%(name))
-        print("")
+        msgs = ["="*40, "Bot Name: %s"%(name), "="*40]
+        msg = "\n".join(msgs)
+        logging.info(msg)
+        print(msg)
 
         # Step 1: get item (done)
 
@@ -76,10 +80,14 @@ class TwitterKeymaker(bmm.BoringOAuthKeymaker):
             make_key = input('Make key? (y/n) ')
 
         if make_key=='n':
-            print("Skipping keymaking for %s"%name)
+            msg = "Skipping keymaking for %s"%name
+            logging.info(msg)
+            print(msg)
             return
 
-        print("Starting keymaking for %s"%name)
+        msg = "Starting keymaking for %s"%name
+        logging.info(msg)
+        print(msg)
 
         consumer = oauth.Consumer(self.credentials[self.token],
                                   self.credentials[self.secret])
@@ -174,7 +182,10 @@ class TwitterKeymaker(bmm.BoringOAuthKeymaker):
                 d[key] = kwargs[key]
 
 
-            print("Successfully obtained Twitter API key for Sheep %s"%(name))
+            msg = "Successfully obtained Twitter API key for Sheep %s"%(name)
+            logging.info(msg)
+            print(msg)
+
             print("-------------------------------")
 
 
@@ -187,7 +198,9 @@ class TwitterKeymaker(bmm.BoringOAuthKeymaker):
             with open(keys_out,'w') as outfile:
                 json.dump(d,outfile)
 
-            print("Successfully exported a key bundle for item %s to JSON file %s"%(name,keys_out))
+            msg = "Successfully exported a key bundle for item %s to JSON file %s"%(name,keys_out)
+            logging.info(msg)
+            print(msg)
 
 
 
@@ -222,7 +235,9 @@ class FilesKeymaker(TwitterKeymaker):
             files = glob.glob( join(files_dir, "*.%s"%(self.files_extension) ) )
 
         if(len(files)==0):
-            raise Exception("FilesKeymaker: Error: no files found!")
+            msg = "FilesKeymaker Error: make_keys(): no files found!"
+            logging.error(msg)
+            raise Exception(msg)
 
         files.sort()
 
