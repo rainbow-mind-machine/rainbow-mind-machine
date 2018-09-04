@@ -1,5 +1,6 @@
 import rainbowmindmachine as rmm
 from unittest import TestCase
+import logging
 import os, subprocess
 from .utils import captured_output
 
@@ -7,6 +8,11 @@ from .utils import captured_output
 """
 Test Keymaker classes
 """
+
+
+console = logging.StreamHandler()
+console.setLevel(logging.DEBUG)
+logging.getLogger('').addHandler(console)
 
 
 thisdir = os.path.abspath(os.path.dirname(__file__))
@@ -31,7 +37,7 @@ class TestKeymaker(TestCase):
         """
         Test ability to create single key using consumer token from environment vars
         """
-        keymaker = rmm.Keymaker()
+        keymaker = rmm.TwitterKeymaker()
 
         # Set application API keys
         os.environ['CONSUMER_TOKEN'] = 'AAAAA'
@@ -58,7 +64,7 @@ class TestKeymaker(TestCase):
         """
         Test ability to create single key using consumer token/secret from JSON file
         """
-        keymaker = rmm.Keymaker()
+        keymaker = rmm.TwitterKeymaker()
 
         # Set application API keys
         apikeys = os.path.join(thisdir,'apikeys.json')
@@ -80,7 +86,7 @@ class TestKeymaker(TestCase):
         """
         Test ability to create single key using consumer token/secret from dictionary
         """
-        keymaker = rmm.Keymaker()
+        keymaker = rmm.TwitterKeymaker()
 
         # Set application API keys
         keymaker.set_apikeys_dict({ 

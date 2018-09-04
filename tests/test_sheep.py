@@ -1,5 +1,6 @@
 import rainbowmindmachine as rmm
 from unittest import TestCase
+import logging
 import os
 
 

@@ -1,5 +1,6 @@
 import rainbowmindmachine as rmm
 from unittest import TestCase
+import logging
 import sys, os, subprocess, logging
 from .utils import captured_output, LoggingContext
 
@@ -7,6 +8,11 @@ from .utils import captured_output, LoggingContext
 """
 Test Shepherd classes
 """
+
+
+console = logging.StreamHandler()
+console.setLevel(logging.DEBUG)
+logging.getLogger('').addHandler(console)
 
 
 thisdir = os.path.abspath(os.path.dirname(__file__))
@@ -88,7 +94,7 @@ class TestShepherd(TestCase):
             with captured_output() as (out, err):
 
                 # Create the Shepherd (this starts the logger)
-                s = rmm.Shepherd(
+                s = rmm.TwitterShepherd(
                     flock_name = 'test flock',
                     json_keys_dir = 'tests/shepherd_test_keys',
                     sheep_class = rmm.Sheep
@@ -102,7 +108,7 @@ class TestShepherd(TestCase):
 
     def test_queneau_shepherd(self):
         log_file = 'tests/test_queneau_shepherd.log'
-        sh = rmm.Shepherd(json_keys_dir = 'keys/',
+        sh = rmm.TwitterShepherd(json_keys_dir = 'keys/',
                           flock_name = 'My Apollo Flock',
                           sheep_class = rmm.QueneauSheep,
                           log_file = log_file)

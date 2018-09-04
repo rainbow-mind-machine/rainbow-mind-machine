@@ -9,63 +9,44 @@ SHELL := /bin/bash
 default: 
 
 
+# set remote URLs and names
 util_fix_remotes: 
-	git remote set-url origin $(BMM_GH)
+	git remote set-url gh $(BMM_GH)
 	git remote set-url cmr $(BMM_CMR)
 
+# pull from upstream for each submodule
 util_submodule_init:
-	git submodule update --init
+	git submodule foreach git checkout master && git submodule foreach git pull origin master
 
-# run once, after first clone, to create gh-pages branch
-init_gh: util_fix_remotes
-	rm -rf site && git clone $(BMM_GH) site
-	set -x \
-		&& cd site/ \
-		&& git remote add cmr $(BMM_CMR) \
-		&& git checkout --orphan gh-pages \
-		&& rm -rf * .gitmodules .gitignore \
-		&& echo '<h2>hello world</h2>' > index.html \
-		&& git add index.html \
-		&& git commit index.html -m 'add init commit on gh-pages branch' \
-		&& git push origin gh-pages \
-		&& git push cmr gh-pages \
-		&& set +x
-
-# run once, after first clone, to add mkdocs submodule
-init_mkdocs_material:
-	wget https://tinyurl.com/sample-mkdocs-yml -O mkdocs.yml
-	git submodule add $(MKM_CMR) \
-		&& git add mkdocs-material mkdocs.yml .gitmodules \
-		&& git commit mkdocs-material mkdocs.yml .gitmodules -m 'Initializing mkdocs-material submodule' \
-		&& git push origin \
-	mkdir docs && cp README.md docs/index.md
-
-# set up docs folder after cloning local copy
-setup_docs: fix_remotes util_submodule_init setup_site 
-
-# clone a copy of the gh-pages branch to gh-pages
-setup_site:
+# clone the site/ directory to be the gh-pages branch
+clone_site:
 	rm -rf site
-	git clone -b gh-pages $(BMM_GH) site && \
-		cd site && git remote add cmr $(BMM_CMR)
+	git clone -b gh-pages $(BMM_CMR) site && \
+		cd site && \
+		git remote rename origin cmr && \
+		git remote add gh $(BMM_GH)
 
-# build and deploy the documentation
-deploy_docs: 
+# build and deploy docs to gh-pages branch
+deploy: 
 	mkdocs build
 	cd site \
 		&& git add -A . \
 		&& git commit -a -m 'updating gh-pages site' \
-		&& git push origin gh-pages \
+		&& git push gh gh-pages \
 		&& git push cmr gh-pages
 
+# build the documentation
+build: 
+	mkdocs build
+
 # build and locally serve the documentation
-serve_docs: 
+serve: 
 	mkdocs build
 	mkdocs serve
 
 # run tests
 test:
-	nosetests -v
+	python setup.py test
 
 # upload to pypi
 pypi: pypi_upload pypi_test
