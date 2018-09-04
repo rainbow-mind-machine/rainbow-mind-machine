@@ -3,7 +3,6 @@ import twitter
 import traceback
 import time
 
-from .utils import eprint
 
 """
 Social Sheep
@@ -73,6 +72,7 @@ class SocialSheep(TwitterSheep):
             The Toilet uses the SocialSheep's api and params.
             """
             self.api = api
+            self.name = kawrgs['screen_name']
             if 'capacity' in kwargs:
                 self.capacity = int(kwargs['capacity'])
             else:
@@ -93,8 +93,9 @@ class SocialSheep(TwitterSheep):
             if 'search_terms' in kwargs:
                 search_terms = kwargs['search_terms']
             else:
-                err = "ERROR: called SocialSheep flush() without search term.\n"
+                err = "SocialSheep Toilet Error: flush(): called SocialSheep flush() without search term.\n"
                 err += "Specify search_terms kwarg: flush(search_terms = '...')"
+                logging.error(self.sign_message(err), exc_info=True)
                 raise Exception(err)
 
             if 'ignore_by' in kwargs:
@@ -151,8 +152,8 @@ class SocialSheep(TwitterSheep):
             for s in self.bowl:
                 try:
                     self.api.CreateFavorite(status=s)
-                    msg = "rainbow-mind-machine: SocialSheep: favorited tweet:\n"
-                    msg += " [@%s] : %s\n"%(s.user.screen_name, s.text)
+                    msg = "SocialSheep: favorite(): favorited tweet:\n"
+                    msg += "    [@%s] : %s\n"%(s.user.screen_name, s.text)
                     eprint(msg)
                 except twitter.error.TwitterError:
                     # already faved
@@ -163,8 +164,8 @@ class SocialSheep(TwitterSheep):
             for s in self.bowl:
                 try:
                     self.api.PostRetweet(status_id=s.id)
-                    msg = "rainbow-mind-machine: SocialSheep: retweeted tweet:\n"
-                    msg += " [@%s] : %s\n"%(s.user.screen_name, s.text)
+                    msg = "SocialSheep: retweet(): Retweeted tweet:\n"
+                    msg += "    [@%s] : %s\n"%(s.user.screen_name, s.text)
                     eprint(msg)
                 except:
                     # o noes!!! keep going
@@ -182,6 +183,15 @@ class SocialSheep(TwitterSheep):
                     # following ourselves,
                     # or cannot find user
                     pass
+
+        def sign_message(self,msg):
+            """
+            Given a message, prepend it with [@botname]
+            (this is for Toilet, not Sheep)
+            """
+            result = "[@%s] %s"%(self.name, msg)
+            return result
+
 
 
     #############################################
@@ -233,8 +243,9 @@ class SocialSheep(TwitterSheep):
             kwargs['follow'] = False
 
         if('sleep' not in kwargs.keys()):
-            err = "ERROR: called SocialSheep favorite() without search term.\n"
+            err = "SocialSheep Error: favorite(): Called SocialSheep favorite() without search term.\n"
             err += "Specify search_terms kwarg: flush(search_terms = ['a','b',...])"
+            logging.error(self.sign_message(err), exc_info=True)
             raise Exception(err)
 
         while True:
@@ -242,24 +253,21 @@ class SocialSheep(TwitterSheep):
             try:
                 self.toilet.flush(**kwargs)
             except Exception:
-                err = "ERROR: SocialSheep encountered exception flush()ing tweets in the Toilet"
-                eprint(err)
-                eprint(traceback.format_exc())
+                err = "SocialSheep Error: favorite(): Encountered exception flush()ing tweets in the Toilet"
+                logging.error(self.sign_message(err), exc_info=True)
 
             try:
                 self.toilet.favorite()
             except Exception:
-                err = "ERROR: SocialSheep encountered exception favorite()ing tweets in the Toilet"
-                eprint(err)
-                eprint(traceback.format_exc())
+                err = "SocialSheep Error: favorite(): Encountered exception favorite()ing tweets in the Toilet"
+                logging.error(self.sign_message(err), exc_info=True)
 
             if kwargs['follow']:
                 try:
                     self.toilet.follow()
                 except Exception:
-                    err = "ERROR: SocialSheep encountered exception follow()ing tweets in the Toilet"
-                    eprint(err)
-                    eprint(traceback.format_exc())
+                    err = "SocialSheep Error: favorite(): Encountered exception follow()ing tweets in the Toilet"
+                    logging.error(self.sign_message(err), exc_info=True)
 
             time.sleep( kwargs['sleep'] )
 
@@ -284,8 +292,9 @@ class SocialSheep(TwitterSheep):
             kwargs['follow'] = False
 
         if('sleep' not in kwargs.keys()):
-            err = "ERROR: called SocialSheep retweet() without search term.\n"
+            err = "SocialSheep Error: retweet(): called SocialSheep retweet() without search term.\n"
             err += "Specify search_terms kwarg: flush(search_terms = ['a','b',...])"
+            logging.error(self.sign_message(err), exc_info=True)
             raise Exception(err)
 
         while True:
@@ -294,23 +303,20 @@ class SocialSheep(TwitterSheep):
                 self.toilet.flush(**kwargs)
             except Exception:
                 err = "ERROR: SocialSheep encountered exception flush()ing tweets in the Toilet"
-                eprint(err)
-                eprint(traceback.format_exc())
+                logging.error(self.sign_message(err), exc_info=True)
 
             try:
                 self.toilet.retweet()
             except Exception:
                 err = "ERROR: SocialSheep encountered exception retweet()ing tweets in the Toilet"
-                eprint(err)
-                eprint(traceback.format_exc())
+                logging.error(self.sign_message(err), exc_info=True)
 
             if kwargs['follow']:
                 try:
                     self.toilet.follow()
                 except Exception:
                     err = "ERROR: SocialSheep encountered exception follow()ing tweets in the Toilet"
-                    eprint(err)
-                    eprint(traceback.format_exc())
+                    logging.error(self.sign_message(err), exc_info=True)
 
             time.sleep( kwargs['sleep'] )
 
@@ -340,16 +346,14 @@ class SocialSheep(TwitterSheep):
             try:
                 self.toilet.flush(**kwargs)
             except Exception:
-                err = "ERROR: SocialSheep encountered exception flush()ing toilet"
-                eprint(err)
-                eprint(traceback.format_exc())
+                err = "SocialSheep Error: follow(): Encountered exception flush()ing toilet"
+                logging.error(self.sign_message(err), exc_info=True)
 
             try:
                 self.toilet.favorite()
             except Exception:
-                err = "ERROR: SocialSheep encountered exception favorite()ing toilet"
-                eprint(err)
-                eprint(traceback.format_exc())
+                err = "SocialSheep Error: follow(): Encountered exception favorite()ing toilet"
+                logging.error(self.sign_message(err), exc_info=True)
 
             time.sleep( kwargs['sleep'] )
 

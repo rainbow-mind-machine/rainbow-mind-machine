@@ -465,7 +465,7 @@ class TwitterSheep(bmm.BoringSheep):
                 stats = self.api.PostUpdates(twit)
 
             # everything else:
-            msg = "rainbow-mind-machine: TwitterSheep: @%s tweeted: \"%s\""%(self.name, twit)
+            msg = "TwitterSheep Error: _tweet(): @%s tweeted: \"%s\""%(self.name, twit)
             logging.info(self.sign_message(msg))
 
         except twitter.TwitterError as e:
@@ -504,6 +504,9 @@ class TwitterSheep(bmm.BoringSheep):
             tweet = "Hello world! That's number %d of 5."%(j+1)
             tweet_queue.append(tweet)
 
+        msg = "TwitterSheep: populate_tweet_queue(): Finished populating a new tweet queue with %d Hello World tweets."%(len(tweet_queue))
+        logging.debug(self.sign_message(msg))
+
         return tweet_queue
 
 
@@ -511,6 +514,6 @@ class TwitterSheep(bmm.BoringSheep):
         """
         Given a message, prepend it with [@botname]
         """
-        result = "[%s] %s"%(self.name, msg)
+        result = "[@%s] %s"%(self.name, msg)
         return result
 
