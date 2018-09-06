@@ -47,10 +47,21 @@ class TwitterKeymaker(bmm.BoringOAuthKeymaker):
             keys_out_dir :  Directory in which to place final JSON keys
                             containing OAuth tokens and other bot info
 
+            interactive :   If set to False, this turns off interactivity
+                            (this option is used for tests)
+
         All kwargs are passed into the key file.
+
+        Also note: this is the only interactive method in the library,
+        so we print to stdout instead of using logging.
         """
         if os.path.isdir(keys_out_dir) is False:
             subprocess.call(['mkdir','-p',keys_out_dir])
+
+        if 'interactive' in kwargs and kwargs['interactive'] is False:
+            pass
+        else:
+            kwargs['interactive'] = True
 
         # strip paths from json_target file name
         json_target = os.path.basename(json_target)
@@ -70,11 +81,29 @@ class TwitterKeymaker(bmm.BoringOAuthKeymaker):
         msgs = ["="*40, "Bot Name: %s"%(name), "="*40]
         msg = "\n".join(msgs)
         logging.info(msg)
-        print(msg)
+        #print(msg)
 
         # Step 1: get item (done)
 
         # Step 2: make Twitter API key for each item
+
+        # (Handle non-interactive test case first)
+        if not kwargs['interactive']:
+            msg = "TwitterKeymaker: make_a_key(): Creating fake Twitter key"
+            logging.info(msg)
+            print(msg)
+            d = dict(consumer_token="AAAAA",
+                     consumer_token_secret="BBBBB",
+                     oauth_token = "CCCCC",
+                     oauth_token_secret = "DDDDD",
+                     user_id = "00000",
+                     screen_name = "EEEEE"
+            )
+            keys_out = join(keys_out_dir,json_target)
+            with open(keys_out,'w') as outfile:
+                json.dump(d,outfile)
+            return
+
         make_key = ''
         while make_key != 'y' and make_key != 'n':
             make_key = input('Make key? (y/n) ')
@@ -85,7 +114,7 @@ class TwitterKeymaker(bmm.BoringOAuthKeymaker):
             print(msg)
             return
 
-        msg = "Starting keymaking for %s"%name
+        msg = "TwitterKeymaker: make_a_key(): Starting keymaking for %s"%name
         logging.info(msg)
         print(msg)
 
@@ -102,7 +131,9 @@ class TwitterKeymaker(bmm.BoringOAuthKeymaker):
         # https://dev.twitter.com/docs/api/1/get/oauth/authenticate
         resp, content = client.request(request_token_url,"GET")
         if resp['status'] != '200':
-            raise Exception("Invalid response %s. If apikeys.py is present, your keys may be invalid." % resp['status'])
+            msg = "Invalid response %s. If apikeys.py is present, your keys may be invalid." % resp['status']
+            logging.error(msg)
+            raise Exception(msg)
 
         request_token = dict(urllib.parse.parse_qsl(content))
         oauth_token = request_token[b'oauth_token'].decode('utf-8')
@@ -182,7 +213,7 @@ class TwitterKeymaker(bmm.BoringOAuthKeymaker):
                 d[key] = kwargs[key]
 
 
-            msg = "Successfully obtained Twitter API key for Sheep %s"%(name)
+            msg = "TwitterKeymaker: make_a_key(): Successfully obtained Twitter API key for Sheep %s"%(name)
             logging.info(msg)
             print(msg)
 
@@ -198,7 +229,7 @@ class TwitterKeymaker(bmm.BoringOAuthKeymaker):
             with open(keys_out,'w') as outfile:
                 json.dump(d,outfile)
 
-            msg = "Successfully exported a key bundle for item %s to JSON file %s"%(name,keys_out)
+            msg = "Twitter Keymaker: make_a_key(): Successfully exported a key bundle for item %s to JSON file %s"%(name,keys_out)
             logging.info(msg)
             print(msg)
 
@@ -215,7 +246,8 @@ class FilesKeymaker(TwitterKeymaker):
 
     def make_keys(self,
                   files_dir,
-                  keys_out_dir='keys/'):
+                  keys_out_dir='keys/',
+                  **kwargs):
         """
         Make multiple keys.
 
@@ -223,6 +255,10 @@ class FilesKeymaker(TwitterKeymaker):
         one by one, if they want to make a key for it.
 
         This calls the make_a_key() method in the Keymaker class.
+            
+        This passes kwargs straight through to make_a_key()
+        so all options for TwitterKeymaker.make_a_key() are 
+        same for FilesKeymaker.make_keys()
         """
         # Step 1:
         # Take care of file related-tasks for this bot
@@ -235,7 +271,7 @@ class FilesKeymaker(TwitterKeymaker):
             files = glob.glob( join(files_dir, "*.%s"%(self.files_extension) ) )
 
         if(len(files)==0):
-            msg = "FilesKeymaker Error: make_keys(): no files found!"
+            msg = "FilesKeymaker Error: make_keys(): no files found! Looked in %s"%(files_dir)
             logging.error(msg)
             raise Exception(msg)
 
@@ -246,11 +282,13 @@ class FilesKeymaker(TwitterKeymaker):
         self.file_key = 'file'
 
         # Step 2:
-        # Iterate over each file and ask the user if 
-        # they want to make a key for that file.
+        # Iterate over each file and make a key from each.
         # This is a list of filenames with relative paths
         # (that means it includes files_dir)
         for full_file in files:
+
+            msg = "FilesKeymaker: make_keys(): Creating a key from file %s"%(full_file)
+            logging.debug(msg)
 
             # To get the key file that corresponds to this (random) file, 
             # we swap out the files directory name with the keys directory name,
@@ -267,7 +305,8 @@ class FilesKeymaker(TwitterKeymaker):
             self.make_a_key(name = base,
                             json_target = full_keys_file,
                             keys_out_dir = keys_out_dir,
-                            file = full_file)
+                            file = full_file,
+                            **kwargs)
 
 
 
