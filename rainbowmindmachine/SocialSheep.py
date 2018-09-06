@@ -72,7 +72,12 @@ class SocialSheep(TwitterSheep):
             The Toilet uses the SocialSheep's api and params.
             """
             self.api = api
-            self.name = kawrgs['screen_name']
+
+            if 'screen_name' in kwargs:
+                self.name = kwargs['screen_name']
+            else:
+                self.name = 'UnknownBot'
+
             if 'capacity' in kwargs:
                 self.capacity = int(kwargs['capacity'])
             else:
