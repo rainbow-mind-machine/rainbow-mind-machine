@@ -76,7 +76,7 @@ class TwitterSheep(bmm.BoringSheep):
         # Set names
         self.name = bot_key['screen_name']
 
-        msg = "TwitterSheep Error: constructor: Finished setting up Twitter API for bot {screen_name}"
+        msg = "TwitterSheep: constructor: Finished setting up Twitter API for bot {screen_name}"
         msg = msg.format(screen_name=self.name)
         logging.info(self.sign_message(msg))
 
