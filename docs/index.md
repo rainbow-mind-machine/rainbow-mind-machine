@@ -1,6 +1,6 @@
 # rainbow-mind-machine
 
-![tinysheep](img/sheep.jpg)
+![tinysheep](mind-machine-docs/img/sheep.jpg)
 
 **rainbow mind machine** is an extensible framework for running Twitter bot flocks in Python.
 

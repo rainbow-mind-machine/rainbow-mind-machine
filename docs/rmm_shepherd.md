@@ -15,7 +15,7 @@
 
 ![the shepherd](mind-machine-docs/img/shepherd.jpg)
 
-**The rainbow mind machine shepherd. [credit](credits.md)**
+**The rainbow mind machine shepherd. [credit](mind-machine-docs/credits.md)**
 
 ## what is the Shepherd?
 
