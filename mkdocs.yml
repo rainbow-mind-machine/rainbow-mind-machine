@@ -29,8 +29,8 @@ nav:
     - 'Credits' : 'credits.md'
 
   - 'Mind Machine Developers':
-    - 'Contributing' : 'contributing.md'
     - 'Developer Notes' : 'mind-machine-docs/dev.md'
+    - 'Contributing' : 'contributing.md'
 
 
 copyright: 'Copyright &copy; 2018 <a href="https://charlesreid1.com">Charles Reid</a>, released under the <a href="https://opensource.org/licenses/MIT">MIT License</a>. rainbowmindmachine@charlesreid1.com<br />Photo Credit: <a href="https://www.flickr.com/photos/russloar/">Russ Loar</a> under the <a href="https://creativecommons.org/licenses/by-nc-nd/2.0/">CC BY-NC-ND License</a><br /><br /><br />
