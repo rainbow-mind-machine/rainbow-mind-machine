@@ -73,7 +73,7 @@ Documentation for components implemented in rainbow mind machine:
 See [Developer Notes](mind-machine-docs/dev.md) for info about the 
 workflow for uploading changes to pypi and dockerhub.
 
-See [Contributing](mind-machine-docs/contributing.md) for info about 
+See [Contributing](contributing.md) for info about 
 how to contribute to the project.
 
 ## Get In Touch
