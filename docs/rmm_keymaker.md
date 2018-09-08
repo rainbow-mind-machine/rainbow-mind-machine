@@ -87,6 +87,9 @@ apikeys = os.path.join(this_dir, apikeys.json')
 gk = rmm.TwitterKeymaker()
 gk.set_apikeys_file('apikeys.json')
 
+# (See below for other methods
+#  of setting API keys.)
+
 
 
 # Step 3:
