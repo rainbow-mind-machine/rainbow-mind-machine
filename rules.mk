@@ -9,15 +9,6 @@ SHELL := /bin/bash
 default: 
 
 
-# set remote URLs and names
-util_fix_remotes: 
-	git remote set-url gh $(BMM_GH)
-	git remote set-url cmr $(BMM_CMR)
-
-# pull from upstream for each submodule
-util_submodule_init:
-	git submodule foreach git checkout master && git submodule foreach git pull origin master
-
 # clone the site/ directory to be the gh-pages branch
 clone_site:
 	rm -rf site
@@ -27,7 +18,7 @@ clone_site:
 		git remote add gh $(BMM_GH)
 
 # build and deploy docs to gh-pages branch
-deploy: 
+deploy_docs: 
 	mkdocs build
 	cd site \
 		&& git add -A . \
@@ -35,12 +26,15 @@ deploy:
 		&& git push gh gh-pages \
 		&& git push cmr gh-pages
 
+clean_docs:
+	rm -rf site/
+
 # build the documentation
-build: 
+build_docs: 
 	mkdocs build
 
 # build and locally serve the documentation
-serve: 
+serve_docs: 
 	mkdocs build
 	mkdocs serve
 
