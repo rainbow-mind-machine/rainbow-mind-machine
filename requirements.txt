@@ -1,3 +1,4 @@
 boringmindmachine
 TextBlob>=0.15
 python-twitter>=3.4.1
+mkdocs>=1.0
