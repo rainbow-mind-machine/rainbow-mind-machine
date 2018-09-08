@@ -3,6 +3,16 @@
 
 better logging, facilitate error messages and communication
 
+> Unfortunately, even after revamping the entire logging system,
+> I'm still a bit fuzzy on how it works, and I still don't think
+> it's doing what it needs to do.
+
+> Logging:
+> - in the process of setting up tests, work out the logging too
+> - what happens when stuff fails?
+> - how do we catch exceptions more gracefully?
+> - how do we record exceptions in the log file?
+
 if twitter shuts down write actions for RTs, we need to know
 
 where do the twitter bots log to???
@@ -33,20 +43,7 @@ bot flock creates one sheep per account and performs single action in parallel f
 you can have multiple sheep associated with a single account, but they will be
 doing the same action automatically.
 
-## Branching
-
-`prime` branch: releases are tagged with prime numbers
-
-`dev` branch: where we develop stuff
-
-`feature` branch: where we *actually* develop stuff
-
-
 ## Documentation
-
-On the one hand, it feels like a bit too much.
-
-On the other hand, too much to explain.
 
 Focus on common tasks (relates to clarifying who stores what):
 
@@ -66,47 +63,7 @@ Clarifying the role of each thing (see issues).
 
 ### Logging
 
-Add logging to the documentation.
-
-Unfortunately, even after revamping the entire logging system,
-I'm still a bit fuzzy on how it works, and I still don't think
-it's doing what it needs to do.
-
-
-## Examples
-
-Going through a deep clean of each class, fully documenting,
-leads to many loose ends.
-
-To keep the documentation reasonable and readable,
-move illustrative details into the examples,
-and refer to them in the documentation.
-
-
-### Usability Examples
-
-How do I use this thing?
-
-Like the tests, but less "test" and more "octo-banana".
-
-
-### Extensibility Examples
-
-How and when do I extend the Keymaker?
-
-How and when do I extend the Shepherd?
-
-How and when do I extend the Sheep?
-
-
-## Testing
-
-An absolute slog, but also important.
-
-
 ### Tests Need To Write
-
-<s>Logger tests</s> (logging fixed as part of testing)
 
 <s>Keymaker tests</s> done
 
@@ -199,18 +156,6 @@ running bot
 
 ## do it now
 
-examples:
-- fix up examples
-
-Logging:
-- in the process of setting up tests, work out the logging too
-- what happens when stuff fails?
-- how do we catch exceptions more gracefully?
-- how do we record exceptions in the log file?
-
-MQ Logging:
-- what would it take to add a backend plugin to log to MQ?
-
 Keymaker:
 - when it looks for where to put the keys:
     - we run an open() on the filename the user passes
@@ -286,52 +231,3 @@ Sheep:
     - can they write a custom routine that takes new parameters?
 - what actions are defined?
 - can bots upload multimedia?
-
-
-## done
-
-<s>upgrade to python 3:
-- go through and improve/modernize everything
-- print statements
-- etc.</s>
-
-<s>docstrings:
-- Keymaker docstrings
-- Shepherd docstrings
-- Sheep docstrings</s>
-
-<s>documentation:
-- mkdocs</s>
-
-
-
-## do it later
-
-pypi checkist:
-* changelog
-* bump version number
-* install with new verion number
-* run tests
-* release on pypi (sdist, wheel)
-* make temp env
-* ensure installation works
-* git push
-* git push tags
-
-
-pypi:
-- travis/circleci/tox?
-- how to get credentials into containers, in secret?
-- [cookie cutter python package](https://github.com/audreyr/cookiecutter-pypackage)
-    - testing setup
-    - travis setup
-    - tox testing
-    - sphinx docs
-    - bumpversion
-    - autorelease to pypi
-    - command line interface with click
-
-prepare for pypi release:
-- tests without credentials
-- tests with credentials
-

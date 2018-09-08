@@ -86,7 +86,7 @@ sh = rmm.Shepherd("keys/")
 sh.perform_action('change color','#CFC')
 
 # Everybody tweet in parallel
-sh.perform_pool_action('tweet')
+sh.perform_parallel_action('tweet')
 ```
 
 Now you can run this in screen or as a background process,
@@ -132,7 +132,7 @@ sh = rmm.Shepherd("keys/", sheep_class=CustomSheep)
 sh.perform_action('change color','#CFC')
 
 # Everybody tweet in parallel
-sh.perform_pool_action('tweet')
+sh.perform_parallel_action('tweet')
 ```
 
 # More Examples

@@ -1,6 +1,6 @@
 # rainbow-mind-machine
 
-![tinysheep](img/sheep.jpg)
+![tinysheep](mind-machine-docs/img/sheep.jpg)
 
 **rainbow mind machine** is an extensible framework for running Twitter bot flocks in Python.
 
@@ -16,7 +16,7 @@ See [rainbow-mind-machine in action](https://twitter.com/apollo11junk)!
 
 ## All the shields
 
-![latest prime number version](https://img.shields.io/badge/latest--prime--number--version-7-blue.svg)
+![latest prime number version](https://img.shields.io/badge/latest--prime--number--version-23-blue.svg)
 
 ![tests-passing](https://img.shields.io/badge/tests-passing-green.svg)
 [![works on my machine](https://img.shields.io/badge/works-on_my_machine-blue.svg)](https://img.shields.io/badge/works-on_my_machine-green.svg)
@@ -60,8 +60,7 @@ with rainbow mind machine - run your first Twitter bot!
 
 Documentation for components implemented in rainbow mind machine:
 
-* Keymakers:
-    * [TwitterKeymaker @ boring mind machine documentation](https://pages.charlesreid1.com/boring-mind-machine/bmm_keymaker_twitter/)
+* [rmm.TwitterKeymaker](rmm_keymaker.md)
 * [rmm.TwitterShepherd](rmm_shepherd.md)
 * [rmm.TwitterSheep](rmm_sheep.md)
 * [rmm.SocialSheep](rmm_social_sheep.md)
@@ -74,6 +73,8 @@ Documentation for components implemented in rainbow mind machine:
 See [Developer Notes](mind-machine-docs/dev.md) for info about the 
 workflow for uploading changes to pypi and dockerhub.
 
+See [Contributing](contributing.md) for info about 
+how to contribute to the project.
 
 ## Get In Touch
 

@@ -1,8 +1,8 @@
 # Sheep
 
-![the sheep](img/sheep.jpg)
+![the sheep](mind-machine-docs/img/sheep.jpg)
 
-**The rainbow mind machine sheep. [credit](credits.md)**
+**The rainbow mind machine sheep. [credit](mind-machine-docs/credits.md)**
 
 Structure of the Sheep:
 

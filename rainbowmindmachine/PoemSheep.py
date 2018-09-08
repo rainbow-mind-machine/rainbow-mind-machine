@@ -1,6 +1,4 @@
-from .SocialSheep import SocialSheep
-
-from .utils import eprint
+from .TwitterSheep import TwitterSheep
 
 """
 Poem Sheep
@@ -8,7 +6,7 @@ Poem Sheep
 These sheep tweet poems, one line at a time.
 """
 
-class PoemSheep(SocialSheep):
+class PoemSheep(TwitterSheep):
     """
     This class mainly exists to redefine how 
     the tweet queue is populated at the beginning
@@ -32,8 +30,8 @@ class PoemSheep(SocialSheep):
 
         tweet_queue = list(lines)
 
-        msg = "rainbow-mind-machine: PoemSheep: Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue))
-        eprint(msg)
+        msg = "PoemSheep: populate_tweet_queue(): Finished populating a new tweet queue with %d poem tweets."%(len(tweet_queue))
+        logging.debug(self.sign_message(msg))
 
         return tweet_queue
 

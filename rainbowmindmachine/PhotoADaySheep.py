@@ -1,4 +1,5 @@
 from .SocialSheep import SocialSheep
+import logging
 import urllib
 import requests
 import oauth2 as oauth
@@ -8,7 +9,6 @@ import os, glob, time
 from datetime import datetime
 from .TwitterSheep import TwitterSheep
 
-from .utils import eprint
 
 class PhotoADaySheep(TwitterSheep):
     """
@@ -48,9 +48,10 @@ class PhotoADaySheep(TwitterSheep):
         - photo_a_day
         """
         if(action=='tweet'):
-            err = "Error: Do not call the 'tweet' action on "
+            err = "PhotoADaySheep: perform_action(): Do not call the 'tweet' action on "
             err += "PhotoADaySheep directly. Call the 'photo_a_day' "
             err += "action instead."
+            logging.error(err, exc_info=True)
             raise Exception(err)
 
         # Use the dispatcher method pattern
@@ -93,11 +94,13 @@ class PhotoADaySheep(TwitterSheep):
         if('images_dir' not in extra_params.keys()):
             err = "Error: no images directory provided to "
             err += "PhotoADaySheep via 'images_dir' parameter"
-            raise Exception(err)
+            logging.error(err)
+            raise Exception(err, exc_info=True)
         if('images_pattern' not in extra_params.keys()):
             err = "Error: no image filename pattern (e.g., \"my_image_{i}.jpg\") "
             err += "were provided to PhotoADaySheep via 'images_template' parameter"
-            raise Exception(err)
+            logging.error(err)
+            raise Exception(err, exc_info=True)
 
         # This method should load _all_ images,
         # indexed by day of year.
@@ -177,6 +180,15 @@ class PhotoADaySheep(TwitterSheep):
                     # Repopulate in case there are changes
                     twit_images = self.populate_queue(tweet_params)
 
+                    msg = "PhotoADaySheep: photo_a_day(): Time to tweet.\n"
+                    msg += "    day of the year = %d"%(doy)
+                    msg += "    num of images   = %d"%(len(twit_images))
+                    if(doy < len(twit_images)):
+                        msg += "    we found a photo"
+                    else:
+                        msg += "    no photo to tweet"
+                    logging.debug(msg)
+
                     # If there is a photo for this date,
                     if(doy < len(twit_images)):
 
@@ -185,30 +197,28 @@ class PhotoADaySheep(TwitterSheep):
 
                         try:
                             twit = tweet_params['message']
-
                         except KeyError:
-                            err = "rainbow-mind-machine: PhotoADaySheep: Warning: could not find a message, using hello world"
-                            msg = self.timestamp_message(err)
-                            eprint(msg)
-
                             twit = 'Hello world'
+
+                        msg = "PhotoADaySheep: photo_a_day(): tweeting the twit \"%s\""%(twit)
+                        logging.debug(msg)
 
                         if(tweet_params['publish']):
                             self._tweet(twit, media=media_attachment)
                         else:
-                            self._print("Testing image tweet: %s"%(media_attachment))
+                            msg = "PhotoADaySheep: photo_a_day(): Testing image tweet: %s"%(media_attachment)
+                            logging.info(msg)
 
                     else:
-                        err = "rainbow-mind-machine: PhotoADaySheep: Warning: for doy = %d, could not find not find "%(doy)
-                        err += "the corresponding image %s"%( tweet_params['image_pattern'].format(i=doy) )
-                        msg = self.timestamp_message(err)
-                        eprint(msg)
+                        msg = "PhotoADaySheep Warning: photo_a_day(): for doy = %d, could not find not find "%(doy)
+                        msg += "the corresponding image %s"%( tweet_params['image_pattern'].format(i=doy) )
+                        logging.error(msg)
 
                     # Update prior_dd
                     prior_dd = dd
 
-                msg = self.timestamp_message("rainbow-mind-machine: PhotoADaySheep: Sleeping...")
-                eprint(msg)
+                msg = "PhotoADaySheep: photo_a_day(): Sleeping..."
+                logging.debug(msg)
 
                 time.sleep(remcycle)
 
@@ -216,20 +226,23 @@ class PhotoADaySheep(TwitterSheep):
 
                 # oops!
 
-                msg1 = self.timestamp_message("rainbow-mind-machine: PhotoADaySheep: encountered an exception. More info:")
-                # Fix this:
-                msg2 = self.timestamp_message(str(err))
-                msg3 = self.timestamp_message("rainbow-mind-machine: PhotoDAaySheep: continuing...")
+                msg1 = "PhotoADaySheep: photo_a_day(): Encountered an exception. More info:"
+                msg2 = traceback.format_exc()
+                msg3 = "Sheep is continuing..."
 
                 # Add this line in to debug sheep
                 #raise Exception(err)
 
-                eprint(msg1)
-                eprint(msg2)
-                eprint(msg3)
+                logging.error(msg1)
+                logging.error(msg2)
+                logging.error(msg3)
 
                 time.sleep(remcycle)
 
             except AssertionError:
-                raise Exception("Error: tweet queue was empty. Check your populate_queue() method definition.")
+
+                err = "TwitterSheep Error: tweet(): tweet queue was empty. Check your populate_tweet_queue() method definition."
+                logging.error(err)
+                raise Exception(err)
+
 
