@@ -60,8 +60,7 @@ with rainbow mind machine - run your first Twitter bot!
 
 Documentation for components implemented in rainbow mind machine:
 
-* Keymakers:
-    * [TwitterKeymaker @ boring mind machine documentation](https://pages.charlesreid1.com/boring-mind-machine/bmm_keymaker_twitter/)
+* [rmm.TwitterKeymaker](rmm_keymaker.md)
 * [rmm.TwitterShepherd](rmm_shepherd.md)
 * [rmm.TwitterSheep](rmm_sheep.md)
 * [rmm.SocialSheep](rmm_social_sheep.md)
@@ -74,6 +73,8 @@ Documentation for components implemented in rainbow mind machine:
 See [Developer Notes](mind-machine-docs/dev.md) for info about the 
 workflow for uploading changes to pypi and dockerhub.
 
+See [Contributing](mind-machine-docs/contributing.md) for info about 
+how to contribute to the project.
 
 ## Get In Touch
 
