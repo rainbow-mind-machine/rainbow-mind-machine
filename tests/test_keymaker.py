@@ -104,7 +104,8 @@ class TestKeymaker(TestCase):
                 name = 'test_default_keymaker_apikeys_dict',
                 json_target = 'test_default_keymaker_apikeys_dict.json',
                 keys_out_dir = self.keys_dir,
-                interactive = False)
+                interactive = False
+            )
 
         # Assert
         output = out.getvalue().strip()
