@@ -13,7 +13,7 @@ setup(  name='rainbowmindmachine',
         license='MIT',
         packages=['rainbowmindmachine'],
         install_requires=[
-            'boringmindmachine',
+            'boringmindmachine==23',
             'TextBlob>=0.15',
             'python-twitter>=3.4.1'
         ],
