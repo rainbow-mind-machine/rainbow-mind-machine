@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../..">
-      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+      <meta name="generator" content="mkdocs-1.0.2, mkdocs-material-3.0.3">
     
     
       
@@ -509,18 +509,6 @@
   </li>
 
         
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../credits/" title="Credits" class="md-nav__link">
-      Credits
-    </a>
-  </li>
-
-        
       </ul>
     </nav>
   </li>
@@ -546,18 +534,6 @@
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../contributing/" title="Contributing" class="md-nav__link">
-      Contributing
-    </a>
-  </li>
-
         
           
           
@@ -606,22 +582,84 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#testing" title="Testing" class="md-nav__link">
-    Testing
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#release-process" title="Release Process" class="md-nav__link">
     Release Process
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-release-checklist" title="Pre-Release Checklist" class="md-nav__link">
+    Pre-Release Checklist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-checklist" title="Tests Checklist" class="md-nav__link">
+    Tests Checklist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-release-branch" title="Create Release Branch" class="md-nav__link">
+    Create Release Branch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-tags" title="Create Tags" class="md-nav__link">
+    Create Tags
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-release-from-github" title="Testing Release from Github" class="md-nav__link">
+    Testing Release from Github
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-pypi-account" title="Set Up PyPI Account" class="md-nav__link">
+    Set Up PyPI Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload-release-to-pypi" title="Upload Release to PyPI" class="md-nav__link">
+    Upload Release to PyPI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-dockerhub-account" title="Set Up Dockerhub Account" class="md-nav__link">
+    Set Up Dockerhub Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-container-image-on-dockerhub" title="Update Container Image on Dockerhub" class="md-nav__link">
+    Update Container Image on Dockerhub
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#docker" title="Docker" class="md-nav__link">
-    Docker
+  <a href="#useful-links" title="Useful Links" class="md-nav__link">
+    Useful Links
   </a>
   
 </li>
@@ -639,6 +677,30 @@
         
       </ul>
     </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/" title="Contributing" class="md-nav__link">
+      Contributing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../credits/" title="Credits" class="md-nav__link">
+      Credits
+    </a>
   </li>
 
     
@@ -677,22 +739,84 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#testing" title="Testing" class="md-nav__link">
-    Testing
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#release-process" title="Release Process" class="md-nav__link">
     Release Process
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-release-checklist" title="Pre-Release Checklist" class="md-nav__link">
+    Pre-Release Checklist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-checklist" title="Tests Checklist" class="md-nav__link">
+    Tests Checklist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-release-branch" title="Create Release Branch" class="md-nav__link">
+    Create Release Branch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-tags" title="Create Tags" class="md-nav__link">
+    Create Tags
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-release-from-github" title="Testing Release from Github" class="md-nav__link">
+    Testing Release from Github
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-pypi-account" title="Set Up PyPI Account" class="md-nav__link">
+    Set Up PyPI Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload-release-to-pypi" title="Upload Release to PyPI" class="md-nav__link">
+    Upload Release to PyPI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-dockerhub-account" title="Set Up Dockerhub Account" class="md-nav__link">
+    Set Up Dockerhub Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-container-image-on-dockerhub" title="Update Container Image on Dockerhub" class="md-nav__link">
+    Update Container Image on Dockerhub
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#docker" title="Docker" class="md-nav__link">
-    Docker
+  <a href="#useful-links" title="Useful Links" class="md-nav__link">
+    Useful Links
   </a>
   
 </li>
@@ -740,8 +864,10 @@ perform common tasks. There are three types of tasks:</p>
   before they are ultimately added to a mind machine release.</p>
 </li>
 <li>
-<p><code>release/vP</code> - branch preparing a release of version P. Changes on release
-  branches are almost always synchronized with the development branch.</p>
+<p><code>prerelease/vP</code> - branch preparing a release of version P (updating docs, fixing tests, etc).</p>
+</li>
+<li>
+<p><code>release/vP</code> - branch with releases of version P.</p>
 </li>
 </ul>
 <p>Workflow:</p>
@@ -750,35 +876,173 @@ perform common tasks. There are three types of tasks:</p>
 <li>Create branch dev from master (or pull from master into dev if it already exists)</li>
 <li>Create branch feature from dev (feature branch contains all work on a particular feature)</li>
 <li>When ready, merge changes from feature into dev</li>
-<li>Once dev branch is ready for a release, create a release candidate branch
-  <code>release/vP</code></li>
-</ul>
-<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Using examples to test interactivity</li>
-<li>Tests are mainly smoke tests</li>
-<li>For complicated example, see bear/python-twitter on Github</li>
+<li>Once dev branch is ready for a release, create a pre-release branch <code>prerelease/vP</code></li>
+<li>Fill out pre-release checklist and test checklist (see below)</li>
+<li>Cut new release on branch <code>release/vP</code></li>
+<li>Tag, push to Github, upload to PyPI, add to Dockerhub</li>
 </ul>
 <h2 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h2>
-<p>See branching workflow above. Checklist:</p>
+<p>The following checklists help in preparing for releases
+on PyPI or Dockerhub. Releases happen in a two-step process.</p>
+<h3 id="pre-release-checklist">Pre-Release Checklist<a class="headerlink" href="#pre-release-checklist" title="Permanent link">&para;</a></h3>
+<p>A new release happens when the code is stable. The first step
+in the release process is to create a pre-release branch, where
+the code base can be modified but the modifications will
+generally be specific to the version being released. (For example,
+updating the version number in <code>setup.py</code>).</p>
+<p>Pre-release checklist:</p>
 <ul>
-<li>Test examples</li>
-<li>Test create Docker container</li>
-<li>Test documentation (but documentation can be/should be separate)</li>
-<li>Update submodules</li>
-<li>Mainly code</li>
+<li><code>setup.py</code> tasks:<ul>
+<li>Does <code>setup.py build</code> work without errors?</li>
+<li>Does <code>setup.py install</code> work without errors?</li>
+<li>Has the description in <code>setup.py</code> been defined and updated?</li>
+<li>Have the requirements in <code>setup.py</code> been changed, and do they 
+  match the requirements in <code>requirements.txt</code>?</li>
+<li>Does this mind machine properly depend on the correct, new 
+  version of boring mind machine?</li>
+<li>Has the version number in <code>setup.py</code> been bumped?</li>
 </ul>
-<p>When ready:</p>
-<ul>
-<li>Pypi upload</li>
+</li>
+<li>Documentation tasks:<ul>
+<li>Has the version number in the documentation (shield on 
+  <code>docs/index.md</code> page) been updated?</li>
+<li>Has Readme ben updated/quickstart instructions tested?</li>
 </ul>
-<p>How to set up:</p>
-<ul>
-<li>Dockerhub (update with new versions)</li>
+</li>
+<li>Git tasks:<ul>
+<li>Is the submodule using HTTPS? (should not use SSH)</li>
+<li>Have submodules been updated? </li>
+<li><code>git submodule foreach git checkout master; git submodule foreach git pull origin master</code></li>
+<li>Does this release include any large files? Are they necessary?
+  Can they be slimmed?</li>
 </ul>
-<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
+</li>
+<li>Docker tasks:<ul>
+<li>Is the Dockerfile cloning the repo from the correct URL?</li>
+<li>Can a simple (non-mind-machine) python-alpine Dockerfile
+  install the requirements in <code>requirements.txt</code>?</li>
+</ul>
+</li>
+</ul>
+<h3 id="tests-checklist">Tests Checklist<a class="headerlink" href="#tests-checklist" title="Permanent link">&para;</a></h3>
+<p>The second step is to go through the build, run, and test process.</p>
+<p>Test checklist:</p>
 <ul>
-<li>Developer considerations for docker container</li>
+<li>Nose tests<ul>
+<li>Does <code>python setup.py test</code> pass?</li>
+</ul>
+</li>
+<li>Docker<ul>
+<li>Can the Docker container be created using the shell script?</li>
+<li>Does <code>python setup.py test</code> pass inside the container?</li>
+</ul>
+</li>
+<li>Documentation<ul>
+<li>Does <code>mkdocs build</code> work?</li>
+<li>Is updated documentation ready to deploy?</li>
+</ul>
+</li>
+</ul>
+<h3 id="create-release-branch">Create Release Branch<a class="headerlink" href="#create-release-branch" title="Permanent link">&para;</a></h3>
+<p>Once the release checklist has been completed and everything is passing
+tests, the prerelease branch should be made into a release branch.</p>
+<p>This can be done by renaming the prerelease branch,</p>
+<div class="codehilite"><pre><span></span>git branch -m prereleases/vXYZ releases/vXYZ
+</pre></div>
+
+
+<p>or by creating a new releases branch from the prerelases branch:</p>
+<div class="codehilite"><pre><span></span>git branch releases/vXYZ
+git checkout releases/vXYZ
+</pre></div>
+
+
+<h3 id="create-tags">Create Tags<a class="headerlink" href="#create-tags" title="Permanent link">&para;</a></h3>
+<p>After the new releases branch is created, a tag should be created
+that points to the head commit of the release branch.</p>
+<p>Create a git tag:</p>
+<div class="codehilite"><pre><span></span>git tag vXYZ.0
+git push origin vXYZ.0
+</pre></div>
+
+
+<p>This will add the new version tag to the "Releases" page of 
+the package's Github repository</p>
+<h3 id="testing-release-from-github">Testing Release from Github<a class="headerlink" href="#testing-release-from-github" title="Permanent link">&para;</a></h3>
+<p>Test downloading anad installing the new release from Github:</p>
+<div class="codehilite"><pre><span></span>wget https://github.com/rainbow-mind-machine/boring-mind-machine/archive/vXYZ.zip
+unzip vXYZ.zip
+
+...see installation instructions...
+</pre></div>
+
+
+<h3 id="set-up-pypi-account">Set Up PyPI Account<a class="headerlink" href="#set-up-pypi-account" title="Permanent link">&para;</a></h3>
+<p>Ensure you have a PyPI account before you upload the new release to 
+PyPI and make it pip-installable. To set up an account on PyPI:</p>
+<div class="codehilite"><pre><span></span>python setup.py register
+</pre></div>
+
+
+<p>add the following to ~/.pypirc:</p>
+<p><strong>~/.pypirc</strong>:</p>
+<div class="codehilite"><pre><span></span>[distutils]
+index-servers =
+    pypi
+
+[pypi]
+username:charlesreid1
+password:YOURPASSWORDHERE
+</pre></div>
+
+
+<h3 id="upload-release-to-pypi">Upload Release to PyPI<a class="headerlink" href="#upload-release-to-pypi" title="Permanent link">&para;</a></h3>
+<p>PyPI = Python Package Index (where pip looks by default)</p>
+<p>When ready, the steps to release on PyPI are as follows:</p>
+<ul>
+<li>Create a distribution locally</li>
+<li>Upload the distribution to PyPI</li>
+<li>Test the new release in a virtual environment</li>
+</ul>
+<p>Start by making a distribution package bundle:</p>
+<div class="codehilite"><pre><span></span>$ python setup.py sdist
+</pre></div>
+
+
+<p>Upload it to pypi:</p>
+<div class="codehilite"><pre><span></span>$ python setup.py sdist upload
+</pre></div>
+
+
+<p>Test it out with virutalenv:</p>
+<div class="codehilite"><pre><span></span>  $ virtualenv vp &amp;&amp; cd vp
+  $ source bin/activate
+  $ bin/pip install boringmindmachine
+</pre></div>
+
+
+<h3 id="set-up-dockerhub-account">Set Up Dockerhub Account<a class="headerlink" href="#set-up-dockerhub-account" title="Permanent link">&para;</a></h3>
+<p>Before updating the latest container image available for the project on Dockerhub,
+you should create a Dockerhub account. There is no command line interface needed,
+as Dockerhub builds are configured via the web interface and webhooks.</p>
+<h3 id="update-container-image-on-dockerhub">Update Container Image on Dockerhub<a class="headerlink" href="#update-container-image-on-dockerhub" title="Permanent link">&para;</a></h3>
+<p>To update the latest container image available for the project on Dockerhub,
+add the new version's tag to the list of versions that Dockerhub will build.
+You can also configure webhooks so that new images are built whenever a
+particular branch is updated, but tagged versions won't change much so they
+only require building once.</p>
+<h2 id="useful-links">Useful Links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<p>Guide to packaging a minimal Python application:</p>
+<ul>
+<li><a href="http://python-packaging.readthedocs.io/en/latest/minimal.html">http://python-packaging.readthedocs.io/en/latest/minimal.html</a></li>
+</ul>
+<p>Uploading distributions to PyPI:</p>
+<ul>
+<li><a href="https://packaging.python.org/guides/migrating-to-pypi-org/#uploading">https://packaging.python.org/guides/migrating-to-pypi-org/#uploading</a></li>
+</ul>
+<p>Example scripts and guide:</p>
+<ul>
+<li><a href="https://gist.github.com/gboeing/dcfaf5e13fad16fc500717a3a324ec17">https://gist.github.com/gboeing/dcfaf5e13fad16fc500717a3a324ec17</a></li>
 </ul>
                 
                   
@@ -800,7 +1064,7 @@ perform common tasks. There are three types of tasks:</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../contributing/" title="Contributing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../future/" title="Future Work and Ideas" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -809,11 +1073,25 @@ perform common tasks. There are three types of tasks:</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Contributing
+                Future Work and Ideas
               </span>
             </div>
           </a>
         
+        
+          <a href="../../contributing/" title="Contributing" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Contributing
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>
@@ -823,7 +1101,7 @@ perform common tasks. There are three types of tasks:</p>
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2018 <a href="https://charlesreid1.com">Charles Reid</a>, released under the <a href="https://opensource.org/licenses/MIT">MIT License</a>. rainbowmindmachine@charlesreid1.com<br />Photo Credit: <a href="https://www.flickr.com/photos/russloar/">Russ Loar</a> under the <a href="https://creativecommons.org/licenses/by-nc-nd/2.0/">CC BY-NC-ND License</a><br /><br /><br /> <div class="classictemplate template" style="display: block;"> <style type="text/css"> \ #groupsio_embed_signup input {border:1px solid #999; -webkit-appearance:none;} \ #groupsio_embed_signup label {display:block; font-size:16px; padding-bottom:10px; font-weight:bold;} \ #groupsio_embed_signup .email {display:block; padding:8px 0; margin:0 4% 10px 0; text-indent:5px; width:58%; min-width:130px;} \ #groupsio_embed_signup { \ background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif;  \ } \ #groupsio_embed_signup .button { \ \ width:25%; margin:0 0 10px 0; min-width:90px; \ background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%); \ background-repeat: repeat-x; \ border-color: #245580; \ text-shadow: 0 -1px 0 rgba(0,0,0,.2); \ box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075); \ padding: 5px 10px; \ font-size: 12px; \ line-height: 1.5; \ border-radius: 3px; \ color: #fff; \ background-color: #337ab7; \ display: inline-block; \ margin-bottom: 0; \ font-weight: 400; \ text-align: center; \ white-space: nowrap; \ vertical-align: middle; \ } \ </style> <div id="groupsio_embed_signup"> <form action="https://groups.io/g/rainbowmindmachine/signup?u=3775286196230193988" method="post" id="groupsio-embedded-subscribe-form" name="groupsio-embedded-subscribe-form" target="_blank"> <div id="groupsio_embed_signup_scroll"> <label for="email" id="templateformtitle"> <p style="font-size: 22px;">YOU WANT TO SUBSCRIBE TO THE <a href="https://groups.io/g/rainbowmindmachine">RAINBOW MIND MACHINE MAILING LIST</a></p> </label> <input value="" name="email" class="email input-group input-group-lg" id="email" placeholder="email address" required="" type="email"> <div style="position: absolute; left: -5000px;" aria-hidden="true"><input name="b_3775286196230193988" tabindex="-1" value="" type="text"></div> <div id="templatearchives"></div> <input value="Subscribe" name="subscribe" id="groupsio-embedded-subscribe" class="button btn btn-primary btn-lg dropdown-toggle" type="submit"> </div> </form> </div> </div><br /><br />
+            All mind machines are copyright &copy; 2018 <a href="https://charlesreid1.com">Charles Reid</a><br /> All mind machines are released under the <a href="https://opensource.org/licenses/MIT">MIT License</a><br /> Contact us: <a href="mailto:rainbowmindmachine@charlesreid1.com">rainbowmindmachine (at) charlesreid1.com</a><br /> <a href="mind-machine-docs/credits/">Photo credits and attribution</a><br /> <div class="classictemplate template" style="display: block;"> <style type="text/css"> \ #groupsio_embed_signup input {border:1px solid #999; -webkit-appearance:none;} \ #groupsio_embed_signup label {display:block; font-size:16px; padding-bottom:10px; font-weight:bold;} \ #groupsio_embed_signup .email {display:block; padding:8px 0; margin:0 4% 10px 0; text-indent:5px; width:58%; min-width:130px;} \ #groupsio_embed_signup { \ background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif;  \ } \ #groupsio_embed_signup .button { \ \ width:25%; margin:0 0 10px 0; min-width:90px; \ background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%); \ background-repeat: repeat-x; \ border-color: #245580; \ text-shadow: 0 -1px 0 rgba(0,0,0,.2); \ box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075); \ padding: 5px 10px; \ font-size: 12px; \ line-height: 1.5; \ border-radius: 3px; \ color: #fff; \ background-color: #337ab7; \ display: inline-block; \ margin-bottom: 0; \ font-weight: 400; \ text-align: center; \ white-space: nowrap; \ vertical-align: middle; \ } \ </style> <div id="groupsio_embed_signup"> <form action="https://groups.io/g/rainbowmindmachine/signup?u=3775286196230193988" method="post" id="groupsio-embedded-subscribe-form" name="groupsio-embedded-subscribe-form" target="_blank"> <div id="groupsio_embed_signup_scroll"> <label for="email" id="templateformtitle"> <p style="font-size: 22px;">YOU WANT TO SUBSCRIBE TO THE <a href="https://groups.io/g/rainbowmindmachine">RAINBOW MIND MACHINE MAILING LIST</a></p> </label> <input value="" name="email" class="email input-group input-group-lg" id="email" placeholder="email address" required="" type="email"> <div style="position: absolute; left: -5000px;" aria-hidden="true"><input name="b_3775286196230193988" tabindex="-1" value="" type="text"></div> <div id="templatearchives"></div> <input value="Subscribe" name="subscribe" id="groupsio-embedded-subscribe" class="button btn btn-primary btn-lg dropdown-toggle" type="submit"> </div> </form> </div> </div><br /><br />
           </div>
         
         powered by
@@ -843,7 +1121,7 @@ perform common tasks. There are three types of tasks:</p>
     
       <script src="../../assets/javascripts/application.e72fd936.js"></script>
       
-      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"1.0.2",url:{base:"../.."}})</script>
       
         <script src="../../search/main.js"></script>
       
