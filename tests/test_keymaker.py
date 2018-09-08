@@ -27,7 +27,7 @@ class TestKeymaker(TestCase):
     @classmethod
     def setUpClass(self):
         self.keys_dir = os.path.join( thisdir, "test_keymaker_keys" )
-        self.api_keys = os.path.join( thisdir, "apikeys.json" )
+        self.api_keys = os.path.join( thisdir, "apikeys_fake.json" )
 
         # Note: this gives the same outcome as 
         # hard-coding the path "tests"
@@ -69,8 +69,7 @@ class TestKeymaker(TestCase):
         keymaker = rmm.TwitterKeymaker()
 
         # Set application API keys
-        apikeys = os.path.join(thisdir,'apikeys.json')
-        keymaker.set_apikeys_file(apikeys)
+        keymaker.set_apikeys_file(self.api_keys)
 
         # Create bot API keys
         with captured_output() as (out, err):
@@ -127,7 +126,7 @@ class TestFilesKeymaker(TestCase):
     @classmethod
     def setUpClass(self):
         self.keys_dir = os.path.join( thisdir, "test_keymaker_files_keys" )
-        self.api_keys = os.path.join( thisdir, "apikeys.json" )
+        self.api_keys = os.path.join( thisdir, "apikeys_fake.json" )
 
 
     def test_files_keymaker(self):
@@ -139,8 +138,7 @@ class TestFilesKeymaker(TestCase):
         keymaker = rmm.FilesKeymaker()
 
         # Set application API keys
-        apikeys = os.path.join(thisdir,'apikeys.json')
-        keymaker.set_apikeys_file(apikeys)
+        keymaker.set_apikeys_file(self.api_keys)
 
         # Create bot API keys
         # from files in filesdir
@@ -165,8 +163,7 @@ class TestFilesKeymaker(TestCase):
         keymaker = rmm.TxtKeymaker()
 
         # Set application API keys
-        apikeys = os.path.join(thisdir,'apikeys.json')
-        keymaker.set_apikeys_file(apikeys)
+        keymaker.set_apikeys_file(self.api_keys)
 
         # Create bot API keys
         txtdir = os.path.join(thisdir,'txt/')
