@@ -43,8 +43,9 @@ class TwitterShepherd(bmm.BoringShepherd):
                          'screen_name']
         for key in required_keys:
             if key not in bot_key.keys():
-                err = "ERROR: TwitterShepherd encountered an invalid bot key.\n"
+                err = "TwitterShepherd Error: _validate_key(): Encountered an invalid bot key.\n"
                 err += "The bot key is missing a value for '%s'."%(key)
+                logging.error(err)
                 raise Exception(err)
 
     def _create_sheep(self, bot_key, **kwargs):

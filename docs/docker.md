@@ -1,8 +1,8 @@
 # Using rainbow mind machine With Docker
 
-![the twittur](img/twittur.jpg)
+![the twittur](mind-machine-docs/img/twittur.jpg)
 
-**This is what you get when you cross a doker wale with a twittur burd. [credit](credits.md)**
+**This is what you get when you cross a doker wale with a twittur burd. [credit](mind-machine-docs/credits.md)**
 
 To use rainbow mind machine from a docker container,
 you can build the container yourself using the 

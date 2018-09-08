@@ -3,7 +3,10 @@
 FROM jfloff/alpine-python:recent-onbuild
 
 RUN git clone -b prereleases/v23 https://github.com/rainbow-mind-machine/rainbow-mind-machine.git /rmm
+RUN mv /rmm/tests/apikeys_fake.json /rmm/tests/apikeys.json
 RUN cd /rmm && \
     /usr/bin/env pip install -r requirements.txt && \
     /usr/bin/env python /rmm/setup.py build && \
-    /usr/bin/env python /rmm/setup.py install
+    /usr/bin/env python /rmm/setup.py install && \
+    /usr/bin/env python /rmm/setup.py test
+

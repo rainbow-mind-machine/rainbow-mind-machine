@@ -1,8 +1,8 @@
 # Social Sheep
 
-![the (anti-)social sheep](img/social_sheep_no.jpg)
+![the (anti-)social sheep](mind-machine-docs/img/social_sheep_no.jpg)
 
-**The social rainbow mind machine sheep. [credit](credits.md)**
+**The social rainbow mind machine sheep. [credit](mind-machine-docs/credits.md)**
 
 Social Sheep turn the normally reclusive and
 introverted Sheep into extroverted bots that can
@@ -36,7 +36,7 @@ for N tweets matching a given search term, and forms
 a small pool of tweets as a result. This pool of tweets
 is called a Toilet.
 
-![the toilet](img/social_toilet.jpg)
+![the toilet](mind-machine-docs/img/social_toilet.jpg)
 
 The toilet is `flush()`ed each time a search is
 performed. The Social Sheep can favorite the
@@ -56,9 +56,12 @@ Here is some example code: three methods,
 one to perform the OAuth authentication process
 via the Keymaker, one to create a Shepherd and
 perform the `tweet` action using the bot account, 
-and the last to perform the `favorite_toilet` action
+and the last to perform the `favorite` action
 and repeatedly flush the toilet and favorite 
 everything in the toilet forever.
+
+If you call the `retweet` action it will retweet
+the tweets in the toilet.
 
 ```python
 import rainbowmindmachine as rmm
@@ -101,7 +104,7 @@ def favorite():
                        sheep_class = TestSocialSheep
                     )
 
-    sh.perform_action('favorite_toilet',
+    sh.perform_action('favorite',
             sleep = 60,
             search_term = '#rainbowmindmachine'
     )

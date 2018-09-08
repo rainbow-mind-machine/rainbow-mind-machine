@@ -1,12 +1,11 @@
 import boringmindmachine as bmm
+import logging
 import os, time, datetime, urllib
 import twitter
 import traceback
 import base64
 import oauth2 as oauth
 import simplejson as json
-
-from .utils import eprint
 
 class TwitterSheep(bmm.BoringSheep):
     """
@@ -76,11 +75,10 @@ class TwitterSheep(bmm.BoringSheep):
 
         # Set names
         self.name = bot_key['screen_name']
-        self.flock_name = bot_key['flock_name']
 
-        msg = "rainbow-mind-machine: TwitterSheep: Set up Twitter API for bot {screen_name}"
-        msg = msg.format(screen_name=self.params['screen_name'])
-        eprint(msg)
+        msg = "TwitterSheep: constructor: Finished setting up Twitter API for bot {screen_name}"
+        msg = msg.format(screen_name=self.name)
+        logging.info(self.sign_message(msg))
 
 
     #####################################
@@ -89,11 +87,14 @@ class TwitterSheep(bmm.BoringSheep):
 
     def dummy(self, **kwargs):
         """Debug: do nothing."""
-        pass
+        msg = "TwitterSheep: dummy(): dummy action"
+        logging.debug(self.sign_message(msg))
 
     def echo(self, **kwargs):
         """Just say hi"""
-        print("Hello world! This is {name}".format(name=self.name))
+        msg = "Hello world! This is {name}".format(name=self.name)
+        logging.info(self.sign_message(msg))
+
 
 
     #################################
@@ -117,7 +118,8 @@ class TwitterSheep(bmm.BoringSheep):
         Does not return anything.
         """
         if( 'url' not in kwargs.keys()):
-            err = "ERROR: rmm Sheep: change_url() action called without 'url' kwarg specified."
+            err = "TwitterSheep Error: change_url() action called without 'url' kwarg specified."
+            logging.error(self.sign_message(err), exc_info=True)
             raise Exception(err)
 
         # Set the API endpoint 
@@ -132,7 +134,8 @@ class TwitterSheep(bmm.BoringSheep):
                 headers = None
         )
 
-        eprint("Completed change_url() method. Set url to: %s"%(bot_url))
+        msg = "TwitterSheep: change_url(): Done. Set url to: %s"%(bot_url)
+        logging.info(self.sign_message(msg))
 
 
     def change_bio(self,**kwargs):
@@ -144,7 +147,8 @@ class TwitterSheep(bmm.BoringSheep):
         Does not return anything.
         """
         if( 'bio' not in kwargs.keys()):
-            err = "change_bio() action called without 'bio' key specified in the parameters dict."
+            err = "TwitterSheep Error: change_bio() action called without 'bio' key specified in the parameters dict."
+            logging.error(self.sign_message(err), exc_info=True)
             raise Exception(err)
 
         # Set the API endpoint 
@@ -158,8 +162,9 @@ class TwitterSheep(bmm.BoringSheep):
                 headers=None
         )
 
-        eprint("Completed change_bio() method.")
-        eprint(content)
+        msg = "TwitterSheep: change_bio(): Done."
+        logging.info(self.sign_message(msg))
+        logging.info(content)
 
 
     def change_colors(self,**kwargs):
@@ -180,8 +185,9 @@ class TwitterSheep(bmm.BoringSheep):
         """
         if( 'background' not in kwargs.keys()
                 and 'links' not in kwargs.keys()):
-            err = "ERROR: rmm Sheep: change_colors() action called "
+            err = "TwitterSheep Error: change_colors() action called "
             err += "with neither 'background' nor 'links' kwargs specified."
+            logging.error(self.sign_message(err), exc_info=True)
             raise Exception(err)
 
         # json sent to the Twitter API
@@ -205,8 +211,9 @@ class TwitterSheep(bmm.BoringSheep):
                 headers=None
         )
 
-        eprint("Completed change_colors() method.")
-        eprint(content)
+        msg = "TwitterSheep: change_colors(): Done."
+        logging.info(self.sign_message(msg))
+        logging.info(content)
 
 
     def change_image(self,**kwargs):
@@ -224,19 +231,22 @@ class TwitterSheep(bmm.BoringSheep):
         This method does not return anything.
         """
         if( 'image' not in kwargs.keys() and 'image' not in self.params):
-            err = "change_image() action called without 'image' key specified in the bot key or the parameters dict."
+            err = "TwitterSheep Error: change_image() action called without 'image' key specified in the bot key or the parameters dict."
+            logging.error(self.sign_message(err), exc_info=True)
             raise Exception(err)
 
         img_file = ''
         if( 'image' in kwargs.keys() ):
             img_file = kwargs['image']
             if os.path.isfile(img_file) is False:
-                err = "change_image() action called with an 'image' key that is not a file!"
+                err = "TwitterSheep Error: change_image() action called with an 'image' key that is not a file!"
+                logging.error(self.sign_message(err), exc_info=True)
                 raise Exception(err)
         elif( 'image' in self.params ):
             img_file = self.params['image']
             if os.path.isfile(img_file) is False:
-                err = "change_image() action called with an 'image' key that is not a file!"
+                err = "TwitterSheep Error: change_image() action called with an 'image' key that is not a file!"
+                logging.error(self.sign_message(err), exc_info=True)
                 raise Exception(err)
 
         # json sent to the Twitter API
@@ -254,8 +264,8 @@ class TwitterSheep(bmm.BoringSheep):
                 headers=None
         )
 
-        eprint("Completed change_image() method.")
-        eprint(content)
+        logging.info("TwitterSheep: change_image(): Done.")
+        logging.info(content)
 
 
     def follow_user(self, **kwargs):
@@ -269,7 +279,8 @@ class TwitterSheep(bmm.BoringSheep):
         This method does not return anything.
         """
         if( 'username' not in kwargs.keys()):
-            err = "change_image() action called without 'image' key specified in the parameters dict."
+            err = "TwitterSheep Error: change_image() action called without 'image' key specified in the parameters dict."
+            logging.error(self.sign_message(err), exc_info=True)
             raise Exception(err)
 
         if( 'notify' not in kwargs.keys()):
@@ -288,8 +299,8 @@ class TwitterSheep(bmm.BoringSheep):
                 headers=None
         )
 
-        eprint("Completed follow_user() method.")
-        eprint(content)
+        logging.info("TwitterSheep: follow_user(): Done.")
+        logging.info(content)
 
 
     def unfollow_user(self, notify=True, **kwargs):
@@ -303,7 +314,8 @@ class TwitterSheep(bmm.BoringSheep):
         This method does not return anything.
         """
         if 'username' not in kwargs.keys():
-            err = "unfollow_user() action called without a 'username' key specified in the params dict."
+            err = "TwitterSheep Error: unfollow_user() action called without a 'username' key specified in the params dict."
+            logging.error(self.sign_message(err), exc_info=True)
             raise Exception(err)
 
         if( 'notify' not in kwargs.keys()):
@@ -324,8 +336,8 @@ class TwitterSheep(bmm.BoringSheep):
                 headers=None
         )
 
-        eprint("Completed unfollow_user() method.")
-        eprint(content)
+        logging.info("TwitterSheep: unfollow_user(): Done.")
+        logging.info(content)
 
 
     def tweet(self, **kwargs):
@@ -377,11 +389,17 @@ class TwitterSheep(bmm.BoringSheep):
                 tweet_queue = self.populate_tweet_queue()
                 nelements = len(tweet_queue)
 
+                msg = "TwitterSheep: tweet(): Populated tweet queue with %d tweets"%(nelements)
+                logging.debug(self.sign_message(msg))
+
                 assert nelements>0
 
                 for ii in range(nelements):
 
                     twit = tweet_queue.pop(0)
+
+                    msg = "TwitterSheep: tweet(): Tweeting the twit \"%s\""%(twit)
+                    logging.debug(self.sign_message(msg))
 
                     # Fire off the tweet
                     if kwargs['publish']:
@@ -395,33 +413,41 @@ class TwitterSheep(bmm.BoringSheep):
                             )
 
                     else:
-                        self._print( twit )
+                        msg = "TwitterSheep: tweet(): Not publishing tweet \"%s\""%(twit)
+                        logging.info(self.sign_message(msg))
+
+                    msg = "TwitterSheep: tweet(): Tweeted \"%s\""%(twit)
+                    logging.debug(self.sign_message(msg))
 
 
                     time.sleep( kwargs['inner_sleep'] )
 
                 time.sleep( kwargs['outer_sleep'] )
 
-                msg = "rainbow-mind-machine: TwitterSheep: Completed a cycle."
-                eprint(msg)
+                msg = "TwitterSheep: tweet(): Completed a cycle."
+                logging.debug(self.sign_message(msg))
 
             except Exception:
 
                 # oops!
 
-                msg1 = "rainbow-mind-machine: Sheep encountered an exception. More info:"
-                msg2 = traceback.format_exc()
-                msg3 = "rainbow-mind-machine: Sheep is continuing..."
+                msg1 = self.sign_message("TwitterSheep: tweet(): Sheep encountered an exception. More info:")
+                msg2 = self.sign_message(traceback.format_exc())
+                msg3 = self.sign_message("Sheep is continuing...")
 
-                eprint(msg1)
-                eprint(msg2)
-                eprint(msg3)
+                # Add this line in to debug sheep
+                #raise Exception(err)
+
+                logging.error(msg1)
+                logging.error(msg2)
+                logging.error(msg3)
 
                 time.sleep( kwargs['outer_sleep'] )
 
             except AssertionError:
 
-                err = "Error: tweet queue was empty. Check your populate_tweet_queue() method definition."
+                err = "TwitterSheep Error: tweet(): tweet queue was empty. Check your populate_tweet_queue() method definition."
+                logging.error(self.sign_message(err))
                 raise Exception(err)
 
 
@@ -439,22 +465,22 @@ class TwitterSheep(bmm.BoringSheep):
                 stats = self.api.PostUpdates(twit)
 
             # everything else:
-            msg = "rainbow-mind-machine: TwitterSheep: @%s tweeted: \"%s\""%(self.name, twit)
-            eprint(msg)
+            msg = "TwitterSheep Error: _tweet(): @%s tweeted: \"%s\""%(self.name, twit)
+            logging.info(self.sign_message(msg))
 
         except twitter.TwitterError as e:
             
             if e.message[0]['code'] == 185:
-                msg = "rainbow-mind-machine: TwitterSheep: Twitter error: Daily message limit reached"
-                eprint(msg)
+                msg = "TwitterSheep Error: _tweet(): Twitter error: Daily message limit reached"
+                logging.info(self.sign_message(msg))
 
             elif e.message[0]['code'] == 187:
-                msg = "rainbow-mind-machine: TwitterSheep: Twitter error: Duplicate error"
-                eprint(msg)
+                msg = "TwitterSheep Error: _tweet(): Twitter error: Duplicate error"
+                logging.info(self.sign_message(msg))
             
             else:
-                msg = "rainbow-mind-machine: TwitterSheep: Twitter error: %s"%(e.message)
-                eprint(msg)
+                msg = "TwitterSheep Error: _tweet(): Twitter error: %s"%(e.message)
+                logging.info(self.sign_message(msg))
 
 
     def populate_tweet_queue(self):
@@ -478,17 +504,16 @@ class TwitterSheep(bmm.BoringSheep):
             tweet = "Hello world! That's number %d of 5."%(j+1)
             tweet_queue.append(tweet)
 
-        msg = "rainbow-mind-machine: TwitterSheep: Finished populating a new tweet queue with %d tweets."%(len(tweet_queue))
-        eprint(msg)
+        msg = "TwitterSheep: populate_tweet_queue(): Finished populating a new tweet queue with %d Hello World tweets."%(len(tweet_queue))
+        logging.debug(self.sign_message(msg))
 
         return tweet_queue
 
 
-    def _print(self,twit):
+    def sign_message(self,msg):
         """
-        Private method.
-        Print a twit.
+        Given a message, prepend it with [@botname]
         """
-        msg = "rainbow-mind-machine: TwitterSheep: @%s printed: \"%s\""%(self.name, twit)
-        eprint(msg)
+        result = "[@%s] %s"%(self.name, msg)
+        return result
 

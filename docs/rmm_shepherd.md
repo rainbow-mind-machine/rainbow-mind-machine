@@ -1,9 +1,5 @@
 # The Shepherd
 
-![the shepherd](img/shepherd.jpg)
-
-**The rainbow mind machine shepherd. [credit](credits.md)**
-
 > The shepherd's (_pasteur_) power manifests itself, therefore, in a duty, a task to
 > be undertaken, so that - and I think this is also an important characteristic of
 > pastoral power - the form it takes is not first of all the striking display of
@@ -16,6 +12,10 @@
 > to any possible misfortune.
 >
 > - Michel Foucault, _Security, Territory, Population: Lectures at the Collége de France_ (1977-1978)
+
+![the shepherd](mind-machine-docs/img/shepherd.jpg)
+
+**The rainbow mind machine shepherd. [credit](mind-machine-docs/credits.md)**
 
 ## what is the Shepherd?
 
@@ -85,6 +85,7 @@ CarMechanicShepherd(uses_metric=False)
 
 Okay, back to the regularly scheduled program...
 
+
 ### webhook bot flock
 
 As an example of a bot flock that requires tighter integration
@@ -123,12 +124,10 @@ a normal Queneau Sheep bot. Each bot generates dialogue
 from a single speaker, and tweets it in response to 
 another bot tweeting.
 
-While we can extend the Sheep class to make it easier
-to set fine grained controls over the dialogue process,
-we can use the existing inner-outer loop structure
-of Queneau bots to accomplish our goal.
-
-So, Sheep do not require any extending.
+While we **could** extend the Sheep class to control the dialogue,
+it would be easier to use the inner/outer loop structure
+that the QueneauSheep class already has. That way, the Sheep
+do not require any extending.
 
 The Shepherd class needs to be modified by changing
 the way it instantiates bots from keys. Instead of 

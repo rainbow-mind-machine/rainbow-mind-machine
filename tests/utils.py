@@ -5,6 +5,9 @@ import logging
 
 @contextmanager
 def captured_output():
+    """
+    https://stackoverflow.com/a/17981937
+    """
     new_out, new_err = StringIO(), StringIO()
     old_out, old_err = sys.stdout, sys.stderr
     try:
