@@ -1,5 +1,9 @@
 # The Twitter Keymaker
 
+![the keymaker](mind-machine-docs/img/keymaker.jpg)
+
+**the rainbow mind machine keymaker. trust it with your keys.**
+
 The TwitterKeymaker is the object that is used to 
 authenticate with Twitter and generate the 
 OAuth keys the application needs to do things

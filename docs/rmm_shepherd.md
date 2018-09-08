@@ -13,7 +13,7 @@
 >
 > - Michel Foucault, _Security, Territory, Population: Lectures at the Collége de France_ (1977-1978)
 
-![the shepherd](img/shepherd.jpg)
+![the shepherd](mind-machine-docs/img/shepherd.jpg)
 
 **The rainbow mind machine shepherd. [credit](credits.md)**
 
