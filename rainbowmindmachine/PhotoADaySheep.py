@@ -1,4 +1,5 @@
 from .SocialSheep import SocialSheep
+import traceback
 import urllib
 import requests
 import oauth2 as oauth
@@ -73,14 +74,14 @@ class PhotoADaySheep(TwitterSheep):
         Parameters:
         -------------
 
-        extra_params contains two keys:
+        kwargs contains two keys:
             
             images_dir:         directory containing images
             images_template:    filename pattern, with {i} in place of day of year
 
         Pass e.g. {i:03} for zero filled integer.
 
-        Example extra_params dictionary:
+        Example kwargs dictionary:
 
             { 
                 "images_dir" : "puppy_images",
@@ -90,12 +91,12 @@ class PhotoADaySheep(TwitterSheep):
         TODO:
         ------
         """
-        if('images_dir' not in extra_params.keys()):
+        if('images_dir' not in kwargs.keys()):
             err = "Error: no images directory provided to "
             err += "PhotoADaySheep via 'images_dir' parameter"
             logging.error(err)
             raise Exception(err, exc_info=True)
-        if('images_pattern' not in extra_params.keys()):
+        if('images_pattern' not in kwargs.keys()):
             err = "Error: no image filename pattern (e.g., \"my_image_{i}.jpg\") "
             err += "were provided to PhotoADaySheep via 'images_template' parameter"
             logging.error(err)
@@ -106,10 +107,10 @@ class PhotoADaySheep(TwitterSheep):
         # 
         # This is kind of stupid, but... sigh...
 
-        image_dir = extra_params['images_dir']
+        image_dir = kwargs['images_dir']
         image_files = []
         for doy in range(366):
-            image_file = extra_params['images_pattern'].format(i=doy)
+            image_file = kwargs['images_pattern'].format(i=doy)
 
             # don't bother checking if they exist here
             filep = os.path.join(image_dir, image_file)
@@ -159,6 +160,9 @@ class PhotoADaySheep(TwitterSheep):
 
         remcycle = 120 # sleep (in seconds)
 
+        if kwargs['publish'] is False:
+            remcycle = 3
+
         prior_dd = 0
         while True:
 
@@ -171,13 +175,15 @@ class PhotoADaySheep(TwitterSheep):
                 offset = 8
 
                 hour_to_tweet = 8
-                if( abs(dd-prior_dd)>0 and hh>(hour_to_tweet + offset)):
+                day_has_passed = abs(dd-prior_dd)>0
+                hour_is_right = hh>(hour_to_tweet+offset)
+                if (day_has_passed and hour_is_right) or (kwargs['publish'] is False):
 
                     # Index = doy of year
                     doy = datetime.now().timetuple().tm_yday
 
                     # Repopulate in case there are changes
-                    twit_images = self.populate_queue(kwargs)
+                    twit_images = self.populate_queue(**kwargs)
 
                     msg = "PhotoADaySheep: photo_a_day(): Time to tweet.\n"
                     msg += "    day of the year = %d"%(doy)
@@ -207,6 +213,9 @@ class PhotoADaySheep(TwitterSheep):
                         else:
                             msg = "PhotoADaySheep: photo_a_day(): Testing image tweet: %s"%(media_attachment)
                             logging.info(msg)
+                            if not os.path.isfile(media_attachment):
+                                err = "PhotoADay Sheep Error: photo_a_day(): Could not find photo attachment %s"%(media_attachment))
+                                logging.info(err)
 
                     else:
                         msg = "PhotoADaySheep Warning: photo_a_day(): for doy = %d, could not find not find "%(doy)
