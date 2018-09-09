@@ -214,7 +214,7 @@ class PhotoADaySheep(TwitterSheep):
                             msg = "PhotoADaySheep: photo_a_day(): Testing image tweet: %s"%(media_attachment)
                             logging.info(msg)
                             if not os.path.isfile(media_attachment):
-                                err = "PhotoADay Sheep Error: photo_a_day(): Could not find photo attachment %s"%(media_attachment))
+                                err = "PhotoADay Sheep Error: photo_a_day(): Could not find photo attachment %s"%(media_attachment)
                                 logging.info(err)
 
                     else:
