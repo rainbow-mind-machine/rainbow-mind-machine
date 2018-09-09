@@ -398,7 +398,7 @@ class TwitterSheep(bmm.BoringSheep):
 
                     twit = tweet_queue.pop(0)
 
-                    msg = "TwitterSheep: tweet(): Tweeting the twit \"%s\""%(twit)
+                    msg = "TwitterSheep: tweet(): Preparing twit"
                     logging.debug(self.sign_message(msg))
 
                     # Fire off the tweet
@@ -412,11 +412,14 @@ class TwitterSheep(bmm.BoringSheep):
                                     media = media 
                             )
 
+                        msg = "TwitterSheep: tweet(): Published tweet \"%s\""%(twit)
+                        logging.info(self.sign_message(msg))
+
                     else:
                         msg = "TwitterSheep: tweet(): Not publishing tweet \"%s\""%(twit)
                         logging.info(self.sign_message(msg))
 
-                    msg = "TwitterSheep: tweet(): Tweeted \"%s\""%(twit)
+                    msg = "TwitterSheep: tweet(): Finished with twit"
                     logging.debug(self.sign_message(msg))
 
 
