@@ -351,9 +351,12 @@ class TwitterSheep(bmm.BoringSheep):
         Default Sheep have the following scheduling kwargs:
         
         kwargs:
+
             inner_sleep: Inner loop sleep time (1 s)
+
             outer_sleep: Outer loop sleep time (10 s)
-            publish: Actually publish (False)
+
+            publish: Actually publish (boolean, False by default)
 
         Additional kwargs:
 
