@@ -351,9 +351,12 @@ class TwitterSheep(bmm.BoringSheep):
         Default Sheep have the following scheduling kwargs:
         
         kwargs:
+
             inner_sleep: Inner loop sleep time (1 s)
+
             outer_sleep: Outer loop sleep time (10 s)
-            publish: Actually publish (False)
+
+            publish: Actually publish (boolean, False by default)
 
         Additional kwargs:
 
@@ -398,25 +401,28 @@ class TwitterSheep(bmm.BoringSheep):
 
                     twit = tweet_queue.pop(0)
 
-                    msg = "TwitterSheep: tweet(): Tweeting the twit \"%s\""%(twit)
+                    msg = "TwitterSheep: tweet(): Preparing twit"
                     logging.debug(self.sign_message(msg))
 
                     # Fire off the tweet
                     if kwargs['publish']:
 
-                        if(media is None):
-                            self._tweet( twit )
-                        else:
+                        if('media' in kwargs.keys()):
                             self._tweet( 
                                     twit, 
-                                    media = media 
+                                    media = kwargs['media ']
                             )
+                        else:
+                            self._tweet( twit )
+
+                        msg = "TwitterSheep: tweet(): Published tweet \"%s\""%(twit)
+                        logging.info(self.sign_message(msg))
 
                     else:
                         msg = "TwitterSheep: tweet(): Not publishing tweet \"%s\""%(twit)
                         logging.info(self.sign_message(msg))
 
-                    msg = "TwitterSheep: tweet(): Tweeted \"%s\""%(twit)
+                    msg = "TwitterSheep: tweet(): Finished with twit"
                     logging.debug(self.sign_message(msg))
 
 
@@ -465,7 +471,7 @@ class TwitterSheep(bmm.BoringSheep):
                 stats = self.api.PostUpdates(twit)
 
             # everything else:
-            msg = "TwitterSheep Error: _tweet(): @%s tweeted: \"%s\""%(self.name, twit)
+            msg = "TwitterSheep: _tweet(): @%s tweeted: \"%s\""%(self.name, twit)
             logging.info(self.sign_message(msg))
 
         except twitter.TwitterError as e:

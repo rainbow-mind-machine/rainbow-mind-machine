@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = "23"
+version = "23.1"
 
 setup(  name='rainbowmindmachine',
         version=version,

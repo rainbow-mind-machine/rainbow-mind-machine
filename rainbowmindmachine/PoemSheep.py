@@ -1,4 +1,5 @@
 from .TwitterSheep import TwitterSheep
+import logging
 
 """
 Poem Sheep
@@ -18,7 +19,7 @@ class PoemSheep(TwitterSheep):
     def populate_tweet_queue(self):
         """
         Populate a queue of tweets.
-        Called by Sheep::tweet()
+        Called by TwitterSheep::tweet()
         """
         # load each line of file into items in a list
         # (the "file" key is set by the FilesKeymaker class)
