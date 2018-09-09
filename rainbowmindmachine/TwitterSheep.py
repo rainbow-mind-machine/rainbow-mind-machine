@@ -404,13 +404,13 @@ class TwitterSheep(bmm.BoringSheep):
                     # Fire off the tweet
                     if kwargs['publish']:
 
-                        if(media is None):
-                            self._tweet( twit )
-                        else:
+                        if('media' in kwargs.keys()):
                             self._tweet( 
                                     twit, 
-                                    media = media 
+                                    media = kwargs['media ']
                             )
+                        else:
+                            self._tweet( twit )
 
                         msg = "TwitterSheep: tweet(): Published tweet \"%s\""%(twit)
                         logging.info(self.sign_message(msg))
