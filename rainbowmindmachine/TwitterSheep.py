@@ -468,7 +468,7 @@ class TwitterSheep(bmm.BoringSheep):
                 stats = self.api.PostUpdates(twit)
 
             # everything else:
-            msg = "TwitterSheep Error: _tweet(): @%s tweeted: \"%s\""%(self.name, twit)
+            msg = "TwitterSheep: _tweet(): @%s tweeted: \"%s\""%(self.name, twit)
             logging.info(self.sign_message(msg))
 
         except twitter.TwitterError as e:
