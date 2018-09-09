@@ -2,7 +2,7 @@
 # This base container image is used to build other twitter bots.
 FROM jfloff/alpine-python:recent-onbuild
 
-RUN git clone -b prereleases/v23 https://github.com/rainbow-mind-machine/rainbow-mind-machine.git /rmm
+RUN git clone -b releases/v23 https://github.com/rainbow-mind-machine/rainbow-mind-machine.git /rmm
 RUN cd /rmm && \
     /usr/bin/env pip install -r requirements.txt && \
     /usr/bin/env python /rmm/setup.py build && \
