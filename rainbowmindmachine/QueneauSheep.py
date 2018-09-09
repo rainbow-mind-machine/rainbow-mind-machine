@@ -1,6 +1,7 @@
 from .SocialSheep import SocialSheep
 from .queneau import DialogueAssembler
 from random import random
+import logging
 
 """
 Queneau Sheep
