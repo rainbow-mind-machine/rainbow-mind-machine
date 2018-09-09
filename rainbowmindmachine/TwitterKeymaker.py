@@ -260,8 +260,8 @@ class FilesKeymaker(TwitterKeymaker):
         so all options for TwitterKeymaker.make_a_key() are 
         same for FilesKeymaker.make_keys()
         """
-        logging.info("Keymaker files dir: %s"%(file_dir))
-        logging.info("Keymaker keys dir: %s"%(keys_out_dir))
+        logging.debug("FilesKeymaker: make_keys(): Using files directory: %s"%(file_dir))
+        logging.debug("FilesKeymaker: make_keys(): Using keys directory: %s"%(keys_out_dir))
 
         # Step 1:
         # Take care of file related-tasks for this bot
