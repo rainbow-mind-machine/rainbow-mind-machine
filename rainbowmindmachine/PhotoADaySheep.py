@@ -34,7 +34,7 @@ class PhotoADaySheep(TwitterSheep):
     
         photo_a_day: tweet an image a day
     """
-    def perform_action(self,action,extra_params):
+    def perform_action(self,action,**kwargs):
         """
         Performs action indicated by string (action),
         passing a dictionary of parameters (params).
@@ -56,10 +56,10 @@ class PhotoADaySheep(TwitterSheep):
         # Use the dispatcher method pattern
         if hasattr( self, action ):
             method = getattr( self, action )
-            method( extra_params )
+            method( **kwargs )
 
 
-    def populate_queue(self, extra_params):
+    def populate_queue(self, **kwargs):
         """
         PhotoADaySheep works slightly differently,
         since it is a multimedia Sheep.
