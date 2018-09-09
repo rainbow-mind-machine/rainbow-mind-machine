@@ -1,4 +1,5 @@
 from .TwitterSheep import TwitterSheep
+import logging
 
 """
 Poem Sheep
