@@ -1,5 +1,4 @@
 from .SocialSheep import SocialSheep
-import logging
 import urllib
 import requests
 import oauth2 as oauth
