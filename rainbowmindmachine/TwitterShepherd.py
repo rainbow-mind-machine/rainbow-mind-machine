@@ -1,5 +1,6 @@
 import boringmindmachine as bmm
 from .TwitterSheep import TwitterSheep
+import logging
 
 """
 rmm.Shepherd
