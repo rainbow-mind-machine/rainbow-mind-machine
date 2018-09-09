@@ -34,7 +34,7 @@ class PhotoADaySheep(TwitterSheep):
     
         photo_a_day: tweet an image a day
     """
-    def perform_action(self,action,extra_params):
+    def perform_action(self,action,**kwargs):
         """
         Performs action indicated by string (action),
         passing a dictionary of parameters (params).
@@ -56,10 +56,10 @@ class PhotoADaySheep(TwitterSheep):
         # Use the dispatcher method pattern
         if hasattr( self, action ):
             method = getattr( self, action )
-            method( extra_params )
+            method( **kwargs )
 
 
-    def populate_queue(self, extra_params):
+    def populate_queue(self, **kwargs):
         """
         PhotoADaySheep works slightly differently,
         since it is a multimedia Sheep.
@@ -118,36 +118,36 @@ class PhotoADaySheep(TwitterSheep):
         return image_files
 
 
-    def photo_a_day(self,tweet_params):
+    def photo_a_day(self,**kwargs):
         """
         Runs forever.
         Tweets an image a day,
         at 8 o'clock or so,
         then goes back to sleep.
 
-        tweet_params dictionary settings:
+        kwargs:
 
-            publish: boolean, publish or not
+            publish: Actually publish (boolean, False by default)
 
-            image_dir: directory containing images
+            image_dir: Directory containing image files
 
-            image_pattern: image file pattern - use {i}
+            image_pattern: Image file pattern (string, use {i})
 
+        This function never ends, so it never returns.
         """
-
         # --------------------------
         # Process parameters
 
-        # tweet_params contains parameters for this tweet
-
-        # Default parameter values
+        # Process kwargs
         defaults = {}
+        defaults['inner_sleep'] = 1.0
+        defaults['outer_sleep'] = 10.0
         defaults['publish'] = False
 
         # populate missing parameters with default values
         for dk in defaults.keys():
-            if dk not in tweet_params.keys():
-                tweet_params[dk] = defaults[dk]
+            if dk not in kwargs.keys():
+                kwargs[dk] = defaults[dk]
 
 
         # --------------------------
@@ -177,7 +177,7 @@ class PhotoADaySheep(TwitterSheep):
                     doy = datetime.now().timetuple().tm_yday
 
                     # Repopulate in case there are changes
-                    twit_images = self.populate_queue(tweet_params)
+                    twit_images = self.populate_queue(kwargs)
 
                     msg = "PhotoADaySheep: photo_a_day(): Time to tweet.\n"
                     msg += "    day of the year = %d"%(doy)
@@ -195,14 +195,14 @@ class PhotoADaySheep(TwitterSheep):
                         media_attachment = twit_images[doy]
 
                         try:
-                            twit = tweet_params['message']
+                            twit = kwargs['message']
                         except KeyError:
                             twit = 'Hello world'
 
                         msg = "PhotoADaySheep: photo_a_day(): tweeting the twit \"%s\""%(twit)
                         logging.debug(msg)
 
-                        if(tweet_params['publish']):
+                        if(kwargs['publish']):
                             self._tweet(twit, media=media_attachment)
                         else:
                             msg = "PhotoADaySheep: photo_a_day(): Testing image tweet: %s"%(media_attachment)
@@ -210,7 +210,7 @@ class PhotoADaySheep(TwitterSheep):
 
                     else:
                         msg = "PhotoADaySheep Warning: photo_a_day(): for doy = %d, could not find not find "%(doy)
-                        msg += "the corresponding image %s"%( tweet_params['image_pattern'].format(i=doy) )
+                        msg += "the corresponding image %s"%( kwargs['image_pattern'].format(i=doy) )
                         logging.error(msg)
 
                     # Update prior_dd
