@@ -43,7 +43,7 @@ or it may be a complicated one
 (make a URL request to get live data,
 query a database, call an API, etc.).
 
-See [`example_flocks/`](/example_flocks).
+See [`example_flocks/`](example_flocks).
 
 ## Bot Master Account
 
